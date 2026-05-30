@@ -1,0 +1,268 @@
+# Content Hub Sources Registry
+# Defines all publication and data sources integrated into the collection pipeline
+# Each source is configured with collection method, endpoints, authentication, and metadata
+
+# Last Updated: 2024-05-16
+# Version: 1.0
+
+sources:
+  wine:
+    - name: "Wine Spectator"
+      url: "https://www.winespectator.com"
+      api_type: "rss"
+      rss_feed: "https://www.winespectator.com/rss/reviews.xml"
+      categories: ["reviews", "news", "ratings"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["review", "news"]
+      coverage: ["wine"]
+      regions: ["France", "Italy", "Spain", "USA (California)", "USA (Other)", "Argentina", "Chile", "Australia", "New Zealand", "Germany", "Portugal", "Greece", "South Africa", "Emerging"]
+      notes: "Leading wine rating and review source; daily RSS updates with tasting notes and scores."
+
+    - name: "Robert Parker Wine Advocate"
+      url: "https://www.robertparkerwineadvocate.com"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://www.robertparkerwineadvocate.com/tasting-notes/"
+      scrape_selector: ".wine-review-item"
+      categories: ["reviews", "ratings"]
+      language: "en"
+      update_frequency: "weekly"
+      auth_required: false
+      content_types: ["review"]
+      coverage: ["wine"]
+      regions: ["France", "Italy", "Spain", "USA (California)", "Argentina", "Chile", "Australia"]
+      notes: "Premium wine ratings by Parker's team; requires web scraping of tasting notes pages."
+
+    - name: "Decanter"
+      url: "https://www.decanter.com"
+      api_type: "rss"
+      rss_feed: "https://www.decanter.com/feed/"
+      categories: ["reviews", "news", "features"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["review", "news", "guide"]
+      coverage: ["wine"]
+      regions: ["France", "Italy", "Spain", "USA (California)", "Portugal", "Germany"]
+      notes: "Comprehensive wine publication; daily RSS feed with reviews, news, and educational content."
+
+    - name: "James Suckling"
+      url: "https://www.jamessuckling.com"
+      api_type: "rss"
+      rss_feed: "https://www.jamessuckling.com/feed/"
+      categories: ["reviews", "ratings"]
+      language: "en"
+      update_frequency: "weekly"
+      auth_required: false
+      content_types: ["review"]
+      coverage: ["wine"]
+      regions: ["Italy", "Spain", "USA (California)", "Emerging"]
+      notes: "Influential wine critic; strong coverage of Italian and Spanish wines; regional focus."
+
+    - name: "Wine Enthusiast"
+      url: "https://www.winemag.com"
+      api_type: "rss"
+      rss_feed: "https://www.winemag.com/feed/"
+      categories: ["reviews", "news", "guides"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["review", "news", "guide", "blog"]
+      coverage: ["wine"]
+      regions: ["France", "Italy", "Spain", "USA (California)", "USA (Other)", "Argentina", "Chile", "Australia", "South Africa"]
+      notes: "Broad wine coverage with daily publishing; accessible content for enthusiasts."
+
+    - name: "Vivino Community"
+      url: "https://www.vivino.com"
+      api_type: "api"
+      api_endpoint: "https://www.vivino.com/api/users/ratings/"
+      auth_required: false
+      categories: ["reviews", "ratings", "social"]
+      language: "en"
+      update_frequency: "real-time"
+      content_types: ["review"]
+      coverage: ["wine"]
+      regions: ["Global"]
+      notes: "Crowdsourced wine ratings and reviews; monitors trending wines and user sentiment."
+
+  spirits:
+    - name: "Whisky Advocate"
+      url: "https://www.whiskyadvocate.com"
+      api_type: "rss"
+      rss_feed: "https://www.whiskyadvocate.com/feed/"
+      categories: ["reviews", "news", "ratings"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["review", "news"]
+      coverage: ["spirits"]
+      spirits_types: ["whisky"]
+      regions: ["Scotland", "Ireland", "USA", "Japan", "India"]
+      notes: "Leading whisky publication; daily content on reviews, whisky news, distillery updates."
+
+    - name: "Difford's Guide"
+      url: "https://www.diffordsguide.com"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://www.diffordsguide.com/en/spirits/reviews/"
+      scrape_selector: ".spirit-review"
+      categories: ["reviews", "spirits_guide"]
+      language: "en"
+      update_frequency: "weekly"
+      auth_required: false
+      content_types: ["review", "guide"]
+      coverage: ["spirits"]
+      spirits_types: ["gin", "rum", "whisky", "vodka", "tequila", "brandy", "cognac"]
+      regions: ["Scotland", "Ireland", "USA", "Japan", "Mexico", "France"]
+      notes: "Comprehensive spirits database and reviews; web scraping required for reviews."
+
+    - name: "The Spirits Business"
+      url: "https://www.thespiritsbusiness.com"
+      api_type: "rss"
+      rss_feed: "https://www.thespiritsbusiness.com/feed/"
+      categories: ["news", "market_analysis", "trends"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "opinion", "research"]
+      coverage: ["spirits"]
+      spirits_types: ["whisky", "vodka", "gin", "rum", "tequila", "brandy"]
+      regions: ["Scotland", "Ireland", "USA", "Japan", "Mexico", "France"]
+      notes: "Industry news and market analysis; strong for trend signals and competitive intelligence."
+
+    - name: "Scotch Whisky Research Institute"
+      url: "https://www.scotchwhiskyresearch.com"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://www.scotchwhiskyresearch.com/research/"
+      scrape_selector: ".research-article"
+      categories: ["research", "market_data"]
+      language: "en"
+      update_frequency: "monthly"
+      auth_required: false
+      content_types: ["research", "guide"]
+      coverage: ["spirits"]
+      spirits_types: ["whisky"]
+      regions: ["Scotland", "UK"]
+      notes: "Research reports on Scotch whisky market, production data, and industry trends."
+
+    - name: "Punch Drinks"
+      url: "https://punchdrinks.com"
+      api_type: "rss"
+      rss_feed: "https://punchdrinks.com/feed/"
+      categories: ["news", "trends", "culture"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "opinion"]
+      coverage: ["spirits"]
+      spirits_types: ["whisky", "gin", "rum", "vodka", "cocktails"]
+      regions: ["Global"]
+      notes: "Cocktails and spirits culture publication; good for emerging trends and mixology content."
+
+  food_beverage:
+    - name: "Bon Appétit"
+      url: "https://www.bonappetit.com"
+      api_type: "rss"
+      rss_feed: "https://www.bonappetit.com/rss"
+      categories: ["food", "drinks", "wine_pairing"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["guide", "opinion", "news"]
+      coverage: ["wine", "food_beverage"]
+      regions: ["Global"]
+      notes: "Premium food and drinks magazine; wine pairing guides and spirits features."
+
+    - name: "Eater"
+      url: "https://www.eater.com"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://www.eater.com/search?q=wine&type=article"
+      scrape_selector: ".c-entry-box"
+      categories: ["food", "drinks", "news"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "blog"]
+      coverage: ["wine", "spirits", "food_beverage"]
+      regions: ["Global"]
+      notes: "Regional and national food/drinks news; web scraping for wine and spirits content."
+
+  social_trends:
+    - name: "TikTok Wine & Spirits Trends"
+      url: "https://www.tiktok.com"
+      api_type: "keyword_monitor"
+      keyword_terms: ["#WineLife", "#WhiskyTok", "#WineOfTheDay", "#SpiritsTok", "#WineHaul"]
+      categories: ["social_trends", "viral_content"]
+      language: "en"
+      update_frequency: "real-time"
+      auth_required: true
+      content_types: ["video"]
+      coverage: ["wine", "spirits"]
+      regions: ["Global"]
+      notes: "Monitor viral wine and spirits hashtags; keyword-based trend detection; API access required."
+
+    - name: "Instagram Wine Community"
+      url: "https://www.instagram.com"
+      api_type: "keyword_monitor"
+      keyword_terms: ["#WineOfTheDay", "#InstaWine", "#WineGeek", "#WhiskyGeek", "#WhiskyLovers"]
+      categories: ["social_trends", "influencer_content"]
+      language: "en"
+      update_frequency: "real-time"
+      auth_required: true
+      content_types: ["image", "video"]
+      coverage: ["wine", "spirits"]
+      regions: ["Global"]
+      notes: "Monitor wine influencers and trending hashtags; image and caption analysis."
+
+    - name: "Reddit Wine & Spirits Communities"
+      url: "https://www.reddit.com"
+      api_type: "web_scrape"
+      scrape_endpoint_list:
+        - "https://www.reddit.com/r/wine/"
+        - "https://www.reddit.com/r/whisky/"
+        - "https://www.reddit.com/r/spirits/"
+      scrape_selector: ".Post"
+      categories: ["social_trends", "user_discussion"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["opinion", "discussion"]
+      coverage: ["wine", "spirits"]
+      regions: ["Global"]
+      notes: "Monitor r/wine, r/whisky, r/spirits for user discussions and emerging interests."
+
+  thai_local:
+    - name: "Wongnai Restaurants & Reviews"
+      url: "https://www.wongnai.com"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://www.wongnai.com/restaurants/search?q=wine+bar&q=whisky"
+      scrape_selector: ".WnRestaurantCard"
+      categories: ["local_news", "restaurant_reviews", "wine_bars"]
+      language: "th"
+      update_frequency: "weekly"
+      auth_required: false
+      content_types: ["review", "news"]
+      coverage: ["wine", "spirits"]
+      regions: ["Thailand"]
+      notes: "Thai restaurant and bar review platform; monitor wine bars and premium spirit venues in Thailand."
+
+    - name: "Pantip.com Food & Drink Forum"
+      url: "https://www.pantip.com"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://www.pantip.com/forum/topic/search?q=wine"
+      scrape_selector: ".topic-item"
+      categories: ["forum_discussions", "local_trends"]
+      language: "th"
+      update_frequency: "weekly"
+      auth_required: false
+      content_types: ["opinion", "discussion"]
+      coverage: ["wine", "spirits", "food_beverage"]
+      regions: ["Thailand"]
+      notes: "Thai community forum; discussions on wine, spirits, and premium beverages; sentiment analysis opportunity."
+
+collection_config:
+  default_update_frequency: "daily"
+  default_language: "en"
+  scraper_timeout_seconds: 30
+  retry_attempts: 3
+  retry_backoff_seconds: 60

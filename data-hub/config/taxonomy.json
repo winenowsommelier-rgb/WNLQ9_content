@@ -1,0 +1,418 @@
+{
+  "_metadata": {
+    "version": "1.0",
+    "last_updated": "2024-05-16",
+    "description": "Controlled vocabularies and taxonomies for the Content Hub. All enumerated fields in data-schema.md must use values from this file.",
+    "note": "This file is the single source of truth for all categorical values. Modifications require pipeline review."
+  },
+  "content_types": [
+    {
+      "value": "blog",
+      "description": "Long-form opinion or narrative content; typically 800+ words"
+    },
+    {
+      "value": "news",
+      "description": "Time-sensitive industry news, product launches, market announcements"
+    },
+    {
+      "value": "review",
+      "description": "Product/wine/spirit review with tasting notes, ratings, or formal assessment"
+    },
+    {
+      "value": "spotlight",
+      "description": "Feature article highlighting a producer, region, or winemaker"
+    },
+    {
+      "value": "guide",
+      "description": "Educational or how-to content; e.g., food pairing guides, buying guides"
+    },
+    {
+      "value": "opinion",
+      "description": "Columnist or expert commentary on industry trends, events, or debates"
+    },
+    {
+      "value": "research",
+      "description": "Data-driven report, market study, or scientific analysis"
+    },
+    {
+      "value": "video",
+      "description": "Video content (YouTube, social media); requires media_url"
+    }
+  ],
+  "primary_categories": [
+    {
+      "value": "wine",
+      "description": "Content focused on wine (any variety, region, vintage)"
+    },
+    {
+      "value": "spirits",
+      "description": "Content focused on spirits (whisky, gin, rum, tequila, etc.)"
+    },
+    {
+      "value": "food_beverage",
+      "description": "Broader beverage or food content with wine/spirits context"
+    },
+    {
+      "value": "cultural",
+      "description": "Cultural or lifestyle content related to wine/spirits consumption"
+    },
+    {
+      "value": "other",
+      "description": "Content not fitting above categories but relevant to strategy"
+    }
+  ],
+  "trend_signals": [
+    {
+      "value": "scarcity/shortage",
+      "description": "Article discusses supply shortages, allocation issues, or scarcity of a wine/spirit"
+    },
+    {
+      "value": "price_spike",
+      "description": "Mentions price increases, market inflation, or investment opportunity based on pricing"
+    },
+    {
+      "value": "emerging_region",
+      "description": "Highlights non-traditional wine region or emerging producer gaining attention"
+    },
+    {
+      "value": "health_angle_positive",
+      "description": "Discusses health benefits, moderation claims, or positive health research (e.g., resveratrol)"
+    },
+    {
+      "value": "health_angle_negative",
+      "description": "Addresses health concerns, cancer warnings, or public health discussions"
+    },
+    {
+      "value": "sustainability_focus",
+      "description": "Emphasizes organic, biodynamic, natural wine, or sustainable production practices"
+    },
+    {
+      "value": "cultural_moment",
+      "description": "Ties wine/spirit to cultural event, historical anniversary, or zeitgeist moment"
+    },
+    {
+      "value": "celebrity_tie",
+      "description": "References celebrity endorsement, celebrity-owned brand, or famous collector"
+    },
+    {
+      "value": "investment_opportunity",
+      "description": "Discusses wine/spirits as investment asset or collector's opportunity"
+    },
+    {
+      "value": "counterfeit_warning",
+      "description": "Warns of counterfeit products, authentication issues, or supply chain fraud"
+    },
+    {
+      "value": "award_winning",
+      "description": "Highlights prestigious awards, wine competition wins, or gold medals"
+    },
+    {
+      "value": "limited_release",
+      "description": "Covers limited edition, small-batch, or exclusive release products"
+    },
+    {
+      "value": "viral_on_social",
+      "description": "Content or product trending on TikTok, Instagram, or other social media"
+    },
+    {
+      "value": "climate_impact",
+      "description": "Discusses climate change effects on wine production, harvest dates, or terroir"
+    },
+    {
+      "value": "regulatory_change",
+      "description": "Covers changes in laws, tariffs, labeling requirements, or trade regulations"
+    },
+    {
+      "value": "technology_innovation",
+      "description": "Highlights new production technology, e-commerce model, or supply chain innovation"
+    }
+  ],
+  "buyer_personas": [
+    {
+      "value": "casual_drinker",
+      "description": "General consumer; drinks wine/spirits occasionally; price-conscious; values accessibility"
+    },
+    {
+      "value": "enthusiast",
+      "description": "Regular consumer with growing knowledge; reads reviews; interested in education and discovery"
+    },
+    {
+      "value": "collector",
+      "description": "Serious collector; investment-focused; seeks rare/vintage bottles; follows market closely"
+    }
+  ],
+  "regions_wine": [
+    {
+      "region": "France",
+      "subregions": ["Bordeaux", "Burgundy", "Rhone", "Loire Valley", "Alsace", "Champagne", "Provence"],
+      "primary_varieties": ["Cabernet Sauvignon", "Merlot", "Pinot Noir", "Chardonnay", "Sauvignon Blanc"]
+    },
+    {
+      "region": "Italy",
+      "subregions": ["Tuscany", "Piedmont", "Veneto", "Campania"],
+      "primary_varieties": ["Nebbiolo", "Sangiovese", "Barbera", "Prosecco", "Pinot Grigio"]
+    },
+    {
+      "region": "Spain",
+      "subregions": ["Rioja", "Ribera del Duero", "Priorat", "Rias Baixas", "Sherry Region"],
+      "primary_varieties": ["Tempranillo", "Garnacha", "Albarino"]
+    },
+    {
+      "region": "USA (California)",
+      "subregions": ["Napa Valley", "Sonoma", "Paso Robles", "Central Coast", "Santa Barbara"],
+      "primary_varieties": ["Cabernet Sauvignon", "Chardonnay", "Pinot Noir", "Zinfandel"]
+    },
+    {
+      "region": "USA (Other)",
+      "subregions": ["Oregon (Willamette Valley)", "Washington", "New York (Finger Lakes)"],
+      "primary_varieties": ["Pinot Noir", "Riesling", "Syrah"]
+    },
+    {
+      "region": "Argentina",
+      "subregions": ["Mendoza", "San Juan"],
+      "primary_varieties": ["Malbec", "Cabernet Sauvignon"]
+    },
+    {
+      "region": "Chile",
+      "subregions": ["Maipo Valley", "Carmenere Region", "Casablanca Valley"],
+      "primary_varieties": ["Carmenere", "Cabernet Sauvignon", "Sauvignon Blanc"]
+    },
+    {
+      "region": "Australia",
+      "subregions": ["Barossa Valley", "Margaret River", "Yarra Valley", "Clare Valley"],
+      "primary_varieties": ["Shiraz", "Cabernet Sauvignon", "Chardonnay"]
+    },
+    {
+      "region": "New Zealand",
+      "subregions": ["Marlborough", "Central Otago", "Hawkes Bay"],
+      "primary_varieties": ["Sauvignon Blanc", "Pinot Noir"]
+    },
+    {
+      "region": "Germany",
+      "subregions": ["Mosel", "Rheingau", "Pfalz"],
+      "primary_varieties": ["Riesling"]
+    },
+    {
+      "region": "Portugal",
+      "subregions": ["Douro Valley", "Alentejo"],
+      "primary_varieties": ["Tempranillo", "Touriga Nacional"]
+    },
+    {
+      "region": "Greece",
+      "subregions": ["Santorini", "Nemea"],
+      "primary_varieties": ["Assyrtiko", "Agiorgitiko"]
+    },
+    {
+      "region": "South Africa",
+      "subregions": ["Stellenbosch", "Franschhoek", "Paarl"],
+      "primary_varieties": ["Pinotage", "Cabernet Sauvignon", "Sauvignon Blanc"]
+    },
+    {
+      "region": "Emerging",
+      "subregions": ["Georgia", "Lebanon", "China", "Thailand"],
+      "primary_varieties": ["Regional varieties"]
+    }
+  ],
+  "regions_spirits": [
+    {
+      "region": "Scotland",
+      "subregions": ["Highlands", "Lowlands", "Islay", "Speyside"],
+      "primary_spirits": ["Single Malt Whisky", "Blended Scotch"]
+    },
+    {
+      "region": "Ireland",
+      "subregions": ["Northern Ireland", "Republic of Ireland"],
+      "primary_spirits": ["Irish Whiskey"]
+    },
+    {
+      "region": "USA",
+      "subregions": ["Kentucky", "Tennessee", "Texas"],
+      "primary_spirits": ["Bourbon", "Rye", "Tennessee Whiskey"]
+    },
+    {
+      "region": "Japan",
+      "subregions": ["Hokkaido", "Yamazaki"],
+      "primary_spirits": ["Japanese Whisky"]
+    },
+    {
+      "region": "India",
+      "subregions": ["Bangalore"],
+      "primary_spirits": ["Indian Whisky"]
+    },
+    {
+      "region": "Mexico",
+      "subregions": ["Jalisco", "Oaxaca"],
+      "primary_spirits": ["Tequila", "Mezcal"]
+    },
+    {
+      "region": "France",
+      "subregions": ["Cognac Region", "Armagnac Region"],
+      "primary_spirits": ["Cognac", "Armagnac", "Calvados"]
+    },
+    {
+      "region": "Other",
+      "subregions": ["Netherlands", "Canada", "Sweden"],
+      "primary_spirits": ["Gin", "Vodka", "Rum", "Other Spirits"]
+    }
+  ],
+  "spirits_types": [
+    {
+      "value": "whisky",
+      "description": "Whisky/whiskey (scotch, Irish, bourbon, rye, Japanese, etc.)"
+    },
+    {
+      "value": "gin",
+      "description": "Gin (London dry, contemporary, etc.)"
+    },
+    {
+      "value": "rum",
+      "description": "Rum (light, dark, spiced, aged, etc.)"
+    },
+    {
+      "value": "vodka",
+      "description": "Vodka (plain or flavored)"
+    },
+    {
+      "value": "tequila",
+      "description": "Tequila (blanco, reposado, anejo)"
+    },
+    {
+      "value": "mezcal",
+      "description": "Mezcal (traditional Mexican spirit)"
+    },
+    {
+      "value": "brandy",
+      "description": "Brandy (general category, including cognac/armagnac)"
+    },
+    {
+      "value": "cognac",
+      "description": "Cognac (French brandy, specific designation)"
+    },
+    {
+      "value": "liqueur",
+      "description": "Liqueur (sweetened spirit; e.g., Chartreuse, Amaro)"
+    },
+    {
+      "value": "other",
+      "description": "Other spirits (baijiu, pisco, grappa, etc.)"
+    }
+  ],
+  "wine_varieties": {
+    "red_grapes": [
+      "Cabernet Sauvignon",
+      "Merlot",
+      "Pinot Noir",
+      "Syrah/Shiraz",
+      "Grenache",
+      "Tempranillo",
+      "Nebbiolo",
+      "Sangiovese",
+      "Barbera",
+      "Malbec",
+      "Carmenere",
+      "Zinfandel"
+    ],
+    "white_grapes": [
+      "Chardonnay",
+      "Sauvignon Blanc",
+      "Riesling",
+      "Albarino",
+      "Pinot Grigio",
+      "Prosecco",
+      "Gewurztraminer",
+      "Viognier",
+      "Semillon",
+      "Chenin Blanc"
+    ],
+    "sparkling": [
+      "Champagne",
+      "Prosecco",
+      "Cava",
+      "Franciacorta"
+    ]
+  },
+  "search_volume_estimates": [
+    {
+      "value": "high",
+      "description": "Primary keyword has 10,000+ monthly searches or major market interest"
+    },
+    {
+      "value": "medium",
+      "description": "Primary keyword has 1,000-10,000 monthly searches"
+    },
+    {
+      "value": "low",
+      "description": "Primary keyword has <1,000 monthly searches or niche interest"
+    },
+    {
+      "value": "unknown",
+      "description": "Search volume not available in SEO tools or not applicable"
+    }
+  ],
+  "link_building_potential": [
+    {
+      "value": "high",
+      "description": "High-authority source, comprehensive guide, or research-backed content; strong backlink candidate"
+    },
+    {
+      "value": "medium",
+      "description": "Good editorial quality; relevant for selective linking in relevant silos"
+    },
+    {
+      "value": "low",
+      "description": "Limited link-building value; thin content or niche audience"
+    }
+  ],
+  "aeo_citation_opportunity": [
+    {
+      "value": "high",
+      "description": "Article is highly authoritative, novel research, or unique data; LLMs very likely to cite or reference"
+    },
+    {
+      "value": "medium",
+      "description": "Solid editorial content with useful information; LLMs may cite in appropriate contexts"
+    },
+    {
+      "value": "low",
+      "description": "Limited citation value; opinion or promotional content; LLMs unlikely to cite"
+    }
+  ],
+  "language_codes": [
+    {
+      "code": "en",
+      "language": "English"
+    },
+    {
+      "code": "th",
+      "language": "Thai"
+    },
+    {
+      "code": "es",
+      "language": "Spanish"
+    },
+    {
+      "code": "fr",
+      "language": "French"
+    },
+    {
+      "code": "de",
+      "language": "German"
+    },
+    {
+      "code": "it",
+      "language": "Italian"
+    },
+    {
+      "code": "ja",
+      "language": "Japanese"
+    },
+    {
+      "code": "zh",
+      "language": "Chinese"
+    },
+    {
+      "code": "pt",
+      "language": "Portuguese"
+    }
+  ]
+}
