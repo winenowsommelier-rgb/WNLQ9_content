@@ -1,0 +1,4242 @@
+SORT MONTH,WEEK,Date,Username,Full Name,Action Type,Object,Store View,Item,Order #,Order Status,Order Total
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511190564,Completed,"2,585"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511190565,Completed,"6,336"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190566,Completed,"5,476"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190567,Completed,"1,818"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511190568,Order Shipped,"2,829"
+202511,47,11/19/2025,Boo,Boo FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511130427-1,Order Shipped,"5,433"
+202511,47,11/19/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511190570,Completed,"7,198"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190571,Completed,"5,200"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511190572,Completed,"21,990"
+202511,47,11/19/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511190573,#N/A,#N/A
+202511,47,11/19/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511190573-1,#N/A,#N/A
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190574,Completed,"29,130"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190577,Order Shipped,"3,089"
+202511,47,11/19/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190578,Completed,"2,788"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190579,Completed,"9,655"
+202511,47,11/19/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511190584,Completed,"1,049"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190585,Completed,"7,140"
+202511,47,11/19/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511190586,Completed,"15,522"
+202511,47,11/19/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511190573-2,Completed,"2,890"
+202511,47,11/19/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511190590,Completed,"1,339"
+202511,47,11/20/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511200597,#N/A,#N/A
+202511,47,11/20/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511200599,Order Shipped,"4,198"
+202511,47,11/20/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511200600,Completed,"1,589"
+202511,47,11/20/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511200601,Order Shipped,"9,528"
+202511,47,11/20/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511200602,Completed,"5,600"
+202511,47,11/20/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511200604,Completed,"1,600"
+202511,47,11/20/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511200605-1,Order Shipped,"4,529"
+202511,47,11/20/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511200608,Completed,"2,596"
+202511,47,11/20/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511200609,Completed,"8,238"
+202511,47,11/20/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511200610,Order Shipped,"2,798"
+202511,47,11/20/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511200611,Completed,"3,870"
+202511,47,11/20/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511200613,Completed,"8,949"
+202511,47,11/20/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511200615,Completed,"3,939"
+202511,47,11/21/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511210620,Completed,"4,110"
+202511,47,11/21/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511210621,Completed,"5,770"
+202511,47,11/21/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511210622,Completed,"22,680"
+202511,47,11/21/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511210630,Completed,"3,258"
+202511,47,11/21/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511210635,Completed,"6,600"
+202511,47,11/21/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511210637,Order Shipped,"5,592"
+202511,47,11/21/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511210638,Completed,"3,620"
+202511,47,11/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511220647,Order Shipped,"7,655"
+202511,47,11/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511220648,Completed,"7,398"
+202511,47,11/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511220656,Completed,659
+202511,47,11/22/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511220659,Completed,635
+202511,47,11/22/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511220662,Completed,499
+202511,48,11/23/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511230665,Order Shipped,"2,175"
+202511,48,11/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240679,Order Shipped,"6,435"
+202511,48,11/24/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240680,Order Shipped,"2,120"
+202511,48,11/24/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511240681,#N/A,#N/A
+202511,48,11/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240682,Completed,"32,000"
+202511,48,11/24/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511240684,Completed,"21,600"
+202511,48,11/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240685,Completed,"3,825"
+202511,48,11/24/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240686,#N/A,#N/A
+202511,48,11/24/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511200606-1,#N/A,#N/A
+202511,48,11/24/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511200606-2,Order Shipped,"9,060"
+202511,48,11/24/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240690,#N/A,#N/A
+202511,48,11/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240691,Completed,"3,597"
+202511,48,11/24/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240696,#N/A,#N/A
+202511,48,11/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240698,Completed,"8,828"
+202511,48,11/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240699,#N/A,#N/A
+202511,48,11/24/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240699-1,Completed,"2,087"
+202511,48,11/24/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240701,Completed,"23,590"
+202511,48,11/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240702,Order Shipped,"2,594"
+202511,48,11/24/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240696-1,#N/A,#N/A
+202511,48,11/24/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240706,Order Shipped,"4,000"
+202511,48,11/24/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240707,Completed,349
+202511,48,11/24/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240709,#N/A,#N/A
+202511,48,11/25/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511250716,#N/A,#N/A
+202511,48,11/25/2025,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511250717,Completed,"10,800"
+202511,48,11/25/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511250718,Completed,"10,400"
+202511,48,11/25/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250719,#N/A,#N/A
+202511,48,11/25/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250720,Order Shipped,"3,294"
+202511,48,11/25/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250721,Completed,"13,899"
+202511,48,11/25/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511250722,Completed,"26,160"
+202511,48,11/25/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250723,Completed,"10,194"
+202511,48,11/25/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250725,Completed,"32,130"
+202511,48,11/25/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511220657-1,Completed,"9,968"
+202511,48,11/25/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240690-1,#N/A,#N/A
+202511,48,11/25/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250729,Completed,"11,201"
+202511,48,11/25/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250732,Completed,"10,197"
+202511,48,11/25/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2511250733,Completed,"2,030"
+202511,48,11/25/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511240692-1,Completed,"12,993"
+202511,48,11/25/2025,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250734,Completed,"18,208"
+202511,48,11/26/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511260738,Order Shipped,"106,912"
+202511,48,11/26/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511260739,Completed,"3,540"
+202511,48,11/26/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511260741,Completed,"5,249"
+202511,48,11/26/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511260742,Completed,"7,200"
+202511,48,11/26/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240696-2,#N/A,#N/A
+202511,48,11/26/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511260744,Order Shipped,"3,000"
+202511,48,11/26/2025,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2511260746,#N/A,#N/A
+202511,48,11/26/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511260748,Order Shipped,"3,141"
+202511,48,11/26/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511260750,Completed,"10,140"
+202511,48,11/26/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511260752,Completed,"2,798"
+202511,48,11/26/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511260754,Order Shipped,"6,540"
+202511,48,11/26/2025,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511260757,#N/A,#N/A
+202511,48,11/26/2025,Boo,Boo FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511260757-1,#N/A,#N/A
+202511,48,11/27/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511270762,Completed,"2,399"
+202511,48,11/27/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511250719-1,Completed,"4,399"
+202511,48,11/27/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511270766,Order Shipped,"4,200"
+202511,48,11/27/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511270767,#N/A,#N/A
+202511,48,11/27/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511270768,#N/A,#N/A
+202511,48,11/27/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511270770,#N/A,#N/A
+202511,48,11/27/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511270771,Completed,"2,749"
+202511,48,11/27/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511270774,Completed,545
+202511,48,11/27/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511270776,Completed,"7,450"
+202511,48,11/27/2025,Yui,Yui FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511270767-1,Completed,"59,470"
+202511,48,11/27/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2511260746-1,#N/A,#N/A
+202511,48,11/27/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511270777,Order Shipped,"4,620"
+202511,48,11/27/2025,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511270780,#N/A,#N/A
+202511,48,11/27/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511270786,Completed,928
+202511,48,11/28/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511280791,Completed,"8,600"
+202511,48,11/28/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511280792,Completed,"66,840"
+202511,48,11/28/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511280793,Order Shipped,"3,280"
+202511,48,11/28/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2511280794,Completed,"26,398"
+202511,48,11/28/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511280795,Completed,"8,024"
+202511,48,11/28/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511280797,Order Shipped,"11,330"
+202511,48,11/28/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511280798,#N/A,#N/A
+202511,48,11/28/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511280799,Order Shipped,"1,085"
+202511,48,11/28/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511270768-1,Order Shipped,"4,458"
+202511,48,11/28/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511280805,Order Shipped,"4,180"
+202511,48,11/28/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2511260746-2,Order Shipped,"41,022"
+202511,48,11/29/2025,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511290811,Order Shipped,749
+202511,48,11/29/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511290815,Completed,979
+202511,48,11/29/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511290817,Completed,635
+202511,48,11/29/2025,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511290818,Order Shipped,"2,726"
+202511,48,11/29/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511290819,Completed,"7,382"
+202511,49,11/30/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511300825,Order Shipped,"1,489"
+202511,49,11/30/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511300829,Order Shipped,698
+202512,49,12/1/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512010102,Completed,749
+202512,49,12/1/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2511070261-2,Order Shipped,"16,996"
+202512,49,12/1/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512010104,Completed,"18,942"
+202512,49,12/1/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512010105,Order Shipped,"2,800"
+202512,49,12/1/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010106,Order Shipped,"4,440"
+202512,49,12/1/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512010107,#N/A,#N/A
+202512,49,12/1/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010108,Order Shipped,"3,197"
+202512,49,12/1/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512010110,Order Shipped,"3,169"
+202512,49,12/1/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512010111,Order Shipped,"5,765"
+202512,49,12/1/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010112,#N/A,#N/A
+202512,49,12/1/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010112-1,#N/A,#N/A
+202512,49,12/1/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010112-2,Completed,"20,127"
+202512,49,12/1/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512010117,Order Shipped,"1,149"
+202512,49,12/1/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010119,Order Shipped,"2,460"
+202512,49,12/1/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240709-1,#N/A,#N/A
+202512,49,12/1/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240690-2,#N/A,#N/A
+202512,49,12/1/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010120,Order Shipped,"2,399"
+202512,49,12/1/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010121,Order Shipped,"65,940"
+202512,49,12/1/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512010124,Order Shipped,"5,316"
+202512,49,12/1/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512010125,Order Shipped,"3,225"
+202512,49,12/1/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512010126,Order Shipped,"13,760"
+202512,49,12/1/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240690-3,#N/A,#N/A
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020137,Order Shipped,"2,900"
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020139,Order Shipped,"17,940"
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020140,#N/A,#N/A
+202512,49,12/2/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512020141,Order Shipped,"12,460"
+202512,49,12/2/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020140-1,#N/A,#N/A
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020142,Completed,"4,788"
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020143,Order Shipped,"3,799"
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020146,#N/A,#N/A
+202512,49,12/2/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240690-4,Order Shipped,"46,724"
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020150,Completed,"8,940"
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020151,Order Shipped,"4,405"
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020156,#N/A,#N/A
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020157,Completed,"4,194"
+202512,49,12/2/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512020158,#N/A,#N/A
+202512,49,12/3/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512020158-1,Order Shipped,"4,100"
+202512,49,12/3/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512030164,Order Shipped,349
+202512,49,12/3/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512010115-1,Completed,"31,294"
+202512,49,12/3/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512030165,Order Shipped,"3,570"
+202512,49,12/3/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512030166,Completed,"4,396"
+202512,49,12/3/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512030167,Order Shipped,"3,980"
+202512,49,12/3/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512030170,Order Shipped,"4,420"
+202512,49,12/3/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2511240696-3,Order Shipped,"5,186"
+202512,49,12/3/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512010109-1,Order Shipped,"1,188"
+202512,49,12/3/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512030173,Order Shipped,"4,198"
+202512,49,12/3/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512030176,Order Shipped,"1,199"
+202512,49,12/3/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512030180,Completed,"3,440"
+202512,49,12/3/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512030181,Order Shipped,"2,983"
+202512,49,12/3/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512010122-1,Completed,"5,997"
+202512,49,12/3/2025,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512030184,Order Shipped,"11,027"
+202512,49,12/3/2025,Mie,Mie FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512030183-1,#N/A,#N/A
+202512,49,12/3/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512020145-1,Order Shipped,"3,410"
+202512,49,12/3/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512030186,Order Shipped,"1,739"
+202512,49,12/3/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512030190,Completed,"4,100"
+202512,49,12/4/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512040197,Order Shipped,"3,994"
+202512,49,12/4/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512040198,Order Shipped,"4,788"
+202512,49,12/4/2025,Yui,Yui FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512030183-2,Order Shipped,"27,600"
+202512,49,12/4/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512040204,#N/A,#N/A
+202512,49,12/4/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512040209,Order Shipped,"4,800"
+202512,49,12/4/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512040210,Order Shipped,"1,079"
+202512,49,12/4/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512040212,#N/A,#N/A
+202512,49,12/4/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512040213,Order Shipped,"2,585"
+202512,49,12/4/2025,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512040214,Order Shipped,"1,440"
+202512,49,12/6/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512060227,#N/A,#N/A
+202512,49,12/6/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512060237,Order Shipped,"8,847"
+202512,49,12/6/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512060238,Order Shipped,"7,862"
+202512,50,12/7/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512070248,Order Shipped,"2,997"
+202512,50,12/7/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512070250,Order Shipped,"2,038"
+202512,50,12/7/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512070254,Order Shipped,"1,000"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080274,Completed,"11,097"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512080275,Completed,"1,818"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080276,Completed,849
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080278,Completed,"9,600"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080281,Order Shipped,"11,098"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080282,Order Shipped,"15,510"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080283,Order Shipped,"5,400"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080285,Order Shipped,"2,922"
+202512,50,12/8/2025,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080286,Order Shipped,"1,650"
+202512,50,12/8/2025,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080287,Order Shipped,"6,594"
+202512,50,12/8/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512080288,Order Shipped,"6,240"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080289,Order Shipped,"4,413"
+202512,50,12/8/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512080291,Order Shipped,"2,159"
+202512,50,12/8/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512080294,Order Shipped,"5,000"
+202512,50,12/8/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512070258-1,Order Shipped,"3,037"
+202512,50,12/9/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512090325,Completed,"15,110"
+202512,50,12/9/2025,Mie,Mie FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2511280798-1,Completed,"7,920"
+202512,50,12/9/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512090329,Completed,"3,570"
+202512,50,12/9/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512040212-1,Order Shipped,"6,004"
+202512,50,12/9/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512090341,Order Shipped,928
+202512,50,12/9/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512090343,Order Shipped,"3,099"
+202512,50,12/9/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512090344,Completed,"1,115"
+202512,50,12/9/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512090345,#N/A,#N/A
+202512,50,12/9/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512090348,Completed,"2,714"
+202512,50,12/9/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512090354,Order Shipped,"5,700"
+202512,50,12/9/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512090359,#N/A,#N/A
+202512,50,12/9/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512090359-1,#N/A,#N/A
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512100370,Completed,"6,780"
+202512,50,12/10/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512090359-2,#N/A,#N/A
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512100373,Order Shipped,"2,708"
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512100376,Order Shipped,"3,774"
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512100377,#N/A,#N/A
+202512,50,12/10/2025,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512100378,Order Shipped,"2,794"
+202512,50,12/10/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512100377-1,Completed,"3,398"
+202512,50,12/10/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512100380,Order Shipped,"3,665"
+202512,50,12/10/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512100382,Order Shipped,"1,070"
+202512,50,12/10/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512100383,Order Shipped,390
+202512,50,12/10/2025,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512100384,Order Shipped,"1,669"
+202512,50,12/10/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512080292-1,Completed,"11,302"
+202512,50,12/10/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512100385,#N/A,#N/A
+202512,50,12/10/2025,Yui,Yui FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512100385-1,Order Shipped,"4,028"
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512100387,Order Shipped,"34,200"
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512100388,Order Shipped,"34,200"
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512100390,Order Shipped,"21,576"
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512100391,Order Shipped,"11,697"
+202512,50,12/10/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512100396,Order Shipped,900
+202512,50,12/11/2025,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512110409,Order Shipped,"6,000"
+202512,50,12/11/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512110412,Order Shipped,499
+202512,50,12/11/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512110413,Order Shipped,"2,496"
+202512,50,12/11/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512110422,Order Shipped,"2,070"
+202512,50,12/11/2025,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512090332-1,Order Shipped,"13,251"
+202512,50,12/11/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512110425,Order Shipped,"3,147"
+202512,50,12/11/2025,Yui,Yui FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2511270773-1,Order Shipped,"11,998"
+202512,50,12/11/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2511270772-1,#N/A,#N/A
+202512,50,12/11/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512110426,Order Shipped,"1,029"
+202512,50,12/11/2025,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2512100399-1,Completed,"7,352"
+202512,50,12/12/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120449,Order Shipped,"1,229"
+202512,50,12/12/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120451,Order Shipped,"4,354"
+202512,50,12/12/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120452,Order Shipped,"5,997"
+202512,50,12/12/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120453,Order Shipped,"9,120"
+202512,50,12/12/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512120457,#N/A,#N/A
+202512,50,12/12/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512120459,#N/A,#N/A
+202512,50,12/12/2025,Mie,Mie FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512120459-1,#N/A,#N/A
+202512,50,12/12/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120464,Completed,"3,895"
+202512,50,12/12/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120465,Completed,"4,800"
+202512,50,12/12/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512120466,#N/A,#N/A
+202512,50,12/12/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512120470,Order Shipped,"2,199"
+202512,50,12/13/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512130477-1,Order Shipped,"1,325"
+202512,50,12/13/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512130487,Order Shipped,698
+202512,51,12/14/2025,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512120457-1,Order Shipped,"8,695"
+202512,51,12/15/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512150529,Completed,"4,788"
+202512,51,12/15/2025,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512150533,Order Shipped,"2,808"
+202512,51,12/15/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512150534,Order Shipped,"2,199"
+202512,51,12/15/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512150537,Order Shipped,"2,889"
+202512,51,12/15/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512150538,Completed,"7,188"
+202512,51,12/15/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512150542,#N/A,#N/A
+202512,51,12/15/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512150542-1,Order Shipped,"6,785"
+202512,51,12/15/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512150544,Completed,"4,398"
+202512,51,12/15/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512150548,Order Shipped,"6,740"
+202512,51,12/15/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512150549,Order Shipped,"8,167"
+202512,51,12/15/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512090359-3,#N/A,#N/A
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160567,Order Shipped,"3,594"
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512160570,Order Shipped,"4,400"
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160571,Completed,"8,157"
+202512,51,12/16/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120444-1,Order Shipped,"4,929"
+202512,51,12/16/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512160573,Order Shipped,"5,310"
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160574,Order Shipped,"33,678"
+202512,51,12/16/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120471-1,#N/A,#N/A
+202512,51,12/16/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120471-2,Order Shipped,"12,098"
+202512,51,12/16/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512160575,Completed,"1,770"
+202512,51,12/16/2025,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2512160568-1,Order Shipped,"5,552"
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160576,Order Shipped,"2,099"
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160579,Order Shipped,"5,886"
+202512,51,12/16/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512140519-1,Completed,"5,139"
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160580,Order Shipped,"2,199"
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160583,Completed,"5,378"
+202512,51,12/16/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160584,Order Shipped,"1,489"
+202512,51,12/16/2025,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512160588,Order Shipped,"1,199"
+202512,51,12/16/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512160592-1,Order Shipped,"1,958"
+202512,51,12/17/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512110420-1,Completed,"6,480"
+202512,51,12/17/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512170616,Order Shipped,"4,525"
+202512,51,12/17/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512170617,Completed,"3,294"
+202512,51,12/17/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512170618,Order Shipped,"3,229"
+202512,51,12/17/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512120455-1,Completed,"17,407"
+202512,51,12/17/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512150523-1,Completed,"19,445"
+202512,51,12/17/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512170621,Order Shipped,"3,582"
+202512,51,12/17/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512170624,Completed,"1,948"
+202512,51,12/17/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512170625,Order Shipped,290
+202512,51,12/17/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512170627,Order Shipped,"3,087"
+202512,51,12/17/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512170631,Order Shipped,"1,200"
+202512,51,12/17/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512170632,#N/A,#N/A
+202512,51,12/17/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512170633,Order Shipped,"50,500"
+202512,51,12/17/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512170638,Completed,"1,390"
+202512,51,12/18/2025,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512180653,Order Shipped,"7,770"
+202512,51,12/18/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2512180657,Order Shipped,"1,159"
+202512,51,12/18/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512180661,Order Shipped,"15,600"
+202512,51,12/18/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512090359-4,Order Shipped,"12,466"
+202512,51,12/18/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512180663,#N/A,#N/A
+202512,51,12/18/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512180666,Order Shipped,539
+202512,51,12/18/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512180668,Order Shipped,"1,643"
+202512,51,12/18/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512180670,Completed,"6,180"
+202512,51,12/18/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512180663-1,Order Shipped,"3,600"
+202512,51,12/18/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512180674,Order Shipped,"8,566"
+202512,51,12/18/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512180675,Completed,"3,294"
+202512,51,12/18/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512180678,Order Shipped,948
+202512,51,12/18/2025,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2512150552-1,Completed,"11,478"
+202512,51,12/18/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512180681,Order Shipped,"11,880"
+202512,51,12/19/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512190694,Order Shipped,"2,238"
+202512,51,12/19/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512190695,Completed,"3,434"
+202512,51,12/19/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512190696,#N/A,#N/A
+202512,51,12/19/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512190698,#N/A,#N/A
+202512,51,12/19/2025,Yui,Yui FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2512190697-1,Completed,"9,329"
+202512,51,12/19/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512190696-1,Order Shipped,"4,200"
+202512,51,12/19/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512190702,Order Shipped,"10,170"
+202512,51,12/19/2025,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512190704,Order Shipped,"2,333"
+202512,51,12/19/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512190706,Order Shipped,"4,198"
+202512,51,12/19/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512190710,Order Shipped,"5,500"
+202512,51,12/19/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512190716,Order Shipped,989
+202512,51,12/20/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512200731,Completed,"9,600"
+202512,51,12/20/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512200735,Completed,"6,643"
+202512,51,12/20/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512200740,Order Shipped,798
+202512,51,12/20/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512200741,Order Shipped,"2,779"
+202512,51,12/20/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512200744,Order Shipped,"1,119"
+202512,51,12/20/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512200745,Order Shipped,"1,598"
+202512,52,12/21/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512210774,Completed,"5,094"
+202512,52,12/21/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512210775,Order Shipped,"7,398"
+202512,52,12/21/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512210778,Order Shipped,"4,796"
+202512,52,12/21/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512210780,Order Shipped,"2,999"
+202512,52,12/21/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512210786,Completed,879
+202512,52,12/21/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512210787,Order Shipped,399
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220811,Order Shipped,"5,378"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512220814,Order Shipped,"1,940"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220815,Order Shipped,"4,198"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220816,Completed,"3,169"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220817,#N/A,#N/A
+202512,52,12/22/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220817-1,Order Shipped,"7,200"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220820,Order Shipped,"12,190"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220821,Order Shipped,"3,000"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512220822,#N/A,#N/A
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220826,Order Shipped,759
+202512,52,12/22/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512170630-1,Order Shipped,"23,594"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220827,Completed,"8,000"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512220830,Order Shipped,"2,770"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220833,Order Shipped,"10,200"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220836,Order Shipped,"2,200"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220839,Order Shipped,"6,348"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512220848,Order Shipped,"1,600"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512220849,#N/A,#N/A
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220851,Order Shipped,"14,917"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512220852,Order Shipped,"2,229"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512220853,Order Shipped,"4,104"
+202512,52,12/22/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220856,Order Shipped,"1,700"
+202512,52,12/22/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220806-1,Order Shipped,"4,020"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220858,Order Shipped,"1,877"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220862,Completed,"6,948"
+202512,52,12/22/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220863,Order Shipped,"3,695"
+202512,52,12/23/2025,Boo,Boo FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2512180677-1,Completed,"15,327"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512230874,Completed,"1,849"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512230875,Completed,"1,775"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512230876,Order Shipped,"3,599"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512230878,Completed,"9,440"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512230882,Order Shipped,"4,000"
+202512,52,12/23/2025,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512230885,Order Shipped,"2,410"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512230890,Order Shipped,"1,600"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512230894,Order Shipped,"2,199"
+202512,52,12/23/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512190708-1,Order Shipped,"4,798"
+202512,52,12/23/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512230895,Order Shipped,"6,315"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512230898,#N/A,#N/A
+202512,52,12/23/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512230900,Order Shipped,"3,998"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512230902,Order Shipped,"12,700"
+202512,52,12/23/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512210769-1,Completed,"5,689"
+202512,52,12/23/2025,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512230904,Completed,"1,860"
+202512,52,12/23/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512200743-1,Completed,"3,469"
+202512,52,12/23/2025,Mie,Mie FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512220843-1,Order Shipped,"10,260"
+202512,52,12/23/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512230908,Order Shipped,"1,848"
+202512,52,12/24/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240915,Order Shipped,"6,708"
+202512,52,12/24/2025,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512220854-1,Order Shipped,"7,392"
+202512,52,12/24/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512240924,#N/A,#N/A
+202512,52,12/24/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240929,Order Shipped,"6,380"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240930,Order Shipped,"1,724"
+202512,52,12/24/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512240931,Order Shipped,"12,400"
+202512,52,12/24/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512240932,Order Shipped,"3,850"
+202512,52,12/24/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220860-1,Order Shipped,"4,377"
+202512,52,12/24/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512240934,Order Shipped,"11,610"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512240935,#N/A,#N/A
+202512,52,12/24/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512200761-1,Order Shipped,"2,069"
+202512,52,12/24/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240943,Order Shipped,"2,707"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240945,Completed,"2,300"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240946,Order Shipped,"4,400"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240949,Order Shipped,"4,800"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240951,Order Shipped,"2,559"
+202512,52,12/24/2025,Yui,Yui FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2512220849-1,Order Shipped,"17,580"
+202512,52,12/24/2025,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2512240953,Order Shipped,"4,289"
+202512,52,12/24/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512240957,Order Shipped,"2,076"
+202512,52,12/24/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512220865-1,Order Shipped,"3,012"
+202512,52,12/24/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240958,Order Shipped,"13,299"
+202512,52,12/24/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240916-1,Order Shipped,"2,875"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240959,Order Shipped,"9,528"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512240960,Completed,"1,800"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512240961,Order Shipped,"4,498"
+202512,52,12/24/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512240964,Order Shipped,"1,199"
+202512,52,12/25/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250976,Order Shipped,"3,114"
+202512,52,12/25/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512240922-1,Completed,"15,000"
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512250982,Order Shipped,"1,298"
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250983,Order Shipped,"4,098"
+202512,52,12/25/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250984,Order Shipped,"10,750"
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250987,#N/A,#N/A
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250988,#N/A,#N/A
+202512,52,12/25/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250988-1,Order Shipped,"56,445"
+202512,52,12/25/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250987-1,#N/A,#N/A
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512250993,Order Shipped,"5,998"
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512250994,Order Shipped,"3,569"
+202512,52,12/25/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512250996,#N/A,#N/A
+202512,52,12/25/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512250996-1,Order Shipped,840
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250997,Order Shipped,"4,200"
+202512,52,12/25/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512240968-1,Order Shipped,"1,598"
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512250998,Order Shipped,"1,068"
+202512,52,12/25/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512250999,Order Shipped,"1,279"
+202512,52,12/26/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261009,Order Shipped,"6,414"
+202512,52,12/26/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512220822-1,Order Shipped,"4,105"
+202512,52,12/26/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261011,Order Shipped,"1,400"
+202512,52,12/26/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261014,Order Shipped,"510,625"
+202512,52,12/26/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261015,#N/A,#N/A
+202512,52,12/26/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512261016,Order Shipped,"2,189"
+202512,52,12/26/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261015-1,Order Shipped,"10,180"
+202512,52,12/26/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261021,Order Shipped,900
+202512,52,12/26/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512251000-1,Order Shipped,"2,937"
+202512,52,12/26/2025,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261031,Completed,"2,000"
+202512,52,12/27/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512271038,Order Shipped,"12,594"
+202512,52,12/27/2025,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261006-1,Completed,"5,431"
+202512,52,12/27/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512271042,Order Shipped,"34,620"
+202512,52,12/27/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512271045,Order Shipped,"5,430"
+202512,52,12/27/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512271046,Order Shipped,"5,355"
+202512,52,12/27/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512271051,Order Shipped,969
+202512,53,12/28/2025,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512281061,Completed,"3,360"
+202512,53,12/28/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512281062,Order Shipped,"1,047"
+202512,53,12/28/2025,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512281063,Order Shipped,"3,700"
+202512,53,12/29/2025,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512261024-1,Completed,"12,626"
+202512,53,12/29/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512291076,Order Shipped,"1,779"
+202512,53,12/29/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512291079,Order Shipped,659
+202512,53,12/29/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512291083,Order Shipped,"4,200"
+202512,53,12/29/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512291085,Completed,"11,509"
+202512,53,12/29/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512291086,Order Shipped,"15,346"
+202512,53,12/29/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512291087,Order Shipped,"7,548"
+202512,53,12/29/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512291088,Order Shipped,"8,675"
+202512,53,12/29/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512291089,Order Shipped,"3,698"
+202512,53,12/29/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512291090,Order Shipped,"4,519"
+202512,53,12/30/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512301095,Order Shipped,"1,798"
+202512,53,12/30/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512301096,Order Shipped,"10,588"
+202512,53,12/30/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512301098,Order Shipped,"2,450"
+202512,53,12/30/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512301100,Order Shipped,"2,500"
+202512,53,12/30/2025,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2512301102,Completed,"1,378"
+202512,53,12/30/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512301108,Order Shipped,"1,199"
+202512,53,12/30/2025,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512301109,Order Shipped,"2,450"
+202512,53,12/30/2025,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2512301110,Order Shipped,429
+202601,2,1/5/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601050136,Order Shipped,459
+202601,2,1/5/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050143,Order Shipped,"6,240"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050144,#N/A,#N/A
+202601,2,1/5/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050144-1,Completed,"1,199"
+202601,2,1/5/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050151,Order Shipped,"2,594"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050152,Order Shipped,"5,868"
+202601,2,1/5/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601050154,Order Shipped,"1,150"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050155,Order Shipped,"6,180"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050157,Completed,"19,380"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050158,Order Shipped,"2,020"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050159,Order Shipped,"1,398"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050160,Order Shipped,"11,098"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050162,Order Shipped,"3,600"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050164,Completed,"15,480"
+202601,2,1/5/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050165,Order Shipped,"14,582"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050166,Completed,"3,240"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601050167,Order Shipped,"11,520"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601050168,Order Shipped,"5,998"
+202601,2,1/5/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2512281067-1,Order Shipped,"6,956"
+202601,2,1/5/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601050170,Order Shipped,850
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050172,Order Shipped,"28,860"
+202601,2,1/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601050174,Order Shipped,"4,800"
+202601,2,1/5/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601050178,Order Shipped,360
+202601,2,1/6/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060188,Completed,"6,000"
+202601,2,1/6/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060189,Completed,"3,176"
+202601,2,1/6/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060191,Order Shipped,"11,340"
+202601,2,1/6/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601060192,Order Shipped,"8,069"
+202601,2,1/6/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060195,#N/A,#N/A
+202601,2,1/6/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601060196,#N/A,#N/A
+202601,2,1/6/2026,Yui,Yui FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601060196-1,Completed,"47,040"
+202601,2,1/6/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601060197,Order Shipped,"3,895"
+202601,2,1/6/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060200,Completed,"2,010"
+202601,2,1/6/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060202,Completed,"14,346"
+202601,2,1/6/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060204,Order Shipped,"3,660"
+202601,2,1/6/2026,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601060194-1,Completed,"25,684"
+202601,2,1/6/2026,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060210,#N/A,#N/A
+202601,2,1/7/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060210-1,#N/A,#N/A
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601070213,Order Shipped,"6,900"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601070214,Completed,"8,140"
+202601,2,1/7/2026,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601070215,Order Shipped,"5,000"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601070219,Order Shipped,"1,285"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601070220,Order Shipped,"3,570"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601070221,Order Shipped,"2,845"
+202601,2,1/7/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601060209-1,Completed,"4,990"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601070223,Order Shipped,"39,860"
+202601,2,1/7/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601070224,Order Shipped,"1,885"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601070229,Order Shipped,"12,640"
+202601,2,1/7/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601070230,Completed,"13,240"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601070231,Order Shipped,"2,098"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601070232,#N/A,#N/A
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601070233,Order Shipped,"2,370"
+202601,2,1/7/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601070234,Order Shipped,"21,750"
+202601,2,1/8/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601080244,Order Shipped,"26,904"
+202601,2,1/8/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601080247,Order Shipped,"1,708"
+202601,2,1/8/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2601060199-1,Completed,"23,711"
+202601,2,1/8/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601070232-1,Order Shipped,"3,982"
+202601,2,1/8/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601080249,Completed,"15,600"
+202601,2,1/8/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601080250,Order Shipped,"10,260"
+202601,2,1/8/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601080252,Order Shipped,"2,688"
+202601,2,1/9/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601090258,Order Shipped,"6,372"
+202601,2,1/9/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601090261,Completed,"3,632"
+202601,2,1/9/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601090263,#N/A,#N/A
+202601,2,1/9/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601090263-1,Order Shipped,"3,958"
+202601,2,1/9/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601090273,Completed,"5,090"
+202601,2,1/9/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601090274,Order Shipped,"1,497"
+202601,3,1/11/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601110293,Order Shipped,"8,666"
+202601,3,1/11/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601110295,Order Shipped,"8,264"
+202601,3,1/11/2026,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601110299,Order Shipped,"1,315"
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120313,Completed,"4,740"
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120314,Order Shipped,"7,740"
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120315,Order Shipped,"10,120"
+202601,3,1/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120316,Order Shipped,"10,300"
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120318,Completed,"4,288"
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120320,Completed,"1,300"
+202601,3,1/12/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601120321,Completed,"4,297"
+202601,3,1/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2601120322,Order Shipped,"42,954"
+202601,3,1/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120324,Completed,"6,293"
+202601,3,1/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120326,Order Shipped,"15,100"
+202601,3,1/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120329,#N/A,#N/A
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120330,Order Shipped,"5,405"
+202601,3,1/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120333,Completed,"4,800"
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601120335,Order Shipped,699
+202601,3,1/12/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601090264-1,Order Shipped,"27,759"
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601120336,Order Shipped,505
+202601,3,1/12/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601120337,Order Shipped,"3,160"
+202601,3,1/13/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601130352,Order Shipped,"7,795"
+202601,3,1/13/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601130353,#N/A,#N/A
+202601,3,1/13/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601130355,Order Shipped,"64,776"
+202601,3,1/13/2026,Yui,Yui FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601130353-1,Order Shipped,"12,160"
+202601,3,1/13/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601090276-1,Completed,"17,792"
+202601,3,1/13/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601130358,Order Shipped,"5,040"
+202601,3,1/13/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601130359,Order Shipped,"27,930"
+202601,3,1/13/2026,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2601110297-1,Completed,"3,411"
+202601,3,1/13/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601130360,#N/A,#N/A
+202601,3,1/13/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601130362,Order Shipped,"4,900"
+202601,3,1/13/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601130366,Completed,"11,970"
+202601,3,1/13/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601130367,#N/A,#N/A
+202601,3,1/13/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601130367-1,Order Shipped,"14,920"
+202601,3,1/13/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601130369,Completed,"10,760"
+202601,3,1/13/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601130373,#N/A,#N/A
+202601,3,1/14/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601130373-1,#N/A,#N/A
+202601,3,1/14/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601090277-1,Completed,"3,149"
+202601,3,1/14/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2601140378,Order Shipped,"13,189"
+202601,3,1/14/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601140380,Completed,"10,740"
+202601,3,1/14/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140381,Completed,"5,396"
+202601,3,1/14/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140383,Order Shipped,"6,349"
+202601,3,1/14/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2601140384,Completed,"3,225"
+202601,3,1/14/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140385,Order Shipped,"35,890"
+202601,3,1/14/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140386,Order Shipped,"5,000"
+202601,3,1/14/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601140392,Order Shipped,"3,198"
+202601,3,1/14/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140396,Completed,"3,000"
+202601,3,1/14/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140398,Completed,"14,220"
+202601,3,1/14/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140400,Order Shipped,"3,995"
+202601,3,1/14/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601140401,Order Shipped,"3,800"
+202601,3,1/14/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601140402,Order Shipped,799
+202601,3,1/14/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140403,Order Shipped,"9,408"
+202601,3,1/14/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140406,Order Shipped,"6,594"
+202601,3,1/15/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601150419,Completed,"3,195"
+202601,3,1/15/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2601120342-1,Order Shipped,"4,587"
+202601,3,1/15/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601150423,Order Shipped,"3,200"
+202601,3,1/15/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601150427,Completed,"5,050"
+202601,3,1/15/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601150430,Completed,"1,230"
+202601,3,1/16/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160441,Payment Complete,"38,535"
+202601,3,1/16/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601160443,Completed,"9,900"
+202601,3,1/16/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160444,Order Shipped,"7,425"
+202601,3,1/16/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160445,#N/A,#N/A
+202601,3,1/16/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601160446,Order Shipped,"2,230"
+202601,3,1/16/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160448,#N/A,#N/A
+202601,3,1/16/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160449,Order Shipped,"2,424"
+202601,3,1/16/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160450,Order Shipped,"24,858"
+202601,3,1/16/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160451,#N/A,#N/A
+202601,3,1/16/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160454,Order Shipped,"2,979"
+202601,3,1/16/2026,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601150422-1,Completed,"73,802"
+202601,3,1/16/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160455,Order Shipped,"1,695"
+202601,3,1/16/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601160456,Order Shipped,"7,800"
+202601,3,1/16/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160448-1,Order Shipped,"3,349"
+202601,3,1/16/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601160458,#N/A,#N/A
+202601,3,1/16/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601160461,#N/A,#N/A
+202601,3,1/16/2026,Yui,Yui FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601160461-1,Order Shipped,"3,058"
+202601,3,1/16/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2601140404-1,Order Shipped,"3,599"
+202601,3,1/16/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601160465,Order Shipped,"3,095"
+202601,3,1/16/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601160467,#N/A,#N/A
+202601,3,1/16/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601160470,Order Shipped,949
+202601,3,1/17/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601170482,Order Shipped,"5,040"
+202601,3,1/17/2026,Boo,Boo FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601160458-1,Order Shipped,"2,720"
+202601,3,1/17/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601170484,Order Shipped,998
+202601,3,1/17/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601170486,Order Shipped,"14,700"
+202601,3,1/17/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601170488,Order Shipped,"2,280"
+202601,3,1/17/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601170494,Order Shipped,"12,312"
+202601,4,1/18/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601180507,Completed,"3,108"
+202601,4,1/18/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601180513,Order Shipped,"32,376"
+202601,4,1/19/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601190521,Order Shipped,"28,860"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601190522,Completed,"3,794"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601190523,Completed,"2,370"
+202601,4,1/19/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601190524,Completed,"27,360"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601190525,Order Shipped,"16,545"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601190527,Order Shipped,"4,170"
+202601,4,1/19/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601190528,Order Shipped,"20,224"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601190529,Order Shipped,"4,000"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601190530,Order Shipped,"13,316"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601190533,Order Shipped,995
+202601,4,1/19/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601190535,Order Shipped,995
+202601,4,1/19/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601190536,Completed,"5,390"
+202601,4,1/19/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601190537,Order Shipped,"4,108"
+202601,4,1/19/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601190540,Order Shipped,"1,090"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601190544,Order Shipped,"3,599"
+202601,4,1/19/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601190545,Order Shipped,"6,240"
+202601,4,1/19/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601190546,Completed,"6,014"
+202601,4,1/19/2026,Boo,Boo FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2601160453-1,Order Shipped,"6,598"
+202601,4,1/19/2026,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601190552,Order Shipped,"1,845"
+202601,4,1/20/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601140388-1,Completed,"8,700"
+202601,4,1/20/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601200559,Order Shipped,949
+202601,4,1/20/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601200560,#N/A,#N/A
+202601,4,1/20/2026,Boo,Boo FU,New,sales/order_edit,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601200560-1,Order Shipped,"5,120"
+202601,4,1/20/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601200562,#N/A,#N/A
+202601,4,1/20/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601200563,Completed,"1,149"
+202601,4,1/20/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601200565,Order Shipped,"1,558"
+202601,4,1/20/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601200567,Order Shipped,"2,067"
+202601,4,1/20/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601200557-1,Order Shipped,"8,385"
+202601,4,1/20/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601200568-1,Order Shipped,"2,355"
+202601,4,1/21/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210575,Order Shipped,"14,820"
+202601,4,1/21/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210577,Order Shipped,"6,797"
+202601,4,1/21/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210579,Order Shipped,"7,200"
+202601,4,1/21/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210580,Order Shipped,"12,056"
+202601,4,1/21/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210582,Order Shipped,"17,000"
+202601,4,1/21/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210585,Order Shipped,"1,899"
+202601,4,1/21/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601210586,Order Shipped,"4,588"
+202601,4,1/21/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601210589,Order Shipped,399
+202601,4,1/21/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601190531-1,Completed,"3,437"
+202601,4,1/21/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210590,Completed,"8,985"
+202601,4,1/21/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210593,Order Shipped,"43,104"
+202601,4,1/22/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601220597,Order Shipped,"3,420"
+202601,4,1/22/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601220598,Completed,"10,788"
+202601,4,1/22/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601220601,Order Shipped,"1,100"
+202601,4,1/22/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601220602,Order Shipped,"3,009"
+202601,4,1/22/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601220603,Order Shipped,"6,588"
+202601,4,1/22/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601220606,Order Shipped,"3,038"
+202601,4,1/22/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601220607,Completed,"6,000"
+202601,4,1/22/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601220608,Order Shipped,"9,501"
+202601,4,1/22/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601220610,#N/A,#N/A
+202601,4,1/23/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601210587-1,Order Shipped,"23,884"
+202601,4,1/23/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601230625,Completed,899
+202601,4,1/23/2026,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601230627,Order Shipped,"3,378"
+202601,4,1/23/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601230631,Completed,"5,898"
+202601,4,1/23/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2601210583-1,Completed,"11,396"
+202601,4,1/23/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601230635,Order Shipped,"15,500"
+202601,4,1/23/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601230636,Order Shipped,"18,600"
+202601,4,1/23/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601230637,Order Shipped,"1,590"
+202601,4,1/23/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2601230640,Completed,"3,600"
+202601,4,1/23/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601230641,Order Shipped,"1,098"
+202601,4,1/24/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601240649,Order Shipped,"44,448"
+202601,4,1/24/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601240650,Order Shipped,995
+202601,4,1/24/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601240651,Order Shipped,"2,200"
+202601,4,1/24/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601240652,Order Shipped,"3,040"
+202601,5,1/25/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601250660,Order Shipped,"1,098"
+202601,5,1/26/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601260671,Order Shipped,"2,084"
+202601,5,1/26/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601260673,Order Shipped,"29,700"
+202601,5,1/26/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601260672-1,Order Shipped,"3,030"
+202601,5,1/26/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601260674,Order Shipped,599
+202601,5,1/26/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601260676,#N/A,#N/A
+202601,5,1/26/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601260678,Completed,"7,198"
+202601,5,1/26/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601260679,Order Shipped,"5,230"
+202601,5,1/26/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601260681,Completed,"7,440"
+202601,5,1/26/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601260676-1,Completed,"3,068"
+202601,5,1/26/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601260686,#N/A,#N/A
+202601,5,1/26/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601260687,Order Shipped,"4,220"
+202601,5,1/26/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601260688,#N/A,#N/A
+202601,5,1/27/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601270696,Order Shipped,"7,660"
+202601,5,1/27/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601270697,Completed,"14,480"
+202601,5,1/27/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601260688-1,Order Shipped,"2,397"
+202601,5,1/27/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601270703,Order Shipped,"2,796"
+202601,5,1/27/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601130373-2,Order Shipped,"3,618"
+202601,5,1/27/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601270705,Order Shipped,940
+202601,5,1/27/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601270706,Completed,"4,926"
+202601,5,1/27/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601270708,Order Shipped,"11,930"
+202601,5,1/27/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601270709,Order Shipped,"1,185"
+202601,5,1/27/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601270711,Order Shipped,"10,495"
+202601,5,1/27/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601250662-1,Order Shipped,"4,543"
+202601,5,1/28/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601280716,Completed,"6,294"
+202601,5,1/28/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601280718,Order Shipped,"1,059"
+202601,5,1/28/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601280721,Order Shipped,"1,619"
+202601,5,1/28/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601270695-1,Completed,"4,380"
+202601,5,1/28/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601280725,#N/A,#N/A
+202601,5,1/28/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601280726,Order Shipped,"3,659"
+202601,5,1/28/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601280725-1,Order Shipped,"2,801"
+202601,5,1/28/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601280728,Order Shipped,"9,528"
+202601,5,1/28/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601280729,Order Shipped,349
+202601,5,1/28/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601280730,Order Shipped,"3,468"
+202601,5,1/28/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601280733,Order Shipped,"1,000"
+202601,5,1/29/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601260691-1,Completed,"5,998"
+202601,5,1/29/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601290743,Order Shipped,"28,852"
+202601,5,1/29/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2601290744,Completed,"14,530"
+202601,5,1/29/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601280717-1,Order Shipped,"3,174"
+202601,5,1/29/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601290746,Completed,"5,628"
+202601,5,1/29/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601290747,Order Shipped,"2,299"
+202601,5,1/29/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601290748,Order Shipped,"3,398"
+202601,5,1/29/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601290750,Order Shipped,"1,100"
+202601,5,1/29/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2601290752,Order Shipped,"4,992"
+202601,5,1/30/2026,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2601300759,Order Shipped,"1,015"
+202601,5,1/30/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300762,Order Shipped,"18,354"
+202601,5,1/30/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300763,Order Shipped,"13,980"
+202601,5,1/30/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300765,Order Shipped,"4,740"
+202601,5,1/30/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300766,Order Shipped,"7,800"
+202601,5,1/30/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300768,Order Shipped,"1,285"
+202601,5,1/30/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300769,Order Shipped,"1,470"
+202601,5,1/30/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300771,Order Shipped,"3,000"
+202601,5,1/31/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300767-1,Completed,"14,880"
+202602,6,2/2/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602020116,Order Shipped,"1,248"
+202602,6,2/2/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602020118,Order Shipped,"2,857"
+202602,6,2/2/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602020121,Order Shipped,"36,392"
+202602,6,2/2/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602020122,Order Shipped,"1,199"
+202602,6,2/2/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602020123,Order Shipped,"23,370"
+202602,6,2/2/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602020126,Completed,"3,190"
+202602,6,2/2/2026,Mie,Mie FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602020127,Completed,"4,788"
+202602,6,2/2/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602020129,Order Shipped,"2,200"
+202602,6,2/2/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602020130,Completed,"2,200"
+202602,6,2/2/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602020132,Order Shipped,"14,060"
+202602,6,2/2/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602020134,Completed,"3,448"
+202602,6,2/2/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602020135,Completed,"3,707"
+202602,6,2/2/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602020140,Order Shipped,399
+202602,6,2/2/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602020142,Order Shipped,"1,398"
+202602,6,2/2/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602020144,Order Shipped,"2,199"
+202602,6,2/3/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602030159,Order Shipped,"3,600"
+202602,6,2/3/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602030160,#N/A,#N/A
+202602,6,2/3/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602030161,Order Shipped,"1,500"
+202602,6,2/3/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602030163,Order Shipped,"7,800"
+202602,6,2/3/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602030164,Order Shipped,"2,474"
+202602,6,2/3/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602030165,Order Shipped,"6,000"
+202602,6,2/3/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602030166,Order Shipped,"20,572"
+202602,6,2/3/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602030167,Completed,"4,900"
+202602,6,2/3/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2602030169,Order Shipped,"3,499"
+202602,6,2/3/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602030171,Order Shipped,"3,119"
+202602,6,2/4/2026,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602040178,Order Shipped,"4,390"
+202602,6,2/4/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602040179,Completed,"19,236"
+202602,6,2/4/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040182,Order Shipped,"1,088"
+202602,6,2/4/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040183,#N/A,#N/A
+202602,6,2/4/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602040184,#N/A,#N/A
+202602,6,2/4/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040185,Order Shipped,"2,430"
+202602,6,2/4/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602040186,Order Shipped,"3,594"
+202602,6,2/4/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602040187,Order Shipped,"3,149"
+202602,6,2/4/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040190,Order Shipped,"2,600"
+202602,6,2/4/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602040194,Order Shipped,"1,799"
+202602,6,2/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602050198,Order Shipped,"46,250"
+202602,6,2/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602050199,#N/A,#N/A
+202602,6,2/5/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602050200,Order Shipped,540
+202602,6,2/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602050202,Order Shipped,949
+202602,6,2/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602050204,Order Shipped,"3,700"
+202602,6,2/5/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602050205,Payment Complete,"3,688"
+202602,6,2/5/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040183-1,#N/A,#N/A
+202602,6,2/5/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602050208,Order Shipped,"3,593"
+202602,6,2/5/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2601300777-1,Order Shipped,"13,600"
+202602,6,2/6/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602060214,Order Shipped,"5,634"
+202602,6,2/6/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060217,Order Shipped,"20,115"
+202602,6,2/6/2026,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602060218,Order Shipped,"4,700"
+202602,6,2/6/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602060219,#N/A,#N/A
+202602,6,2/6/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060221,Order Shipped,"25,398"
+202602,6,2/6/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060222,Order Shipped,"2,800"
+202602,6,2/6/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060227,#N/A,#N/A
+202602,6,2/6/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060228,Order Shipped,"36,880"
+202602,6,2/6/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060229,Order Shipped,"29,657"
+202602,6,2/6/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060227-1,Order Shipped,"3,983"
+202602,6,2/6/2026,Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602040184-1,Order Shipped,"4,810"
+202602,6,2/6/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060239,#N/A,#N/A
+202602,6,2/7/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602070243,Completed,"7,800"
+202602,6,2/7/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602070245,Order Shipped,"3,599"
+202602,6,2/7/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602070249,Order Shipped,"1,190"
+202602,6,2/7/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602070250,Order Shipped,"8,748"
+202602,7,2/9/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602090265,#N/A,#N/A
+202602,7,2/9/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090266,Order Shipped,"3,276"
+202602,7,2/9/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602090267,#N/A,#N/A
+202602,7,2/9/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090268,Order Shipped,"7,140"
+202602,7,2/9/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040183-2,#N/A,#N/A
+202602,7,2/9/2026,Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602090270,#N/A,#N/A
+202602,7,2/9/2026,Yui,Yui FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602090265-1,Order Shipped,"3,153"
+202602,7,2/9/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090273,Order Shipped,"2,600"
+202602,7,2/9/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090274,Order Shipped,"10,340"
+202602,7,2/9/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090275,Order Shipped,"3,100"
+202602,7,2/9/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090278,Order Shipped,"3,490"
+202602,7,2/9/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090279,#N/A,#N/A
+202602,7,2/9/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090280,Order Shipped,"2,600"
+202602,7,2/9/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090279-1,Order Shipped,"20,776"
+202602,7,2/9/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040183-3,#N/A,#N/A
+202602,7,2/10/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602100295,Order Shipped,"10,460"
+202602,7,2/10/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602100298,Order Shipped,"3,562"
+202602,7,2/10/2026,Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602100299-1,#N/A,#N/A
+202602,7,2/10/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602100300,Order Shipped,"3,600"
+202602,7,2/10/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602100305,Order Shipped,"42,474"
+202602,7,2/10/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602070247-1,Order Shipped,"4,565"
+202602,7,2/10/2026,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602100309,Order Shipped,"2,219"
+202602,7,2/10/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602100311,Order Shipped,"11,499"
+202602,7,2/10/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602100314,#N/A,#N/A
+202602,7,2/10/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602060239-1,Order Shipped,"6,543"
+202602,7,2/11/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602110321,Order Shipped,"2,228"
+202602,7,2/11/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602110324,Order Shipped,"19,015"
+202602,7,2/11/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602110327,Order Shipped,"13,680"
+202602,7,2/11/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602110332,Order Shipped,"1,030"
+202602,7,2/11/2026,Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602110333,Order Shipped,"1,049"
+202602,7,2/11/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602110335,#N/A,#N/A
+202602,7,2/11/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602110337,Order Shipped,945
+202602,7,2/11/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602110338,#N/A,#N/A
+202602,7,2/11/2026,Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602110338-1,#N/A,#N/A
+202602,7,2/11/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602110339,#N/A,#N/A
+202602,7,2/12/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602120345,Order Shipped,"5,040"
+202602,7,2/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602120346,Order Shipped,"6,294"
+202602,7,2/12/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602120349,Order Shipped,"1,600"
+202602,7,2/12/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602090288-1,Order Shipped,"1,200"
+202602,7,2/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602120352,Order Shipped,"2,158"
+202602,7,2/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602120353,Order Shipped,"1,338"
+202602,7,2/12/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602120355,Order Shipped,748
+202602,7,2/12/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602120360,Order Shipped,"1,100"
+202602,7,2/12/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040183-4,#N/A,#N/A
+202602,7,2/12/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602120362,Order Shipped,"2,198"
+202602,7,2/12/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040183-5,#N/A,#N/A
+202602,7,2/12/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602120363,Order Shipped,899
+202602,7,2/12/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602120364,Order Shipped,"3,288"
+202602,7,2/12/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602120367,Order Shipped,"8,799"
+202602,7,2/13/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602130372,#N/A,#N/A
+202602,7,2/13/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602130375,#N/A,#N/A
+202602,7,2/13/2026,Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602130378,Order Shipped,"2,597"
+202602,7,2/13/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2602130381,Order Shipped,"10,400"
+202602,7,2/13/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602130384,Order Shipped,995
+202602,7,2/13/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602130390,Payment Complete,"11,232"
+202602,7,2/14/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602140401,Order Shipped,"3,837"
+202602,7,2/14/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602140406,Order Shipped,"1,400"
+202602,8,2/15/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602150412,Order Shipped,749
+202602,8,2/15/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602150414,Order Shipped,"1,958"
+202602,8,2/15/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602150416,Order Shipped,"1,595"
+202602,8,2/15/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602150417,Order Shipped,"1,800"
+202602,8,2/15/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602150419,Order Shipped,"1,129"
+202602,8,2/15/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602150424,Order Shipped,"3,106"
+202602,8,2/16/2026,Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602160431,#N/A,#N/A
+202602,8,2/16/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602160432,Order Shipped,500
+202602,8,2/16/2026,Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 English",Order,OR2602160433,Payment Complete,"8,798"
+202602,8,2/16/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602160435,Payment Complete,"2,219"
+202602,8,2/16/2026,Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602040183-6,#N/A,#N/A
+202602,8,2/16/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602160437,Payment Complete,"20,376"
+202602,8,2/16/2026,Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602160438,#N/A,#N/A
+202602,8,2/16/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602160440,Order Shipped,698
+202602,8,2/16/2026,Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602160445,Order Shipped,569
+202602,8,2/16/2026,Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602160447,Payment Complete,"3,650"
+202602,8,2/16/2026,Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2602160449,Payment Complete,"8,040"
+202602,8,2/17/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602170452,Order Shipped,"1,800"
+202602,8,2/17/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602170454,Order Shipped,"4,170"
+202602,8,2/17/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2602170457,Order Shipped,"3,200"
+202602,8,2/17/2026,Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2602170460,Order Shipped,"10,260"
+202602,8,2/17/2026,Yui,Yui FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2602170464,Order Shipped,"1,299"
+202602,8,"Feb 17, 2026, 7:31:42 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602170468,Order Shipped,999
+202602,8,"Feb 18, 2026, 10:57:53 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180472,Completed,"3,000"
+202602,8,"Feb 18, 2026, 11:23:10 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180473,Order Shipped,"3,028"
+202602,8,"Feb 18, 2026, 3:07:03 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180477,Order Shipped,"1,800"
+202602,8,"Feb 18, 2026, 3:09:28 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180479,Order Shipped,"4,134"
+202602,8,"Feb 18, 2026, 3:37:15 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180480,Order Shipped,"7,860"
+202602,8,"Feb 18, 2026, 4:33:35 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180483,Order Shipped,"8,050"
+202602,8,"Feb 18, 2026, 4:39:28 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602180484,Order Shipped,698
+202602,8,"Feb 18, 2026, 6:12:57 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180485,#N/A,#N/A
+202602,8,"Feb 18, 2026, 6:13:44 PM",Boo,Boo FU,Edit,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180485,#N/A,#N/A
+202602,8,"Feb 18, 2026, 8:20:29 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602180487,Order Shipped,"3,200"
+202602,8,"Feb 18, 2026, 8:48:28 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602180490,Completed,"3,354"
+202602,8,"Feb 19, 2026, 11:13:12 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602190495,Order Shipped,"4,625"
+202602,8,"Feb 19, 2026, 11:30:34 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602190496,Order Shipped,"4,218"
+202602,8,"Feb 19, 2026, 12:08:04 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602190498,Completed,"4,797"
+202602,8,"Feb 19, 2026, 12:10:01 PM",Yui,Yui FU,Edit,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602190498,Completed,"4,797"
+202602,8,"Feb 19, 2026, 12:55:08 PM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602190500,Completed,"3,815"
+202602,8,"Feb 19, 2026, 2:53:02 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602190502,Order Shipped,"3,700"
+202602,8,"Feb 19, 2026, 3:37:06 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602190505,Order Shipped,"11,013"
+202602,8,"Feb 19, 2026, 4:11:13 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602190507,Order Shipped,"2,509"
+202602,8,"Feb 19, 2026, 5:47:49 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602190510,Order Shipped,"3,398"
+202602,8,"Feb 19, 2026, 6:12:40 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602190511,Order Shipped,"4,554"
+202602,8,"Feb 20, 2026, 10:54:52 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2602200521,Order Shipped,"11,988"
+202602,8,"Feb 20, 2026, 11:05:33 AM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602200522,Order Shipped,"7,090"
+202602,8,"Feb 20, 2026, 11:58:56 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602200525,Order Shipped,"3,400"
+202602,8,"Feb 20, 2026, 2:29:22 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602200527,Completed,"41,100"
+202602,8,"Feb 20, 2026, 4:43:44 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602200529,Order Shipped,"5,658"
+202602,8,"Feb 20, 2026, 5:15:41 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602200531,Order Shipped,"6,000"
+202602,8,"Feb 20, 2026, 5:21:26 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602200532,Completed,"7,980"
+202602,8,"Feb 20, 2026, 5:55:16 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602200534,Order Shipped,999
+202602,8,"Feb 20, 2026, 6:01:15 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602200535,Order Shipped,"1,004"
+202602,8,"Feb 21, 2026, 10:43:21 AM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602210545,Order Shipped,695
+202602,8,"Feb 21, 2026, 12:48:45 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602200526-1,#N/A,#N/A
+202602,8,"Feb 21, 2026, 4:46:38 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602210553,Order Shipped,948
+202602,8,"Feb 21, 2026, 5:36:53 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602210554,Order Shipped,"2,153"
+202602,9,"Feb 23, 2026, 11:55:29 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230579,Order Shipped,"3,570"
+202602,9,"Feb 23, 2026, 12:27:29 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230580,Completed,"1,200"
+202602,9,"Feb 23, 2026, 1:02:38 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230583,Order Shipped,"3,474"
+202602,9,"Feb 23, 2026, 1:22:04 PM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2602230584,Order Shipped,"5,320"
+202602,9,"Feb 23, 2026, 1:27:15 PM",Yui,Yui FU,Edit,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2602230584,Order Shipped,"5,320"
+202602,9,"Feb 23, 2026, 1:54:22 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230585,Completed,"4,270"
+202602,9,"Feb 23, 2026, 2:21:36 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2602230586,Completed,"18,680"
+202602,9,"Feb 23, 2026, 2:34:20 PM",Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602230587-1,Order Shipped,"9,000"
+202602,9,"Feb 23, 2026, 3:01:18 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230588,Completed,"6,294"
+202602,9,"Feb 23, 2026, 5:21:33 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230601,#N/A,#N/A
+202602,9,"Feb 23, 2026, 5:24:28 PM",Yui,Yui FU,Edit,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230601,#N/A,#N/A
+202602,9,"Feb 23, 2026, 8:09:32 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602230605,Order Shipped,"1,868"
+202602,9,"Feb 24, 2026, 11:10:38 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602240607,Completed,"9,768"
+202602,9,"Feb 24, 2026, 11:17:14 AM",Yui,Yui FU,Edit,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602240607,Completed,"9,768"
+202602,9,"Feb 24, 2026, 11:59:02 AM",Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602200523-1,Completed,"19,366"
+202602,9,"Feb 24, 2026, 2:05:12 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602240610,Order Shipped,"2,625"
+202602,9,"Feb 24, 2026, 2:30:43 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602240611,#N/A,#N/A
+202602,9,"Feb 24, 2026, 3:10:03 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602240612,Completed,899
+202602,9,"Feb 24, 2026, 3:17:58 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2602200536-1,Completed,"46,993"
+202602,9,"Feb 24, 2026, 3:58:46 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602240613,#N/A,#N/A
+202602,9,"Feb 24, 2026, 4:05:12 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602240614,#N/A,#N/A
+202602,9,"Feb 24, 2026, 4:14:52 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602240615,Order Shipped,"22,620"
+202602,9,"Feb 24, 2026, 4:18:31 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602240616,Order Shipped,"3,629"
+202602,9,"Feb 24, 2026, 4:24:53 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602240617,Order Shipped,719
+202602,9,"Feb 24, 2026, 5:24:28 PM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2602240618,Completed,"3,060"
+202602,9,"Feb 24, 2026, 6:36:39 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602240613-1,Completed,"3,176"
+202602,9,"Feb 24, 2026, 6:46:02 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602240619,Order Shipped,370
+202602,9,"Feb 24, 2026, 7:44:40 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230581-1,Completed,"39,282"
+202602,9,"Feb 25, 2026, 11:06:37 AM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2602220566-1,Order Shipped,"8,467"
+202602,9,"Feb 25, 2026, 12:13:44 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602250624,Order Shipped,"3,196"
+202602,9,"Feb 25, 2026, 1:46:30 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602250628,Order Shipped,698
+202602,9,"Feb 25, 2026, 1:53:01 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602250629,Order Shipped,"2,524"
+202602,9,"Feb 25, 2026, 2:17:20 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602250630,Completed,"7,140"
+202602,9,"Feb 25, 2026, 2:48:08 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602250632,#N/A,#N/A
+202602,9,"Feb 25, 2026, 2:54:24 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602250633,Order Shipped,"19,390"
+202602,9,"Feb 25, 2026, 3:02:21 PM",Boo,Boo FU,New,sales/order_edit,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602250632-1,Order Shipped,"4,492"
+202602,9,"Feb 25, 2026, 3:18:39 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602250634,Completed,"1,198"
+202602,9,"Feb 25, 2026, 3:23:59 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602250635,Payment Complete,"1,659"
+202602,9,"Feb 25, 2026, 4:04:53 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602250636,Order Shipped,698
+202602,9,"Feb 25, 2026, 4:20:39 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2602250637,Completed,"18,030"
+202602,9,"Feb 25, 2026, 4:57:07 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602250643,Order Shipped,"3,160"
+202602,9,"Feb 25, 2026, 5:25:07 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602250644,Order Shipped,"1,249"
+202602,9,"Feb 25, 2026, 6:08:17 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602250646,Order Shipped,"5,640"
+202602,9,"Feb 25, 2026, 6:38:45 PM",Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602240611-1,#N/A,#N/A
+202602,9,"Feb 25, 2026, 7:46:57 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602250641-1,Completed,"1,218"
+202602,9,"Feb 26, 2026, 10:44:18 AM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602260652,Order Shipped,"3,970"
+202602,9,"Feb 26, 2026, 10:48:55 AM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602210540-1,Completed,"20,414"
+202602,9,"Feb 26, 2026, 11:50:58 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2602260653,Order Shipped,"11,988"
+202602,9,"Feb 26, 2026, 11:56:32 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602260654,Order Shipped,"4,358"
+202602,9,"Feb 26, 2026, 12:38:54 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602260655,Order Shipped,"3,070"
+202602,9,"Feb 26, 2026, 2:29:34 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602260658,Completed,"2,396"
+202602,9,"Feb 26, 2026, 3:04:35 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602260661,Order Shipped,"3,294"
+202602,9,"Feb 26, 2026, 3:13:53 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602260662,Order Shipped,"1,945"
+202602,9,"Feb 26, 2026, 3:20:58 PM",Boo,Boo FU,Edit,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2602260662,Order Shipped,"1,945"
+202602,9,"Feb 26, 2026, 3:52:06 PM",Mie,Mie FU,New,sales/order_edit,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2602240620-1,Order Shipped,"13,960"
+202602,9,"Feb 26, 2026, 3:53:59 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602200526-2,Payment Complete,"49,413"
+202602,9,"Feb 26, 2026, 4:50:23 PM",Boo,Boo FU,Edit,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602230599,Order Shipped,"4,435"
+202602,9,"Feb 26, 2026, 6:16:23 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602260667,Order Shipped,"22,418"
+202602,9,"Feb 27, 2026, 10:44:48 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270673,Order Shipped,"4,950"
+202602,9,"Feb 27, 2026, 11:20:33 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270674,Completed,"5,378"
+202602,9,"Feb 27, 2026, 11:25:03 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270675,Order Shipped,"5,539"
+202602,9,"Feb 27, 2026, 12:58:49 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270678,Order Shipped,"7,390"
+202602,9,"Feb 27, 2026, 1:01:14 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602270679,Order Shipped,"1,047"
+202602,9,"Feb 27, 2026, 1:50:15 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2602270681,Order Shipped,"28,334"
+202602,9,"Feb 27, 2026, 1:51:37 PM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 English
+",Order,OR2602270682,Order Shipped,"13,520"
+202602,9,"Feb 27, 2026, 2:00:50 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602270683,Order Shipped,795
+202602,9,"Feb 27, 2026, 2:28:24 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270686,Order Shipped,"1,285"
+202602,9,"Feb 27, 2026, 2:52:12 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270687,Order Shipped,"1,190"
+202602,9,"Feb 27, 2026, 5:36:16 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602270688,#N/A,#N/A
+202602,9,"Feb 27, 2026, 5:55:30 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2602270690,#N/A,#N/A
+202602,9,"Feb 27, 2026, 7:29:04 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270692,#N/A,#N/A
+202602,9,"Feb 27, 2026, 7:35:30 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270692-1,#N/A,#N/A
+202602,9,"Feb 27, 2026, 7:59:24 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270692-2,Order Shipped,"1,285"
+202602,9,"Feb 27, 2026, 8:30:46 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2602270693,Completed,"1,790"
+202602,9,"Feb 28, 2026, 3:37:24 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602280697,Order Shipped,"3,269"
+202602,9,"Feb 28, 2026, 4:46:56 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2602280700,Order Shipped,900
+202603,10,"Mar 1, 2026, 11:17:24 AM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603010103,Order Shipped,"3,336"
+202603,10,"Mar 1, 2026, 2:37:34 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603010105,#N/A,#N/A
+202603,10,"Mar 1, 2026, 3:54:36 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603010106,Order Shipped,"2,329"
+202603,10,"Mar 2, 2026, 11:01:14 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603020112,Completed,"1,000"
+202603,10,"Mar 2, 2026, 11:58:41 AM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603020113,#N/A,#N/A
+202603,10,"Mar 2, 2026, 12:05:50 PM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603020115,#N/A,#N/A
+202603,10,"Mar 2, 2026, 12:19:55 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603020116,Order Shipped,"1,500"
+202603,10,"Mar 2, 2026, 12:48:29 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603020117,Completed,"3,436"
+202603,10,"Mar 2, 2026, 1:13:51 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603020120,Completed,"1,800"
+202603,10,"Mar 2, 2026, 1:14:09 PM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603020121,Order Shipped,"4,098"
+202603,10,"Mar 2, 2026, 2:06:26 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603020122,Order Shipped,"2,030"
+202603,10,"Mar 2, 2026, 2:18:58 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603020123,Order Shipped,"14,770"
+202603,10,"Mar 2, 2026, 2:39:31 PM",Mie,Mie FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603020124,Order Shipped,"4,788"
+202603,10,"Mar 2, 2026, 3:56:26 PM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603020126,#N/A,#N/A
+202603,10,"Mar 2, 2026, 4:13:27 PM",Yui,Yui FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2603020115-1,Order Shipped,"7,617"
+202603,10,"Mar 2, 2026, 4:57:26 PM",Yui,Yui FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2603020128,Order Shipped,"5,528"
+202603,10,"Mar 2, 2026, 5:27:42 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603020129,Order Shipped,698
+202603,10,"Mar 2, 2026, 5:29:24 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603020130,Order Shipped,"1,039"
+202603,10,"Mar 2, 2026, 6:38:18 PM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603020134,#N/A,#N/A
+202603,10,"Mar 2, 2026, 6:55:51 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603020134-1,Order Shipped,"12,595"
+202603,10,"Mar 4, 2026, 11:44:37 AM",Boo,Boo FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2602270694-1,Completed,"2,627"
+202603,10,"Mar 4, 2026, 11:55:30 AM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2603030140-1,Order Shipped,"96,735"
+202603,10,"Mar 4, 2026, 12:14:10 PM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603040145,Order Shipped,"5,898"
+202603,10,"Mar 4, 2026, 12:34:26 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603040147,Order Shipped,"3,995"
+202603,10,"Mar 4, 2026, 1:02:02 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603040148,Order Shipped,"3,192"
+202603,10,"Mar 4, 2026, 1:19:03 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603040149,Order Shipped,"14,820"
+202603,10,"Mar 4, 2026, 1:42:56 PM",Mie,Mie FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2603040150,Order Shipped,"4,616"
+202603,10,"Mar 4, 2026, 1:46:51 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603040151,Order Shipped,"21,660"
+202603,10,"Mar 4, 2026, 2:47:24 PM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603040153,Order Shipped,"2,980"
+202603,10,"Mar 4, 2026, 2:54:00 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603010108-1,Order Shipped,"5,378"
+202603,10,"Mar 4, 2026, 4:31:50 PM",Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2603040155,#N/A,#N/A
+202603,10,"Mar 4, 2026, 5:41:50 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now English",Order,OR2603020119-1,Order Shipped,"120,481"
+202603,10,"Mar 4, 2026, 5:50:59 PM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603040158,Order Shipped,"6,900"
+202603,10,"Mar 4, 2026, 5:55:38 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603040159,Order Shipped,"1,925"
+202603,10,"Mar 5, 2026, 10:14:12 AM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603050163,Order Shipped,"19,728"
+202603,10,"Mar 5, 2026, 11:10:22 AM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603050164,Order Shipped,"19,800"
+202603,10,"Mar 5, 2026, 12:39:09 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603050166,Order Shipped,"14,890"
+202603,10,"Mar 5, 2026, 1:29:49 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2602260671-1,Order Shipped,"2,113"
+202603,10,"Mar 5, 2026, 2:02:11 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603050169,Order Shipped,"3,291"
+202603,10,"Mar 5, 2026, 2:09:53 PM",Boo,Boo FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2603050170,#N/A,#N/A
+202603,10,"Mar 5, 2026, 2:11:52 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603050171,Order Shipped,"6,836"
+202603,10,"Mar 5, 2026, 3:48:36 PM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603050173,Order Shipped,"3,090"
+202603,10,"Mar 5, 2026, 5:50:17 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603050174,Order Shipped,"6,746"
+202603,10,"Mar 5, 2026, 6:14:50 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603050175,Order Shipped,"1,225"
+202603,10,"Mar 6, 2026, 11:22:24 AM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603060182,Order Shipped,"1,700"
+202603,10,"Mar 6, 2026, 3:17:34 PM",Yui,Yui FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2603060190,Completed,"2,720"
+202603,10,"Mar 6, 2026, 4:46:26 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603060192,Order Shipped,"54,381"
+202603,10,"Mar 6, 2026, 4:48:07 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603060193,Order Shipped,"37,587"
+202603,10,"Mar 6, 2026, 6:03:50 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603060195,Order Shipped,"2,399"
+202603,10,"Mar 6, 2026, 6:07:54 PM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603060196,#N/A,#N/A
+202603,10,"Mar 6, 2026, 6:17:01 PM",Yui,Yui FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603060197,#N/A,#N/A
+202603,10,"Mar 7, 2026, 11:46:30 AM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603070208,Order Shipped,"2,170"
+202603,10,"Mar 7, 2026, 2:14:44 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603070210,Order Shipped,"1,700"
+202603,10,"Mar 7, 2026, 2:24:56 PM",Boo,Boo FU,New,,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2603070211,Completed,"4,398"
+202603,10,"Mar 7, 2026, 2:58:46 PM",Boo,Boo FU,New,,"Wine-now.asia
+  winenow
+  Wine-now Thai",Order,OR2603070213,Order Shipped,"13,987"
+202603,11,"Mar 8, 2026, 11:28:17 AM",Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2603020113-1,#N/A,#N/A
+202603,11,"Mar 8, 2026, 11:59:50 AM",Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+  liq9
+  LiQ9 Thai",Order,OR2603080224-1,#N/A,#N/A
+202603,11,"Mar 8, 2026, 12:29:21 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603080226,Order Shipped,"1,409"
+202603,11,"Mar 8, 2026, 12:50:38 PM",Mie,Mie FU,New,,"Liq9 B2B
+  Liq9 B2B
+  Liq9 B2B",Order,OR2603080227,Order Shipped,"379,800"
+202603,11,"Mar 8, 2026, 2:13:34 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603080228,Order Shipped,"3,198"
+202603,11,"Mar 8, 2026, 4:39:16 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+  backend
+  Wine-Now & Liq9",Order,OR2603080229,Order Shipped,370
+202603,11,"Mar 9, 2026, 10:55:15 AM",Yui,Yui FU,New,sales/order_edit,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603020113-2,Order Shipped,"45,738"
+202603,11,"Mar 9, 2026, 11:34:17 AM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603090236,Order Shipped,"5,420"
+202603,11,"Mar 9, 2026, 11:44:33 AM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603090237,Order Shipped,"6,432"
+202603,11,"Mar 9, 2026, 12:14:12 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603090238,Order Shipped,"2,504"
+202603,11,"Mar 9, 2026, 12:51:21 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2603090239,Order Shipped,"8,094"
+202603,11,"Mar 9, 2026, 1:46:58 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603090240,Order Shipped,"8,962"
+202603,11,"Mar 9, 2026, 2:16:58 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603060197-1,Order Shipped,"73,696"
+202603,11,"Mar 9, 2026, 2:42:02 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603090241,Order Shipped,"4,200"
+202603,11,"Mar 9, 2026, 4:27:22 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603090246,Order Shipped,"2,648"
+202603,11,"Mar 9, 2026, 4:45:01 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603090247,#N/A,#N/A
+202603,11,"Mar 9, 2026, 4:49:36 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603090248,#N/A,#N/A
+202603,11,"Mar 9, 2026, 4:57:15 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603090249,Order Shipped,"3,000"
+202603,11,"Mar 9, 2026, 5:09:42 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603090248-1,Order Shipped,"6,263"
+202603,11,"Mar 9, 2026, 5:28:40 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603070218-1,Order Shipped,"5,314"
+202603,11,"Mar 9, 2026, 5:33:55 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603060199-1,Order Shipped,"1,340"
+202603,11,"Mar 9, 2026, 5:48:36 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603090251,Order Shipped,"1,650"
+202603,11,"Mar 9, 2026, 6:12:03 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603090252,#N/A,#N/A
+202603,11,"Mar 9, 2026, 6:43:37 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603090253,Order Shipped,"8,495"
+202603,11,"Mar 9, 2026, 7:39:12 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603090255,Order Shipped,"1,708"
+202603,11,"Mar 10, 2026, 10:29:12 AM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603100260,Order Shipped,"3,248"
+202603,11,"Mar 10, 2026, 10:32:57 AM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603100262,Order Shipped,"3,440"
+202603,11,"Mar 10, 2026, 10:36:49 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603100263,Completed,"3,890"
+202603,11,"Mar 10, 2026, 10:49:22 AM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603070212-1,Order Shipped,"1,700"
+202603,11,"Mar 10, 2026, 12:28:50 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603090245-1,Order Shipped,"19,455"
+202603,11,"Mar 10, 2026, 4:31:25 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603100265,Order Shipped,"29,035"
+202603,11,"Mar 10, 2026, 5:20:54 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603100268,Order Shipped,698
+202603,11,"Mar 11, 2026, 10:38:11 AM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603110276,#N/A,#N/A
+202603,11,"Mar 11, 2026, 11:23:50 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603110277,Order Shipped,799
+202603,11,"Mar 11, 2026, 11:45:24 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603110278,Order Shipped,"14,900"
+202603,11,"Mar 11, 2026, 12:27:44 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603110279,#N/A,#N/A
+202603,11,"Mar 11, 2026, 2:56:27 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603110281,Order Shipped,"3,991"
+202603,11,"Mar 11, 2026, 5:26:54 PM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603110284,Order Shipped,"15,789"
+202603,11,"Mar 12, 2026, 12:23:20 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603120291,Order Shipped,"3,052"
+202603,11,"Mar 12, 2026, 12:51:32 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603120292,Order Shipped,"3,799"
+202603,11,"Mar 12, 2026, 2:06:56 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603120293,Order Shipped,"14,820"
+202603,11,"Mar 12, 2026, 2:09:17 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603120294,Order Shipped,"14,820"
+202603,11,"Mar 12, 2026, 2:18:43 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603120295,Order Shipped,"1,408"
+202603,11,"Mar 12, 2026, 5:22:45 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603120298,#N/A,#N/A
+202603,11,"Mar 12, 2026, 5:51:46 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603120299,Order Shipped,549
+202603,11,"Mar 12, 2026, 5:54:38 PM",Yui,Yui FU,New,sales/order_edit,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603120296-1,Order Shipped,"11,090"
+202603,11,"Mar 12, 2026, 6:49:06 PM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603120302,Order Shipped,"7,583"
+202603,11,"Mar 13, 2026, 12:30:13 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603100269-1,Order Shipped,"11,265"
+202603,11,"Mar 13, 2026, 1:24:45 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603130313,Order Shipped,"4,440"
+202603,11,"Mar 13, 2026, 1:32:07 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603130314,Payment Complete,"7,725"
+202603,11,"Mar 13, 2026, 5:18:08 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603130323,#N/A,#N/A
+202603,11,"Mar 13, 2026, 5:55:03 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603130323-1,Order Shipped,"12,140"
+202603,11,"Mar 13, 2026, 5:57:59 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603130325,Order Shipped,"2,280"
+202603,11,"Mar 13, 2026, 6:10:10 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603130326,Order Shipped,"3,700"
+202603,11,"Mar 13, 2026, 6:15:48 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603130327,#N/A,#N/A
+202603,11,"Mar 13, 2026, 7:36:36 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603130330,Order Shipped,"3,675"
+202603,12,"Mar 15, 2026, 2:56:32 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603150348,Order Shipped,"5,245"
+202603,12,"Mar 15, 2026, 5:00:26 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603150352,#N/A,#N/A
+202603,12,"Mar 16, 2026, 11:39:12 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603160357,#N/A,#N/A
+202603,12,"Mar 16, 2026, 11:44:12 AM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603160357-1,Order Shipped,"3,245"
+202603,12,"Mar 16, 2026, 12:15:22 PM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603160358,Order Shipped,"4,560"
+202603,12,"Mar 16, 2026, 12:44:29 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603160362,Order Shipped,"11,808"
+202603,12,"Mar 16, 2026, 12:58:26 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603160363,Order Shipped,685
+202603,12,"Mar 16, 2026, 2:03:11 PM",Mie,Mie FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603160364,Order Shipped,"16,278"
+202603,12,"Mar 16, 2026, 2:15:48 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603160366,Order Shipped,"1,488"
+202603,12,"Mar 16, 2026, 2:27:09 PM",Yui,Yui FU,New,sales/order_edit,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603110276-1,#N/A,#N/A
+202603,12,"Mar 16, 2026, 3:17:14 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603160367,Order Shipped,698
+202603,12,"Mar 16, 2026, 3:37:35 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603160368,Order Shipped,"9,528"
+202603,12,"Mar 16, 2026, 4:33:38 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603160370,Order Shipped,"9,660"
+202603,12,"Mar 16, 2026, 4:34:45 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603160371,#N/A,#N/A
+202603,12,"Mar 16, 2026, 5:19:53 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603160373,Order Shipped,"46,189"
+202603,12,"Mar 16, 2026, 5:34:56 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603160374,Order Shipped,"3,547"
+202603,12,"Mar 16, 2026, 5:55:38 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603150352-1,Order Shipped,"3,948"
+202603,12,"Mar 16, 2026, 6:17:21 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603160378,Order Shipped,395
+202603,12,"Mar 17, 2026, 1:31:47 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170394,Order Shipped,"61,650"
+202603,12,"Mar 17, 2026, 1:38:36 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170395,Order Shipped,"12,363"
+202603,12,"Mar 17, 2026, 10:19:06 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170385,Order Shipped,"9,588"
+202603,12,"Mar 17, 2026, 10:28:22 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170386,Order Shipped,"1,200"
+202603,12,"Mar 17, 2026, 11:20:25 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170388,Order Shipped,"1,425"
+202603,12,"Mar 17, 2026, 11:50:51 AM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603170389,Order Shipped,"2,760"
+202603,12,"Mar 17, 2026, 11:59:26 AM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603170390,Order Shipped,"1,548"
+202603,12,"Mar 17, 2026, 12:03:11 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170391,Order Shipped,"23,370"
+202603,12,"Mar 17, 2026, 12:30:02 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170392,Order Shipped,"3,600"
+202603,12,"Mar 17, 2026, 12:44:49 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603170393,Order Shipped,"1,840"
+202603,12,"Mar 17, 2026, 4:35:09 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603170401,Order Shipped,"1,696"
+202603,12,"Mar 18, 2026, 1:54:50 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603180419,Order Shipped,"2,010"
+202603,12,"Mar 18, 2026, 11:46:39 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603180414,Order Shipped,"11,856"
+202603,12,"Mar 18, 2026, 12:27:18 PM",Boo,Boo FU,New,sales/order_edit,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603140340-1,Order Shipped,"3,242"
+202603,12,"Mar 18, 2026, 12:32:20 PM",Mie,Mie FU,New,sales/order_edit,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603180416-1,#N/A,#N/A
+202603,12,"Mar 18, 2026, 12:35:43 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2603160369-1,Order Shipped,"59,364"
+202603,12,"Mar 18, 2026, 12:54:00 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603180417,Order Shipped,"11,320"
+202603,12,"Mar 18, 2026, 2:30:20 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603180420,Order Shipped,"3,270"
+202603,12,"Mar 18, 2026, 2:40:59 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603180421,Order Shipped,"11,496"
+202603,12,"Mar 18, 2026, 2:57:40 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603180422,Order Shipped,"1,400"
+202603,12,"Mar 18, 2026, 4:21:10 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603180426,Payment Complete,"101,076"
+202603,12,"Mar 18, 2026, 6:11:28 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603180428,Order Shipped,948
+202603,12,"Mar 18, 2026, 6:15:21 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603180429,Order Shipped,"3,960"
+202603,12,"Mar 18, 2026, 6:25:40 PM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603180431,Order Shipped,"3,140"
+202603,12,"Mar 18, 2026, 7:29:33 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170396-1,Order Shipped,"31,696"
+202603,12,"Mar 19, 2026, 1:45:11 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603190442,#N/A,#N/A
+202603,12,"Mar 19, 2026, 10:39:55 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603190437,Order Shipped,"3,948"
+202603,12,"Mar 19, 2026, 11:07:19 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603190438,Order Shipped,"1,848"
+202603,12,"Mar 19, 2026, 11:13:28 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603190439,Order Shipped,"4,279"
+202603,12,"Mar 19, 2026, 2:27:14 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603190444,Order Shipped,"3,297"
+202603,12,"Mar 19, 2026, 2:44:26 PM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603190446,Order Shipped,"78,840"
+202603,12,"Mar 19, 2026, 3:45:50 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603190447,Order Shipped,"3,200"
+202603,12,"Mar 19, 2026, 4:08:01 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603190450,Order Shipped,"2,238"
+202603,12,"Mar 19, 2026, 4:09:24 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603190451,#N/A,#N/A
+202603,12,"Mar 19, 2026, 4:18:23 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603190452,Order Shipped,"3,750"
+202603,12,"Mar 19, 2026, 5:28:17 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603190453,Order Shipped,"1,800"
+202603,12,"Mar 19, 2026, 6:56:37 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603190457,Order Shipped,"21,051"
+202603,12,"Mar 20, 2026, 12:20:11 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603170408-1,Order Shipped,"4,200"
+202603,12,"Mar 20, 2026, 12:48:53 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603200463,Order Shipped,"3,170"
+202603,12,"Mar 20, 2026, 5:03:36 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603200467,#N/A,#N/A
+202603,12,"Mar 20, 2026, 5:16:20 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603200468,Order Shipped,"13,758"
+202603,12,"Mar 20, 2026, 6:38:59 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603200467-1,Order Shipped,"219,519"
+202603,12,"Mar 20, 2026, 8:52:16 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603200470,#N/A,#N/A
+202603,12,"Mar 21, 2026, 2:39:04 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603210472,Order Shipped,"2,138"
+202603,12,"Mar 21, 2026, 3:49:08 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603210473,Order Shipped,"4,900"
+202603,13,"Mar 22, 2026, 2:51:06 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603220482,Order Shipped,"2,429"
+202603,13,"Mar 23, 2026, 1:22:50 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603230499,Order Shipped,"6,979"
+202603,13,"Mar 23, 2026, 1:30:40 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603230500,Order Shipped,"4,030"
+202603,13,"Mar 23, 2026, 1:44:29 PM",Yui,Yui FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603230502,Order Shipped,"6,518"
+202603,13,"Mar 23, 2026, 11:02:54 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230490,Order Shipped,"10,620"
+202603,13,"Mar 23, 2026, 11:23:41 AM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603230491,Order Shipped,"10,254"
+202603,13,"Mar 23, 2026, 11:26:07 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230492,Order Shipped,"14,391"
+202603,13,"Mar 23, 2026, 11:36:47 AM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603230493,Completed,"9,700"
+202603,13,"Mar 23, 2026, 12:05:16 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230496,Order Shipped,"3,720"
+202603,13,"Mar 23, 2026, 12:16:32 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230497,Order Shipped,"4,788"
+202603,13,"Mar 23, 2026, 2:02:40 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230503,Completed,"3,339"
+202603,13,"Mar 23, 2026, 2:07:20 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230504,#N/A,#N/A
+202603,13,"Mar 23, 2026, 2:38:57 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230506,Order Shipped,"3,493"
+202603,13,"Mar 23, 2026, 2:41:50 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230504-1,Order Shipped,"7,198"
+202603,13,"Mar 23, 2026, 2:53:15 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230507,Order Shipped,"3,948"
+202603,13,"Mar 23, 2026, 3:57:59 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603230508,Order Shipped,"18,815"
+202603,13,"Mar 23, 2026, 5:25:24 PM",Yui,Yui FU,New,sales/order_edit,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603140334-1,Completed,"17,250"
+202603,13,"Mar 23, 2026, 6:23:03 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603230514,Order Shipped,"4,025"
+202603,13,"Mar 24, 2026, 11:03:01 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603240517,#N/A,#N/A
+202603,13,"Mar 24, 2026, 11:41:04 AM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603240518,Order Shipped,"2,488"
+202603,13,"Mar 24, 2026, 12:07:06 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603240519,Order Shipped,"5,500"
+202603,13,"Mar 24, 2026, 1:19:31 PM",Mie,Mie FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603240523,Completed,"3,778"
+202603,13,"Mar 24, 2026, 2:47:24 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603240527,Order Shipped,"2,036"
+202603,13,"Mar 24, 2026, 4:41:07 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603240529,Order Shipped,"78,638"
+202603,13,"Mar 24, 2026, 5:26:59 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603240532,Order Shipped,999
+202603,13,"Mar 24, 2026, 6:33:37 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603240535,Order Shipped,"2,358"
+202603,13,"Mar 24, 2026, 6:57:14 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603240536,Order Shipped,958
+202603,13,"Mar 25, 2026, 11:31:57 AM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603250545,Order Shipped,"7,794"
+202603,13,"Mar 25, 2026, 2:43:06 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603250550,Order Shipped,"1,626"
+202603,13,"Mar 25, 2026, 3:04:40 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603250551,Completed,"14,408"
+202603,13,"Mar 25, 2026, 4:36:11 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603250554,Order Shipped,"1,038"
+202603,13,"Mar 25, 2026, 6:04:10 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603250558,Order Shipped,"5,748"
+202603,13,"Mar 26, 2026, 10:01:44 AM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603260563,Order Shipped,880
+202603,13,"Mar 26, 2026, 10:53:21 AM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603260564,#N/A,#N/A
+202603,13,"Mar 26, 2026, 11:42:29 AM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603260565,Completed,"11,690"
+202603,13,"Mar 26, 2026, 12:15:56 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603260568,Order Shipped,"3,418"
+202603,13,"Mar 26, 2026, 12:17:18 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603260569,Order Shipped,"6,836"
+202603,13,"Mar 26, 2026, 2:21:16 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603260573,Order Shipped,"3,354"
+202603,13,"Mar 26, 2026, 3:33:27 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603260580,Order Shipped,"12,360"
+202603,13,"Mar 26, 2026, 4:25:13 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603260582,#N/A,#N/A
+202603,13,"Mar 27, 2026, 12:00:43 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603260582-1,Order Shipped,"2,216"
+202603,13,"Mar 26, 2026, 4:36:42 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603260583,Order Shipped,"41,970"
+202603,13,"Mar 26, 2026, 4:49:27 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603260584,Order Shipped,"14,376"
+202603,13,"Mar 26, 2026, 5:11:44 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603260585,Order Shipped,"4,788"
+202603,13,"Mar 26, 2026, 5:26:46 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603260586,Order Shipped,"3,160"
+202603,13,"Mar 26, 2026, 6:49:28 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603260587,Completed,"17,931"
+202603,13,"Mar 26, 2026, 7:43:27 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603260589,Order Shipped,"11,300"
+202603,13,"Mar 28, 2026, 11:21:45 AM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603260591-1,Order Shipped,"1,625"
+202603,13,"Mar 27, 2026, 11:25:29 AM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603270594,Order Shipped,876
+202603,13,"Mar 27, 2026, 1:54:54 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603270600,Order Shipped,"2,797"
+202603,13,"Mar 27, 2026, 2:39:26 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270603,Order Shipped,"7,146"
+202603,13,"Mar 27, 2026, 2:49:56 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270604,Order Shipped,"10,008"
+202603,13,"Mar 27, 2026, 5:39:53 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603270607,Order Shipped,"4,775"
+202603,13,"Mar 27, 2026, 5:44:59 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270608,Order Shipped,"13,374"
+202603,13,"Mar 27, 2026, 6:03:07 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603270610,Order Shipped,"1,588"
+202603,13,"Mar 27, 2026, 6:05:02 PM",Mie,Mie FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270611,#N/A,#N/A
+202603,13,"Mar 27, 2026, 6:11:21 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270611-1,Order Shipped,"3,090"
+202603,13,"Mar 27, 2026, 7:11:27 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270613,Order Shipped,"7,992"
+202603,13,"Mar 27, 2026, 7:35:20 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270614,#N/A,#N/A
+202603,13,"Mar 27, 2026, 8:02:39 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270614-1,Order Shipped,"7,332"
+202603,13,"Mar 27, 2026, 8:18:48 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270616,Order Shipped,"1,518"
+202603,13,"Mar 27, 2026, 8:27:53 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603270617,Order Shipped,"4,182"
+202603,13,"Mar 28, 2026, 11:11:51 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603280622,#N/A,#N/A
+202603,13,"Mar 28, 2026, 11:26:11 AM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603280622-1,Order Shipped,"1,892"
+202603,14,"Mar 30, 2026, 7:23:48 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603280623-1,Order Shipped,"4,173"
+202603,13,"Mar 28, 2026, 2:04:29 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603280625,Order Shipped,"2,297"
+202603,13,"Mar 28, 2026, 3:26:19 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603280626,Order Shipped,959
+202603,13,"Mar 28, 2026, 4:28:05 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603280627,#N/A,#N/A
+202603,14,"Mar 30, 2026, 11:48:39 AM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603300647,Order Shipped,"5,350"
+202603,14,"Mar 30, 2026, 12:01:08 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603300648,Order Shipped,"3,293"
+202603,14,"Mar 30, 2026, 2:22:29 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603300651,Order Shipped,"11,199"
+202603,14,"Mar 30, 2026, 2:43:44 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603300652,Order Shipped,"29,904"
+202603,14,"Mar 30, 2026, 5:01:18 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603300655,Order Shipped,"3,493"
+202603,14,"Mar 30, 2026, 7:56:38 PM",Mie,Mie FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603300658,Order Shipped,"3,695"
+202603,14,"Mar 31, 2026, 8:03:41 PM",Mie,Mie FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603310672,Order Shipped,"1,650"
+202603,14,"Mar 31, 2026, 6:46:37 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603310669,#N/A,#N/A
+202603,14,"Mar 31, 2026, 4:34:40 PM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603310667,Order Shipped,"9,360"
+202603,14,"Mar 31, 2026, 4:17:28 PM",Mie,Mie FU,New,sales/order_edit,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603310666-1,#N/A,#N/A
+202603,14,"Mar 31, 2026, 3:45:03 PM",Mie,Mie FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603310666,#N/A,#N/A
+202603,14,"Mar 31, 2026, 12:53:44 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603310662,Order Shipped,"3,579"
+202603,14,"Mar 31, 2026, 11:23:21 AM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2603310661,Order Shipped,"1,149"
+202603,14,"Mar 31, 2026, 10:32:42 AM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2603310660,Order Shipped,"4,316"
+202603,14,"Mar 31, 2026, 1:12:21 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2603310663,Order Shipped,"9,093"
+202604,14,"Apr 1, 2026, 10:34:36 AM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 English
+",Order,OR2604010104,Order Shipped,"4,734"
+202604,14,"Apr 1, 2026, 11:06:24 AM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604010106,#N/A,#N/A
+202604,14,"Apr 1, 2026, 11:29:35 AM",Mie,Mie FU,New,sales/order_edit,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2603310666-2,Order Shipped,"16,920"
+202604,14,"Apr 1, 2026, 2:11:11 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604010109,#N/A,#N/A
+202604,14,"Apr 1, 2026, 2:19:18 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604010111,Order Shipped,918
+202604,14,"Apr 1, 2026, 2:24:43 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604010112,Order Shipped,"4,560"
+202604,14,"Apr 1, 2026, 2:30:00 PM",Yui,Yui FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604010110-1,Order Shipped,"6,432"
+202604,14,"Apr 1, 2026, 2:50:26 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604010113,Order Shipped,"7,350"
+202604,14,"Apr 1, 2026, 3:02:36 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2604010115,Order Shipped,"12,586"
+202604,14,"Apr 1, 2026, 3:07:01 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604010116,Order Shipped,"2,900"
+202604,14,"Apr 1, 2026, 3:16:35 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604010117,Order Shipped,"3,599"
+202604,14,"Apr 1, 2026, 5:35:05 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 English
+",Order,OR2604010121,Order Shipped,"5,912"
+202604,14,"Apr 1, 2026, 6:54:57 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2604010123,Order Shipped,"1,738"
+202604,14,"Apr 2, 2026, 1:13:29 PM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604020133,Order Shipped,"35,790"
+202604,14,"Apr 2, 2026, 11:31:32 AM",Mie,Mie FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604020131,Order Shipped,"1,189"
+202604,14,"Apr 2, 2026, 2:38:31 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now English
+",Order,OR2603310675-1,Partial Delivered,"19,235"
+202604,14,"Apr 2, 2026, 2:52:42 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604010102-1,Order Shipped,"11,470"
+202604,14,"Apr 2, 2026, 3:04:55 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604020139,#N/A,#N/A
+202604,14,"Apr 2, 2026, 4:01:47 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604020141,Order Shipped,"3,143"
+202604,14,"Apr 2, 2026, 6:37:07 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604020142-1,#N/A,#N/A
+202604,14,"Apr 2, 2026, 6:51:45 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604020142-2,#N/A,#N/A
+202604,14,"Apr 2, 2026, 7:03:55 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2604020144,Order Shipped,"5,635"
+202604,14,"Apr 2, 2026, 7:52:13 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604020146,Order Shipped,"5,998"
+202604,14,"Apr 2, 2026, 8:45:32 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604020149,Payment Complete,"4,198"
+202604,14,"Apr 3, 2026, 1:01:05 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604030163,Payment Complete,"4,845"
+202604,14,"Apr 3, 2026, 11:22:46 AM",Yui,Yui FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604030156,Order Shipped,549
+202604,14,"Apr 3, 2026, 11:30:58 AM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2604030157,Order Shipped,"10,830"
+202604,14,"Apr 3, 2026, 11:36:13 AM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604030158,Order Shipped,"4,232"
+202604,14,"Apr 3, 2026, 12:04:10 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2604030159,#N/A,#N/A
+202604,14,"Apr 3, 2026, 12:09:32 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604030160,Order Shipped,"1,600"
+202604,14,"Apr 3, 2026, 12:34:23 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604030161,Order Shipped,"4,857"
+202604,14,"Apr 3, 2026, 12:42:28 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604030162,Order Shipped,"3,095"
+202604,14,"Apr 3, 2026, 2:12:21 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2604030165,#N/A,#N/A
+202604,14,"Apr 3, 2026, 3:16:23 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604030166,Order Shipped,"2,700"
+202604,14,"Apr 3, 2026, 4:36:33 PM",Yui,Yui FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604030167,Payment Complete,"4,375"
+202604,14,"Apr 3, 2026, 5:59:13 PM",Boo,Boo FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604030169,Order Shipped,"1,199"
+202604,14,"Apr 3, 2026, 6:05:33 PM",Boo,Boo FU,New,,"Liq9.asia
+   liq9
+      LiQ9 Thai
+",Order,OR2604030170,#N/A,#N/A
+202604,14,"Apr 3, 2026, 6:08:40 PM",Boo,Boo FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2604030171,#N/A,#N/A
+202604,14,"Apr 3, 2026, 8:08:28 PM",Boo,Boo FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604020137-1,Payment Complete,"38,092"
+202604,14,"Apr 3, 2026, 8:46:59 PM",Boo,Boo FU,New,,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604030172,Order Shipped,"1,450"
+202604,14,"Apr 4, 2026, 1:12:43 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604040178,Order Shipped,"2,999"
+202604,14,"Apr 4, 2026, 4:51:33 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604040182,#N/A,#N/A
+202604,14,"Apr 4, 2026, 5:09:36 PM",Mie,Mie FU,New,sales/order_edit,"Wine-now.asia
+   winenow
+      Wine-now Thai
+",Order,OR2604010114-1,Partial Delivered,"44,128"
+202604,15,"Apr 5, 2026, 1:44:56 PM",Mie,Mie FU,New,,"Wine-now & Liq9
+   backend
+      Wine-Now & Liq9
+",Order,OR2604050192,Order Shipped,"2,229"
+202604,15,"Apr 6, 2026, 1:12:44 PM",Yui,Yui FU,New,,"Liq9 B2B
+   Liq9 B2B
+      Liq9 B2B
+",Order,OR2604060200,Payment Complete,"5,980"

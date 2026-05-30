@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Featured Selection — Premium Spirits & Liquor | LIQ9 Thailand</title>
+<meta name="description" content="Shop 20 curated spirits collections in Thailand. Premium whisky, Hennessy cognac, tequila, craft gin, sake, Thai craft spirits and more. Bangkok same-day delivery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:     #C8A030;
+  --gold-dk:  #9A7A20;
+  --gold-lt:  #FBF3E0;
+  --black:    #0D0D0D;
+  --ink:      #1C1C1C;
+  --body:     #4A4A4A;
+  --muted:    #8A8A8A;
+  --faint:    #B0B0B0;
+  --rule:     #E8E4E0;
+  --rule-lt:  #F0ECE8;
+  --bg:       #FFFFFF;
+  --bg-warm:  #FAFAF8;
+  --bg-tinted:#F5F3F0;
+  --h: 'Montserrat', 'Gotham', sans-serif;
+  --b: 'Lato', 'Gotham Book', sans-serif;
+  --max: 1280px;
+  --pad: clamp(20px, 4vw, 56px);
+  --gap: 20px;
+  --r: 6px;
+  --dur: .4s;
+  --ease: cubic-bezier(.25,.46,.45,.94);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--bg); color: var(--body); font-family: var(--b); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* NAV — dark, frosted */
+#nav { position: sticky; top: 0; z-index: 200; background: rgba(13,13,13,.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(200,160,48,.15); transition: box-shadow .3s; }
+#nav.raised { box-shadow: 0 1px 24px rgba(0,0,0,.3); }
+.nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); display: flex; align-items: stretch; height: 48px; gap: 0; overflow-x: auto; scrollbar-width: none; }
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-logo { font-family: var(--h); font-size: 14px; font-weight: 700; letter-spacing: -.02em; color: #fff; display: flex; align-items: center; padding-right: 24px; margin-right: 8px; border-right: 1px solid rgba(255,255,255,.1); flex-shrink: 0; white-space: nowrap; }
+.nav-logo mark { background: none; color: var(--gold); }
+.nav-item { font-family: var(--h); font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.4); padding: 0 14px; display: flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; border-top: 2px solid transparent; transition: color .2s, border-color .2s; text-decoration: none; }
+.nav-item:hover { color: rgba(255,255,255,.75); }
+.nav-item.on { color: var(--gold); border-bottom-color: var(--gold); }
+.nav-badge { font-size: 8px; font-weight: 600; background: rgba(200,160,48,.15); color: var(--gold); padding: 2px 6px; border-radius: 20px; line-height: 1.5; }
+.nav-item.on .nav-badge { background: var(--gold); color: var(--black); }
+
+/* PAGE HEADER — dark, minimal */
+.ph { background: var(--black); padding: clamp(56px,7vw,100px) var(--pad) clamp(48px,5vw,72px); }
+.ph-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+.ph-kicker { font-family: var(--h); font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 20px; opacity: .7; }
+.ph-kicker::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
+.ph-h1 { font-family: var(--h); font-size: clamp(40px,6vw,72px); font-weight: 800; letter-spacing: -.04em; line-height: .92; text-transform: uppercase; color: #fff; margin-bottom: 24px; }
+.ph-h1 em { color: var(--gold); font-style: normal; }
+.ph-sub { font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,.45); max-width: 480px; }
+.ph-stats { display: flex; gap: 40px; align-items: flex-end; flex-shrink: 0; }
+.ph-stat { text-align: right; }
+.ph-num { font-family: var(--h); font-size: 42px; font-weight: 700; letter-spacing: -.04em; line-height: 1; color: #fff; display: flex; align-items: flex-start; justify-content: flex-end; }
+.ph-num sup { font-size: .4em; color: var(--gold); margin-top: 6px; }
+.ph-label { font-family: var(--h); font-size: 9px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.25); margin-top: 6px; }
+
+/* CHAPTER HEADER */
+.ch { max-width: var(--max); margin: 0 auto; padding: clamp(56px,6vw,88px) var(--pad) clamp(24px,3vw,36px); display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.ch-eyebrow { font-family: var(--h); font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.ch-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+.ch-h2 { font-family: var(--h); font-size: clamp(22px,2.8vw,32px); font-weight: 700; letter-spacing: -.025em; color: var(--black); line-height: 1.1; }
+.ch-sub { font-size: 14px; font-weight: 300; line-height: 1.75; color: var(--muted); max-width: 520px; margin-top: 10px; }
+.ch-link { font-family: var(--h); font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-dk); display: flex; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; transition: gap var(--dur) var(--ease); opacity: .8; }
+.ch-link:hover { gap: 10px; opacity: 1; }
+
+/* GRID — uniform 3-col */
+.grid { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); display: grid; gap: var(--gap); grid-template-columns: repeat(3, 1fr); }
+.grid.g2 { grid-template-columns: repeat(2, 1fr); }
+.grid.g1 { grid-template-columns: 1fr; }
+.mt { margin-top: var(--gap); }
+.divider { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); margin-top: clamp(56px,6vw,88px); }
+.divider-line { height: 1px; background: var(--rule); }
+.tinted { background: var(--bg-warm); }
+
+/* CARD — borderless, subtle shadow, rounded */
+.card { position: relative; display: flex; flex-direction: column; background: var(--bg); border: none; border-radius: var(--r); overflow: hidden; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.03); transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.card:hover { box-shadow: 0 8px 40px rgba(0,0,0,.1); transform: translateY(-3px); z-index: 2; }
+.card:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.card-img { position: relative; overflow: hidden; flex-shrink: 0; aspect-ratio: 16 / 10; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 1s var(--ease); will-change: transform; }
+.card:hover .card-img img { transform: scale(1.04); }
+.card-img::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 25%; background: linear-gradient(to bottom, transparent, rgba(0,0,0,.06)); pointer-events: none; }
+.card-content { flex: 1; display: flex; flex-direction: column; padding: 20px 22px 20px; }
+.card-eye { font-family: var(--h); font-size: 9px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.card-title { font-family: var(--h); font-size: clamp(17px,1.8vw,22px); font-weight: 700; letter-spacing: -.02em; color: var(--black); line-height: 1.15; }
+.card-title em { display: block; font-style: normal; font-weight: 300; letter-spacing: 0; color: var(--muted); font-family: var(--b); font-size: .84em; margin-top: 4px; }
+.card-brands { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+.brand-pill { font-family: var(--h); font-size: 8px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; background: transparent; color: var(--muted); padding: 3px 0; border: none; border-bottom: 1px solid var(--rule); transition: color var(--dur), border-color var(--dur); }
+.card:hover .brand-pill { color: var(--gold-dk); border-color: var(--gold); }
+.card-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--body); margin-top: 12px; flex: 1; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tag { font-family: var(--h); font-size: 8px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; background: var(--bg-tinted); color: var(--muted); padding: 4px 10px; border-radius: 3px; }
+.card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rule-lt); }
+.card-price { font-family: var(--h); font-size: 14px; font-weight: 700; color: var(--black); letter-spacing: -.01em; }
+.card-price small { font-size: 9px; font-weight: 400; color: var(--faint); letter-spacing: .06em; text-transform: uppercase; display: block; margin-bottom: 2px; }
+.card-cta { font-family: var(--h); font-size: 9px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-dk); background: none; padding: 0; border-bottom: 1px solid transparent; transition: border-color var(--dur); }
+.card:hover .card-cta { border-color: var(--gold); }
+
+/* FEATURED BAND */
+.featured-band { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); margin-top: clamp(56px,6vw,88px); }
+.featured-inner { background: var(--black); border-radius: var(--r); padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; border: 1px solid rgba(200,160,48,.2); }
+.feat-label { font-family: var(--h); font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); opacity: .5; margin-bottom: 8px; }
+.feat-title { font-family: var(--h); font-size: clamp(18px,2vw,26px); font-weight: 700; letter-spacing: -.02em; color: #fff; line-height: 1.15; }
+.feat-sub { font-size: 13px; font-weight: 300; color: rgba(255,255,255,.4); margin-top: 8px; }
+.feat-cta { font-family: var(--h); font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 11px 28px; border-radius: var(--r); flex-shrink: 0; transition: background .2s, color .2s; cursor: pointer; }
+.feat-cta:hover { background: #fff; color: var(--black); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.stagger > * { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+.stagger.in > *:nth-child(1) { transition-delay: .05s; }
+.stagger.in > *:nth-child(2) { transition-delay: .12s; }
+.stagger.in > *:nth-child(3) { transition-delay: .19s; }
+.stagger.in > *:nth-child(4) { transition-delay: .26s; }
+.stagger.in > *:nth-child(5) { transition-delay: .33s; }
+.stagger.in > *:nth-child(6) { transition-delay: .40s; }
+.stagger.in > * { opacity: 1; transform: translateY(0); }
+
+/* FAQ — dark */
+.faq-section { background: var(--black); border-top: 1px solid rgba(200,160,48,.15); margin-top: clamp(56px,6vw,88px); padding: clamp(56px,6vw,88px) 0; }
+.faq-inner { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+.faq-head { margin-bottom: 52px; }
+.faq-kicker { font-family: var(--h); font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); opacity: .6; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.faq-kicker::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+.faq-title { font-family: var(--h); font-size: clamp(24px,2.8vw,34px); font-weight: 700; letter-spacing: -.025em; color: #fff; margin-bottom: 10px; }
+.faq-sub { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.35); max-width: 520px; line-height: 1.75; }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px 72px; }
+.faq-group-label { font-family: var(--h); font-size: 9px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); opacity: .6; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.faq-item { border-bottom: 1px solid rgba(255,255,255,.08); }
+.faq-q { font-family: var(--h); font-size: 13px; font-weight: 600; color: #fff; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 16px 0; cursor: pointer; list-style: none; user-select: none; transition: color .25s; }
+.faq-q::-webkit-details-marker { display: none; }
+.faq-q:hover, .faq-item[open] .faq-q { color: var(--gold); }
+.faq-icon { font-size: 18px; font-weight: 300; color: rgba(255,255,255,.25); flex-shrink: 0; line-height: 1; transition: transform .3s var(--ease), color .25s; }
+.faq-item[open] .faq-icon { transform: rotate(45deg); color: var(--gold); }
+.faq-a { padding: 0 0 18px; font-size: 13px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,.5); animation: faq-in .25s ease; }
+@keyframes faq-in { from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);} }
+.faq-a p { margin-bottom: 8px; } .faq-a p:last-child { margin-bottom: 0; }
+.faq-a ul { padding-left: 18px; margin-top: 8px; } .faq-a li { margin-bottom: 5px; }
+.faq-a strong { color: #fff; font-weight: 600; }
+.faq-a a { color: var(--gold); text-decoration: underline; text-decoration-color: rgba(200,160,48,.3); }
+.legal-bar { background: #000; padding: 16px var(--pad); }
+.legal-inner { max-width: var(--max); margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+.legal-inner span { font-family: var(--h); font-size: 9px; font-weight: 400; letter-spacing: .08em; color: rgba(255,255,255,.25); text-transform: uppercase; }
+
+/* RESPONSIVE */
+@media(max-width:1024px) { .grid { grid-template-columns: repeat(2, 1fr); } .grid.g2 { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:768px) { .ph-stats { display: none; } .ch { flex-direction: column; gap: 12px; } .faq-grid { grid-template-columns: 1fr; gap: 36px; } }
+@media(max-width:520px) { .grid, .grid.g2, .grid.g1 { grid-template-columns: 1fr; } }
+@media(max-width:480px) { .legal-inner { flex-direction: column; gap: 8px; } .featured-inner { padding: 24px; } }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">LI<mark>Q9</mark></div>
+    <a class="nav-item on" href="#s1">Gift <span class="nav-badge">4</span></a>
+    <a class="nav-item" href="#s2">Scotch & Whisky <span class="nav-badge">5</span></a>
+    <a class="nav-item" href="#s3">Cognac & Brandy <span class="nav-badge">4</span></a>
+    <a class="nav-item" href="#s4">Something New <span class="nav-badge">6</span></a>
+    <a class="nav-item" href="#s5">Thailand <span class="nav-badge">1</span></a>
+  </div>
+</nav>
+
+<header class="ph">
+  <div class="ph-inner">
+    <div>
+      <p class="ph-kicker">LIQ9 Thailand</p>
+      <h1 class="ph-h1">Featured<br><em>Selection</em></h1>
+      <p class="ph-sub">Thailand's most curated spirits collections — expertly selected, same-day Bangkok delivery.</p>
+    </div>
+    <div class="ph-stats">
+      <div class="ph-stat"><div class="ph-num">20<sup>+</sup></div><div class="ph-label">Collections</div></div>
+      <div class="ph-stat"><div class="ph-num">5</div><div class="ph-label">Chapters</div></div>
+      <div class="ph-stat"><div class="ph-num">4K<sup>+</sup></div><div class="ph-label">Labels</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ CH 1 — I NEED A GIFT ══ -->
+<section id="s1">
+  <div class="ch reveal">
+    <div class="ch-left">
+      <p class="ch-eyebrow">Chapter 01</p>
+      <h2 class="ch-h2">I Need a Gift</h2>
+      <p class="ch-sub">From ฿380 to ฿27,999 — the right bottle for every occasion, budget and recipient. Real prices, live stock.</p>
+    </div>
+    <a class="ch-link" href="https://th.liq9.com/liquor.html">See All Spirits →</a>
+  </div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/whisky.html?price=5000-&product_list_order=sort-by-price-lh'">
+      <div class="card-img"><img src="wysiwyg/collections/rare-whisky-gift.jpg" alt="Rare Whisky Premium Gift" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">LIQ9 Vault · Confirmed Prices</p>
+        <h3 class="card-title">Rare Whisky<em>Premium Gift Tier</em></h3>
+        <div class="card-brands"><span class="brand-pill">Macallan ฿10,499</span><span class="brand-pill">Woodford Derby ฿2,999</span><span class="brand-pill">JW Blue Label</span><span class="brand-pill">Blanton's</span></div>
+        <p class="card-desc">The Macallan Harmony Collection at ฿10,499. Woodford Reserve Kentucky Derby at ฿2,999. Real prices, live stock. These are allocated bottles that don't stay on shelves — rare whisky for the recipient who has everything except this.</p>
+        <div class="card-tags"><span class="tag">Rare</span><span class="tag">Allocated</span><span class="tag">Collector</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿2,999</div><span class="card-cta">View Premium Gifts →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/liquor/brandy.html?country=36&price=5000-'">
+      <div class="card-img"><img src="wysiwyg/collections/cognac-xo-gift.jpg" alt="Cognac XO Collector" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Cognac · France · Asia's Premier Gift</p>
+        <h3 class="card-title">Cognac XO<em>Hennessy · Martell · Rémy Martin</em></h3>
+        <div class="card-brands"><span class="brand-pill">Hennessy XO</span><span class="brand-pill">Martell XXO ฿27,999</span><span class="brand-pill">Rémy Martin XO</span><span class="brand-pill">Courvoisier</span></div>
+        <p class="card-desc">Cognac is the most gifted premium spirit in Asia. Martell Chanteloup XXO confirmed in stock at ฿27,999. Hennessy XO always here for when the occasion demands it. The bottle communicates respect, prestige and celebration in every culture.</p>
+        <div class="card-tags"><span class="tag">Cognac</span><span class="tag">XO</span><span class="tag">Asian Gift</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,200</div><span class="card-cta">Explore XO Cognac →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/feature-selection-liq-9/limited-edition-item.html'">
+      <div class="card-img"><img src="wysiwyg/collections/art-bottles.jpg" alt="Art Bottles Special Pack" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Limited Edition · Art · Gift-Worthy</p>
+        <h3 class="card-title">Art Bottles & Limited Editions<em>The Bottle Is the Statement</em></h3>
+        <div class="card-brands"><span class="brand-pill">JD McLaren 2024 ฿1,299</span><span class="brand-pill">JW Festive Decanter</span><span class="brand-pill">Absolut 4.5L ฿4,595</span></div>
+        <p class="card-desc">Jack Daniel's in McLaren livery at ฿1,299. Johnnie Walker Blue Festive Decanter. Absolut in the 4.5L statement bottle at ฿4,595. When the packaging itself is the gift — limited editions that disappear fast. Confirmed in stock with real prices.</p>
+        <div class="card-tags"><span class="tag">Art Edition</span><span class="tag">Limited</span><span class="tag">Design</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,299</div><span class="card-cta">Explore Art Bottles →</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid g1 stagger mt">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/liquor.html?price=-1000&product_list_order=sort-by-price-hl'" style="max-width:calc((var(--max) - var(--gap)*2) / 3);">
+      <div class="card-img"><img src="wysiwyg/collections/under-1000-gift.jpg" alt="Under ฿1,000 Gifts" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Smart Gifting · Under ฿1,000</p>
+        <h3 class="card-title">Under ฿1,000<em>Gifts That Don't Look Like a Budget</em></h3>
+        <div class="card-brands"><span class="brand-pill">JW Black ฿780</span><span class="brand-pill">Doorly's Rum</span><span class="brand-pill">Tanqueray Gin</span><span class="brand-pill">Bulleit Bourbon</span></div>
+        <p class="card-desc">Not the cheapest. The smartest. Johnnie Walker Black at ฿780 looks and tastes like it costs twice as much. Every bottle here was chosen to impress without overspending — because great taste shouldn't require a great budget.</p>
+        <div class="card-tags"><span class="tag">Under ฿1,000</span><span class="tag">Smart Gift</span><span class="tag">All Types</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿380</div><span class="card-cta">Shop Under ฿1,000 →</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ══ CH 2 — SCOTCH & WHISKY ══ -->
+<div class="divider reveal"><div class="divider-line"></div></div>
+<section id="s2" class="tinted" style="padding-bottom:56px">
+  <div class="ch reveal">
+    <div class="ch-left">
+      <p class="ch-eyebrow">Chapter 02</p>
+      <h2 class="ch-h2">I Drink Scotch & Whisky</h2>
+      <p class="ch-sub">From everyday blended Scotch to collector Japanese single malts — the world's great whiskies in one place.</p>
+    </div>
+    <a class="ch-link" href="https://th.liq9.com/whisky/scotch-whisky.html">See All Whisky →</a>
+  </div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/whisky/scotch-whisky.html'">
+      <div class="card-img"><img src="wysiwyg/collections/scotch-classics.jpg" alt="Blended Scotch Classics" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Scotland · Blended Scotch · Most Trusted</p>
+        <h3 class="card-title">The Classics<em>Johnnie Walker · Chivas · Ballantine's</em></h3>
+        <div class="card-brands"><span class="brand-pill">JW Black</span><span class="brand-pill">JW Gold</span><span class="brand-pill">JW Blue Label</span><span class="brand-pill">Chivas 12</span><span class="brand-pill">Ballantine's 17</span></div>
+        <p class="card-desc">The world's most recognised whisky brands, all in one place. The bottles that built modern whisky culture — and still outsell everything else 9 to 1. From Black Label's smoky sophistication to Blue Label's once-in-a-lifetime smoothness.</p>
+        <div class="card-tags"><span class="tag">Blended Scotch</span><span class="tag">JW</span><span class="tag">Chivas</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿680</div><span class="card-cta">Explore The Classics →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/whisky/the-single-malt-whisky/speyside.html'">
+      <div class="card-img"><img src="wysiwyg/collections/speyside.jpg" alt="Speyside Single Malt" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Scotland · Speyside · 76 Items</p>
+        <h3 class="card-title">Speyside Single Malt<em>Fruit, Honey & Sherry Cask</em></h3>
+        <div class="card-brands"><span class="brand-pill">Glenfarclas</span><span class="brand-pill">Glenrothes</span><span class="brand-pill">Glen Grant 12/18</span><span class="brand-pill">Balvenie</span></div>
+        <p class="card-desc">The natural step up from blended Scotch. 76 expressions from Scotland's most distillery-dense valley. Speyside delivers approachable richness — dried fruit, honey, vanilla and sherry cask warmth. Where most single malt journeys begin.</p>
+        <div class="card-tags"><span class="tag">Single Malt</span><span class="tag">76 Expressions</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,299</div><span class="card-cta">Explore Speyside →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/whisky/the-single-malt-whisky/islay.html'">
+      <div class="card-img"><img src="wysiwyg/collections/islay.jpg" alt="Islay Single Malt" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Scotland · Islay · 8 Distilleries</p>
+        <h3 class="card-title">Islay Single Malt<em>Smoky, Peaty, Polarising</em></h3>
+        <div class="card-brands"><span class="brand-pill">Ardbeg 10</span><span class="brand-pill">Laphroaig QC</span><span class="brand-pill">Lagavulin 16</span><span class="brand-pill">Bowmore 12</span></div>
+        <p class="card-desc">Eight distilleries on an island 25 miles long. Campfire, sea salt and ancient peat. Not for everyone — and that's exactly the point. Lagavulin 16 for the contemplative sipper. Ardbeg 10 for the bold. Once you love Islay, nothing else compares.</p>
+        <div class="card-tags"><span class="tag">Peated</span><span class="tag">8 Distilleries</span><span class="tag">Polarising</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,800</div><span class="card-cta">Explore Islay →</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid g2 stagger mt">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/feature-selection-liq-9/suntory-japanese-whisky.html'">
+      <div class="card-img"><img src="wysiwyg/collections/suntory.jpg" alt="House of Suntory" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Japan · Suntory · Three Distilleries</p>
+        <h3 class="card-title">House of Suntory<em>Yamazaki · Hakushu · Hibiki</em></h3>
+        <div class="card-brands"><span class="brand-pill">Yamazaki 12/18</span><span class="brand-pill">Hakushu 12</span><span class="brand-pill">Hibiki Harmony</span><span class="brand-pill">Hibiki 21</span><span class="brand-pill">Toki</span></div>
+        <p class="card-desc">Three distilleries. One philosophy. Yamazaki in the forest. Hakushu on the mountain. Hibiki the 24-season masterblend. Bangkok's most sought-after whisky collection — allocation sells out within days of restocking. Toki for the perfect highball.</p>
+        <div class="card-tags"><span class="tag">Japanese</span><span class="tag">Collector</span><span class="tag">Suntory</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,500</div><span class="card-cta">Explore Suntory →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/whisky.html?whisky_type=9532'">
+      <div class="card-img"><img src="wysiwyg/collections/bourbon-rye.jpg" alt="Bourbon & Rye" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">USA · Bourbon · Rye · Tennessee</p>
+        <h3 class="card-title">Bourbon & Rye<em>America's Whiskey on Its Own Terms</em></h3>
+        <div class="card-brands"><span class="brand-pill">Buffalo Trace</span><span class="brand-pill">Woodford Reserve</span><span class="brand-pill">Maker's Mark</span><span class="brand-pill">Bulleit Rye</span><span class="brand-pill">Jack Daniel's</span></div>
+        <p class="card-desc">New charred oak. Corn mash or rye grain. Sweeter, bolder and more accessible than Scotch — the gateway spirit for a new generation of whiskey drinkers. Buffalo Trace is always right. Bulleit Rye is the spicy contrast that makes an Old Fashioned sing.</p>
+        <div class="card-tags"><span class="tag">Bourbon</span><span class="tag">Rye</span><span class="tag">American</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿680</div><span class="card-cta">Explore American Whiskey →</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ══ CH 3 — COGNAC & BRANDY ══ -->
+<div class="divider reveal"><div class="divider-line"></div></div>
+<section id="s3">
+  <div class="ch reveal">
+    <div class="ch-left">
+      <p class="ch-eyebrow">Chapter 03</p>
+      <h2 class="ch-h2">I Drink Cognac & Brandy</h2>
+      <p class="ch-sub">From VS everyday to Paradis extraordinary — the most gifted premium spirit in Asia, all here.</p>
+    </div>
+    <a class="ch-link" href="https://th.liq9.com/liquor/brandy.html">See All Cognac →</a>
+  </div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/hennessy'">
+      <div class="card-img"><img src="wysiwyg/collections/hennessy.jpg" alt="Hennessy Cognac" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Cognac · Hennessy · The Full Range</p>
+        <h3 class="card-title">Hennessy<em>VS · VSOP · XO · Paradis</em></h3>
+        <div class="card-brands"><span class="brand-pill">Hennessy VS</span><span class="brand-pill">Hennessy VSOP</span><span class="brand-pill">Hennessy XO</span><span class="brand-pill">Hennessy Paradis</span></div>
+        <p class="card-desc">The world's most sold Cognac and Bangkok's most given gift. VS for mixing into cocktails. VSOP for quiet evenings. XO for making an impression that lasts. Paradis for the occasion you'll remember forever. Every expression confirmed in LIQ9 stock.</p>
+        <div class="card-tags"><span class="tag">Hennessy</span><span class="tag">VS · VSOP · XO</span><span class="tag">Bangkok #1</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿980</div><span class="card-cta">Explore Hennessy →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/martell'">
+      <div class="card-img"><img src="wysiwyg/collections/martell-remy.jpg" alt="Martell & Rémy Martin" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Cognac · France · For the Hennessy Graduate</p>
+        <h3 class="card-title">Martell & Rémy Martin<em>The XO Club</em></h3>
+        <div class="card-brands"><span class="brand-pill">Martell XXO ฿27,999</span><span class="brand-pill">Rémy Martin XO</span><span class="brand-pill">Rémy Martin VSOP</span><span class="brand-pill">Courvoisier XO</span></div>
+        <p class="card-desc">Martell Chanteloup XXO confirmed in stock at ฿27,999. Rémy Martin XO brings the finesse of Grande Champagne terroir. Courvoisier XO for the connoisseur seeking something different. For the buyer who knows Hennessy and wants to explore further.</p>
+        <div class="card-tags"><span class="tag">Martell</span><span class="tag">Rémy Martin</span><span class="tag">XO Club</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,800</div><span class="card-cta">Explore XO Club →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/catalogsearch/result/?q=vs+vsop'">
+      <div class="card-img"><img src="wysiwyg/collections/vs-vsop.jpg" alt="VS & VSOP Cognac" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Cognac · VS · VSOP · Daily</p>
+        <h3 class="card-title">VS & VSOP<em>Every Day Doesn't Need an XO</em></h3>
+        <div class="card-brands"><span class="brand-pill">Hennessy VS</span><span class="brand-pill">Rémy Martin VSOP</span><span class="brand-pill">Courvoisier VS</span><span class="brand-pill">Meukow VS</span></div>
+        <p class="card-desc">Great Cognac at accessible prices — for cocktails, on ice and after-dinner sipping without ceremony. Hennessy VS is Thailand's bestselling spirit in this tier. Rémy Martin VSOP brings Grande Champagne finesse to the everyday pour.</p>
+        <div class="card-tags"><span class="tag">VS · VSOP</span><span class="tag">Cocktails</span><span class="tag">Everyday</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿980</div><span class="card-cta">Shop VS & VSOP →</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid g1 stagger mt">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/liquor/brandy.html?brandy_type=184'" style="max-width:calc((var(--max) - var(--gap)*2) / 3);">
+      <div class="card-img"><img src="wysiwyg/collections/armagnac.jpg" alt="Armagnac" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">France · Armagnac · For the Connoisseur</p>
+        <h3 class="card-title">Armagnac & Beyond<em>Cognac's Older, Less Famous Sibling</em></h3>
+        <div class="card-brands"><span class="brand-pill">Delord Armagnac</span><span class="brand-pill">Domaine Tariquet</span><span class="brand-pill">Spanish Brandy</span></div>
+        <p class="card-desc">Cognac's older, less famous sibling. Single-distilled, estate-produced and deeply personal. For the drinker who has conquered the Cognac shelf and wants to discover what lies beyond — including aged Spanish Brandy and artisan French eau-de-vie.</p>
+        <div class="card-tags"><span class="tag">Armagnac</span><span class="tag">Single Distilled</span><span class="tag">Connoisseur</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,200</div><span class="card-cta">Explore Armagnac →</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ══ CH 4 — SOMETHING NEW ══ -->
+<div class="divider reveal"><div class="divider-line"></div></div>
+<section id="s4" class="tinted" style="padding-bottom:56px">
+  <div class="ch reveal">
+    <div class="ch-left">
+      <p class="ch-eyebrow">Chapter 04</p>
+      <h2 class="ch-h2">I Want Something New</h2>
+      <p class="ch-sub">The fastest-growing spirits in Bangkok — tequila, gin, rum, sake, aperitivo and Asian sweet spirits.</p>
+    </div>
+    <a class="ch-link" href="https://th.liq9.com/liquor.html">Explore All →</a>
+  </div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/liquor/tequila.html'">
+      <div class="card-img"><img src="wysiwyg/collections/tequila-mezcal.jpg" alt="Tequila & Mezcal" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Mexico · Tequila +57% in Bangkok 2024</p>
+        <h3 class="card-title">Tequila & Mezcal<em>Bangkok's Fastest-Growing Spirit</em></h3>
+        <div class="card-brands"><span class="brand-pill">Patron Silver</span><span class="brand-pill">Patron Anejo</span><span class="brand-pill">Don Julio Blanco</span><span class="brand-pill">Del Maguey Mezcal</span></div>
+        <p class="card-desc">Tequila grew 57% in Thailand in 2024. Not a trend — a permanent shift. 100% blue agave is the only rule that matters. Patron for the premium pour. Don Julio for the purist. Del Maguey for Oaxacan smoke that changes everything you thought about mezcal.</p>
+        <div class="card-tags"><span class="tag">Tequila +57%</span><span class="tag">100% Agave</span><span class="tag">Mezcal</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿980</div><span class="card-cta">Explore Tequila →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/liquor/gin.html'">
+      <div class="card-img"><img src="wysiwyg/collections/craft-gin.jpg" alt="Craft Gin" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Global · Gin · London to Bangkok</p>
+        <h3 class="card-title">Craft Gin<em>London Dry to Bangkok Botanicals</em></h3>
+        <div class="card-brands"><span class="brand-pill">Hendrick's</span><span class="brand-pill">Monkey 47</span><span class="brand-pill">Roku Gin</span><span class="brand-pill">Tanqueray 10</span><span class="brand-pill">Kristall Thai</span></div>
+        <p class="card-desc">London Dry for the classic G&T. Monkey 47's 47 Black Forest botanicals for the adventurous. Roku's sakura and sencha for Japanese precision. Kristall from organic Chiang Mai rice for Thai pride. The most diverse gin selection in Thailand.</p>
+        <div class="card-tags"><span class="tag">London Dry</span><span class="tag">Japanese</span><span class="tag">Thai Craft</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿680</div><span class="card-cta">Explore Craft Gin →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/liquor/rum.html'">
+      <div class="card-img"><img src="wysiwyg/collections/premium-rum.jpg" alt="Premium Rum" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Caribbean & Global · Rum +16%</p>
+        <h3 class="card-title">Premium Rum<em>The World's Most Underestimated Spirit</em></h3>
+        <div class="card-brands"><span class="brand-pill">Ron Zacapa 23</span><span class="brand-pill">Diplomatico Reserva</span><span class="brand-pill">Doorly's XO</span><span class="brand-pill">Mount Gay 1703</span></div>
+        <p class="card-desc">Rum grew 16% in Thailand in 2024. Ron Zacapa 23 is aged at 2,300m altitude in Guatemala — the "House Above the Clouds." Diplomatico Reserva Exclusiva rivals XO Cognac in depth at half the price. The category the whisky world is quietly switching to.</p>
+        <div class="card-tags"><span class="tag">Premium Rum</span><span class="tag">+16% Growth</span><span class="tag">Sipping</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,800</div><span class="card-cta">Explore Premium Rum →</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid stagger mt">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/liquor/sake-soju.html'">
+      <div class="card-img"><img src="wysiwyg/collections/sake.jpg" alt="Sake Japan" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Japan · Sake · 2,000 Years</p>
+        <h3 class="card-title">Sake<em>Japan's Answer to Wine</em></h3>
+        <div class="card-brands"><span class="brand-pill">Bijofu ฿900</span><span class="brand-pill">Shirakawago</span><span class="brand-pill">Dewazakura</span><span class="brand-pill">Hakutsuru</span></div>
+        <p class="card-desc">Bijofu Honjozo confirmed in stock at ฿900. Two thousand years of brewing tradition distilled into a single cup. Pairs better with Thai cuisine than most European wines — the umami bridge between Japanese precision and Thai bold flavours.</p>
+        <div class="card-tags"><span class="tag">Junmai · Ginjo</span><span class="tag">Thai Food Pairing</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿450</div><span class="card-cta">Explore Sake →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/feature-selection-liq-9/italian-aperitivo.html'">
+      <div class="card-img"><img src="wysiwyg/collections/aperitivo.jpg" alt="Aperitivo & Amaro" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Italy · Bitters +47% · Negroni Culture</p>
+        <h3 class="card-title">Aperitivo & Amaro<em>The Italian Way to Start and Finish</em></h3>
+        <div class="card-brands"><span class="brand-pill">Campari</span><span class="brand-pill">Aperol</span><span class="brand-pill">Martini Rosso</span><span class="brand-pill">Fernet-Branca</span><span class="brand-pill">Lillet</span></div>
+        <p class="card-desc">Bitters grew 47% in Thailand in 2024 — driven entirely by cocktail culture. Campari for the Negroni. Aperol for the Spritz. Fernet-Branca for after dinner. Bangkok's cocktail bars have made the Italian aperitivo hour a permanent fixture.</p>
+        <div class="card-tags"><span class="tag">Campari</span><span class="tag">Aperol</span><span class="tag">Negroni</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿480</div><span class="card-cta">Explore Aperitivo →</span></div>
+      </div>
+    </article>
+
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/liquor.html?other_type=123'">
+      <div class="card-img"><img src="wysiwyg/collections/umeshu-sweet.jpg" alt="Umeshu & Asian Sweet Spirits" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Japan · Korea · Sweet · Approachable</p>
+        <h3 class="card-title">Umeshu & Asian Sweet Spirits<em>The Sweet Side of Asia</em></h3>
+        <div class="card-brands"><span class="brand-pill">Choya Umeshu</span><span class="brand-pill">Kabosu Shibori</span><span class="brand-pill">Iichiko Shochu</span><span class="brand-pill">Jinro Soju</span></div>
+        <p class="card-desc">Choya's plum wine. Kabosu Shibori's yuzu citrus. Iichiko at a gentle 25% ABV. Jinro Soju for Korean BBQ nights. Light, food-friendly and easy to love — the perfect introduction for friends who say they don't drink spirits.</p>
+        <div class="card-tags"><span class="tag">Plum Wine</span><span class="tag">Soju</span><span class="tag">Easy Drinking</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿180</div><span class="card-cta">Explore Asian Sweet →</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ══ CH 5 — THAILAND ══ -->
+<div class="featured-band reveal">
+  <div class="featured-inner">
+    <div>
+      <p class="feat-label">Chapter 05 · Made in Thailand</p>
+      <h3 class="feat-title">I'm Proud of Thailand</h3>
+      <p class="feat-sub">Prakaan Single Malt · Asura Craft Spirits · Kristall Thai Gin — exclusively at LIQ9.</p>
+    </div>
+    <a class="feat-cta" href="#s5">Explore Thai Spirits →</a>
+  </div>
+</div>
+
+<section id="s5">
+  <div class="ch reveal">
+    <div class="ch-left">
+      <p class="ch-eyebrow">Chapter 05 · Exclusive</p>
+      <h2 class="ch-h2">Made in Thailand</h2>
+      <p class="ch-sub">Thailand's distilling revolution — craft spirits you cannot find anywhere else online.</p>
+    </div>
+    <a class="ch-link" href="https://th.liq9.com/feature-selection-liq-9/craft-thai-spirit.html">Explore Thai Spirits →</a>
+  </div>
+
+  <div class="grid g1 stagger">
+    <article class="card" tabindex="0" onclick="location.href='https://th.liq9.com/feature-selection-liq-9/craft-thai-spirit.html'" style="max-width:calc((var(--max) - var(--gap)*2) / 3);">
+      <div class="card-img"><img src="wysiwyg/collections/made-in-thailand.jpg" alt="Made in Thailand Craft Spirits" loading="lazy"></div>
+      <div class="card-content">
+        <p class="card-eye">Thailand · Craft · 100% Made Here · Exclusive</p>
+        <h3 class="card-title">Made in Thailand<em>The Gift Only LIQ9 Can Give</em></h3>
+        <div class="card-brands"><span class="brand-pill">Prakaan Single Malt</span><span class="brand-pill">Asura Craft Spirits</span><span class="brand-pill">Kristall Thai Gin</span><span class="brand-pill">Phuket Craft</span><span class="brand-pill">Bangkok Silver Vodka</span></div>
+        <p class="card-desc">Thailand's first single malt whisky. Asura's six agricultural expressions — sugarcane, pineapple, lychee, potato, all distilled right here. Kristall's award-winning organic Chiang Mai rice gin. Three bottles that tell the story of Thailand's distilling revolution. Available exclusively at LIQ9 — you cannot find these at any other online retailer.</p>
+        <div class="card-tags"><span class="tag">Thai Single Malt</span><span class="tag">Asura</span><span class="tag">Kristall</span><span class="tag">Exclusive</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿900</div><span class="card-cta">Build a Thai Gift →</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div style="height:56px"></div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section id="faq" class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-head reveal">
+      <p class="faq-kicker">Got Questions?</p>
+      <h2 class="faq-title">Spirits Buying Guide</h2>
+      <p class="faq-sub">Delivery, gifting, whisky, cognac, Thai spirits and everything in between.</p>
+    </div>
+    <div class="faq-grid reveal">
+      <div class="faq-group">
+        <h3 class="faq-group-label">Delivery & Ordering</h3>
+        <details class="faq-item"><summary class="faq-q"><span>How fast is LIQ9 delivery in Bangkok?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>LIQ9 offers <strong>same-day delivery across Bangkok</strong> for orders placed before 2 PM. For orders outside Bangkok, standard delivery takes 1-3 business days.</p></div></details>
+        <details class="faq-item"><summary class="faq-q"><span>Is there a minimum order?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>No minimum order. You can order a single bottle. <strong>Free delivery for orders above ฿1,500</strong> within Bangkok.</p></div></details>
+      </div>
+      <div class="faq-group">
+        <h3 class="faq-group-label">Gifting</h3>
+        <details class="faq-item"><summary class="faq-q"><span>Can I order gift sets with custom packaging?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Yes. Premium presentation boxes, magnetic closure boxes, tissue paper and personalised cards. Pre-curated gift sets from <strong>฿900</strong>. Contact <strong>LINE @liq9</strong> or <strong>02-096-6496</strong>.</p></div></details>
+        <details class="faq-item"><summary class="faq-q"><span>What do you recommend for a corporate gift?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p><strong>Hennessy XO</strong> is the most universally impressive choice in Asia. For something memorable, try <strong>Patron Anejo</strong> or an art bottle edition. For a uniquely Thai gift, a curated Thai Craft set from LIQ9 is unforgettable.</p></div></details>
+      </div>
+      <div class="faq-group">
+        <h3 class="faq-group-label">Whisky Guide</h3>
+        <details class="faq-item"><summary class="faq-q"><span>What's the difference between Scotch, Bourbon and Japanese whisky?</span><span class="faq-icon">+</span></summary><div class="faq-a"><ul><li><strong>Scotch</strong> — made in Scotland, aged min. 3 years. Ranges from Speyside fruit to Islay smoke.</li><li><strong>Bourbon</strong> — American, min. 51% corn, new charred oak. Sweet vanilla and caramel.</li><li><strong>Japanese</strong> — follows Scottish methods with Japanese precision. Smooth, complex, globally awarded.</li></ul></div></details>
+        <details class="faq-item"><summary class="faq-q"><span>I'm new to whisky — where should I start?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Start with <strong>Johnnie Walker Black</strong> (฿780). For something bolder try <strong>Maker's Mark Bourbon</strong>. For single malt, <strong>Tamnavulin Double Cask</strong> from Speyside is approachable. Avoid heavily peated Islay until you've developed your palate.</p></div></details>
+      </div>
+      <div class="faq-group">
+        <h3 class="faq-group-label">Cognac Guide</h3>
+        <details class="faq-item"><summary class="faq-q"><span>What's the difference between VS, VSOP and XO?</span><span class="faq-icon">+</span></summary><div class="faq-a"><ul><li><strong>VS</strong> — min. 2 years aged. Fruity, accessible. Best in cocktails.</li><li><strong>VSOP</strong> — min. 4 years. More complex. Good neat or on ice.</li><li><strong>XO</strong> — min. 10 years. Rich, deep, luxurious. The prestige gift tier.</li></ul></div></details>
+        <details class="faq-item"><summary class="faq-q"><span>Why is Cognac so popular in Thailand?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Cognac penetration in Thailand is nearly <strong>3x the global average</strong>. It's deeply embedded in Thai gifting culture — the bottle communicates respect and celebration across all social occasions.</p></div></details>
+      </div>
+      <div class="faq-group">
+        <h3 class="faq-group-label">Thai Spirits</h3>
+        <details class="faq-item"><summary class="faq-q"><span>What is Prakaan and why is it significant?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p><strong>Prakaan</strong> is Thailand's first single malt whisky — distilled in Thailand and aged in tropical heat. Already placing in international blind tastings. Confirmed in LIQ9 stock exclusively.</p></div></details>
+        <details class="faq-item"><summary class="faq-q"><span>What Thai craft spirits can I find only at LIQ9?</span><span class="faq-icon">+</span></summary><div class="faq-a"><ul><li><strong>Prakaan</strong> — Thailand's first single malt</li><li><strong>Asura</strong> — six spirits from six Thai ingredients</li><li><strong>Kristall Thai Gin</strong> — organic Chiang Mai rice</li><li><strong>Phuket Craft Spirits</strong> — island-origin gin, rum, vodka</li></ul></div></details>
+      </div>
+      <div class="faq-group">
+        <h3 class="faq-group-label">About LIQ9</h3>
+        <details class="faq-item"><summary class="faq-q"><span>Why buy from LIQ9?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Thailand's No.1 online liquor store. 4,000+ labels from 40+ countries. Same-day Bangkok delivery, guaranteed authenticity, widest selection of Thai craft spirits online.</p></div></details>
+        <details class="faq-item"><summary class="faq-q"><span>What is the return policy?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Returns accepted for bottles <strong>damaged or incorrectly dispatched</strong>. Contact within 48 hours. <strong>02-096-6496</strong> or <strong>LINE @liq9</strong>.</p></div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="legal-bar">
+  <div class="legal-inner">
+    <span>2026 LIQ9 Thailand · th.liq9.com</span>
+    <span>Alcohol must be consumed responsibly · Must be 20+ years to purchase alcohol in Thailand</span>
+    <span>02-096-6496 · LINE: @liq9</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  },{threshold:.06});
+  document.querySelectorAll('.reveal, .stagger').forEach(function(el){ obs.observe(el); });
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll',function(){ nav.classList.toggle('raised', scrollY > 48); },{passive:true});
+  var secs = ['s1','s2','s3','s4','s5'];
+  var links = document.querySelectorAll('.nav-item');
+  function trackNav(){
+    var y = scrollY + 80, cur = secs[0];
+    secs.forEach(function(id){ var el = document.getElementById(id); if(el && el.offsetTop <= y) cur = id; });
+    links.forEach(function(l){ l.classList.toggle('on', l.getAttribute('href') === '#'+cur); });
+  }
+  window.addEventListener('scroll', trackNav, {passive:true});
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('keydown', function(e){ if(e.key==='Enter') c.click(); });
+  });
+})();
+</script>
+
+</body>
+</html>

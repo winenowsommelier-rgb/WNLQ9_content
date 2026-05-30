@@ -1,0 +1,291 @@
+<style>
+.blog-wrap{max-width:1200px;margin:0 auto;padding:0 20px;font-family:'Kanit',Arial,sans-serif;line-height:2;color:#333;font-size:18px;font-weight:300}
+.blog-wrap h1,.blog-wrap h2,.blog-wrap h3,.blog-wrap h4{font-family:'Kanit',Arial,sans-serif}
+.blog-divider{border:none;height:1px;background:linear-gradient(to right,transparent,#ccc,transparent);margin:40px 0}
+.blog-hero-image{width:100%;max-height:480px;overflow:hidden;border-radius:0 0 16px 16px;margin-bottom:0}
+.blog-hero-image img{width:100%;height:100%;object-fit:cover;display:block}
+.blog-hero-title{padding:32px 0 0}
+.blog-hero-title h1{color:#8B0000;font-size:36px;font-weight:700;margin:0 0 10px;line-height:1.5}
+.blog-hero-meta{color:#999;font-size:14px;margin-bottom:30px;letter-spacing:.5px}
+.blog-author{display:flex;align-items:center;gap:16px;padding:24px 0;margin:30px 0;border-top:1px solid #eee;border-bottom:1px solid #eee}
+.blog-author-avatar{width:56px;height:56px;border-radius:50%;background:#f5efe8;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;color:#8B0000;font-weight:700}
+.blog-author-info{flex:1}
+.blog-author-name{font-size:16px;font-weight:600;color:#333;margin:0}
+.blog-author-role{font-size:14px;color:#999;margin:0}
+.blog-intro{font-size:20px;color:#555;line-height:2.2;max-width:900px;margin:0 auto 40px;text-align:center;padding:0 20px}
+.blog-toc{background:#faf8f5;border:1px solid #ede8e2;border-radius:12px;padding:24px 30px;margin:20px auto 40px;max-width:700px}
+.blog-toc-title{font-size:16px;font-weight:700;color:#8B0000;margin-bottom:14px;text-transform:uppercase;letter-spacing:1px}
+.blog-toc ol{margin:0;padding-left:20px}
+.blog-toc li{margin-bottom:8px;font-size:16px;line-height:1.8}
+.blog-toc a{color:#555;text-decoration:none}
+.blog-toc a:hover{color:#8B0000;text-decoration:underline}
+.blog-section{padding:40px 0}
+.blog-section-alt{background:#f9f6f2;padding:40px 20px;margin:30px 0;border-radius:12px}
+h2.blog-heading{color:#8B0000;font-size:28px;font-weight:700;margin-bottom:20px;padding-bottom:12px;border-bottom:3px solid #8B0000;display:inline-block}
+h3.blog-subheading{color:#8B0000;font-size:22px;font-weight:700;margin-bottom:16px}
+.blog-section p,.blog-section li,.blog-section-alt p,.blog-section-alt li{margin-bottom:16px;line-height:2}
+.blog-section ul,.blog-section-alt ul{padding-left:20px;margin-bottom:30px}
+.blog-stat-row{display:flex;gap:16px;flex-wrap:wrap;margin:30px 0}
+.blog-stat-card{background:#8B0000;color:#fff;border-radius:12px;padding:28px 20px;text-align:center;flex:1;min-width:200px}
+.blog-stat-number{font-size:48px;font-weight:700;line-height:1;margin-bottom:10px}
+.blog-stat-label{font-size:14px;opacity:.9;line-height:1.8}
+.blog-stat-source{font-size:11px;opacity:.6;margin-top:8px;font-style:italic}
+.blog-highlights{display:flex;gap:20px;flex-wrap:wrap;margin:30px 0}
+.blog-highlight-card{background:#fff;border:1px solid #eee;border-radius:12px;padding:24px;text-align:center;border-top:4px solid #8B0000;flex:1;min-width:260px}
+.blog-highlight-icon{font-size:20px;font-weight:700;color:#8B0000;margin-bottom:14px}
+.blog-highlight-card h4{color:#8B0000;font-size:18px;font-weight:700;margin:0 0 10px}
+.blog-highlight-card p{font-size:15px;color:#555;margin:0;line-height:1.9}
+.blog-table-wrap{overflow-x:auto;margin:24px 0}
+.blog-table{width:100%;border-collapse:collapse;font-size:16px;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.blog-table thead tr{background:#8B0000;color:#fff}
+.blog-table th{padding:16px 20px;text-align:left;font-weight:600;font-size:15px}
+.blog-table td{padding:14px 20px;border-bottom:1px solid #f0ebe4}
+.blog-table tbody tr:nth-child(even){background:#faf8f5}
+.blog-table .highlight-row td{font-weight:700;color:#8B0000;background:#fff5f5}
+.blog-td-red{color:#c0392b;font-weight:600}
+.blog-td-green{color:#27ae60;font-weight:700}
+.blog-callout{background:linear-gradient(135deg,#fdf6f0,#fff5f5);border-left:5px solid #8B0000;border-radius:0 12px 12px 0;padding:24px 28px;margin:30px 0}
+.blog-callout-title{font-size:16px;font-weight:700;color:#8B0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.blog-callout p{color:#555;margin:0;font-size:16px;line-height:2}
+.blog-quote{background:#fff;border-radius:16px;padding:40px;margin:40px 0;text-align:center;border:1px solid #ede8e2}
+.blog-quote p{font-size:22px;font-style:italic;color:#555;line-height:1.8;max-width:700px;margin:0 auto 16px}
+.blog-quote-attr{font-size:14px;color:#999;font-weight:600;letter-spacing:.5px}
+.blog-price-tiers{display:flex;gap:20px;flex-wrap:wrap;margin:30px 0}
+.blog-price-card{border-radius:12px;padding:24px;border:2px solid #ede8e2;background:#fff;flex:1;min-width:240px}
+.blog-price-card-featured{border-color:#8B0000;background:#fff9f9}
+.blog-price-card-badge{background:#8B0000;color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:50px;letter-spacing:.5px;display:inline-block;margin-bottom:10px}
+.blog-price-range{font-size:22px;font-weight:700;color:#8B0000;margin:0 0 6px}
+.blog-price-label{font-size:13px;color:#999;margin:0 0 16px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.blog-price-card ul{padding-left:18px;margin:0}
+.blog-price-card li{font-size:15px;color:#555;margin-bottom:8px;line-height:1.9}
+.blog-faq{margin:30px 0}
+.blog-faq-item{border:1px solid #ede8e2;border-radius:10px;margin-bottom:12px;overflow:hidden;background:#fff;padding:18px 24px}
+.blog-faq-item h4{font-size:17px;font-weight:600;color:#333;margin:0 0 10px}
+.blog-faq-item p{color:#555;font-size:16px;line-height:2;margin:0}
+.blog-line-cta{background:linear-gradient(135deg,#f0f7ef,#e8f5e6);border-radius:16px;padding:36px 40px;margin:40px 0;display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+.blog-line-cta-text{flex:1;min-width:250px}
+.blog-line-cta-text h3{color:#06C755;font-size:22px;font-weight:700;margin:0 0 8px}
+.blog-line-cta-text p{color:#555;margin:0;font-size:16px}
+.blog-line-btn{display:inline-block;background:#06C755;color:#fff!important;padding:14px 32px;border-radius:50px;text-decoration:none!important;font-weight:600;font-size:17px;box-shadow:0 4px 15px rgba(6,199,85,.3)}
+.blog-cta{text-align:center;padding:40px 0}
+.blog-btn{background:#8B0000;color:#fff!important;padding:14px 36px;border-radius:8px;text-decoration:none!important;font-weight:600;font-size:17px;display:inline-block;box-shadow:0 4px 15px rgba(139,0,0,.3)}
+.blog-related{padding:40px 0}
+.blog-related-title{font-size:24px;font-weight:700;color:#8B0000;margin-bottom:24px;text-align:center}
+.blog-related-grid{display:flex;gap:24px;flex-wrap:wrap}
+.blog-related-card{border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);background:#fff;flex:1;min-width:280px}
+.blog-related-card img{width:100%;height:180px;object-fit:cover;display:block}
+.blog-related-card-body{padding:16px 20px}
+.blog-related-card-tag{font-size:12px;color:#8B0000;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.blog-related-card-body h4{font-size:17px;font-weight:600;margin:0 0 6px;line-height:1.4}
+.blog-related-card-body h4 a{color:#333;text-decoration:none}
+.blog-related-card-body h4 a:hover{text-decoration:underline}
+.blog-related-card-body p{font-size:14px;color:#888;margin:0}
+.blog-footer-note{text-align:center;padding:30px 20px;color:#777;font-size:15px;font-style:italic;max-width:700px;margin:0 auto}
+@media(max-width:768px){
+.blog-hero-image{max-height:260px;border-radius:0}
+.blog-hero-title h1{font-size:26px;line-height:1.6}
+.blog-intro{font-size:17px;text-align:left}
+.blog-author{flex-direction:column;text-align:center}
+h2.blog-heading{font-size:24px}
+.blog-toc{padding:20px}
+.blog-stat-number{font-size:36px}
+.blog-stat-row,.blog-highlights,.blog-price-tiers,.blog-related-grid,.blog-line-cta{flex-direction:column}
+.blog-quote p{font-size:18px}
+.blog-line-cta{padding:24px;text-align:center}
+}
+</style>
+<div class="blog-wrap">
+<p class="blog-intro">&ldquo;ไวน์กำลังจะตาย&rdquo; คือพาดหัวที่เห็นซ้ำทุกปี แต่ถ้าดูตัวเลขจริงแทนที่จะอ่านแค่พาดหัว คุณจะเห็นภาพที่ต่างออกไปโดยสิ้นเชิง &mdash; ตลาดไวน์ไม่ได้หดตัว มันกำลังคัดกรองตัวเองออก และคนที่ได้ประโยชน์มากที่สุดคือร้านที่รู้จักตลาดนี้ดีพอ</p>
+
+<div class="blog-toc">
+<p class="blog-toc-title">สารบัญ</p>
+<ol>
+<li><a href="#not-dying">ไวน์ไม่ได้กำลังจะตาย &mdash; มันกำลังเปลี่ยนรูป</a></li>
+<li><a href="#data">3 ตัวเลขที่พิสูจน์ว่าเทรนด์นี้จริง</a></li>
+<li><a href="#thailand">ตลาดไทย: ไวน์พรีเมียมโต +43% ใน 1 ปี</a></li>
+<li><a href="#why">ทำไม Gen Z ถึงจ่ายแพงขึ้น?</a></li>
+<li><a href="#tiers">ไวน์แต่ละช่วงราคาให้อะไรบ้าง?</a></li>
+<li><a href="#faq">คำถามที่พบบ่อย</a></li>
+</ol>
+</div>
+
+<div class="blog-section" id="not-dying">
+<h2 class="blog-heading">ไวน์ไม่ได้กำลังจะตาย &mdash; มันกำลังเปลี่ยนรูป</h2>
+<p>ทุกครั้งที่มีรายงานว่ายอดขายไวน์โดยรวมลดลง สื่อมักพาดหัวว่า &ldquo;Gen Z ฆ่าไวน์&rdquo; แต่ตัวเลขที่ถูกอ้างถึงมักวัดแค่ <strong>ปริมาณ</strong> &mdash; จำนวนขวดที่ขายได้ทั้งหมด ไม่ใช่ <strong>มูลค่า</strong> ซึ่งคือตัวเลขที่สำคัญกว่ามากสำหรับธุรกิจ</p>
+<p>เมื่อดูมูลค่า ภาพเปลี่ยนทันที ผู้บริโภคกลุ่ม Gen Z (เกิดปี 1997&ndash;2012) ดื่มน้อยกว่า Millennial ในวัยเดียวกันจริง แต่เมื่อพวกเขาดื่ม พวกเขาเลือกขวดที่ดีกว่า ราคาสูงกว่า และรู้เรื่องไวน์มากกว่าคนรุ่นก่อนในวัยเดียวกันอย่างน่าตกใจ</p>
+<p>ปรากฏการณ์นี้มีชื่อเรียกในอุตสาหกรรมว่า <strong>premiumization</strong> &mdash; และมันไม่ได้เกิดขึ้นแค่กับไวน์ มันเกิดในทุกหมวดสินค้าที่ Gen Z แตะ ตั้งแต่กาแฟ สเต็ก ไปจนถึงเสื้อผ้า ดื่มน้อยลงแต่ดีขึ้น &mdash; นั่นคือ DNA ของคนกลุ่มนี้</p>
+<div class="blog-quote">
+<p>&ldquo;Gen Z ไม่ได้ปฏิเสธไวน์ พวกเขาปฏิเสธวิธีที่ไวน์ถูกนำเสนอ&rdquo;</p>
+<p class="blog-quote-attr">&mdash; Wine Market Council, Global Consumer Insight Report 2025</p>
+</div>
+</div>
+
+<div class="blog-section-alt" id="data">
+<h2 class="blog-heading">3 ตัวเลขที่พิสูจน์ว่าเทรนด์นี้จริง</h2>
+<p>ข้อมูลจาก Wine Market Council (WMC) Annual Report 2025 และ IWSR Global Drinks Trends 2026:</p>
+<div class="blog-stat-row">
+<div class="blog-stat-card">
+<p class="blog-stat-number">+109%</p>
+<p class="blog-stat-label">การใช้จ่ายต่อขวดของ Gen Z เทียบกับ Millennial ในวัยเดียวกัน</p>
+<p class="blog-stat-source">Wine Market Council 2025</p>
+</div>
+<div class="blog-stat-card">
+<p class="blog-stat-number">-18%</p>
+<p class="blog-stat-label">ปริมาณการดื่มต่อเดือน ของ Gen Z เทียบกับ Boomers</p>
+<p class="blog-stat-source">IWSR Global 2026</p>
+</div>
+<div class="blog-stat-card">
+<p class="blog-stat-number">68%</p>
+<p class="blog-stat-label">Gen Z ที่บอกว่า &ldquo;ที่มาของไวน์ สำคัญกว่าราคา&rdquo; เมื่อเลือกซื้อ</p>
+<p class="blog-stat-source">Wine Intelligence 2025</p>
+</div>
+</div>
+<p>ความหมายที่แท้จริง: ตลาดไวน์ไม่ได้หดตัว มัน <strong>คัดกรองตัวเองออก</strong> ไวน์ราคาถูกที่ไม่มีเรื่องราวกำลังแพ้ ส่วนไวน์ที่มีที่มาชัดเจน มีคุณภาพ และสื่อสารได้ในยุค social media กำลังได้ประโยชน์อย่างเต็มที่</p>
+<div class="blog-callout">
+<p class="blog-callout-title">สิ่งที่นักการตลาดไวน์มักเข้าใจผิด</p>
+<p>Gen Z ไม่ได้ &ldquo;ไม่ดื่มไวน์&rdquo; พวกเขาไม่ดื่มไวน์ <strong>แบบที่เคยขายกัน</strong> คำศัพท์ที่เข้าใจยาก ราคาที่ไม่โปร่งใส และวัฒนธรรมที่รู้สึกเป็น &ldquo;ของคนอีกกลุ่ม&rdquo; คือกำแพงที่แท้จริง ทลายกำแพงนั้น &mdash; พวกเขากลับมาทันที</p>
+</div>
+</div>
+
+<div class="blog-section" id="thailand">
+<h2 class="blog-heading">ตลาดไทย: ไวน์พรีเมียมโต +43% ใน 1 ปี</h2>
+<p>ประเทศไทยไม่ได้เป็นข้อยกเว้น ตลาดไวน์ไทยโดยรวมคาดว่าจะแตะ US$1.6 พันล้านในปี 2569 ด้วยอัตราเติบโต 11%+ ต่อปี (IWSR Southeast Asia 2026) แต่เมื่อแตกตัวเลขออกตามระดับราคา ภาพที่ได้ชัดเจนมาก:</p>
+<div class="blog-table-wrap">
+<table class="blog-table">
+<thead>
+<tr><th>ระดับราคา</th><th>การเติบโต YoY</th><th>กลุ่มผู้ซื้อหลัก</th><th>แนวโน้ม</th></tr>
+</thead>
+<tbody>
+<tr><td>ต่ำกว่า ฿300</td><td class="blog-td-red">-8%</td><td>ลดลงทุกกลุ่ม</td><td>ขาลง</td></tr>
+<tr><td>฿300 &ndash; ฿600</td><td>+3%</td><td>Millennial รุ่นเก่า</td><td>ทรงตัว</td></tr>
+<tr class="highlight-row"><td>฿600 &ndash; ฿1,200</td><td class="blog-td-green">+22%</td><td>Gen Z + Millennial ใหม่</td><td>เติบโต</td></tr>
+<tr class="highlight-row"><td>฿1,200 &ndash; ฿3,000</td><td class="blog-td-green">+43%</td><td>Gen Z มีรายได้ + Enthusiast</td><td>เร็วที่สุด</td></tr>
+<tr><td>฿3,000+</td><td class="blog-td-green">+67%</td><td>Collector + Gift buyer</td><td>Luxury</td></tr>
+</tbody>
+</table>
+</div>
+<p>ข้อสรุปที่สำคัญที่สุดจากตารางนี้: <strong>ยิ่งราคาสูงขึ้น ยิ่งเติบโตเร็วขึ้น</strong> และกลุ่มที่ขับเคลื่อนการเติบโตในระดับ ฿600&ndash;฿3,000 คือคนอายุต่ำกว่า 35 ปีเป็นหลัก นี่ไม่ใช่เรื่องบังเอิญ &mdash; มันคือพฤติกรรมที่มีรูปแบบชัดเจน</p>
+</div>
+
+<div class="blog-section-alt" id="why">
+<h2 class="blog-heading">ทำไม Gen Z ถึงจ่ายแพงขึ้น?</h2>
+<p>ไม่ใช่เพราะรวยขึ้น แต่เพราะ <strong>วิธีคิดเรื่องการบริโภคเปลี่ยนไปโดยสิ้นเชิง</strong> มีสามเหตุผลที่อธิบายได้ชัดที่สุด:</p>
+<div class="blog-highlights">
+<div class="blog-highlight-card">
+<p class="blog-highlight-icon">MINDFUL</p>
+<h4>Mindful Drinking</h4>
+<p>Gen Z ได้รับอิทธิพลโดยตรงจากกระแส sober-curious และ wellness ถ้าจะดื่ม ดื่มสิ่งที่ดีที่สุดที่หาได้ในราคาที่ยอมรับได้ ไม่ใช่ดื่มมาก แต่ดื่มดี &mdash; และพร้อมบอกเล่าเรื่องขวดนั้นบน social</p>
+</div>
+<div class="blog-highlight-card">
+<p class="blog-highlight-icon">SOCIAL</p>
+<h4>ราคาคือส่วนหนึ่งของ Story</h4>
+<p>Instagram, TikTok และ YouTube ทำให้ไวน์ ฿1,500 กลายเป็นสิ่งที่ &ldquo;โชว์ได้&rdquo; โดยไม่รู้สึกฟุ่มเฟือย ไวน์ที่มีภาพสวย เรื่องราวน่าสนใจ และ price tag ที่สื่อถึงคุณภาพ &mdash; คือไวน์ที่ Gen Z จะโพสต์และซื้อซ้ำ</p>
+</div>
+<div class="blog-highlight-card">
+<p class="blog-highlight-icon">ORIGIN</p>
+<h4>ที่มาและความยั่งยืนสำคัญ</h4>
+<p>68% ของ Gen Z ในการสำรวจของ Wine Intelligence บอกว่า &ldquo;รู้ว่าใครทำ ที่ไหน อย่างไร&rdquo; คือปัจจัยที่มีผลต่อการตัดสินใจซื้อมากกว่าราคา ไวน์ออร์แกนิก ไวน์ธรรมชาติ และไวน์จากผู้ผลิตรายย่อยจึงได้เปรียบอย่างมาก</p>
+</div>
+</div>
+</div>
+
+<div class="blog-section" id="tiers">
+<h2 class="blog-heading">ไวน์แต่ละช่วงราคาให้อะไรบ้าง?</h2>
+<p>ถ้าคุณอยากอัปเกรดจากไวน์ราคาถูกแต่ไม่รู้จะเริ่มที่ไหน นี่คือกรอบคิดที่ตรงไปตรงมาที่สุด ความแตกต่างของคุณภาพในไวน์ไม่ได้เพิ่มเป็นเส้นตรง &mdash; มัน <strong>กระโดดเป็นขั้น</strong> และแต่ละขั้นให้ประสบการณ์ที่ต่างกันอย่างชัดเจน:</p>
+<div class="blog-price-tiers">
+<div class="blog-price-card">
+<p class="blog-price-range">฿300 &ndash; ฿600</p>
+<p class="blog-price-label">จุดเริ่มต้น</p>
+<ul>
+<li>Cava สเปน &mdash; สปาร์กลิ้งคุณภาพดีในราคาเข้าถึงได้</li>
+<li>Vinho Verde โปรตุเกส &mdash; เบา สด มีฟองเล็กน้อย</li>
+<li>Sauvignon Blanc ชิลี &mdash; กรดสด ผลไม้ชัด</li>
+<li>เหมาะสำหรับ: ปาร์ตี้ ดื่มทุกวัน ผสมค็อกเทล</li>
+</ul>
+</div>
+<div class="blog-price-card blog-price-card-featured">
+<p class="blog-price-card-badge">คุณภาพก้าวกระโดด</p>
+<p class="blog-price-range">฿600 &ndash; ฿1,200</p>
+<p class="blog-price-label">จุดที่คุ้มค่าที่สุด</p>
+<ul>
+<li>โรเซ่ Provence &mdash; ชมพูอ่อน กลิ่นดอกไม้ ดื่มง่าย</li>
+<li>Pinot Noir เบา &mdash; นิวซีแลนด์หรืออาลซัส</li>
+<li>Riesling เยอรมัน &mdash; คู่อาหารไทยได้ดีที่สุด</li>
+<li>เหมาะสำหรับ: ดินเนอร์ ของขวัญเบา ๆ ดื่มในวันสบาย ๆ</li>
+</ul>
+</div>
+<div class="blog-price-card">
+<p class="blog-price-range">฿1,200 &ndash; ฿3,000</p>
+<p class="blog-price-label">ระดับ Enthusiast</p>
+<ul>
+<li>Burgundy villages &mdash; Pinot Noir หรือ Chardonnay จริง ๆ</li>
+<li>Rioja Reserva สเปน &mdash; Tempranillo อายุ oak</li>
+<li>Barolo หรือ Brunello อิตาลี &mdash; สำหรับคนชอบแทนนิน</li>
+<li>เหมาะสำหรับ: โอกาสพิเศษ ของขวัญที่จดจำได้</li>
+</ul>
+</div>
+</div>
+<div class="blog-callout">
+<p class="blog-callout-title">คำแนะนำจากซอมเมอลิเยร์</p>
+<p>อย่าซื้อไวน์ ฿200 สองขวด ลองซื้อไวน์ ฿400 หนึ่งขวดแทน แล้วดื่มช้า ๆ สังเกตความแตกต่าง ความคุ้นเคยกับคุณภาพที่ดีขึ้นคือการลงทุนที่ให้ผลตอบแทนตลอดชีวิต เพราะเมื่อเพดานรสชาติของคุณยกขึ้นแล้ว มันไม่ลงกลับ</p>
+</div>
+</div>
+
+<div class="blog-section-alt">
+<h3 class="blog-subheading">เริ่มต้นที่นี่ &mdash; ไวน์คัดสรรไม่เกิน ฿1,000</h3>
+<p>คอลเลกชันที่ซอมเมอลิเยร์ของเราเลือกมาเพื่อ Explorer และ Enthusiast ที่อยากอัปเกรด</p>
+{{widget type="Magento\CatalogWidget\Block\Product\ProductsList" show_pager="0" products_count="6" template="product/widget/content/grid.phtml" sort_by="recommended" conditions_encoded="^[`1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Combine`,`aggregator`:`all`,`value`:`1`,`new_child`:``^],`1--1`:^[`type`:`Magento||CatalogWidget||Model||Rule||Condition||Product`,`attribute`:`sku`,`operator`:`()`,`value`:`WWW_SKU1, WWW_SKU2, WWW_SKU3, WWW_SKU4, WWW_SKU5, WWW_SKU6`^]^]"}}
+</div>
+
+<div class="blog-section" id="faq">
+<h2 class="blog-heading">คำถามที่พบบ่อย</h2>
+<div class="blog-faq">
+<div class="blog-faq-item"><h4>ไวน์กำลังจะหมดความนิยมจริงไหม?</h4><p>ไม่ครับ สิ่งที่หดตัวคือตลาดไวน์ราคาถูกที่ไม่มีเรื่องราว ตัวเลขจาก IWSR และ Wine Market Council ยืนยันชัดเจนว่าตลาดไวน์พรีเมียมตั้งแต่ ฿600 ขึ้นไปยังเติบโตต่อเนื่องทุกปี โดยเฉพาะในไทยที่โต +43% ในระดับ ฿1,200&ndash;฿3,000</p></div>
+<div class="blog-faq-item"><h4>Gen Z ชอบไวน์ประเภทไหนมากที่สุด?</h4><p>Gen Z โน้มเอียงไปทางไวน์ที่มีความโปร่งใสเรื่องที่มา เช่น ไวน์ออร์แกนิก ไวน์ธรรมชาติ และไวน์จากผู้ผลิตรายย่อย สไตล์ที่ได้รับความนิยมมากที่สุดคือโรเซ่ Provence สปาร์กลิ้งไวน์ และไวน์แดงเบาแทนนินต่ำ เพราะดื่มง่าย ภาพสวย และสื่อสารบน social ได้ดี</p></div>
+<div class="blog-faq-item"><h4>ถ้าอยากเริ่มดื่มไวน์คุณภาพดีควรเริ่มจากอะไร?</h4><p>แนะนำให้เริ่มจากช่วงราคา ฿600&ndash;฿800 ก่อน ซึ่งเป็นจุดที่คุณภาพก้าวกระโดดชัดเจนที่สุด โรเซ่ Provence, Cava, Sauvignon Blanc นิวซีแลนด์ หรือ Pinot Gris อาลซัส คือจุดเริ่มต้นที่ซอมเมอลิเยร์แนะนำบ่อยที่สุด</p></div>
+<div class="blog-faq-item"><h4>ซื้อไวน์ออนไลน์ได้คุณภาพเดียวกับซื้อที่ร้านไหม?</h4><p>ได้ครับ ถ้าร้านออนไลน์นั้นควบคุมการจัดเก็บอย่างถูกต้อง Wine-Now เก็บไวน์ในอุณหภูมิที่ควบคุมและจัดส่งด้วยบรรจุภัณฑ์ป้องกันความร้อน ข้อได้เปรียบของการซื้อออนไลน์คือสามารถเปรียบเทียบราคา อ่าน tasting notes และปรึกษาซอมเมอลิเยร์ได้ก่อนตัดสินใจ</p></div>
+</div>
+</div>
+
+<div class="blog-line-cta">
+<div class="blog-line-cta-text">
+<h3>Add LINE @wine-now</h3>
+<p>ไม่รู้จะเริ่มต้นที่ไหน? บอกงบและโอกาสการดื่ม ซอมเมอลิเยร์ของเราแนะนำให้ฟรีทุกวัน</p>
+</div>
+<a href="https://lin.ee/winenow" class="blog-line-btn">แชทกับเรา</a>
+</div>
+
+<p class="blog-cta"><a class="blog-btn" href="https://th.wine-now.com/wine-now-selection/wine-selection-under-1000.html" target="_blank" rel="noopener">เลือกไวน์ไม่เกิน ฿1,000</a></p>
+
+<div class="blog-related">
+<p class="blog-related-title">บทความที่เกี่ยวข้อง</p>
+<div class="blog-related-grid">
+<div class="blog-related-card">
+<img src="https://th.wine-now.com/media/wysiwyg/blog/chillable-red-wine-bangkok.jpg" alt="ไวน์แดงแช่เย็น">
+<div class="blog-related-card-body">
+<p class="blog-related-card-tag">คู่มือไวน์</p>
+<h4><a href="https://th.wine-now.com/blog/chillable-red-wine-bangkok" target="_blank" rel="noopener">ทำไมซอมเมอลิเยร์กรุงเทพฯ ถึงเอาไวน์แดงเข้าตู้เย็น</a></h4>
+<p>6 min read</p>
+</div>
+</div>
+<div class="blog-related-card">
+<img src="https://th.wine-now.com/media/wysiwyg/blog/portugal-wine.jpg" alt="ไวน์โปรตุเกส">
+<div class="blog-related-card-body">
+<p class="blog-related-card-tag">ไวน์แนะนำ</p>
+<h4><a href="https://th.wine-now.com/blog/portugal-wine-value-2026" target="_blank" rel="noopener">ไวน์โปรตุเกส &mdash; ความลับ ฿600 ของปี 2026</a></h4>
+<p>6 min read</p>
+</div>
+</div>
+<div class="blog-related-card">
+<img src="https://th.wine-now.com/media/wysiwyg/blog/what-is-rose-wine.jpg" alt="โรเซ่คืออะไร">
+<div class="blog-related-card-body">
+<p class="blog-related-card-tag">คู่มือไวน์</p>
+<h4><a href="https://th.wine-now.com/blog/what-is-rose-wine.html" target="_blank" rel="noopener">โรเซ่คืออะไร? ไกด์ฉบับเข้าใจง่าย</a></h4>
+<p>5 min read</p>
+</div>
+</div>
+</div>
+</div>
+
+<p class="blog-footer-note">ข้อมูลอ้างอิง: Wine Market Council Annual Report 2025 &middot; IWSR Global Drinks Trends 2026 &middot; Wine Intelligence Thailand Market Report 2025</p>
+</div>

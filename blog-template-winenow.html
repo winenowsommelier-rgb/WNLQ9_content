@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wine-Now Blog Template — Complete Component Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<style>
+/* ============================================
+   WINE-NOW BLOG TEMPLATE — Modern Magazine
+   Complete Component Library
+   ============================================ */
+
+/* --- Reset & Base --- */
+body {
+  font-family: 'Kanit', 'Gotham', Arial, sans-serif;
+  line-height: 1.8;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #333;
+  font-size: 18px;
+}
+
+/* --- Container --- */
+.blog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ============================================
+   HERO — Separated image + title block
+   ============================================ */
+.blog-hero-image {
+  width: 100%;
+  max-height: 480px;
+  overflow: hidden;
+  border-radius: 0 0 16px 16px;
+}
+.blog-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.blog-hero-title {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px 0 20px;
+}
+.blog-hero-title h1 {
+  color: #8B0000;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+}
+.blog-hero-meta {
+  color: #999;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   TABLE OF CONTENTS (Optional — long articles)
+   ============================================ */
+.blog-toc {
+  background: #faf8f5;
+  border: 1px solid #ede8e2;
+  border-radius: 12px;
+  padding: 24px 30px;
+  margin: 20px auto 40px auto;
+  max-width: 700px;
+}
+.blog-toc-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #8B0000;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.blog-toc ol {
+  margin: 0;
+  padding-left: 20px;
+}
+.blog-toc li {
+  margin-bottom: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.blog-toc a {
+  color: #555;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.blog-toc a:hover {
+  color: #8B0000;
+  text-decoration: underline;
+}
+
+/* ============================================
+   SECTION BLOCKS
+   ============================================ */
+.blog-section {
+  padding: 40px 0;
+}
+.blog-section-alt {
+  background-color: #f9f6f2;
+  padding: 40px 0;
+  margin: 30px 0;
+  border-radius: 12px;
+}
+.blog-section-alt .blog-container {
+  padding: 0 30px;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h2.blog-heading {
+  color: #8B0000;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #8B0000;
+  display: inline-block;
+}
+h3.blog-subheading {
+  color: #8B0000;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.blog-section p, .blog-section li,
+.blog-section-alt p, .blog-section-alt li {
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+.blog-section ul, .blog-section-alt ul {
+  padding-left: 20px;
+  margin-bottom: 30px;
+}
+
+/* --- Intro Paragraph --- */
+.blog-intro {
+  font-size: 20px;
+  color: #555;
+  line-height: 2;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* ============================================
+   IMAGE WITH CAPTION
+   ============================================ */
+.blog-image-full {
+  width: 100%;
+  border-radius: 12px;
+  margin: 24px 0 0 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.blog-image-wrap {
+  margin: 24px 0;
+}
+.blog-image-wrap img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  display: block;
+}
+.blog-image-caption {
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ============================================
+   CALLOUT / TIP BOX
+   ============================================ */
+.blog-callout {
+  background: linear-gradient(135deg, #fdf6f0, #fff5f5);
+  border-left: 4px solid #8B0000;
+  border-radius: 0 12px 12px 0;
+  padding: 24px 30px;
+  margin: 30px 0;
+}
+.blog-callout-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #8B0000;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.blog-callout p {
+  margin-bottom: 8px;
+  color: #444;
+}
+
+/* ============================================
+   QUOTE BLOCK
+   ============================================ */
+.blog-quote {
+  text-align: center;
+  padding: 30px 40px;
+  margin: 40px 0;
+  position: relative;
+}
+.blog-quote::before {
+  content: '\201C';
+  font-size: 80px;
+  color: #8B0000;
+  opacity: 0.2;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Georgia, serif;
+}
+.blog-quote p {
+  font-size: 22px;
+  font-style: italic;
+  color: #555;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   KEY POINTS / HIGHLIGHT CARDS
+   ============================================ */
+.blog-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+.blog-highlight-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.blog-highlight-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.blog-highlight-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+.blog-highlight-card h4 {
+  color: #8B0000;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+.blog-highlight-card p {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ============================================
+   COMPARISON TABLE
+   ============================================ */
+.blog-table-wrap {
+  overflow-x: auto;
+  margin: 30px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.blog-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  min-width: 600px;
+}
+.blog-table thead th {
+  background: #8B0000;
+  color: #fff;
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.blog-table thead th:first-child {
+  border-radius: 12px 0 0 0;
+}
+.blog-table thead th:last-child {
+  border-radius: 0 12px 0 0;
+}
+.blog-table tbody td {
+  padding: 13px 18px;
+  border-bottom: 1px solid #f0ebe5;
+  color: #444;
+  vertical-align: top;
+}
+.blog-table tbody tr:nth-child(even) {
+  background: #faf8f5;
+}
+.blog-table tbody tr:hover {
+  background: #f5efe8;
+}
+.blog-table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 12px;
+}
+.blog-table tbody tr:last-child td:last-child {
+  border-radius: 0 0 12px 0;
+}
+
+/* ============================================
+   FAQ ACCORDION
+   ============================================ */
+.blog-faq {
+  margin: 30px 0;
+}
+.blog-faq-item {
+  border: 1px solid #ede8e2;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+.blog-faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 18px 24px;
+  font-family: 'Kanit', 'Gotham', Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+.blog-faq-question:hover {
+  background: #faf8f5;
+}
+.blog-faq-question::after {
+  content: '+';
+  font-size: 22px;
+  color: #8B0000;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+.blog-faq-item.active .blog-faq-question::after {
+  content: '−';
+}
+.blog-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.blog-faq-answer-inner {
+  padding: 0 24px 18px 24px;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* ============================================
+   LINE / NEWSLETTER CTA BLOCK
+   ============================================ */
+.blog-line-cta {
+  background: linear-gradient(135deg, #f0f7ef, #e8f5e6);
+  border-radius: 16px;
+  padding: 36px 40px;
+  margin: 40px 0;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.blog-line-cta-text {
+  flex: 1;
+  min-width: 250px;
+}
+.blog-line-cta-text h3 {
+  color: #06C755;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+.blog-line-cta-text p {
+  color: #555;
+  margin: 0;
+  font-size: 16px;
+}
+.blog-line-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #06C755;
+  color: #fff;
+  padding: 14px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 17px;
+  transition: background 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(6,199,85,0.3);
+}
+.blog-line-btn:hover {
+  background: #05a647;
+  transform: translateY(-2px);
+}
+.blog-line-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #fff;
+}
+
+/* ============================================
+   AUTHOR / SOMMELIER BYLINE
+   ============================================ */
+.blog-author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 0;
+  margin: 30px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+.blog-author-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #f5efe8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.blog-author-info {
+  flex: 1;
+}
+.blog-author-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+.blog-author-role {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+
+/* ============================================
+   RELATED ARTICLES
+   ============================================ */
+.blog-related {
+  padding: 40px 0;
+}
+.blog-related-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #8B0000;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.blog-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+.blog-related-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  background: #fff;
+}
+.blog-related-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+.blog-related-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.blog-related-card-body {
+  padding: 16px 20px;
+}
+.blog-related-card-tag {
+  font-size: 12px;
+  color: #8B0000;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.blog-related-card-body h4 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+  color: #333;
+  line-height: 1.4;
+}
+.blog-related-card-body p {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+.blog-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ccc, transparent);
+  margin: 40px 0;
+}
+
+/* ============================================
+   COUNTRY / REGION HEADER
+   ============================================ */
+.blog-region-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+}
+.blog-region-flag {
+  font-size: 32px;
+}
+.blog-region-header h3 {
+  color: #8B0000;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ============================================
+   PRODUCT WIDGET PLACEHOLDER
+   ============================================ */
+.blog-product-widget {
+  background: #fafafa;
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 25px 0 40px 0;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+.blog-product-widget p {
+  margin: 0;
+}
+
+/* ============================================
+   CTA BUTTONS
+   ============================================ */
+.blog-cta {
+  text-align: center;
+  padding: 40px 0;
+}
+.blog-btn {
+  background-color: #8B0000;
+  color: #fff;
+  padding: 14px 36px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 17px;
+  display: inline-block;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(139,0,0,0.3);
+}
+.blog-btn:hover {
+  background-color: #6d0000;
+  transform: translateY(-2px);
+}
+.blog-btn-secondary {
+  background-color: #000;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+.blog-btn-secondary:hover {
+  background-color: #333;
+}
+
+/* --- Footer Note --- */
+.blog-footer-note {
+  text-align: center;
+  padding: 30px 20px;
+  color: #777;
+  font-size: 15px;
+  font-style: italic;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .blog-hero-image {
+    max-height: 260px;
+    border-radius: 0;
+  }
+  .blog-hero-title h1 {
+    font-size: 26px;
+  }
+  h2.blog-heading {
+    font-size: 24px;
+  }
+  h3.blog-subheading {
+    font-size: 20px;
+  }
+  .blog-intro {
+    font-size: 17px;
+    text-align: left;
+  }
+  .blog-callout {
+    padding: 20px;
+  }
+  .blog-quote p {
+    font-size: 18px;
+  }
+  .blog-highlights {
+    grid-template-columns: 1fr;
+  }
+  .blog-related-grid {
+    grid-template-columns: 1fr;
+  }
+  .blog-region-header h3 {
+    font-size: 20px;
+  }
+  .blog-toc {
+    padding: 20px;
+  }
+  .blog-line-cta {
+    padding: 24px;
+    flex-direction: column;
+    text-align: center;
+  }
+  .blog-author {
+    flex-direction: column;
+    text-align: center;
+  }
+  .blog-table {
+    font-size: 14px;
+  }
+  .blog-faq-question {
+    font-size: 15px;
+    padding: 14px 18px;
+  }
+}
+</style>
+
+<!-- FAQ Accordion Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.blog-faq-question').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = this.parentElement;
+      var answer = item.querySelector('.blog-faq-answer');
+      var isActive = item.classList.contains('active');
+
+      // Close all other items
+      document.querySelectorAll('.blog-faq-item').forEach(function(el) {
+        el.classList.remove('active');
+        el.querySelector('.blog-faq-answer').style.maxHeight = null;
+      });
+
+      // Toggle current
+      if (!isActive) {
+        item.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+});
+</script>
+
+<!-- ============================================
+     EXAMPLE 1: CONTENT BLOG (like Sulfites)
+     Shows all components
+     ============================================ -->
+
+<!-- HERO — Separated Image + Title -->
+<div class="blog-hero-image">
+  <img src="https://th.wine-now.com/media/wysiwyg/blog/wine_making_process-min.jpg" alt="Wine Making Process">
+</div>
+<div class="blog-hero-title">
+  <h1>Sulfites ในไวน์คืออะไร? ทำไมถึงสำคัญ</h1>
+  <div class="blog-hero-meta">WINE KNOWLEDGE &nbsp;|&nbsp; 5 min read</div>
+</div>
+
+<!-- AUTHOR BYLINE -->
+<div class="blog-container">
+  <div class="blog-author">
+    <div class="blog-author-avatar">🍷</div>
+    <div class="blog-author-info">
+      <p class="blog-author-name">Wine-Now Sommelier Team</p>
+      <p class="blog-author-role">Certified Sommelier &nbsp;|&nbsp; Updated: April 2026</p>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="blog-container">
+  <p class="blog-intro">
+    หลายคนอาจเคยเห็นคำว่า <strong>"Contains Sulfites"</strong> บนฉลากไวน์ แต่ไม่รู้ว่ามันคืออะไร บทความนี้จะพาคุณไปรู้จักกับบทบาท ประวัติ และเหตุผลว่าทำไมสารนี้จึงเป็นส่วนหนึ่งของโลกไวน์อย่างขาดไม่ได้
+  </p>
+</div>
+
+<!-- TABLE OF CONTENTS (Optional — use for long articles) -->
+<div class="blog-container">
+  <div class="blog-toc">
+    <div class="blog-toc-title">สารบัญ</div>
+    <ol>
+      <li><a href="#section-what">Sulfites คืออะไร?</a></li>
+      <li><a href="#section-role">บทบาทของ Sulfites ในไวน์</a></li>
+      <li><a href="#section-health">ปริมาณที่ใช้ และประเด็นด้านสุขภาพ</a></li>
+      <li><a href="#section-compare">เปรียบเทียบปริมาณ Sulfites ในไวน์แต่ละประเภท</a></li>
+      <li><a href="#section-organic">ไวน์ Organic หรือ Natural</a></li>
+      <li><a href="#section-faq">คำถามที่พบบ่อย</a></li>
+    </ol>
+  </div>
+</div>
+
+<hr class="blog-divider">
+
+<!-- SECTION 1: What are Sulfites -->
+<div class="blog-section" id="section-what">
+  <div class="blog-container">
+    <h2 class="blog-heading">Sulfites คืออะไร?</h2>
+    <p><strong>Sulfites (ซัลไฟต์)</strong> คือสารประกอบซัลเฟอร์ไดออกไซด์ (SO2) และเกลือ ที่ใช้กันมายาวนานในอุตสาหกรรมอาหารและเครื่องดื่ม มีคุณสมบัติหลักคือ ป้องกันการเกิดออกซิเดชัน และยับยั้งการเจริญเติบโตของแบคทีเรียและยีสต์ที่ไม่พึงประสงค์</p>
+    <p>ในไวน์ ซัลไฟต์สามารถเกิดขึ้นเองตามธรรมชาติในปริมาณเล็กน้อยระหว่างการหมัก แต่ผู้ผลิตมักจะเติมเพิ่ม เพื่อคงรสชาติและยืดอายุการเก็บรักษา</p>
+  </div>
+</div>
+
+<!-- SECTION 2: Role of Sulfites (Alt background) -->
+<div class="blog-section-alt" id="section-role">
+  <div class="blog-container">
+    <h2 class="blog-heading">บทบาทของ Sulfites ในไวน์</h2>
+
+    <!-- IMAGE WITH CAPTION -->
+    <div class="blog-image-wrap">
+      <img src="https://th.wine-now.com/media/wysiwyg/blog/wine_making_process-min.jpg" alt="Wine Making Process">
+      <p class="blog-image-caption">กระบวนการผลิตไวน์ — Sulfites ถูกเติมในหลายขั้นตอน</p>
+    </div>
+
+    <div class="blog-highlights">
+      <div class="blog-highlight-card">
+        <div class="blog-highlight-icon">🛡️</div>
+        <h4>ป้องกันการเสียรสชาติ</h4>
+        <p>ช่วยป้องกันไม่ให้ไวน์กลายเป็นน้ำส้มสายชูจากการทำงานของแบคทีเรีย</p>
+      </div>
+      <div class="blog-highlight-card">
+        <div class="blog-highlight-icon">🎨</div>
+        <h4>รักษากลิ่นและสี</h4>
+        <p>ลดการเกิดออกซิเดชัน ทำให้ไวน์คงความสดและคาแรคเตอร์ขององุ่น</p>
+      </div>
+      <div class="blog-highlight-card">
+        <div class="blog-highlight-icon">⏳</div>
+        <h4>ยืดอายุการเก็บ</h4>
+        <p>โดยเฉพาะไวน์แดงชั้นดี หรือไวน์หวานที่ต้องบ่มหลายปี</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: Health -->
+<div class="blog-section" id="section-health">
+  <div class="blog-container">
+    <h2 class="blog-heading">ปริมาณที่ใช้ และประเด็นด้านสุขภาพ</h2>
+
+    <div class="blog-image-wrap">
+      <img src="https://th.wine-now.com/media/wysiwyg/blog/wine_with_sulfites-min.jpg" alt="Wine Sulfites on Label">
+      <p class="blog-image-caption">ฉลากไวน์ที่ระบุ "Contains Sulfites"</p>
+    </div>
+
+    <ul>
+      <li>ปริมาณซัลไฟต์ในไวน์ทั่วไป: 20–150 มิลลิกรัมต่อลิตร (ขึ้นอยู่กับประเภทของไวน์)</li>
+      <li>ไวน์หวานมักมีซัลไฟต์มากกว่าไวน์แดง เนื่องจากมีน้ำตาลสูงและเสี่ยงต่อการหมักต่อ</li>
+      <li>คนส่วนใหญ่ไม่แพ้ซัลไฟต์ แต่ผู้ที่มีโรคหืดหรือภาวะแพ้ซัลไฟต์ ควรระวัง</li>
+    </ul>
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="blog-section-alt" id="section-compare">
+  <div class="blog-container">
+    <h2 class="blog-heading">เปรียบเทียบปริมาณ Sulfites ในไวน์แต่ละประเภท</h2>
+    <div class="blog-table-wrap">
+      <table class="blog-table">
+        <thead>
+          <tr>
+            <th>ประเภทไวน์</th>
+            <th>Sulfites (mg/L)</th>
+            <th>เหตุผลที่แตกต่าง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ไวน์แดง</strong></td>
+            <td>20–80</td>
+            <td>แทนนินช่วยป้องกันออกซิเดชันตามธรรมชาติ</td>
+          </tr>
+          <tr>
+            <td><strong>ไวน์ขาว</strong></td>
+            <td>30–120</td>
+            <td>ไม่มีแทนนิน จึงต้องใช้ Sulfites มากกว่า</td>
+          </tr>
+          <tr>
+            <td><strong>ไวน์หวาน</strong></td>
+            <td>50–150</td>
+            <td>น้ำตาลสูง เสี่ยงต่อการหมักซ้ำ</td>
+          </tr>
+          <tr>
+            <td><strong>ไวน์ Organic</strong></td>
+            <td>10–40</td>
+            <td>กฎหมายจำกัดปริมาณให้ต่ำกว่ามาตรฐาน</td>
+          </tr>
+          <tr>
+            <td><strong>Natural Wine</strong></td>
+            <td>0–20</td>
+            <td>ไม่เติม หรือเติมน้อยมาก</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION: Organic -->
+<div class="blog-section" id="section-organic">
+  <div class="blog-container">
+    <h2 class="blog-heading">แล้วไวน์ Organic หรือ Natural มีซัลไฟต์หรือไม่?</h2>
+    <p>แม้ไวน์ออร์แกนิกหรือเนเชอรัลไวน์จะลดการใช้ซัลไฟต์ แต่ก็ยังมีซัลไฟต์ตามธรรมชาติจากกระบวนการหมัก จึงไม่สามารถ "ปราศจากซัลไฟต์ 100%" ได้ แต่จะมีปริมาณต่ำกว่ามาตรฐานทั่วไป</p>
+  </div>
+</div>
+
+<!-- CALLOUT / TIP BOX -->
+<div class="blog-section">
+  <div class="blog-container">
+    <div class="blog-callout">
+      <div class="blog-callout-title">🍷 คำแนะนำจาก Sommelier</div>
+      <p>ไวน์ที่มีซัลไฟต์ต่ำ เหมาะสำหรับดื่มในช่วงเวลาสั้น ๆ หลังเปิดขวด เพื่อคงความสด</p>
+      <p>เก็บไวน์ในที่เย็นและหลีกเลี่ยงแสงแดด เพื่อลดความเสื่อมจากออกซิเดชัน</p>
+      <p>หากต้องการลดปริมาณซัลไฟต์ในแก้ว สามารถใช้ wine aerator หรือเครื่องกรองซัลไฟต์ก่อนดื่ม</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ ACCORDION -->
+<div class="blog-section-alt" id="section-faq">
+  <div class="blog-container">
+    <h2 class="blog-heading">คำถามที่พบบ่อย</h2>
+    <div class="blog-faq">
+
+      <div class="blog-faq-item">
+        <button class="blog-faq-question">Sulfites ทำให้ปวดหัวจริงหรือ?</button>
+        <div class="blog-faq-answer">
+          <div class="blog-faq-answer-inner">
+            งานวิจัยพบว่า Sulfites ไม่ใช่สาเหตุหลักของอาการปวดหัวจากไวน์ สาเหตุที่พบบ่อยกว่าคือ histamine, tyramine และปริมาณแอลกอฮอล์ ผู้ที่แพ้ Sulfites จริง ๆ มักมีอาการทางระบบหายใจมากกว่าปวดหัว
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-faq-item">
+        <button class="blog-faq-question">ไวน์แดง หรือไวน์ขาว มี Sulfites มากกว่ากัน?</button>
+        <div class="blog-faq-answer">
+          <div class="blog-faq-answer-inner">
+            ไวน์ขาวมักมี Sulfites มากกว่าไวน์แดง เพราะไวน์แดงมีสารแทนนินที่ช่วยป้องกันออกซิเดชันได้ตามธรรมชาติ ทำให้ไม่ต้องเติม Sulfites มากเท่า
+          </div>
+        </div>
+      </div>
+
+      <div class="blog-faq-item">
+        <button class="blog-faq-question">สามารถหาไวน์ที่ไม่มี Sulfites เลยได้หรือไม่?</button>
+        <div class="blog-faq-answer">
+          <div class="blog-faq-answer-inner">
+            ไวน์ทุกชนิดมี Sulfites ในปริมาณเล็กน้อยจากกระบวนการหมักตามธรรมชาติ ไม่มีไวน์ที่ปราศจาก Sulfites 100% แต่ไวน์ Natural Wine จะมีปริมาณน้อยที่สุด (0–20 mg/L)
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE BLOCK -->
+<div class="blog-quote">
+  <p>Sulfites คือผู้พิทักษ์เงียบที่ช่วยให้ไวน์คงรสชาติและคุณภาพยาวนานขึ้น</p>
+</div>
+
+<hr class="blog-divider">
+
+<!-- LINE CTA BLOCK -->
+<div class="blog-container">
+  <div class="blog-line-cta">
+    <div class="blog-line-cta-text">
+      <h3>Add LINE @wine-now</h3>
+      <p>รับโปรโมชั่นพิเศษ คำแนะนำจาก Sommelier และอัปเดตไวน์ใหม่ก่อนใคร</p>
+    </div>
+    <a href="https://lin.ee/winenow" class="blog-line-btn">
+      <svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      Chat with us
+    </a>
+  </div>
+</div>
+
+<!-- CLOSING + CTA -->
+<div class="blog-section">
+  <div class="blog-container">
+    <p style="text-align:center;">สิ่งสำคัญคือการเลือกไวน์ที่เหมาะกับรสนิยมและโอกาสการดื่มของคุณ</p>
+    <div class="blog-cta">
+      <a class="blog-btn" href="https://th.wine-now.com/">คลิกเพื่อดูไวน์ทั้งหมด</a>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED ARTICLES -->
+<hr class="blog-divider">
+<div class="blog-related">
+  <div class="blog-container">
+    <div class="blog-related-title">บทความที่เกี่ยวข้อง</div>
+    <div class="blog-related-grid">
+
+      <a href="#" class="blog-related-card">
+        <img src="https://th.wine-now.com/media/wysiwyg/blog/Marlborough-vineyard-min.jpg" alt="Songkran Sips">
+        <div class="blog-related-card-body">
+          <div class="blog-related-card-tag">Seasonal Picks</div>
+          <h4>Songkran & Summer Sips: Sauvignon Blanc จากทั่วโลก</h4>
+          <p>7 min read</p>
+        </div>
+      </a>
+
+      <a href="#" class="blog-related-card">
+        <img src="https://th.wine-now.com/media/wysiwyg/blog/wine_with_sulfites-min.jpg" alt="Rose Wine">
+        <div class="blog-related-card-body">
+          <div class="blog-related-card-tag">Wine Knowledge</div>
+          <h4>Rose Wine คืออะไร? ไม่ใช่ Red ไม่ใช่ White</h4>
+          <p>4 min read</p>
+        </div>
+      </a>
+
+      <a href="#" class="blog-related-card">
+        <img src="https://th.wine-now.com/media/wysiwyg/blog/Loire_Valley_1_.jpg" alt="Noble Grapes">
+        <div class="blog-related-card-body">
+          <div class="blog-related-card-tag">Wine Knowledge</div>
+          <h4>18 พันธุ์องุ่นยอดนิยม สาระน่ารู้สำหรับนักดื่มไวน์</h4>
+          <p>10 min read</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+<!-- ============================================
+     EXAMPLE 2: PRODUCT BLOG (like Songkran)
+     ============================================ -->
+
+<div class="blog-container" style="text-align:center; padding:40px 0 20px 0;">
+  <p style="color:#999; font-size:14px; text-transform:uppercase; letter-spacing:2px; border-top:2px solid #eee; padding-top:40px;">— Example 2: Product Blog with Widgets —</p>
+</div>
+
+<!-- HERO -->
+<div class="blog-hero-image">
+  <img src="https://th.wine-now.com/media/wysiwyg/blog/Marlborough-vineyard-min.jpg" alt="Marlborough Vineyard">
+</div>
+<div class="blog-hero-title">
+  <h1>Songkran & Summer Sips: Sauvignon Blanc จากทั่วโลก</h1>
+  <div class="blog-hero-meta">SEASONAL PICKS &nbsp;|&nbsp; 7 min read</div>
+</div>
+
+<!-- AUTHOR -->
+<div class="blog-container">
+  <div class="blog-author">
+    <div class="blog-author-avatar">🍷</div>
+    <div class="blog-author-info">
+      <p class="blog-author-name">Wine-Now Sommelier Team</p>
+      <p class="blog-author-role">Certified Sommelier &nbsp;|&nbsp; Updated: April 2026</p>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="blog-container">
+  <p class="blog-intro">
+    ความร้อนที่พุ่งสูงขึ้นทุกปี บวกกับบรรยากาศของการฉลองที่ไม่มีขีดจำกัด ทำให้ช่วงเทศกาลนี้กลายเป็นโอกาสที่เหมาะที่สุดสำหรับการเปิดขวดไวน์ขาวที่สดและเป็นมิตรกับอากาศร้อน
+  </p>
+</div>
+
+<hr class="blog-divider">
+
+<!-- REGION: New Zealand -->
+<div class="blog-section">
+  <div class="blog-container">
+    <div class="blog-region-header">
+      <span class="blog-region-flag">🇳🇿</span>
+      <h3>New Zealand</h3>
+    </div>
+
+    <div class="blog-image-wrap">
+      <img src="https://th.wine-now.com/media/wysiwyg/blog/Marlborough-vineyard-min.jpg" alt="Marlborough Vineyard">
+      <p class="blog-image-caption">Marlborough, New Zealand — แหล่ง Sauvignon Blanc ที่ดีที่สุดในโลก</p>
+    </div>
+
+    <p>ถ้าพูดถึง <strong>Sauvignon Blanc</strong> ที่สดและเข้มข้นที่สุดในโลก <strong>Marlborough</strong> ของนิวซีแลนด์คือชื่อแรกที่ต้องนึกถึง แสงแดดกลางวันที่แรงและอุณหภูมิกลางคืนที่เย็นลงอย่างรวดเร็ว สร้างกลิ่นของผลไม้เขตร้อน ส้มโอ และสมุนไพรที่เป็นเอกลักษณ์</p>
+
+    <!-- MAGENTO WIDGET — paste your widget shortcode here -->
+    <div class="blog-product-widget">
+      <p>{{widget type="Magento\CatalogWidget\Block\Product\ProductsList" ...}}</p>
+      <p style="font-size:12px; margin-top:8px;">&#8593; Magento product widget renders here</p>
+    </div>
+  </div>
+</div>
+
+<!-- REGION: Chile -->
+<div class="blog-section-alt">
+  <div class="blog-container">
+    <div class="blog-region-header">
+      <span class="blog-region-flag">🇨🇱</span>
+      <h3>Chile</h3>
+    </div>
+
+    <div class="blog-image-wrap">
+      <img src="https://th.wine-now.com/media/wysiwyg/blog/Chile_Vineyard_2_1_.jpg" alt="Chile Vineyard">
+      <p class="blog-image-caption">ไร่องุ่นริมชายฝั่งแปซิฟิก ประเทศชิลี</p>
+    </div>
+
+    <p>ชิลีคือแหล่งผลิตที่พิสูจน์มาแล้วว่าไวน์คุณภาพไม่จำเป็นต้องมาพร้อมราคาที่ทำให้ลังเล Sauvignon Blanc จากชิลีได้รับอิทธิพลจากกระแสน้ำเย็น Humboldt ที่พัดมาตามชายฝั่งแปซิฟิก ทำให้ได้ไวน์ที่มีกรดสดชื่น</p>
+
+    <div class="blog-product-widget">
+      <p>{{widget type="Magento\CatalogWidget\Block\Product\ProductsList" ...}}</p>
+      <p style="font-size:12px; margin-top:8px;">&#8593; Magento product widget renders here</p>
+    </div>
+  </div>
+</div>
+
+<!-- REGION: France -->
+<div class="blog-section">
+  <div class="blog-container">
+    <div class="blog-region-header">
+      <span class="blog-region-flag">🇫🇷</span>
+      <h3>France</h3>
+    </div>
+
+    <div class="blog-image-wrap">
+      <img src="https://th.wine-now.com/media/wysiwyg/blog/Loire_Valley_1_.jpg" alt="Loire Valley">
+      <p class="blog-image-caption">Loire Valley, France — แหล่ง Sancerre และ Pouilly-Fume</p>
+    </div>
+
+    <p>ถ้าต้องการ Sauvignon Blanc ที่มีความลึกและโครงสร้างที่แตกต่างออกไป Loire Valley คือคำตอบ โดยเฉพาะ Sancerre และ Pouilly-Fume ที่ผลิตจากดินหินปูนและ Silex</p>
+
+    <div class="blog-product-widget">
+      <p>{{widget type="Magento\CatalogWidget\Block\Product\ProductsList" ...}}</p>
+      <p style="font-size:12px; margin-top:8px;">&#8593; Magento product widget renders here</p>
+    </div>
+  </div>
+</div>
+
+<!-- SOMMELIER TIP -->
+<div class="blog-section">
+  <div class="blog-container">
+    <div class="blog-callout">
+      <div class="blog-callout-title">🍷 Sommelier Tip</div>
+      <p>Sauvignon Blanc ควรเสิร์ฟที่อุณหภูมิ 8-10°C เพื่อให้ได้กลิ่นและรสชาติที่ดีที่สุด แช่ในถังน้ำแข็ง 20 นาทีก่อนเสิร์ฟ</p>
+    </div>
+  </div>
+</div>
+
+<!-- LINE CTA -->
+<div class="blog-container">
+  <div class="blog-line-cta">
+    <div class="blog-line-cta-text">
+      <h3>Add LINE @wine-now</h3>
+      <p>สอบถามไวน์ ขอคำแนะนำจาก Sommelier หรือสั่งซื้อผ่าน LINE ได้เลย</p>
+    </div>
+    <a href="https://lin.ee/winenow" class="blog-line-btn">
+      <svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      Chat with us
+    </a>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="blog-container">
+  <p class="blog-footer-note">
+    ไม่ว่าจะเลือกขวดไหน สิ่งที่ทุกขวดในลิสต์นี้มีเหมือนกันคือความสดที่เหมาะกับวันที่ร้อนที่สุดของปี
+  </p>
+  <div class="blog-cta">
+    <a class="blog-btn" href="https://th.wine-now.com/wine.html?grape_class=79">ดู Sauvignon Blanc ทั้งหมด</a>
+  </div>
+</div>
+
+<br><br>
+
+</body>
+</html>

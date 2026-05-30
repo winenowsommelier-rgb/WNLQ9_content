@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Featured Selection — Wine Collections | Wine-Now Thailand</title>
+<meta name="description" content="Shop 39 curated wine collections in Thailand. Bordeaux 1855, Burgundy Grand Cru, Champagne, Chianti DOCG, Thai New Latitude and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #8B1A20; --red-dk: #6B1318; --black: #111; --ink: #1C1C1C;
+  --body: #4A4A4A; --muted: #8A8A8A; --faint: #B0B0B0;
+  --rule: #E8E4E0; --rule-lt: #F0ECE8;
+  --bg: #fff; --bg-warm: #FAFAF8; --bg-tinted: #F5F3F0;
+  --h: 'Montserrat','Gotham',sans-serif;
+  --b: 'Lato','Gotham Book',sans-serif;
+  --max: 1280px; --pad: clamp(20px,4vw,56px); --gap: 20px; --r: 8px;
+  --dur: .4s; --ease: cubic-bezier(.25,.46,.45,.94);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--body);font-family:var(--b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ═══ NAV ═══ */
+#nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--rule);transition:box-shadow .3s}
+#nav.raised{box-shadow:0 1px 20px rgba(0,0,0,.06)}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:flex;align-items:stretch;height:48px;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-logo{font-family:var(--h);font-size:14px;font-weight:700;color:var(--black);display:flex;align-items:center;padding-right:24px;margin-right:8px;border-right:1px solid var(--rule);flex-shrink:0;white-space:nowrap}
+.nav-logo mark{background:none;color:var(--red)}
+.nav-item{font-family:var(--h);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:0 14px;display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;border-top:2px solid transparent;transition:color .2s,border-color .2s;text-decoration:none}
+.nav-item:hover{color:var(--black)}
+.nav-item.on{color:var(--red);border-bottom-color:var(--red)}
+.nav-badge{font-size:8px;font-weight:600;background:var(--bg-tinted);color:var(--muted);padding:2px 6px;border-radius:20px;line-height:1.5}
+.nav-item.on .nav-badge{background:var(--red);color:#fff}
+
+/* ═══ PAGE HEADER ═══ */
+.ph{padding:clamp(56px,7vw,100px) var(--pad) clamp(48px,5vw,72px)}
+.ph-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:48px;flex-wrap:wrap}
+.ph-kicker{font-family:var(--h);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.ph-kicker::before{content:'';width:32px;height:1px;background:var(--red)}
+.ph-h1{font-family:var(--h);font-size:clamp(40px,6vw,72px);font-weight:800;letter-spacing:-.04em;line-height:.92;text-transform:uppercase;color:var(--black);margin-bottom:24px}
+.ph-h1 em{color:var(--red);font-style:normal}
+.ph-sub{font-size:15px;font-weight:300;line-height:1.8;color:var(--muted);max-width:480px}
+.ph-stats{display:flex;gap:40px;align-items:flex-end;flex-shrink:0}
+.ph-stat{text-align:right}
+.ph-num{font-family:var(--h);font-size:42px;font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--black);display:flex;align-items:flex-start;justify-content:flex-end}
+.ph-num sup{font-size:.4em;color:var(--red);margin-top:6px}
+.ph-label{font-family:var(--h);font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+
+/* ═══ CHAPTER HEADER ═══ */
+.ch{max-width:var(--max);margin:0 auto;padding:clamp(56px,6vw,88px) var(--pad) clamp(24px,3vw,36px);display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.ch-eyebrow{font-family:var(--h);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ch-eyebrow::before{content:'';width:20px;height:1px;background:var(--red)}
+.ch-h2{font-family:var(--h);font-size:clamp(22px,2.8vw,32px);font-weight:700;letter-spacing:-.025em;color:var(--black);line-height:1.1}
+.ch-sub{font-size:14px;font-weight:300;line-height:1.75;color:var(--muted);max-width:520px;margin-top:10px}
+.ch-link{font-family:var(--h);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:6px;flex-shrink:0;cursor:pointer;transition:gap var(--dur) var(--ease);opacity:.8}
+.ch-link:hover{gap:10px;opacity:1}
+
+/* ═══ GRID ═══ */
+.grid{max-width:var(--max);margin:0 auto;padding:0 var(--pad);display:grid;gap:var(--gap);grid-template-columns:repeat(3,1fr)}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+.mt{margin-top:var(--gap)}
+.divider{max-width:var(--max);margin:0 auto;padding:0 var(--pad);margin-top:clamp(56px,6vw,88px)}
+.divider-line{height:1px;background:var(--rule)}
+.tinted{background:var(--bg-warm)}
+
+/* ═══════════════════════════════════════════════
+   GRADIENT CARD — the core redesign
+   ═══════════════════════════════════════════════ */
+.card{
+  position:relative;display:flex;flex-direction:column;
+  background:var(--bg);border:none;border-radius:var(--r);
+  overflow:hidden;cursor:pointer;
+  box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.03);
+  transition:box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease);
+}
+.card:hover{box-shadow:0 12px 48px rgba(0,0,0,.12);transform:translateY(-4px);z-index:2}
+
+/* ── Gradient Visual Zone ── */
+.card-visual{
+  position:relative;
+  min-height:200px;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:28px 26px 24px;
+  overflow:hidden;
+  /* background-image: url('YOUR-IMAGE.jpg'); */
+  /* background-size: cover; background-position: center; */
+}
+
+/* Subtle grain texture overlay */
+.card-visual::before{
+  content:'';position:absolute;inset:0;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+
+/* Diagonal accent line */
+.card-visual::after{
+  content:'';position:absolute;
+  top:-20%;right:-5%;width:1px;height:140%;
+  background:rgba(255,255,255,.12);
+  transform:rotate(25deg);
+  pointer-events:none;z-index:1;
+}
+
+/* Text over gradient */
+.card-visual-eye{
+  font-family:var(--h);font-size:9px;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);margin-bottom:10px;
+  position:relative;z-index:2;
+}
+.card-visual-title{
+  font-family:var(--h);font-size:clamp(20px,2.2vw,28px);font-weight:700;
+  letter-spacing:-.02em;color:#fff;line-height:1.12;
+  position:relative;z-index:2;
+}
+.card-visual-title em{
+  display:block;font-style:normal;font-weight:300;
+  font-family:var(--b);font-size:.72em;
+  color:rgba(255,255,255,.6);margin-top:4px;
+  letter-spacing:0;
+}
+
+/* Small decorative dot cluster */
+.card-dots{
+  position:absolute;top:20px;right:24px;z-index:2;
+  display:grid;grid-template-columns:repeat(3,4px);gap:6px;
+  opacity:.25;
+}
+.card-dots span{width:4px;height:4px;border-radius:50%;background:#fff}
+
+/* ── Content Zone ── */
+.card-content{flex:1;display:flex;flex-direction:column;padding:20px 22px 20px}
+.card-brands{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.brand-pill{font-family:var(--h);font-size:8px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:3px 0;border-bottom:1px solid var(--rule);transition:color var(--dur),border-color var(--dur)}
+.card:hover .brand-pill{color:var(--red);border-color:var(--red)}
+.card-desc{font-size:13px;font-weight:300;line-height:1.7;color:var(--body);flex:1}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{font-family:var(--h);font-size:8px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:var(--bg-tinted);color:var(--muted);padding:4px 10px;border-radius:3px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--rule-lt)}
+.card-price{font-family:var(--h);font-size:14px;font-weight:700;color:var(--black)}
+.card-price small{font-size:9px;font-weight:400;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:2px}
+.card-cta{font-family:var(--h);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);border-bottom:1px solid transparent;transition:border-color var(--dur)}
+.card:hover .card-cta{border-color:var(--red)}
+
+/* ═══════════════════════════════════════════════
+   PER-COLLECTION GRADIENTS
+   Each gradient is unique to the wine category.
+   To add a background image later, uncomment
+   background-image in .card-visual and the
+   gradient becomes a tinted overlay.
+   ═══════════════════════════════════════════════ */
+
+/* Ch1: Classified Fine Wine */
+.grad-bordeaux     { background: linear-gradient(135deg, #4A0E0E 0%, #8B1A20 40%, #2D0A0A 100%); }
+.grad-stemilion    { background: linear-gradient(135deg, #5C1A2A 0%, #9B2335 50%, #3A0F18 100%); }
+.grad-burgundy-gc  { background: linear-gradient(135deg, #3D0C14 0%, #7A1C2C 40%, #1F0A10 100%); }
+.grad-burgundy-pc  { background: linear-gradient(135deg, #5A1E30 0%, #A0384E 50%, #3C1020 100%); }
+.grad-rhone        { background: linear-gradient(135deg, #3A1830 0%, #6E2848 40%, #1A0C18 100%); }
+.grad-chianti      { background: linear-gradient(135deg, #6B2010 0%, #C04020 50%, #3A1208 100%); }
+.grad-barolo       { background: linear-gradient(135deg, #2E1020 0%, #582038 40%, #1A0810 100%); }
+.grad-supertuscan  { background: linear-gradient(135deg, #1C1C2E 0%, #3A2840 50%, #0D0D18 100%); }
+.grad-rioja        { background: linear-gradient(135deg, #5C2818 0%, #8A3820 40%, #3A1808 100%); }
+.grad-amarone      { background: linear-gradient(135deg, #2A1018 0%, #502028 50%, #180810 100%); }
+
+/* Ch2: By Style */
+.grad-cabernet     { background: linear-gradient(135deg, #2A0A10 0%, #6B1A28 50%, #1A0508 100%); }
+.grad-pinot        { background: linear-gradient(135deg, #4A1828 0%, #8B3048 40%, #2A0C18 100%); }
+.grad-shiraz       { background: linear-gradient(135deg, #1A0A18 0%, #4A1838 50%, #0D0510 100%); }
+.grad-malbec       { background: linear-gradient(135deg, #2E0E28 0%, #5A1C48 50%, #180818 100%); }
+.grad-chardonnay   { background: linear-gradient(135deg, #5A4A20 0%, #C8A848 40%, #3A3010 100%); }
+.grad-sauvblanc    { background: linear-gradient(135deg, #2A4A30 0%, #4A8A58 50%, #1A3020 100%); }
+.grad-riesling     { background: linear-gradient(135deg, #3A5A3A 0%, #6A9A6A 40%, #204020 100%); }
+.grad-rose         { background: linear-gradient(135deg, #8A4A5A 0%, #D48A98 50%, #6A3040 100%); }
+.grad-blend        { background: linear-gradient(135deg, #3A2020 0%, #6A3838 50%, #201010 100%); }
+
+/* Ch3: Sparkling */
+.grad-champagne    { background: linear-gradient(135deg, #6A5A28 0%, #C8A848 40%, #4A3A18 100%); }
+.grad-prestige     { background: linear-gradient(135deg, #1A1A2A 0%, #2A2A48 50%, #0A0A18 100%); }
+.grad-rosechamp    { background: linear-gradient(135deg, #8A5060 0%, #D08898 50%, #6A3848 100%); }
+.grad-prosecco     { background: linear-gradient(135deg, #5A7A48 0%, #8AB870 40%, #3A5030 100%); }
+.grad-cava         { background: linear-gradient(135deg, #7A6A30 0%, #B8A050 40%, #5A4A20 100%); }
+.grad-cremant      { background: linear-gradient(135deg, #5A5A48 0%, #8A8A70 50%, #3A3A30 100%); }
+
+/* Ch4: Dessert & Fortified */
+.grad-sauternes    { background: linear-gradient(135deg, #7A6A20 0%, #D4B840 40%, #5A4A10 100%); }
+.grad-port         { background: linear-gradient(135deg, #3A1010 0%, #6A2020 50%, #200808 100%); }
+
+/* Ch5: New World */
+.grad-napa         { background: linear-gradient(135deg, #4A3A18 0%, #8A6A30 50%, #2A2010 100%); }
+.grad-nz           { background: linear-gradient(135deg, #1A4A3A 0%, #2A7A5A 50%, #0A3028 100%); }
+.grad-australia    { background: linear-gradient(135deg, #6A3A10 0%, #B86818 40%, #4A2808 100%); }
+.grad-chile        { background: linear-gradient(135deg, #3A2A18 0%, #7A5830 50%, #201A10 100%); }
+.grad-gift         { background: linear-gradient(135deg, #2A2A2A 0%, #4A4A4A 50%, #1A1A1A 100%); }
+
+/* Ch6: Natural & Organic */
+.grad-natural      { background: linear-gradient(135deg, #4A5A30 0%, #7A9A48 40%, #2A3A18 100%); }
+.grad-organic      { background: linear-gradient(135deg, #3A5838 0%, #5A8A58 50%, #204028 100%); }
+.grad-orange       { background: linear-gradient(135deg, #8A6A28 0%, #D4A038 40%, #5A4418 100%); }
+
+/* Ch7: Thai Wine */
+.grad-thai         { background: linear-gradient(135deg, #2A5A4A 0%, #4A8A6A 40%, #1A3A2A 100%); }
+.grad-cellar       { background: linear-gradient(135deg, #1A1A28 0%, #2A2A48 50%, #0A0A18 100%); }
+.grad-value        { background: linear-gradient(135deg, #5A4A38 0%, #8A7858 50%, #3A3028 100%); }
+
+/* ═══ FEATURED BAND ═══ */
+.featured-band{max-width:var(--max);margin:0 auto;padding:0 var(--pad);margin-top:clamp(56px,6vw,88px)}
+.featured-inner{background:var(--black);border-radius:var(--r);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.feat-label{font-family:var(--h);font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px}
+.feat-title{font-family:var(--h);font-size:clamp(18px,2vw,26px);font-weight:700;color:#fff;line-height:1.15}
+.feat-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,.5);margin-top:8px}
+.feat-cta{font-family:var(--h);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--black);background:#fff;padding:11px 28px;border-radius:var(--r);flex-shrink:0;transition:background .2s,color .2s;cursor:pointer}
+.feat-cta:hover{background:var(--red);color:#fff}
+
+/* ═══ FAQ ═══ */
+.faq-section{background:var(--bg-warm);border-top:1px solid var(--rule);margin-top:clamp(56px,6vw,88px);padding:clamp(56px,6vw,88px) 0}
+.faq-inner{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.faq-head{margin-bottom:52px}
+.faq-kicker{font-family:var(--h);font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.faq-kicker::before{content:'';width:20px;height:1px;background:var(--red)}
+.faq-title{font-family:var(--h);font-size:clamp(24px,2.8vw,34px);font-weight:700;color:var(--black);margin-bottom:10px}
+.faq-sub{font-size:14px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.75}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px 72px}
+.faq-group-label{font-family:var(--h);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.faq-item{border-bottom:1px solid var(--rule)}
+.faq-q{font-family:var(--h);font-size:13px;font-weight:600;color:var(--black);display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 0;cursor:pointer;list-style:none;transition:color .25s}
+.faq-q::-webkit-details-marker{display:none}
+.faq-q:hover,.faq-item[open] .faq-q{color:var(--red)}
+.faq-icon{font-size:18px;font-weight:300;color:var(--faint);flex-shrink:0;line-height:1;transition:transform .3s var(--ease),color .25s}
+.faq-item[open] .faq-icon{transform:rotate(45deg);color:var(--red)}
+.faq-a{padding:0 0 18px;font-size:13px;font-weight:300;line-height:1.8;color:var(--body);animation:fi .25s ease}
+@keyframes fi{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.faq-a p{margin-bottom:8px}.faq-a p:last-child{margin-bottom:0}
+.faq-a ul{padding-left:18px;margin-top:8px}.faq-a li{margin-bottom:5px}
+.faq-a strong{color:var(--black);font-weight:600}
+.faq-a a{color:var(--red);text-decoration:underline;text-decoration-color:rgba(139,26,32,.25)}
+
+/* ═══ LEGAL ═══ */
+.legal-bar{background:var(--black);padding:16px var(--pad)}
+.legal-inner{max-width:var(--max);margin:0 auto;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.legal-inner span{font-family:var(--h);font-size:9px;font-weight:400;letter-spacing:.08em;color:rgba(255,255,255,.35);text-transform:uppercase}
+
+/* ═══ REVEAL ═══ */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.stagger > *{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.stagger.in > *:nth-child(1){transition-delay:.05s}
+.stagger.in > *:nth-child(2){transition-delay:.12s}
+.stagger.in > *:nth-child(3){transition-delay:.19s}
+.stagger.in > *{opacity:1;transform:translateY(0)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}.grid.g2{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.ph-stats{display:none}.ch{flex-direction:column;gap:12px}.faq-grid{grid-template-columns:1fr;gap:36px}.card-visual{min-height:180px}}
+@media(max-width:520px){.grid,.grid.g2{grid-template-columns:1fr}.card-visual{min-height:160px}}
+@media(max-width:480px){.legal-inner{flex-direction:column;gap:8px}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">Wine<mark>Now</mark></div>
+    <a class="nav-item on" href="#s1">Classified <span class="nav-badge">10</span></a>
+    <a class="nav-item" href="#s2">By Style <span class="nav-badge">9</span></a>
+    <a class="nav-item" href="#s3">Sparkling <span class="nav-badge">6</span></a>
+    <a class="nav-item" href="#s4">Dessert <span class="nav-badge">2</span></a>
+    <a class="nav-item" href="#s5">New World <span class="nav-badge">5</span></a>
+    <a class="nav-item" href="#s6">Natural <span class="nav-badge">3</span></a>
+    <a class="nav-item" href="#s7">Thai Wine <span class="nav-badge">3</span></a>
+  </div>
+</nav>
+
+<header class="ph">
+  <div class="ph-inner">
+    <div>
+      <p class="ph-kicker">Wine-Now Thailand · All Collections</p>
+      <h1 class="ph-h1">Featured<br><em>Selection</em></h1>
+      <p class="ph-sub">39 curated collections spanning every classification, style, region and occasion — from entry-level everyday drinking to First Growth Bordeaux.</p>
+    </div>
+    <div class="ph-stats">
+      <div class="ph-stat"><div class="ph-num">39<sup>+</sup></div><div class="ph-label">Collections</div></div>
+      <div class="ph-stat"><div class="ph-num">10K<sup>+</sup></div><div class="ph-label">Labels in Stock</div></div>
+      <div class="ph-stat"><div class="ph-num">7</div><div class="ph-label">Chapters</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ CH 1 — CLASSIFIED FINE WINE ══ -->
+<section id="s1">
+  <div class="ch reveal">
+    <div>
+      <p class="ch-eyebrow">Chapter 01 · 10 Collections</p>
+      <h2 class="ch-h2">Classified & Appellation Fine Wine</h2>
+      <p class="ch-sub">The world's most prestigious appellations — centuries of reputation, strict terroir laws and international investment appeal.</p>
+    </div>
+    <a class="ch-link" href="https://th.wine-now.com/wine/red-wine.html">View All →</a>
+  </div>
+
+  <div class="grid stagger">
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-bordeaux">
+        <!-- To add image: background-image:url('bordeaux-1855-classification-medoc-chateau-vineyard.jpg'); background-size:cover; background-position:center; -->
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Bordeaux · France · AOC</p>
+        <h3 class="card-visual-title">1855 Bordeaux Classification<em>Médoc & Sauternes · 61 Châteaux</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">Château Margaux</span><span class="brand-pill">Mouton Rothschild</span><span class="brand-pill">Lafite Rothschild</span><span class="brand-pill">Lynch-Bages</span></div>
+        <p class="card-desc">Napoleon III commissioned this ranking for the 1855 World's Fair. All 61 châteaux — from Premier Cru to Cinquième Cru — remain the most coveted addresses in fine wine. Pure Cabernet Sauvignon power built to age 30+ years.</p>
+        <div class="card-tags"><span class="tag">61 Châteaux</span><span class="tag">Collector</span><span class="tag">Cabernet</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿1,800</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-stemilion">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Bordeaux · Right Bank · AOC</p>
+        <h3 class="card-visual-title">Saint-Émilion & Pomerol<em>Right Bank Bordeaux · Merlot-Dominant</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">Cheval Blanc</span><span class="brand-pill">Angélus</span><span class="brand-pill">Canon</span><span class="brand-pill">Figeac</span></div>
+        <p class="card-desc">Merlot-dominant and seductively plush — the Right Bank's softer counterpoint to the Médoc. Pétrus, Cheval Blanc, Ausone: names that define luxury. Earlier-drinking, rounder, deeply coveted worldwide.</p>
+        <div class="card-tags"><span class="tag">Merlot</span><span class="tag">Grand Cru Classé</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿2,200</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-burgundy-gc">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Burgundy · Côte d'Or · AOC</p>
+        <h3 class="card-visual-title">Burgundy Grand Cru<em>33 Vineyards · Pinot Noir & Chardonnay</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">DRC</span><span class="brand-pill">Leroy</span><span class="brand-pill">Rousseau</span><span class="brand-pill">Leflaive</span></div>
+        <p class="card-desc">33 Grand Cru vineyards — Romanée-Conti, Chambertin, Montrachet. The world's most terroir-expressive Pinot Noir and Chardonnay. Demand far outstrips supply.</p>
+        <div class="card-tags"><span class="tag">Pinot Noir</span><span class="tag">Chardonnay</span><span class="tag">33 Vineyards</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿4,500</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid stagger mt">
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-burgundy-pc">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Burgundy · Côte d'Or · AOC</p>
+        <h3 class="card-visual-title">Burgundy Premier Cru<em>639 Named Vineyard Sites</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">Jadot</span><span class="brand-pill">Drouhin</span><span class="brand-pill">Bouchard</span><span class="brand-pill">Faiveley</span></div>
+        <p class="card-desc">639 named Premier Cru sites — the gateway into Burgundy's finest terroirs. Outstanding quality at a fraction of Grand Cru prices, with 15-20 year ageing potential.</p>
+        <div class="card-tags"><span class="tag">Village Prestige</span><span class="tag">639 Sites</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿2,200</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-rhone">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Rhône Valley · France · AOC</p>
+        <h3 class="card-visual-title">Northern & Southern Rhône<em>Hermitage · Châteauneuf-du-Pape</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">Guigal</span><span class="brand-pill">Jaboulet</span><span class="brand-pill">Chapoutier</span><span class="brand-pill">Perrin</span></div>
+        <p class="card-desc">Muscular Syrah from granite slopes in the north. Bold Grenache blends with garrigue and spice in the south. Two personalities united by extraordinary winemaking.</p>
+        <div class="card-tags"><span class="tag">Syrah</span><span class="tag">Grenache</span><span class="tag">Garrigue</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿980</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-chianti">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Tuscany · Italy · DOCG</p>
+        <h3 class="card-visual-title">Chianti Classico DOCG<em>The Black Rooster Zone</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">Antinori</span><span class="brand-pill">Fontodi</span><span class="brand-pill">Felsina</span><span class="brand-pill">Ruffino</span></div>
+        <p class="card-desc">Between Florence and Siena. Sangiovese at its most expressive — cherry, dried herbs, earthy minerality. Gran Selezione is the pinnacle: 30+ months ageing.</p>
+        <div class="card-tags"><span class="tag">Sangiovese</span><span class="tag">Gran Selezione</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿780</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid stagger mt">
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-barolo">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Piedmont · Italy · DOCG</p>
+        <h3 class="card-visual-title">Barolo & Barbaresco<em>King & Queen of Italian Wine</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">Gaja</span><span class="brand-pill">G. Conterno</span><span class="brand-pill">Ceretto</span><span class="brand-pill">Produttori</span></div>
+        <p class="card-desc">Nebbiolo — austere in youth, revelatory with age. Tar, roses, leather and truffle. Among the world's longest-lived and most complex red wines.</p>
+        <div class="card-tags"><span class="tag">Nebbiolo</span><span class="tag">30yr Potential</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿2,200</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-supertuscan">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Tuscany · Italy · IGT</p>
+        <h3 class="card-visual-title">Super Tuscans<em>IGT Toscana — The Rebels</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">Sassicaia</span><span class="brand-pill">Tignanello</span><span class="brand-pill">Ornellaia</span><span class="brand-pill">Masseto</span></div>
+        <p class="card-desc">The rebels that rewrote Italian wine. Classified as humble table wine yet priced like Grand Cru. Bordeaux-style precision born in Tuscan hillsides.</p>
+        <div class="card-tags"><span class="tag">Cabernet · Sangiovese</span><span class="tag">Collectible</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿2,800</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+
+    <article class="card" onclick="location.href='#'" tabindex="0">
+      <div class="card-visual grad-rioja">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Rioja · Spain · DOCa</p>
+        <h3 class="card-visual-title">Rioja DOCa<em>Crianza · Reserva · Gran Reserva</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">La Rioja Alta</span><span class="brand-pill">Muga</span><span class="brand-pill">CVNE</span><span class="brand-pill">Artadi</span></div>
+        <p class="card-desc">Spain's most trusted red. Tempranillo aged in American and French oak. Classically structured with extraordinary value at every tier compared to French equivalents.</p>
+        <div class="card-tags"><span class="tag">Tempranillo</span><span class="tag">Oak Aged</span><span class="tag">Great Value</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿580</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="grid stagger mt" style="grid-template-columns:1fr">
+    <article class="card" onclick="location.href='https://th.wine-now.com/wine-now-selection/amarone-selection.html'" tabindex="0" style="max-width:calc((var(--max) - var(--gap)*2) / 3)">
+      <div class="card-visual grad-amarone">
+        <div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <p class="card-visual-eye">Veneto · Italy · DOCG</p>
+        <h3 class="card-visual-title">Amarone della Valpolicella<em>Appassimento Method</em></h3>
+      </div>
+      <div class="card-content">
+        <div class="card-brands"><span class="brand-pill">Allegrini</span><span class="brand-pill">Masi</span><span class="brand-pill">Bertani</span><span class="brand-pill">Le Salette</span></div>
+        <p class="card-desc">Grapes dried 90-120 days. Bitter cherry, dark chocolate, leather. 15-17% ABV. Built to last 30 years and improve every year.</p>
+        <div class="card-tags"><span class="tag">Appassimento</span><span class="tag">Corvina</span><span class="tag">30yr Potential</span></div>
+        <div class="card-foot"><div class="card-price"><small>From</small>฿2,400</div><span class="card-cta">Explore →</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ══ CH 2 — BY STYLE ══ -->
+<div class="divider reveal"><div class="divider-line"></div></div>
+<section id="s2" class="tinted" style="padding-bottom:56px">
+  <div class="ch reveal">
+    <div>
+      <p class="ch-eyebrow">Chapter 02 · 9 Collections</p>
+      <h2 class="ch-h2">Browse by Style & Flavour Profile</h2>
+      <p class="ch-sub">Choose your style — we match you to the best bottles across all origins and price points.</p>
+    </div>
+    <a class="ch-link" href="https://th.wine-now.com/wine/red-wine.html">Browse All →</a>
+  </div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0"><div class="card-visual grad-cabernet"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Full-Bodied Red · #1 in Thailand</p><h3 class="card-visual-title">Cabernet Sauvignon<em>Bold & Structured · All Origins</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Penfolds 407</span><span class="brand-pill">Mondavi</span><span class="brand-pill">Casillero</span><span class="brand-pill">Opus One</span></div><p class="card-desc">The world's most planted noble grape. Black currant, cedar, firm tannins. Thailand's #1 selling red variety, from ฿420 to ฿180,000.</p><div class="card-tags"><span class="tag">Full-Bodied</span><span class="tag">Long Ageing</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿420</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-pinot"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Light to Medium Red</p><h3 class="card-visual-title">Pinot Noir<em>Silk & Precision · Terroir-Driven</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Cloudy Bay</span><span class="brand-pill">Felton Road</span><span class="brand-pill">Williams Selyem</span></div><p class="card-desc">Silky tannins, red cherry, forest floor. Burgundy sets the benchmark; Marlborough and Oregon offer brilliant alternatives at every price.</p><div class="card-tags"><span class="tag">Light-Medium</span><span class="tag">Terroir-Driven</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿580</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-shiraz"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Full-Bodied Red</p><h3 class="card-visual-title">Shiraz / Syrah<em>Spice & Dark Power · Old Vine</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Penfolds</span><span class="brand-pill">Henschke</span><span class="brand-pill">Langmeil</span><span class="brand-pill">Torbreck</span></div><p class="card-desc">Black olive, smoked meat, violets and cracked pepper. From Northern Rhône granite to Barossa ancient vines. Thailand's most consumed red variety.</p><div class="card-tags"><span class="tag">Full-Bodied</span><span class="tag">Peppery</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿380</div><span class="card-cta">Explore →</span></div></div></article>
+  </div>
+
+  <div class="grid stagger mt">
+    <article class="card" tabindex="0"><div class="card-visual grad-malbec"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Full-Bodied Red</p><h3 class="card-visual-title">Malbec<em>Argentine Velvet · High Altitude</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">La Linda</span><span class="brand-pill">Trivento</span><span class="brand-pill">La Playa</span><span class="brand-pill">Catena</span></div><p class="card-desc">Plush, dark plum, violets. Mendoza's high-altitude vineyards give intensity and freshness that lower regions can't match. Best value-to-quality in red wine.</p><div class="card-tags"><span class="tag">Plush</span><span class="tag">High Altitude</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿380</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-chardonnay"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Rich White</p><h3 class="card-visual-title">Chardonnay<em>Buttery & Complex · Oaked & Unoaked</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Cloudy Bay</span><span class="brand-pill">Jacob's Creek</span><span class="brand-pill">Drouhin</span><span class="brand-pill">Penfolds</span></div><p class="card-desc">From razor-sharp Chablis on limestone to rich, oaked Meursault. Unoaked for seafood, barrel-fermented for roast chicken and creamy pasta.</p><div class="card-tags"><span class="tag">Oaked & Unoaked</span><span class="tag">Food Versatile</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿380</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-sauvblanc"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Crisp White</p><h3 class="card-visual-title">Sauvignon Blanc<em>Mineral & Citrus · Summer Essential</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Cloudy Bay</span><span class="brand-pill">Kim Crawford</span><span class="brand-pill">Dog Point</span><span class="brand-pill">Sancerre</span></div><p class="card-desc">Grapefruit, passionfruit and cut grass. Marlborough defined modern style; Loire Valley adds flinty minerality. Ideal for Thailand's hot climate.</p><div class="card-tags"><span class="tag">Aromatic</span><span class="tag">High Acid</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿380</div><span class="card-cta">Explore →</span></div></div></article>
+  </div>
+
+  <div class="grid stagger mt">
+    <article class="card" tabindex="0"><div class="card-visual grad-riesling"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Aromatic White</p><h3 class="card-visual-title">Riesling<em>Floral & Age-Worthy · 10-20yr Cellar</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Leon Beyer</span><span class="brand-pill">Trimbach</span><span class="brand-pill">Dr. Loosen</span></div><p class="card-desc">Jasmine, lime zest, petrol and honey. Alsace gives bone-dry power; Mosel offers off-dry elegance. Improves dramatically with 10-20 years of cellaring.</p><div class="card-tags"><span class="tag">Dry to Off-Dry</span><span class="tag">Age-Worthy</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿520</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-rose"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Provence · France · AOC</p><h3 class="card-visual-title">Provence Rosé<em>Crisp, Pale & Dry · Bangkok's Top Gift</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Whispering Angel</span><span class="brand-pill">Miraval</span><span class="brand-pill">Minuty</span></div><p class="card-desc">World benchmark for dry rosé. Pale salmon, red berry, herbs, mineral finish. The most gifted wine bottle in Bangkok right now. Outstanding with Thai cuisine.</p><div class="card-tags"><span class="tag">Grenache Blend</span><span class="tag">Gift-Worthy</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿980</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-blend"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Red & White Blends</p><h3 class="card-visual-title">GSM, Meritage & Blends<em>The Blender's Art</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Perrin</span><span class="brand-pill">Laurent Miquel</span><span class="brand-pill">La Collection</span></div><p class="card-desc">Grenache-Syrah-Mourvèdre from Southern Rhône, Bordeaux-style Meritage from Napa, aromatic Viognier-Roussanne whites. Greater than the sum of its parts.</p><div class="card-tags"><span class="tag">GSM</span><span class="tag">Meritage</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿450</div><span class="card-cta">Explore →</span></div></div></article>
+  </div>
+</section>
+
+<!-- ══ CH 3 — SPARKLING ══ -->
+<div class="divider reveal"><div class="divider-line"></div></div>
+<section id="s3">
+  <div class="ch reveal"><div><p class="ch-eyebrow">Chapter 03 · 6 Collections</p><h2 class="ch-h2">Sparkling Wine & Champagne</h2><p class="ch-sub">Bubbles for every occasion and budget — iconic Champagne houses to artisan Crémant and Prosecco.</p></div><a class="ch-link" href="https://th.wine-now.com/wine/champagne-wine.html">All Sparkling →</a></div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0"><div class="card-visual grad-champagne"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Champagne · France · AOC</p><h3 class="card-visual-title">Non-Vintage Champagne<em>The Art of Blending</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Moët</span><span class="brand-pill">Veuve Clicquot</span><span class="brand-pill">Bollinger</span><span class="brand-pill">Taittinger</span></div><p class="card-desc">Every major house defines itself through its NV cuvée. These bottles mark milestones and seal celebrations across Bangkok's finest tables.</p><div class="card-tags"><span class="tag">Traditional Method</span><span class="tag">House Style</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿2,400</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-prestige"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Champagne · Prestige Cuvée</p><h3 class="card-visual-title">Dom Pérignon, Cristal & Krug<em>Investment-Grade Champagne</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Dom Pérignon</span><span class="brand-pill">Krug</span><span class="brand-pill">Cristal</span><span class="brand-pill">Comtes de Champagne</span></div><p class="card-desc">Vintage-dated from the finest single-harvest parcels. Ages gracefully for decades. The ultimate Thai gifting expression.</p><div class="card-tags"><span class="tag">Vintage Dated</span><span class="tag">Collector</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿8,500</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-rosechamp"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Champagne · Rosé</p><h3 class="card-visual-title">Rosé Champagne<em>& Sparkling Rosé · Top Gift</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Laurent Perrier</span><span class="brand-pill">Billecart-Salmon</span><span class="brand-pill">Taittinger Rosé</span></div><p class="card-desc">The most gifted bottle in Thailand. Pink, precise and celebratory. Perfect for birthdays, anniversaries, weddings and corporate moments.</p><div class="card-tags"><span class="tag">Pink Bubbles</span><span class="tag">Top Gift</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿1,200</div><span class="card-cta">Explore →</span></div></div></article>
+  </div>
+
+  <div class="grid stagger mt">
+    <article class="card" tabindex="0"><div class="card-visual grad-prosecco"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Veneto · Italy · DOCG</p><h3 class="card-visual-title">Prosecco & Franciacorta<em>Italy's Sparkling Stars</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">La Gioiosa</span><span class="brand-pill">La Marchesana</span><span class="brand-pill">Mionetto</span></div><p class="card-desc">Green apple, white peach, soft bubbles. Prosecco for aperitivo; Franciacorta for Champagne quality with Italian soul.</p><div class="card-tags"><span class="tag">Glera</span><span class="tag">Aperitivo</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿480</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-cava"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Penedès · Spain · DO</p><h3 class="card-visual-title">Cava<em>Traditional Method · Half the Price</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Gramona</span><span class="brand-pill">Freixenet</span><span class="brand-pill">Codorníu</span></div><p class="card-desc">Same traditional method as Champagne, same lees ageing, fraction of the price. Gramona Gran Reserva competes with bottles costing twice as much.</p><div class="card-tags"><span class="tag">Traditional Method</span><span class="tag">Gran Reserva</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿580</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-cremant"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">France · Germany · Others</p><h3 class="card-visual-title">Crémant & Sekt<em>Everyday Elegance</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Leonce Bocquet</span><span class="brand-pill">Leon Beyer</span></div><p class="card-desc">Crémant d'Alsace, Crémant de Bourgogne, German Sekt — traditional method sparkling at everyday prices from regions where land costs a fraction.</p><div class="card-tags"><span class="tag">Traditional Method</span><span class="tag">Everyday</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿680</div><span class="card-cta">Explore →</span></div></div></article>
+  </div>
+</section>
+
+<!-- ══ CH 4 — DESSERT ══ -->
+<div class="divider reveal"><div class="divider-line"></div></div>
+<section id="s4" class="tinted" style="padding-bottom:56px">
+  <div class="ch reveal"><div><p class="ch-eyebrow">Chapter 04 · 2 Collections</p><h2 class="ch-h2">Dessert, Fortified & Special Occasion</h2><p class="ch-sub">Sweet, complex wines built for the final chapter of a great meal or the gift that says everything.</p></div><a class="ch-link" href="https://th.wine-now.com/wine/dessert-wine.html">All Dessert →</a></div>
+
+  <div class="grid g2 stagger">
+    <article class="card" tabindex="0"><div class="card-visual grad-sauternes"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Bordeaux · France · AOC</p><h3 class="card-visual-title">Sauternes & Late Harvest<em>Noble Rot Sweet Wines</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Château d'Yquem</span><span class="brand-pill">Rieussec</span><span class="brand-pill">Suduiraut</span></div><p class="card-desc">Noble rot concentrates Sémillon into liquid gold — honey, apricot and saffron. Pairs with foie gras, blue cheese, or sipped alone.</p><div class="card-tags"><span class="tag">Botrytis</span><span class="tag">Cellar-Worthy</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿1,200</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-port"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Douro · Portugal & Jerez · Spain</p><h3 class="card-visual-title">Port, Sherry & Fortified<em>Centuries of Tradition</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Taylor Fladgate</span><span class="brand-pill">Graham's</span><span class="brand-pill">Osborne</span><span class="brand-pill">Sandeman</span></div><p class="card-desc">Vintage Port ages a century. Tawny for immediate pleasure. Fino and Oloroso Sherry — wildly undervalued wines of extraordinary complexity.</p><div class="card-tags"><span class="tag">Fortified</span><span class="tag">Vintage · Tawny · LBV</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿780</div><span class="card-cta">Explore →</span></div></div></article>
+  </div>
+</section>
+
+<!-- ══ CH 5 — NEW WORLD ══ -->
+<div class="divider reveal"><div class="divider-line"></div></div>
+<section id="s5">
+  <div class="ch reveal"><div><p class="ch-eyebrow">Chapter 05 · 5 Collections</p><h2 class="ch-h2">New World — Region by Region</h2><p class="ch-sub">The Americas, Oceania and South Africa — expressive, value-driven wines at every budget.</p></div><a class="ch-link" href="https://th.wine-now.com/wine/red-wine.html">Explore New World →</a></div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0"><div class="card-visual grad-napa"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">California · USA · AVA</p><h3 class="card-visual-title">Napa Valley<em>Cult & Collectible Cabernet</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Opus One</span><span class="brand-pill">Larkmead</span><span class="brand-pill">Clos du Val</span><span class="brand-pill">Mondavi</span></div><p class="card-desc">America's most prestigious wine valley. Powerful, opulent Cabernets shaped by warm days and cool Pacific fog. The New World's answer to First Growth.</p><div class="card-tags"><span class="tag">Cabernet</span><span class="tag">Cult Wine</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿2,800</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-nz"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Marlborough · Central Otago · NZ</p><h3 class="card-visual-title">New Zealand<em>Sauvignon Blanc & Pinot Noir</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Cloudy Bay</span><span class="brand-pill">Kim Crawford</span><span class="brand-pill">Dog Point</span><span class="brand-pill">Felton Road</span></div><p class="card-desc">Marlborough pioneered a Sauvignon Blanc the world hadn't tasted. Central Otago makes the Southern Hemisphere's most elegant Pinot Noir.</p><div class="card-tags"><span class="tag">Sauvignon Blanc</span><span class="tag">Pinot Noir</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿580</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-australia"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Barossa · McLaren Vale · Australia</p><h3 class="card-visual-title">South Australia<em>Barossa & Old Vine Shiraz</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Penfolds</span><span class="brand-pill">Henschke</span><span class="brand-pill">Langmeil</span><span class="brand-pill">Torbreck</span></div><p class="card-desc">Some of the world's oldest producing vines — over 150 years. Penfolds Grange, Henschke Hill of Grace. Rich, complex, built for the cellar.</p><div class="card-tags"><span class="tag">Old Vine</span><span class="tag">Penfolds</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿580</div><span class="card-cta">Explore →</span></div></div></article>
+  </div>
+
+  <div class="grid g2 stagger mt">
+    <article class="card" tabindex="0"><div class="card-visual grad-chile"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Chile · Argentina · South America</p><h3 class="card-visual-title">Chile & Argentina<em>The World's Best Value Wines</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Casillero del Diablo</span><span class="brand-pill">La Linda</span><span class="brand-pill">La Playa</span><span class="brand-pill">Laura Hartwig</span></div><p class="card-desc">Carménère and Malbec found their best expression far from Europe. 6 brands confirmed in stock. Exceptional quality from just ฿320.</p><div class="card-tags"><span class="tag">Malbec · Carménère</span><span class="tag">Best Value</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿320</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-gift"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Gifting · Corporate · Occasions</p><h3 class="card-visual-title">Premium Gift Sets<em>& Corporate Collections</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Custom Curated</span><span class="brand-pill">Branded Boxes</span><span class="brand-pill">Any Budget</span></div><p class="card-desc">Presentation boxes, custom labels, handwritten notes. Bangkok same-day delivery. Contact sales for bulk corporate pricing and branded packaging.</p><div class="card-tags"><span class="tag">Gift Packaging</span><span class="tag">Same-Day BKK</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿900</div><span class="card-cta">Enquire →</span></div></div></article>
+  </div>
+</section>
+
+<!-- ══ CH 6 — NATURAL ══ -->
+<div class="divider reveal"><div class="divider-line"></div></div>
+<section id="s6" class="tinted" style="padding-bottom:56px">
+  <div class="ch reveal"><div><p class="ch-eyebrow">Chapter 06 · 3 Collections</p><h2 class="ch-h2">Natural, Organic & Low-Intervention</h2><p class="ch-sub">Wines made with minimal intervention — reflecting a deeper honesty about grape, place and season.</p></div><a class="ch-link" href="https://th.wine-now.com/wine-now-selection/natural-wine.html">All Natural →</a></div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0"><div class="card-visual grad-natural"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Natural Wine</p><h3 class="card-visual-title">Natural Wine<em>Low Sulfite · Unfiltered · Alive</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">La Stoppa</span><span class="brand-pill">Le Coste</span><span class="brand-pill">La Soufrandiere</span></div><p class="card-desc">No added sulfites, no fining, no filtration. Funky, alive and increasingly popular in Bangkok's natural wine bars and progressive restaurants.</p><div class="card-tags"><span class="tag">No Added Sulfites</span><span class="tag">Unfiltered</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿680</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-organic"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Organic & Biodynamic</p><h3 class="card-visual-title">Organic & Biodynamic<em>Certified Sustainable</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Bonterra</span><span class="brand-pill">Cono Sur Organic</span><span class="brand-pill">Gut Oggau</span></div><p class="card-desc">Certified organic — no synthetic pesticides. Biodynamic treats the vineyard as a living organism guided by lunar cycles. Better for earth, more alive in glass.</p><div class="card-tags"><span class="tag">EU Organic</span><span class="tag">Demeter</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿480</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-orange"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Style · Skin-Contact White</p><h3 class="card-visual-title">Orange Wine<em>8,000 Years of Tradition</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Radikon</span><span class="brand-pill">Gravner</span><span class="brand-pill">Foradori</span></div><p class="card-desc">White grapes fermented with skins — amber colour, tannin, texture. Georgia invented this 8,000 years ago; Friuli and Slovenia lead the modern revival.</p><div class="card-tags"><span class="tag">Skin Contact</span><span class="tag">Ancient Method</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿780</div><span class="card-cta">Explore →</span></div></div></article>
+  </div>
+</section>
+
+<!-- ══ FEATURED BAND ══ -->
+<div class="featured-band reveal">
+  <div class="featured-inner">
+    <div>
+      <p class="feat-label">Chapter 07 Spotlight · Thai Wine</p>
+      <h3 class="feat-title">New Latitude Wines Win Blind Tastings Against the World</h3>
+      <p class="feat-sub">Monsoon Valley, GranMonte and PB Valley — awarded internationally, on Bangkok's Michelin-starred lists.</p>
+    </div>
+    <a class="feat-cta" href="#s7">Explore Thai Wine →</a>
+  </div>
+</div>
+
+<!-- ══ CH 7 — THAI WINE ══ -->
+<section id="s7">
+  <div class="ch reveal"><div><p class="ch-eyebrow">Chapter 07 · 3 Collections</p><h2 class="ch-h2">Thai Wine — New Latitude Collection</h2><p class="ch-sub">Thailand produces wine from vineyards that should not exist — and yet they win blind tastings.</p></div><a class="ch-link" href="https://th.wine-now.com/wine-now-selection/chenin-blanc-day.html">Explore →</a></div>
+
+  <div class="grid stagger">
+    <article class="card" tabindex="0"><div class="card-visual grad-thai"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Thailand · New Latitude Wines</p><h3 class="card-visual-title">Monsoon Valley, GranMonte & PB Valley<em>Thai New Latitude Wines</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Monsoon Valley</span><span class="brand-pill">GranMonte</span><span class="brand-pill">PB Valley</span><span class="brand-pill">Khao Yai</span></div><p class="card-desc">Produced outside the traditional latitude belt. Internationally awarded and featured on Bangkok's Michelin-starred wine lists. Wines you can't find outside Thailand.</p><div class="card-tags"><span class="tag">New Latitude</span><span class="tag">Hua Hin</span><span class="tag">Khao Yai</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿520</div><span class="card-cta">Explore →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-cellar"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Investment · Collector · Cellar</p><h3 class="card-visual-title">Cellar & Investment Wines<em>Built for Decades</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Penfolds Rare</span><span class="brand-pill">DRC</span><span class="brand-pill">Pétrus</span><span class="brand-pill">Le Pin</span></div><p class="card-desc">Bordeaux futures, aged Burgundy, vertical Barolo and Penfolds Grange. 10-50 year ageing potential that appreciates in value. Contact us for cellar planning.</p><div class="card-tags"><span class="tag">10-50yr Ageing</span><span class="tag">Investment Grade</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿3,500</div><span class="card-cta">Consult →</span></div></div></article>
+
+    <article class="card" tabindex="0"><div class="card-visual grad-value"><div class="card-dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="card-visual-eye">Value · Everyday Drinking</p><h3 class="card-visual-title">Under ฿700 Collection<em>Best Value on the Shelf</em></h3></div><div class="card-content"><div class="card-brands"><span class="brand-pill">Casillero del Diablo</span><span class="brand-pill">Jacob's Creek</span><span class="brand-pill">Laura Hartwig</span><span class="brand-pill">La Playa</span></div><p class="card-desc">300+ labels under ฿700, all expertly selected. The best-selling range on Wine-Now. Easiest way to explore great wine without commitment.</p><div class="card-tags"><span class="tag">Under ฿700</span><span class="tag">300+ Labels</span></div><div class="card-foot"><div class="card-price"><small>From</small>฿280</div><span class="card-cta">Shop Now →</span></div></div></article>
+  </div>
+  <div style="height:56px"></div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section id="faq" class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-head reveal"><p class="faq-kicker">Got Questions?</p><h2 class="faq-title">Wine Buying Guide</h2><p class="faq-sub">Ordering, delivery, gifting and choosing the right wine in Thailand.</p></div>
+    <div class="faq-grid reveal">
+      <div class="faq-group"><h3 class="faq-group-label">Delivery & Ordering</h3><details class="faq-item"><summary class="faq-q"><span>How fast is delivery in Bangkok?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p><strong>Same-day delivery across Bangkok</strong> for orders before 2 PM. Outside Bangkok: 1-3 business days.</p></div></details><details class="faq-item"><summary class="faq-q"><span>Is there a minimum order?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>No minimum. Single bottle OK. <strong>Free delivery above ฿1,500</strong> in Bangkok.</p></div></details></div>
+      <div class="faq-group"><h3 class="faq-group-label">Gifting</h3><details class="faq-item"><summary class="faq-q"><span>Custom gift packaging?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Premium boxes, ribbon, handwritten cards. Gift sets from <strong>฿900</strong>. Contact <strong>LINE @winenow</strong>.</p></div></details><details class="faq-item"><summary class="faq-q"><span>Best wine for corporate dinner?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p><strong>Champagne</strong> (Moët, Veuve) at ฿2,400-฿3,500. For Thai dining: <strong>GranMonte or Monsoon Valley</strong>.</p></div></details></div>
+      <div class="faq-group"><h3 class="faq-group-label">Choosing Wine</h3><details class="faq-item"><summary class="faq-q"><span>New to wine — where to start?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p><strong>Red:</strong> Malbec from Argentina (฿380-฿600). <strong>White:</strong> Sauvignon Blanc from Marlborough.</p></div></details><details class="faq-item"><summary class="faq-q"><span>Wine with Thai food?</span><span class="faq-icon">+</span></summary><div class="faq-a"><ul><li><strong>Sauvignon Blanc / Riesling</strong> — green curry, som tam</li><li><strong>Pinot Noir / Grenache Rosé</strong> — grilled meats, larb</li><li><strong>Viognier</strong> — coconut curries, massaman</li></ul></div></details></div>
+      <div class="faq-group"><h3 class="faq-group-label">Thai Wine</h3><details class="faq-item"><summary class="faq-q"><span>What is New Latitude wine?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Wines produced outside the 30-50° belt. Thailand at 14°N — yet <strong>Monsoon Valley, GranMonte, PB Valley</strong> produce award-winners.</p></div></details><details class="faq-item"><summary class="faq-q"><span>Best Thai wines to try first?</span><span class="faq-icon">+</span></summary><div class="faq-a"><ul><li><strong>Monsoon Valley White Shiraz</strong> ฿520</li><li><strong>GranMonte Viognier</strong> ฿1,200</li><li><strong>PB Valley Reserve Syrah</strong> ฿1,800</li></ul></div></details></div>
+      <div class="faq-group"><h3 class="faq-group-label">Storage</h3><details class="faq-item"><summary class="faq-q"><span>How to store wine in Thailand?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p><strong>12-16°C</strong>, 60-70% humidity. We stock <strong>Temptech and Dometic</strong> wine fridges.</p></div></details><details class="faq-item"><summary class="faq-q"><span>Investment-grade wines available?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Yes — Bordeaux First Growths, DRC, Penfolds Grange, Pétrus. <strong>Bordeaux en primeur</strong> also available.</p></div></details></div>
+      <div class="faq-group"><h3 class="faq-group-label">About Wine-Now</h3><details class="faq-item"><summary class="faq-q"><span>Return policy?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p>Returns for <strong>damaged, corked or incorrectly dispatched</strong> bottles. Contact within 48hrs: <strong>02-096-6496</strong> or <strong>LINE @winenow</strong>.</p></div></details><details class="faq-item"><summary class="faq-q"><span>Why Wine-Now?</span><span class="faq-icon">+</span></summary><div class="faq-a"><p><strong>Thailand's No.1 online wine store.</strong> 10,000+ labels, 30+ countries, same-day Bangkok delivery, certified sommeliers.</p></div></details></div>
+    </div>
+  </div>
+</section>
+
+<div class="legal-bar"><div class="legal-inner"><span>2026 Wine-Now Thailand · th.wine-now.com</span><span>Must be 20+ to purchase alcohol in Thailand</span><span>02-096-6496 · LINE: @winenow</span></div></div>
+
+<script>
+(function(){
+  var obs=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:.06});
+  document.querySelectorAll('.reveal,.stagger').forEach(function(el){obs.observe(el)});
+  var nav=document.getElementById('nav');
+  window.addEventListener('scroll',function(){nav.classList.toggle('raised',scrollY>48)},{passive:true});
+  var secs=['s1','s2','s3','s4','s5','s6','s7'],links=document.querySelectorAll('.nav-item');
+  function trackNav(){var y=scrollY+80,cur=secs[0];secs.forEach(function(id){var el=document.getElementById(id);if(el&&el.offsetTop<=y)cur=id});links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+cur)})}
+  window.addEventListener('scroll',trackNav,{passive:true});
+  document.querySelectorAll('.card').forEach(function(c){c.addEventListener('keydown',function(e){if(e.key==='Enter')c.click()})});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+META TITLE: Featured Selection — 39 Curated Wine Collections | Wine-Now Thailand
+
+META DESCRIPTION: Shop 39 expert-curated wine collections in Thailand. Bordeaux 1855, Burgundy Grand Cru, Champagne, Chianti DOCG, Napa Valley, Thai New Latitude wines and more. Same-day Bangkok delivery. 10,000+ labels from 30+ countries.
+
+META KEYWORDS: wine Thailand, buy wine online Thailand, wine delivery Bangkok, Bordeaux 1855, Burgundy Grand Cru, Champagne, Chianti Classico, Barolo, Super Tuscan, Rioja, Amarone, Cabernet Sauvignon, Pinot Noir, Shiraz, Malbec, Chardonnay, Sauvignon Blanc, Riesling, Provence Rosé, Prosecco, Cava, Crémant, Sauternes, Port wine, Napa Valley, New Zealand wine, Australian wine, Chile Argentina wine, natural wine, organic wine, orange wine, Thai wine, Monsoon Valley, GranMonte, PB Valley, wine gift set Bangkok, wine collection Thailand, Wine-Now
+
+URL KEY: featured-selection
+
+CANONICAL: https://th.wine-now.com/featured-selection
+
+OG TITLE: Featured Selection — 39 Wine Collections | Wine-Now Thailand
+
+OG DESCRIPTION: 39 curated collections from Bordeaux to Bangkok. Entry-level to First Growth. Expert-selected, same-day delivery across Thailand.
+
+
+JSON-LD SCHEMA:
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Featured Selection — Wine Collections",
+  "description": "39 expert-curated wine collections spanning every classification, style, region and occasion. From entry-level everyday drinking to First Growth Bordeaux.",
+  "url": "https://th.wine-now.com/featured-selection",
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Wine-Now Featured Selection",
+    "numberOfItems": 39,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "1855 Bordeaux Classification",
+        "url": "https://th.wine-now.com/bordeaux-1855-classification.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Saint-Émilion & Pomerol",
+        "url": "https://th.wine-now.com/wine.html?region_wine=12370,12378"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Burgundy Grand Cru",
+        "url": "https://th.wine-now.com/burgundy-grand-cru.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Burgundy Premier Cru",
+        "url": "https://th.wine-now.com/burgundy-village-explorer.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "Northern & Southern Rhône",
+        "url": "https://th.wine-now.com/wine.html?region_wine=12415"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "name": "Chianti Classico DOCG",
+        "url": "https://th.wine-now.com/chianti-classico.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 7,
+        "name": "Barolo & Barbaresco DOCG",
+        "url": "https://th.wine-now.com/barolo.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 8,
+        "name": "Super Tuscans — IGT Toscana",
+        "url": "https://th.wine-now.com/super-tuscan.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 9,
+        "name": "Rioja Crianza · Reserva · Gran Reserva",
+        "url": "https://th.wine-now.com/wine.html?region_wine=9608"
+      },
+      {
+        "@type": "ListItem",
+        "position": 10,
+        "name": "Amarone della Valpolicella DOCG",
+        "url": "https://th.wine-now.com/amarone-selection.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 11,
+        "name": "Cabernet Sauvignon",
+        "url": "https://th.wine-now.com/wine.html?grape_class=91&wine_type=128"
+      },
+      {
+        "@type": "ListItem",
+        "position": 12,
+        "name": "Pinot Noir",
+        "url": "https://th.wine-now.com/wine.html?grape_class=74&wine_type=128"
+      },
+      {
+        "@type": "ListItem",
+        "position": 13,
+        "name": "Shiraz / Syrah",
+        "url": "https://th.wine-now.com/wine.html?grape_class=81&wine_type=128"
+      },
+      {
+        "@type": "ListItem",
+        "position": 14,
+        "name": "Malbec",
+        "url": "https://th.wine-now.com/wine.html?grape_class=102&wine_type=128"
+      },
+      {
+        "@type": "ListItem",
+        "position": 15,
+        "name": "Chardonnay",
+        "url": "https://th.wine-now.com/wine/white-wine.html?grape_class=94"
+      },
+      {
+        "@type": "ListItem",
+        "position": 16,
+        "name": "Sauvignon Blanc",
+        "url": "https://th.wine-now.com/wine/white-wine.html?grape_class=79"
+      },
+      {
+        "@type": "ListItem",
+        "position": 17,
+        "name": "Riesling",
+        "url": "https://th.wine-now.com/wine/white-wine.html?grape_class=77"
+      },
+      {
+        "@type": "ListItem",
+        "position": 18,
+        "name": "Provence Rosé",
+        "url": "https://th.wine-now.com/wine/rose-wine.html?region_wine=12413"
+      },
+      {
+        "@type": "ListItem",
+        "position": 19,
+        "name": "GSM, Meritage & White Blends",
+        "url": "https://th.wine-now.com/wine-now-selection/gsm.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 20,
+        "name": "Non-Vintage Champagne",
+        "url": "https://th.wine-now.com/wine-now-selection/grower-champagne.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 21,
+        "name": "Prestige Cuvée Champagne",
+        "url": "https://th.wine-now.com/wine-now-selection/house-champagne.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 22,
+        "name": "Rosé Champagne & Sparkling Rosé",
+        "url": "https://th.wine-now.com/wine-now-selection/rose-champagne.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 23,
+        "name": "Prosecco DOCG & Franciacorta",
+        "url": "https://th.wine-now.com/wine-now-selection/prosecco-docg.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 24,
+        "name": "Cava DO",
+        "url": "https://th.wine-now.com/wine-now-selection/cava.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 25,
+        "name": "Crémant & Sekt",
+        "url": "https://th.wine-now.com/wine-now-selection/cremant-sekt.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 26,
+        "name": "Sauternes & Late Harvest Sweet Wines",
+        "url": "https://th.wine-now.com/wine.html?region_wine=12381"
+      },
+      {
+        "@type": "ListItem",
+        "position": 27,
+        "name": "Port, Sherry & Fortified Wines",
+        "url": "https://th.wine-now.com/wine/port-wine.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 28,
+        "name": "Napa Valley — Cult & Collectible",
+        "url": "https://th.wine-now.com/wine-now-selection/napa-valley-top-30-best-seller.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 29,
+        "name": "New Zealand — Sauvignon Blanc & Pinot",
+        "url": "https://th.wine-now.com/wine.html?country=1243"
+      },
+      {
+        "@type": "ListItem",
+        "position": 30,
+        "name": "South Australia — Barossa & Old Vine",
+        "url": "https://th.wine-now.com/wine.html?country=33&region_wine=9571"
+      },
+      {
+        "@type": "ListItem",
+        "position": 31,
+        "name": "Chile & Argentina — Best Value",
+        "url": "https://th.wine-now.com/wine.html?country=35,1242"
+      },
+      {
+        "@type": "ListItem",
+        "position": 32,
+        "name": "Premium Gift Sets & Corporate",
+        "url": "https://th.wine-now.com/wine-now-selection/limited-premium-gift.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 33,
+        "name": "Natural Wine — Low Sulfite",
+        "url": "https://th.wine-now.com/wine-now-selection/natural-wine.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 34,
+        "name": "Organic & Biodynamic Wines",
+        "url": "https://th.wine-now.com/wine-now-selection/organic-wines.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 35,
+        "name": "Orange Wine — Skin-Contact",
+        "url": "https://th.wine-now.com/wine/orange-wine.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 36,
+        "name": "Thai Wine — New Latitude Collection",
+        "url": "https://th.wine-now.com/wine.html?country=31"
+      },
+      {
+        "@type": "ListItem",
+        "position": 37,
+        "name": "The Vault — Cellar & Investment Wines",
+        "url": "https://th.wine-now.com/recommend/wn-vault.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 38,
+        "name": "Under ฿1000 — Best Value on the Shelf",
+        "url": "https://th.wine-now.com/wine-now-selection/great-wine-under-1000thb.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 39,
+        "name": "South Africa — Cape Discoveries",
+        "url": "https://th.wine-now.com/wine.html?country=1244"
+      }
+    ]
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Wine-Now Thailand",
+    "url": "https://th.wine-now.com",
+    "telephone": "+66-2-096-6496",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "TH",
+      "addressLocality": "Bangkok"
+    }
+  }
+}

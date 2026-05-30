@@ -1,0 +1,806 @@
+<style>
+.wn{max-width:1200px;margin:0 auto;padding:0 20px}
+.wn-hero{width:100%;max-height:480px;overflow:hidden;border-radius:0 0 16px 16px}
+.wn-hero img{width:100%;height:auto;object-fit:cover;display:block}
+.wn h1{color:#8B0000;font-size:34px;font-weight:700;margin:24px 0 6px;line-height:1.3}
+.wn-meta{color:#999;font-size:14px;margin-bottom:24px;letter-spacing:.5px}
+.wn-author{display:flex;align-items:center;gap:14px;padding:20px 0;margin:20px 0;border-top:1px solid #eee;border-bottom:1px solid #eee}
+.wn-avatar{width:50px;height:50px;border-radius:50%;background:#f5efe8;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;color:#8B0000;font-weight:700}
+.wn-ainfo{flex:1}
+.wn-aname{font-size:15px;font-weight:600;color:#333;margin:0}
+.wn-arole{font-size:13px;color:#999;margin:0}
+.wn-intro{font-size:19px;color:#555;line-height:1.9;max-width:900px;margin:0 auto 36px;text-align:center;padding:0 20px}
+.wn-cards{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}
+.wn-card{flex:1;min-width:240px;background:#fff;border:1px solid #eee;border-radius:12px;padding:20px;text-align:center}
+.wn-card-icon{font-size:32px;margin-bottom:8px;color:#8B0000;font-weight:700}
+.wn-card h4{color:#8B0000;font-size:17px;font-weight:600;margin:0 0 6px}
+.wn-card p{font-size:14px;color:#666;margin:0;line-height:1.5}
+.wn-toc{background:#faf8f5;border:1px solid #ede8e2;border-radius:12px;padding:20px 24px;margin:20px auto 36px;max-width:700px}
+.wn-toc-t{font-size:15px;font-weight:700;color:#8B0000;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.wn-toc ol{margin:0;padding-left:20px}
+.wn-toc li{margin-bottom:6px;font-size:15px;line-height:1.4}
+.wn-toc a{color:#555;text-decoration:none}
+.wn-toc a:hover{color:#8B0000;text-decoration:underline}
+.wn-toc-g{font-weight:700;color:#8B0000;margin-top:10px;margin-bottom:4px;font-size:14px;list-style:none;margin-left:-20px}
+.wn h2{color:#8B0000;font-size:26px;font-weight:700;margin:36px 0 16px;padding-bottom:10px;border-bottom:3px solid #8B0000;display:inline-block}
+.wn h3{color:#8B0000;font-size:20px;font-weight:700;margin:30px 0 14px}
+.wn-img{margin:20px 0}
+.wn-img img{width:100%;border-radius:12px;display:block}
+.wn-cap{text-align:center;font-size:13px;color:#999;margin-top:8px;font-style:italic}
+.wn-alt{background:#f9f6f2;padding:32px 24px;margin:24px 0;border-radius:12px}
+.wn-stats{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 20px;background:#faf8f5;border:1px solid #ede8e2;border-radius:10px;padding:16px 20px}
+.wn-stats-t{width:100%;color:#8B0000;font-size:15px;font-weight:700;margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid #8B0000}
+.wn-st{display:flex;justify-content:space-between;width:100%;padding:5px 0;border-bottom:1px solid #f0ebe5;font-size:14px}
+.wn-st:last-child{border-bottom:none}
+.wn-sl{color:#888}
+.wn-sv{color:#333;font-weight:600}
+.wn-pair{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 20px}
+.wn-pbox{flex:1;min-width:220px;background:#fff;border:1px solid #eee;border-radius:10px;padding:14px 16px}
+.wn-pbox p{font-size:14px;color:#555;margin:0;line-height:1.5}
+.wn-pbox .wn-pbox-t{font-size:13px;font-weight:700;color:#8B0000;margin:0 0 6px;text-transform:uppercase;letter-spacing:.5px}
+.wn-tip{background:linear-gradient(135deg,#fdf6f0,#fff5f5);border-left:4px solid #8B0000;border-radius:0 12px 12px 0;padding:20px 24px;margin:24px 0}
+.wn-tip-t{font-size:16px;font-weight:700;color:#8B0000;margin-bottom:8px}
+.wn-tip p{margin:0;color:#444;font-size:15px;line-height:1.7}
+.wn-cta{text-align:center;padding:24px 0}
+.wn-btn{background:#8B0000;color:#fff !important;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;display:inline-block}
+.wn-btn:hover{background:#6d0000}
+.wn-tbl{overflow-x:auto;margin:24px 0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.wn-tbl table{width:100%;border-collapse:collapse;font-size:14px;min-width:580px}
+.wn-tbl th{background:#8B0000;color:#fff;padding:12px 14px;text-align:left;font-weight:600;font-size:13px}
+.wn-tbl th:first-child{border-radius:12px 0 0 0}
+.wn-tbl th:last-child{border-radius:0 12px 0 0}
+.wn-tbl td{padding:10px 14px;border-bottom:1px solid #f0ebe5;color:#444}
+.wn-tbl tr:nth-child(even){background:#faf8f5}
+.wn-tbl tr:last-child td:first-child{border-radius:0 0 0 12px}
+.wn-tbl tr:last-child td:last-child{border-radius:0 0 12px 0}
+.wn-faq{margin:24px 0}
+.wn-faq-q{border:1px solid #ede8e2;border-radius:10px;margin-bottom:10px;background:#fff;overflow:hidden;padding:16px 20px}
+.wn-faq-q h4{font-size:16px;font-weight:600;color:#333;margin:0 0 10px}
+.wn-faq-q p{padding:0;color:#555;font-size:15px;line-height:1.7;margin:0}
+.wn-line{background:linear-gradient(135deg,#f0f7ef,#e8f5e6);border-radius:16px;padding:30px 36px;margin:36px 0;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.wn-line-t{flex:1;min-width:220px}
+.wn-line-t h3{color:#06C755 !important;font-size:20px;font-weight:700;margin:0 0 6px;border:none;padding:0}
+.wn-line-t p{color:#555;margin:0;font-size:15px}
+.wn-lbtn{display:inline-flex;align-items:center;gap:8px;background:#06C755;color:#fff !important;padding:12px 28px;border-radius:50px;text-decoration:none;font-weight:600;font-size:16px}
+.wn-lbtn:hover{background:#05a647}
+.wn-rel{padding:36px 0}
+.wn-rel-t{font-size:22px;font-weight:700;color:#8B0000;margin-bottom:20px;text-align:center}
+.wn-rel-g{display:flex;gap:20px;flex-wrap:wrap}
+.wn-rel-c{flex:1 1 0;min-width:260px;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);text-decoration:none;color:inherit;background:#fff;display:flex;flex-direction:column}
+.wn-rel-c img{width:100%;height:170px;object-fit:cover;display:block}
+.wn-rel-c .wn-rel-inner{padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.wn-rel-tag{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.wn-rel-c h4{font-size:16px;font-weight:600;margin:0 0 4px;line-height:1.3}
+.wn-rel-c h4 a{color:inherit;text-decoration:none}
+.wn-rel-c h4 a:hover{text-decoration:underline}
+.wn-rel-read{font-size:13px;color:#888;margin:0}
+.wn-rel-c.wn-rel-red{background:linear-gradient(135deg,#8B0000,#b22222);min-height:200px}
+.wn-rel-c.wn-rel-red .wn-rel-tag{color:#ffcaca}
+.wn-rel-c.wn-rel-red h4{color:#fff}
+.wn-rel-c.wn-rel-red .wn-rel-read{color:rgba(255,255,255,.7)}
+.wn-rel-c.wn-rel-blue{background:linear-gradient(135deg,#1a237e,#3949ab);min-height:200px}
+.wn-rel-c.wn-rel-blue .wn-rel-tag{color:#bbdefb}
+.wn-rel-c.wn-rel-blue h4{color:#fff}
+.wn-rel-c.wn-rel-blue .wn-rel-read{color:rgba(255,255,255,.7)}
+.wn-rel-c:not(.wn-rel-red):not(.wn-rel-blue) .wn-rel-tag{color:#8B0000}
+.wn-rel-c:not(.wn-rel-red):not(.wn-rel-blue) h4{color:#333}
+.wn-foot{text-align:center;padding:24px 20px;color:#777;font-size:14px;font-style:italic;max-width:700px;margin:0 auto}
+.wn-hr{border:none;height:1px;background:linear-gradient(to right,transparent,#ccc,transparent);margin:36px 0}
+@media(max-width:768px){
+.wn-hero{max-height:260px;border-radius:0}
+.wn h1{font-size:24px}
+.wn-intro{font-size:16px;text-align:left}
+.wn h2{font-size:22px}
+.wn h3{font-size:18px}
+.wn-cards,.wn-pair,.wn-rel-g{flex-direction:column}
+.wn-stats{flex-direction:column}
+.wn-line{padding:20px;flex-direction:column;text-align:center}
+.wn-author{flex-direction:column;text-align:center}
+}
+</style>
+
+<div class="wn">
+
+<div class="wn-hero">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble Grape Chart.jpg" alt="18 Noble Wine Grapes - Complete Guide to the World Most Important Grape Varieties">
+</div>
+
+<h1>18 Noble Grapes: The Complete Guide to the World's Most Popular Wine Grapes</h1>
+<p class="wn-meta">WINE EDUCATION &nbsp;|&nbsp; 25 min read</p>
+
+<div class="wn-author">
+<p class="wn-avatar">W</p>
+<div class="wn-ainfo">
+<p class="wn-aname">Wine-Now Sommelier Team</p>
+<p class="wn-arole">Certified Sommelier &nbsp;|&nbsp; Updated: April 2026</p>
+</div>
+</div>
+
+<p class="wn-intro">Whether you are a seasoned collector or just beginning your wine journey, understanding grape varieties is the single most important step to choosing wines you will love. Each grape has its own personality &mdash; distinct aromas, structure, and food-pairing strengths. This guide covers <strong>18 of the world's most celebrated wine grapes</strong>, with tasting profiles, key regions, aging potential, and pairing suggestions that include both Western classics and Thai favorites.</p>
+
+<div class="wn-cards">
+<div class="wn-card">
+<p class="wn-card-icon">RED</p>
+<h4>9 Red Grapes</h4>
+<p>From elegant Pinot Noir to bold Cabernet Sauvignon &mdash; the reds that define fine wine.</p>
+</div>
+<div class="wn-card">
+<p class="wn-card-icon">WHITE</p>
+<h4>9 White Grapes</h4>
+<p>From crisp Sauvignon Blanc to aromatic Gew&uuml;rztraminer &mdash; whites for every palate.</p>
+</div>
+<div class="wn-card">
+<p class="wn-card-icon">PAIR</p>
+<h4>Thai Food Pairings</h4>
+<p>Every grape matched with Thai dishes &mdash; Tom Yum, green curry, Laab, and more.</p>
+</div>
+</div>
+
+<div class="wn-toc">
+<p class="wn-toc-t">Table of Contents</p>
+<ol>
+<li class="wn-toc-g">Red Grape Varieties</li>
+<li><a href="#pinot-noir">Pinot Noir &mdash; The Sensitive Yet Charming Grape</a></li>
+<li><a href="#merlot">Merlot &mdash; Smooth, Approachable, and Loved by All</a></li>
+<li><a href="#nebbiolo">Nebbiolo &mdash; Italy's Majestic Grape</a></li>
+<li><a href="#cabernet-sauvignon">Cabernet Sauvignon &mdash; The King of Red Grapes</a></li>
+<li><a href="#malbec">Malbec &mdash; Argentina's Bold Ambassador</a></li>
+<li><a href="#zinfandel">Zinfandel &mdash; America's Heritage Grape</a></li>
+<li><a href="#sangiovese">Sangiovese &mdash; The Heart of Italian Wines</a></li>
+<li><a href="#tempranillo">Tempranillo &mdash; The Spirit of Spanish Wine</a></li>
+<li><a href="#syrah">Syrah (Shiraz) &mdash; The Warrior of Red Wines</a></li>
+<li class="wn-toc-g">White Grape Varieties</li>
+<li><a href="#riesling">Riesling &mdash; Refreshing Acidity &amp; Aromatic Elegance</a></li>
+<li><a href="#chenin-blanc">Chenin Blanc &mdash; Loire Valley's Versatile Star</a></li>
+<li><a href="#gewurztraminer">Gew&uuml;rztraminer &mdash; An Unforgettable Aromatic Experience</a></li>
+<li><a href="#viognier">Viognier &mdash; Rh&ocirc;ne Valley's Peachy Aromatic Grape</a></li>
+<li><a href="#pinot-grigio">Pinot Grigio &mdash; Refreshing &amp; Easy-Drinking White Wine</a></li>
+<li><a href="#sauvignon-blanc">Sauvignon Blanc &mdash; Crisp, Refreshing &amp; Herbaceous</a></li>
+<li><a href="#moscato">Moscato &mdash; Aromatic, Sweet &amp; Charming</a></li>
+<li><a href="#semillon">Semillon &mdash; Heart of Bordeaux's Legendary Sweet Wines</a></li>
+<li><a href="#chardonnay">Chardonnay &mdash; The Queen of White Grapes</a></li>
+</ol>
+</div>
+
+<hr class="wn-hr">
+
+<h2 id="red-grapes">Red Grape Varieties</h2>
+<p>Red wine grapes produce the world's most age-worthy and food-friendly wines. From the silky transparency of Pinot Noir to the tannic power of Cabernet Sauvignon, these nine varieties are responsible for the vast majority of fine red wine produced globally.</p>
+
+<div class="wn-alt" id="pinot-noir">
+<h3>1. Pinot Noir &mdash; The Sensitive Yet Charming Grape</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Pinot-Noir.jpg" alt="Pinot Noir red wine grapes from Burgundy France">
+<p class="wn-cap">Pinot Noir: thin-skinned, terroir-driven, and endlessly elegant</p>
+</div>
+<p>Often dubbed "the temperamental grape," Pinot Noir has thin skin and is extremely sensitive to climate and soil. This makes it one of the best grapes for expressing terroir &mdash; the unique character of where it grows. It is the defining grape of Burgundy, France, producing some of the most sought-after wines on Earth.</p>
+<p>The word "Pinot" derives from "pine" because the grape clusters resemble pine cones. Beyond Burgundy, Pinot Noir thrives in Oregon's Willamette Valley, New Zealand's Central Otago, and California's cooler coastal regions.</p>
+<p><strong>Tasting Profile:</strong> Cherry, raspberry, roses, violets, subtle spice. With age, earthy mushroom, truffle, and forest floor. Light body with silky tannins.</p>
+<p><strong>Key Regions:</strong> Burgundy (France), Willamette Valley (Oregon), Central Otago (New Zealand), Sonoma Coast &amp; Santa Barbara (California)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Light</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">Low&ndash;Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">5&ndash;15 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">13&ndash;16&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Large tulip</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Duck breast with cherry sauce, grilled salmon, mushroom risotto, roasted quail</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Grilled crispy-skinned chicken, spicy beef salad (Nam Tok), spicy minced pork salad (Laab Moo)</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Serve at 13&ndash;16&deg;C in a large tulip-shaped glass to maximize delicate aromas. Avoid over-chilling &mdash; cold temperatures mute the floral and fruit complexity.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=74" target="_blank" rel="noopener">Explore All Pinot Noir Wines</a></p>
+</div>
+
+<div id="merlot">
+<h3>2. Merlot &mdash; Smooth, Approachable, and Loved by All</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Merlot.jpg" alt="Merlot smooth red wine from Bordeaux France">
+<p class="wn-cap">Merlot: the approachable everyday wine with serious depth</p>
+</div>
+<p>Merlot takes its name from "Merle," meaning "blackbird" &mdash; a nod to the birds that love these sweet, plump grapes. Smooth, fruit-forward, and easy-drinking, Merlot is one of the world's most popular reds and a perfect starting point for wine beginners.</p>
+<p>On Bordeaux's Right Bank, Merlot dominates legendary estates like Ch&acirc;teau P&eacute;trus and the Grand Crus of Saint-&Eacute;milion. It is frequently blended with Cabernet Sauvignon &mdash; Merlot adds softness and plummy fruit while Cabernet adds tannin backbone.</p>
+<p><strong>Tasting Profile:</strong> Black cherry, plum, cocoa, chocolate, coffee, vanilla. Rounded and velvety with moderate tannins.</p>
+<p><strong>Key Regions:</strong> Right Bank Bordeaux (Saint-&Eacute;milion, Pomerol), Napa Valley (California), Chile, Washington State</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Medium&ndash;Full</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">5&ndash;10 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">15&ndash;18&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Standard red</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Beef pasta with rich sauce, meat pies, barbecue ribs, roasted lamb</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Beef Panang curry, chicken Khao Soi, stir-fried duck with basil</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Merlot is the ideal gateway wine for beginners. For the best value, look to Chilean Merlot from the Colchagua Valley.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=104" target="_blank" rel="noopener">Explore All Merlot Wines</a></p>
+</div>
+
+<div class="wn-alt" id="nebbiolo">
+<h3>3. Nebbiolo &mdash; Italy's Majestic Grape</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Nebbiolo.jpg" alt="Nebbiolo red wine from Barolo Piedmont Italy">
+<p class="wn-cap">Nebbiolo: the fog-shrouded grape behind Italy's greatest wines</p>
+</div>
+<p>"Nebbiolo" comes from "nebbia," Italian for "fog," referencing the mist that blankets Piedmont's vineyards during harvest. This grape produces Italy's most prestigious wines &mdash; Barolo and Barbaresco &mdash; often called the "King and Queen of Italian Wines."</p>
+<p>Nebbiolo looks deceptively light in the glass but packs some of the strongest tannins of any red grape. Properly aged Barolo can rival the finest Burgundy in complexity.</p>
+<p><strong>Tasting Profile:</strong> Dried roses, tar, leather, licorice, baked earth, cherry, truffle. Rich tannins with high acidity.</p>
+<p><strong>Key Regions:</strong> Piedmont (Barolo, Barbaresco), Langhe, Roero &mdash; almost exclusively Italy</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Full</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">Very High</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">10&ndash;30+ years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Large Burgundy</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Braised beef, porcini mushroom risotto, wine-braised duck, aged Parmigiano</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Beef Panang, deep-fried sun-dried beef, Hang Lay pork curry</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Start with Langhe Nebbiolo &mdash; more approachable and affordable than Barolo. When ready for the real thing, decant Barolo for at least an hour.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=68" target="_blank" rel="noopener">Explore All Nebbiolo Wines</a></p>
+</div>
+
+<div id="cabernet-sauvignon">
+<h3>4. Cabernet Sauvignon &mdash; The King of Red Grapes</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-Red-Cabernet-Sauvignon.jpg" alt="Cabernet Sauvignon the worlds most planted red grape variety">
+<p class="wn-cap">Cabernet Sauvignon: the undisputed king of red wine grapes worldwide</p>
+</div>
+<p>Cabernet Sauvignon is the world's most widely planted red grape. Born from a natural cross between Cabernet Franc and Sauvignon Blanc in 17th-century Bordeaux, it produces powerful, structured wines with intense dark fruit and remarkable aging potential.</p>
+<p>Its thick skin gives high tannin levels and deep color, making it naturally suited to oak aging. From Bordeaux's Left Bank ch&acirc;teaux to the cult wines of Napa Valley, Cabernet is the benchmark for serious red wine.</p>
+<p><strong>Tasting Profile:</strong> Blackcurrant (cassis), black cherry, cedar, tobacco, graphite, dark chocolate, eucalyptus. Bold tannins soften beautifully with age.</p>
+<p><strong>Key Regions:</strong> Left Bank Bordeaux (France), Napa Valley (California), Coonawarra (Australia), Maipo Valley (Chile)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium&ndash;High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Full</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">High</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">10&ndash;25+ years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Bordeaux glass</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Grilled ribeye steak, lamb rack with rosemary, beef Wellington, aged cheddar</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Grilled pork neck (Kor Moo Yang), massaman beef curry, braised oxtail soup</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Young Cabernet benefits from decanting 30&ndash;60 minutes before serving. For everyday value, Chilean Cabernet from Maipo Valley is outstanding.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=91" target="_blank" rel="noopener">Explore All Cabernet Sauvignon Wines</a></p>
+</div>
+
+<div class="wn-alt" id="malbec">
+<h3>5. Malbec &mdash; Argentina's Bold Ambassador</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-Red-Malbec.jpg" alt="Malbec bold red wine from Mendoza Argentina">
+<p class="wn-cap">Malbec: from Cahors to Mendoza &mdash; a grape reborn in the Andes</p>
+</div>
+<p>Malbec's story is a great comeback tale. Originally from Cahors in southwest France, it struggled there and was nearly abandoned. Then Argentine winemakers in Mendoza discovered it thrived at high altitudes, producing wines with richer fruit, softer tannins, and irresistible appeal.</p>
+<p>The best examples come from Uco Valley vineyards at 1,000&ndash;1,500 meters elevation, where intense sunlight and cool nights create concentrated, balanced wines.</p>
+<p><strong>Tasting Profile:</strong> Ripe plum, blackberry, blueberry, dark chocolate, leather, sweet tobacco, violet. Generous and juicy with velvety tannins.</p>
+<p><strong>Key Regions:</strong> Mendoza &amp; Uco Valley (Argentina), Cahors (France), Salta (Argentina)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Full</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">Medium&ndash;High</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">5&ndash;12 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Standard red</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Argentine asado (grilled steak), empanadas, braised short ribs, blue cheese burgers</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Crying tiger grilled beef (Seua Rong Hai), Northern Thai sausage (Sai Ua), pork red curry</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>For the best value in bold red wine, Argentine Malbec is hard to beat. Look for Uco Valley bottles &mdash; the altitude gives more freshness and complexity.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=103" target="_blank" rel="noopener">Explore All Malbec Wines</a></p>
+</div>
+
+<div id="zinfandel">
+<h3>6. Zinfandel &mdash; America's Heritage Grape</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-Red-Zinfandel.jpg" alt="Zinfandel bold jammy red wine from California">
+<p class="wn-cap">Zinfandel: California's own &mdash; bold, jammy, and full of personality</p>
+</div>
+<p>DNA testing revealed Zinfandel is genetically identical to Croatia's Crljenak Ka&scaron;telanski and Italy's Primitivo. But it was in California that Zinfandel found its identity, becoming America's signature red grape.</p>
+<p>Old-vine vineyards &mdash; some over 100 years old &mdash; produce intensely concentrated, high-alcohol wines. Serious Zinfandel is a bold, spicy red with personality to spare, often reaching 14&ndash;16% alcohol.</p>
+<p><strong>Tasting Profile:</strong> Ripe blackberry, boysenberry, black pepper, cinnamon, clove, dried fruit, smoky oak. Rich and warming.</p>
+<p><strong>Key Regions:</strong> Sonoma County &amp; Paso Robles (California), Puglia (Italy, as Primitivo), Lodi (California)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Full</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">3&ndash;10 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">15&ndash;18&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Standard red</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>BBQ brisket, pepperoni pizza, spicy sausage pasta, smoked pulled pork</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Grilled pork ribs (See Krong Moo Yang), garlic pepper pork, spicy basil minced pork (Pad Kra Pao)</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Look for "Old Vine" on the label &mdash; these wines come from low-yielding vines that produce more concentrated fruit. Zinfandel is a natural match for bold, grilled meats.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=86" target="_blank" rel="noopener">Explore All Zinfandel Wines</a></p>
+</div>
+
+<div class="wn-alt" id="sangiovese">
+<h3>7. Sangiovese &mdash; The Heart of Italian Wines</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-Red-Sangiovese.jpg" alt="Sangiovese Italian Chianti and Brunello from Tuscany">
+<p class="wn-cap">Sangiovese: the beating heart of Tuscan winemaking</p>
+</div>
+<p>Sangiovese is Italy's most iconic grape &mdash; the soul of Tuscany. It is the primary variety behind Chianti, Brunello di Montalcino, and Super Tuscan blends. The name likely derives from "sanguis Jovis," meaning "the blood of Jupiter."</p>
+<p><strong>Tasting Profile:</strong> Red cherry, cranberry, violet, leather, tobacco, dried herbs, earth. Savory and structured with firm acidity.</p>
+<p><strong>Key Regions:</strong> Tuscany (Chianti, Montalcino, Montepulciano), Umbria, Emilia-Romagna</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Medium&ndash;Full</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">Medium&ndash;High</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">5&ndash;20 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Standard red</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Pasta Bolognese, pepperoni pizza, lasagna, grilled Italian sausage</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Chicken curry, shrimp paste fried rice (Khao Kluk Kapi), pork with chili paste (Pad Prik Khing)</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Sangiovese's high acidity makes it the ultimate pasta wine. For complexity, select Brunello di Montalcino &mdash; minimum 5 years aging by law.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=78" target="_blank" rel="noopener">Explore All Sangiovese Wines</a></p>
+</div>
+
+<div id="tempranillo">
+<h3>8. Tempranillo &mdash; The Spirit of Spanish Wine</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Tempranillo.jpg" alt="Tempranillo Spanish red wine from Rioja and Ribera del Duero">
+<p class="wn-cap">Tempranillo: the early-ripening grape behind Spain's greatest reds</p>
+</div>
+<p>Tempranillo is the soul of Spanish wine. Its name comes from "temprano," meaning "early," because it ripens earlier than other varieties. Spanish winemakers age it in American oak, developing distinctive vanilla and sweet spice aromas.</p>
+<p><strong>Tasting Profile:</strong> Cherry, blackberry, tobacco leaf, leather, vanilla, oak spice. Well-structured with balanced tannins.</p>
+<p><strong>Key Regions:</strong> Rioja, Ribera del Duero, Navarra, Toro (Spain)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium&ndash;High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Medium&ndash;Full</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">5&ndash;20 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Standard red</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Char-grilled steak, Spanish tapas, Iberico ham, roasted lamb</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Northern Thai sausage (Sai Ua), grilled pork neck (Kor Moo Yang), sun-dried pork (Moo Dad Deaw)</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Choose "Reserva" or "Gran Reserva" labels for complex vanilla-and-leather character from extended oak aging. Rioja Gran Reserva offers some of the best value in aged fine wine.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=82" target="_blank" rel="noopener">Explore All Tempranillo Wines</a></p>
+</div>
+
+<div class="wn-alt" id="syrah">
+<h3>9. Syrah (Shiraz) &mdash; The Warrior of Red Wines</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Syrah.jpg" alt="Syrah Shiraz powerful wines from Rhone Valley and Barossa Valley">
+<p class="wn-cap">Syrah in France, Shiraz in Australia &mdash; same grape, two distinct personalities</p>
+</div>
+<p>Syrah and Shiraz are the same grape. French Syrah is more restrained and peppery, while Australian Shiraz is bigger, riper, and more fruit-forward. It is a key component of the famous GSM Blend (Grenache-Syrah-Mourvedre).</p>
+<p><strong>Tasting Profile:</strong> Blackberry, blueberry, black pepper, black olive, leather, smoky oak, dark chocolate. Powerful with a long finish.</p>
+<p><strong>Key Regions:</strong> Northern Rh&ocirc;ne Valley (France), Barossa Valley &amp; McLaren Vale (Australia), Stellenbosch (South Africa)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Full</span></div>
+<div class="wn-st"><span class="wn-sl">Tannins</span><span class="wn-sv">Medium&ndash;High</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">7&ndash;20 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+<div class="wn-st"><span class="wn-sl">Glass</span><span class="wn-sv">Standard red</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Smoked beef brisket, beef stew, BBQ pork ribs, game meats</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Hang Lay pork curry, braised pork belly, red curry with roasted duck</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Choose Syrah from Northern Rh&ocirc;ne for elegance or Shiraz from Barossa Valley for bold, fruit-driven power. Both pair brilliantly with smoky, grilled meats.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=81" target="_blank" rel="noopener">Explore All Syrah/Shiraz Wines</a></p>
+</div>
+
+<hr class="wn-hr">
+
+<h2 id="white-grapes">White Grape Varieties</h2>
+<p>White wine grapes offer an astonishing range &mdash; from bone-dry and mineral to lushly sweet and aromatic. These nine represent the full spectrum, from Riesling's laser-focused acidity to Chardonnay's tropical richness.</p>
+
+<div class="wn-alt" id="riesling">
+<h3>10. Riesling &mdash; Refreshing Acidity &amp; Aromatic Elegance</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Riesling.jpg" alt="Riesling aromatic white wine from Germany and Alsace">
+<p class="wn-cap">Riesling: Germany's queen of white wines &mdash; from bone-dry to lusciously sweet</p>
+</div>
+<p>Riesling produces wines ranging from bone-dry to intensely sweet, all held together by electric acidity. It is one of the few whites capable of aging for decades. What makes Riesling perfect for Thai food lovers is its natural affinity for spicy cuisine &mdash; the sweetness and acidity counterbalance chili heat.</p>
+<p><strong>Tasting Profile:</strong> Green apple, citrus, honey, white flowers, and a distinctive petrol aroma with age.</p>
+<p><strong>Key Regions:</strong> Germany (Mosel, Rheingau), France (Alsace), Australia (Clare Valley, Eden Valley)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Very High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Light</span></div>
+<div class="wn-st"><span class="wn-sl">Sweetness</span><span class="wn-sv">Dry to Sweet</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">10&ndash;30 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Seafood, apple-roasted pork, foie gras (with sweet Riesling)</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Tom Yum Goong, fermented fish papaya salad (Som Tam Pla Ra), Southern Thai sour curry</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Choose dry Riesling (look for "Trocken" on German labels) for a crisp aperitif, or off-dry Sp&auml;tlese to pair with spicy Thai dishes.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=77" target="_blank" rel="noopener">Explore All Riesling Wines</a></p>
+</div>
+
+<div id="chenin-blanc">
+<h3>11. Chenin Blanc &mdash; Loire Valley's Versatile Star</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Chenin-Blanc.jpg" alt="Chenin Blanc versatile white wine from Loire Valley and South Africa">
+<p class="wn-cap">Chenin Blanc: one grape, endless styles &mdash; from sparkling to sweet</p>
+</div>
+<p>Chenin Blanc is the chameleon of white grapes &mdash; producing everything from crisp dry wines to luscious dessert wines and sparkling. Its heartland is France's Loire Valley, but it has found a second home in South Africa, where it is called "Steen."</p>
+<p><strong>Tasting Profile:</strong> Green apple, floral notes, ginger, honey, citrus. Styles range from refreshingly crisp to luxuriously sweet.</p>
+<p><strong>Key Regions:</strong> Loire Valley (Vouvray, Savennieres), South Africa (Swartland, Stellenbosch)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Light&ndash;Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">5&ndash;25 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Mussels steamed in white wine, baked fish with butter sauce, herb-roasted chicken</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Steamed fish with lime (Pla Neung Manao), yellow curry (Gaeng Leung), crab fried rice</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Chenin Blanc's refreshing acidity and complex aromatics make it one of the best all-rounder whites for any meal.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=95" target="_blank" rel="noopener">Explore All Chenin Blanc Wines</a></p>
+</div>
+
+<div class="wn-alt" id="gewurztraminer">
+<h3>12. Gew&uuml;rztraminer &mdash; An Unforgettable Aromatic Experience</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Gewurztraminer.jpg" alt="Gewurztraminer aromatic white wine from Alsace France">
+<p class="wn-cap">Gew&uuml;rztraminer: the most intensely aromatic white grape in the world</p>
+</div>
+<p>Gew&uuml;rztraminer is the most intensely aromatic grape variety in the world. The name comes from "Gew&uuml;rz," German for "spice." One sniff and you will never forget it. Its combination of sweetness and acidity makes it superb with spicy Asian cuisines.</p>
+<p><strong>Tasting Profile:</strong> Lychee, rose petals, orange blossom, exotic spices, Turkish delight. Richly textured with a pleasantly bitter finish.</p>
+<p><strong>Key Regions:</strong> Alsace (France), Germany, Northern Italy (Trentino-Alto Adige)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Low&ndash;Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Medium&ndash;Full</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">5&ndash;15 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Foie gras, smoked ham, soft washed-rind cheeses</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Massaman curry, Tom Kha Gai (coconut chicken soup), Khao Soi, salt-and-pepper shrimp</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Serve lightly chilled at 8&ndash;10&deg;C. The lychee sweetness cools chili heat beautifully &mdash; one of the best wines for spicy food.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=99" target="_blank" rel="noopener">Explore All Gew&uuml;rztraminer Wines</a></p>
+</div>
+
+<div id="viognier">
+<h3>13. Viognier &mdash; Rh&ocirc;ne Valley's Peachy Aromatic Grape</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Viognier.jpg" alt="Viognier aromatic white wine from Rhone Valley and California">
+<p class="wn-cap">Viognier: nearly extinct a generation ago, now a global favorite</p>
+</div>
+<p>Viognier nearly disappeared &mdash; by the 1960s, only about 30 acres remained worldwide. Passionate winemakers in France and California brought it back, and today Viognier is celebrated for its intoxicating floral perfume and rich texture.</p>
+<p><strong>Tasting Profile:</strong> Jasmine, orange blossom, peach, apricot, ginger, citrus peel. Full-bodied with low acidity.</p>
+<p><strong>Key Regions:</strong> Rh&ocirc;ne Valley (Condrieu &mdash; France), California, Australia</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Low&ndash;Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Medium&ndash;Full</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">3&ndash;8 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">10&ndash;12&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Grilled scallops, cheese souffl&eacute;, white-sauce pasta, lobster bisque</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Chicken curry, pomelo salad, glass noodles with shrimp, chicken with cashews</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Enjoy Viognier young &mdash; unlike Riesling, it does not improve with age. Perfect if you love aromatic whites but find high-acid wines too sharp.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=84" target="_blank" rel="noopener">Explore All Viognier Wines</a></p>
+</div>
+
+<div class="wn-alt" id="pinot-grigio">
+<h3>14. Pinot Grigio &mdash; Refreshing &amp; Easy-Drinking White Wine</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Pinot-Grigio.jpg" alt="Pinot Grigio light white wine from Italy and Alsace">
+<p class="wn-cap">Pinot Grigio: crisp, clean, and effortlessly refreshing</p>
+</div>
+<p>Pinot Grigio (Pinot Gris in France) is the go-to easy-drinking white. Italian style is light and crisp; Alsatian Pinot Gris is richer and sometimes off-dry. Despite being a white wine, it has greyish-pink skins ("Gris" means grey).</p>
+<p><strong>Tasting Profile:</strong> Fresh pear, apple, lemon, white flowers, sometimes mineral or almond notes.</p>
+<p><strong>Key Regions:</strong> Italy (Veneto, Friuli), France (Alsace), Germany, Oregon (USA)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium&ndash;High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Light&ndash;Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">2&ndash;5 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">7&ndash;9&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Seafood sashimi, fruit salads, fresh oysters, light pasta</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Glass noodle salad (Yum Woon Sen), salted shrimp, seaweed salad, clear seafood Tom Yum</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Serve well-chilled at 7&ndash;9&deg;C. Drink within 2 years of vintage for maximum freshness &mdash; not a wine for cellaring.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=72" target="_blank" rel="noopener">Explore All Pinot Grigio Wines</a></p>
+</div>
+
+<div id="sauvignon-blanc">
+<h3>15. Sauvignon Blanc &mdash; Crisp, Refreshing &amp; Herbaceous</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Sauvignon-Blanc.jpg" alt="Sauvignon Blanc crisp white wine from Sancerre and Marlborough">
+<p class="wn-cap">Sauvignon Blanc: the electric, green-tinged white that wakes up your palate</p>
+</div>
+<p>Sauvignon Blanc is the world's most refreshing white grape. Originating in Loire Valley, it achieved superstar status in New Zealand's Marlborough region. It is also a parent grape of Cabernet Sauvignon and a key component of Sauternes sweet wines.</p>
+<p><strong>Tasting Profile:</strong> Fresh-cut grass, green herbs, tomato leaf, passionfruit, grapefruit, citrus. Electrifying acidity.</p>
+<p><strong>Key Regions:</strong> Loire Valley (Sancerre), Marlborough (New Zealand), Bordeaux (France), Chile</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Light&ndash;Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">2&ndash;7 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Fresh oysters, steamed seabass with lemon, goat cheese salad</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Green mango salad, Gaeng Liang (vegetable soup), clear Tom Yum fish, fish rice porridge</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Marlborough Sauvignon Blanc is the benchmark for crisp whites. For something more subtle, try Sancerre &mdash; same grape, completely different personality.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=79" target="_blank" rel="noopener">Explore All Sauvignon Blanc Wines</a></p>
+</div>
+
+<div class="wn-alt" id="moscato">
+<h3>16. Moscato &mdash; Aromatic, Sweet &amp; Charming</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/moscato_grape_18.jpg" alt="Moscato sweet aromatic wine from Italy">
+<p class="wn-cap">Moscato: the world's most approachable wine &mdash; sweet, fizzy, and irresistible</p>
+</div>
+<p>Moscato is the ultimate beginner-friendly wine &mdash; sweet, gently fizzy, low in alcohol (5&ndash;7%), and bursting with fruity aromas. Its most famous expression is Italy's Moscato d'Asti. The Muscat family is one of the oldest cultivated grape varieties.</p>
+<p><strong>Tasting Profile:</strong> Peach, lychee, orange blossom, apricot, honey, white flowers. Gently sweet with delicate effervescence.</p>
+<p><strong>Key Regions:</strong> Piedmont (Italy), Spain, Southern France, California (USA)</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Light</span></div>
+<div class="wn-st"><span class="wn-sl">Sweetness</span><span class="wn-sv">Sweet</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">1&ndash;3 years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">6&ndash;8&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Fruit cake, macarons, Brie cheese with honey, fresh fruit tarts</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Mango sticky rice, crispy ruby dessert (Tub Tim Krob), crispy roti, fresh fruits</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Serve well-chilled (6&ndash;8&deg;C). With only 5&ndash;7% alcohol, it is perfect for guests who find regular wine too strong &mdash; and pairs brilliantly with Thai desserts.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=106" target="_blank" rel="noopener">Explore All Moscato Wines</a></p>
+</div>
+
+<div id="semillon">
+<h3>17. Semillon &mdash; Heart of Bordeaux's Legendary Sweet Wines</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Semillon.jpg" alt="Semillon white wine Sauternes from Bordeaux and Hunter Valley Australia">
+<p class="wn-cap">Semillon: the golden grape behind Sauternes &mdash; and a dry wine secret in Australia</p>
+</div>
+<p>Semillon leads a double life. In Bordeaux, it is the primary grape in Sauternes &mdash; arguably the world's most famous sweet wine, made through noble rot (Botrytis). In Australia's Hunter Valley, it makes bone-dry whites that develop remarkable complexity over decades.</p>
+<p><strong>Tasting Profile:</strong> Green apple, honey, pear, lemon, toast, minerals. Sweet styles add dried apricot, saffron, marmalade.</p>
+<p><strong>Key Regions:</strong> Bordeaux (France), Hunter Valley (Australia), South Africa</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium&ndash;High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Medium&ndash;Full</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">10&ndash;30+ years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Foie gras, fruit desserts, blue cheese, cr&egrave;me br&ucirc;l&eacute;e (with Sauternes)</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Thai coconut desserts, bananas in sweet coconut milk, rich coconut curries (with Sauternes)</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>A half-bottle of Sauternes with Thai coconut desserts is a pairing you will never forget. Sweet styles develop astonishing complexity over decades.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=80" target="_blank" rel="noopener">Explore All Semillon Wines</a></p>
+</div>
+
+<div class="wn-alt" id="chardonnay">
+<h3>18. Chardonnay &mdash; The Queen of White Grapes</h3>
+<div class="wn-img">
+<img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-White-Chardonnay.jpg" alt="Chardonnay the worlds most popular white grape from Burgundy and California">
+<p class="wn-cap">Chardonnay: the blank canvas that reflects its terroir like no other</p>
+</div>
+<p>Chardonnay is the world's most widely planted white grape. No other white adapts so completely to its environment &mdash; from steely Chablis to buttery Napa Valley. It is also a key ingredient in Champagne (Blanc de Blancs is 100% Chardonnay).</p>
+<p><strong>Tasting Profile:</strong> Cool climates: green apple, lemon, mineral. Warm climates: pineapple, mango, peach, butter, vanilla, toast from oak aging.</p>
+<p><strong>Key Regions:</strong> Burgundy (Chablis, Meursault, Montrachet), Napa &amp; Sonoma (California), Margaret River (Australia), Champagne</p>
+<div class="wn-stats">
+<p class="wn-stats-t">Quick Stats</p>
+<div class="wn-st"><span class="wn-sl">Acidity</span><span class="wn-sv">Medium&ndash;High</span></div>
+<div class="wn-st"><span class="wn-sl">Body</span><span class="wn-sv">Medium&ndash;Full</span></div>
+<div class="wn-st"><span class="wn-sl">Aging</span><span class="wn-sv">5&ndash;20+ years</span></div>
+<div class="wn-st"><span class="wn-sl">Serve At</span><span class="wn-sv">10&ndash;14&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">Western Pairings</p><p>Lobster with butter sauce, roast chicken, creamy risotto, grilled salmon</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">Thai Pairings</p><p>Crab curry (Poo Phad Pong Karee), chicken green curry, grilled seafood with garlic butter</p></div>
+</div>
+<div class="wn-tip">
+<p class="wn-tip-t">Sommelier Tip</p>
+<p>Serve unoaked Chardonnay (Chablis) at 8&ndash;10&deg;C for crisp freshness. Rich, oaked Chardonnay at 12&ndash;14&deg;C to showcase creamy texture.</p>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=92" target="_blank" rel="noopener">Explore All Chardonnay Wines</a></p>
+</div>
+
+<hr class="wn-hr">
+
+<h2 id="comparison">Quick Comparison: All 18 Noble Grapes</h2>
+<div class="wn-tbl">
+<table>
+<thead>
+<tr><th>Grape</th><th>Color</th><th>Body</th><th>Acidity</th><th>Aging</th><th>Best For</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Pinot Noir</strong></td><td>Red</td><td>Light</td><td>High</td><td>5&ndash;15 yrs</td><td>Elegant, terroir-driven</td></tr>
+<tr><td><strong>Merlot</strong></td><td>Red</td><td>Med&ndash;Full</td><td>Medium</td><td>5&ndash;10 yrs</td><td>Smooth, easy-drinking</td></tr>
+<tr><td><strong>Nebbiolo</strong></td><td>Red</td><td>Full</td><td>High</td><td>10&ndash;30+ yrs</td><td>Collectors &amp; aging</td></tr>
+<tr><td><strong>Cab Sauv</strong></td><td>Red</td><td>Full</td><td>Med&ndash;High</td><td>10&ndash;25+ yrs</td><td>Bold reds &amp; steak</td></tr>
+<tr><td><strong>Malbec</strong></td><td>Red</td><td>Full</td><td>Medium</td><td>5&ndash;12 yrs</td><td>Juicy, fruit-forward</td></tr>
+<tr><td><strong>Zinfandel</strong></td><td>Red</td><td>Full</td><td>Medium</td><td>3&ndash;10 yrs</td><td>BBQ &amp; bold flavors</td></tr>
+<tr><td><strong>Sangiovese</strong></td><td>Red</td><td>Med&ndash;Full</td><td>High</td><td>5&ndash;20 yrs</td><td>Italian food &amp; pasta</td></tr>
+<tr><td><strong>Tempranillo</strong></td><td>Red</td><td>Med&ndash;Full</td><td>Med&ndash;High</td><td>5&ndash;20 yrs</td><td>Oak-aged complexity</td></tr>
+<tr><td><strong>Syrah/Shiraz</strong></td><td>Red</td><td>Full</td><td>Medium</td><td>7&ndash;20 yrs</td><td>Smoky, spicy power</td></tr>
+<tr><td><strong>Riesling</strong></td><td>White</td><td>Light</td><td>Very High</td><td>10&ndash;30 yrs</td><td>Spicy food pairing</td></tr>
+<tr><td><strong>Chenin Blanc</strong></td><td>White</td><td>Light&ndash;Med</td><td>High</td><td>5&ndash;25 yrs</td><td>Versatile all-rounder</td></tr>
+<tr><td><strong>Gew&uuml;rztraminer</strong></td><td>White</td><td>Med&ndash;Full</td><td>Low&ndash;Med</td><td>5&ndash;15 yrs</td><td>Aromatic intensity</td></tr>
+<tr><td><strong>Viognier</strong></td><td>White</td><td>Med&ndash;Full</td><td>Low&ndash;Med</td><td>3&ndash;8 yrs</td><td>Floral, peachy whites</td></tr>
+<tr><td><strong>Pinot Grigio</strong></td><td>White</td><td>Light&ndash;Med</td><td>Med&ndash;High</td><td>2&ndash;5 yrs</td><td>Light, easy sipping</td></tr>
+<tr><td><strong>Sauv Blanc</strong></td><td>White</td><td>Light&ndash;Med</td><td>High</td><td>2&ndash;7 yrs</td><td>Crisp, herbaceous</td></tr>
+<tr><td><strong>Moscato</strong></td><td>White</td><td>Light</td><td>Medium</td><td>1&ndash;3 yrs</td><td>Desserts &amp; beginners</td></tr>
+<tr><td><strong>Semillon</strong></td><td>White</td><td>Med&ndash;Full</td><td>Med&ndash;High</td><td>10&ndash;30+ yrs</td><td>Sweet wines &amp; aging</td></tr>
+<tr><td><strong>Chardonnay</strong></td><td>White</td><td>Med&ndash;Full</td><td>Med&ndash;High</td><td>5&ndash;20+ yrs</td><td>Versatile, food-friendly</td></tr>
+</tbody>
+</table>
+</div>
+
+<hr class="wn-hr">
+
+<h2 id="faq">Frequently Asked Questions About Wine Grapes</h2>
+<div class="wn-faq">
+
+<div class="wn-faq-q">
+<h4>What are the "noble grapes" and why are they called that?</h4>
+<p>The term "noble grapes" traditionally refers to grape varieties considered the finest in international winemaking. The original six &mdash; Cabernet Sauvignon, Merlot, Pinot Noir (reds) and Chardonnay, Sauvignon Blanc, Riesling (whites) &mdash; could produce world-class wine regardless of where they were grown. This expanded list of 18 includes additional varieties that have earned global recognition.</p>
+</div>
+
+<div class="wn-faq-q">
+<h4>Which wine grape is best for beginners?</h4>
+<p>For red wine, start with <strong>Merlot</strong> &mdash; smooth and approachable. For white, try <strong>Moscato</strong> (sweet, low alcohol) or <strong>Pinot Grigio</strong> (crisp, easy-drinking). As your palate develops, try Pinot Noir (red) and Sauvignon Blanc (white).</p>
+</div>
+
+<div class="wn-faq-q">
+<h4>What wine grapes pair best with Thai food?</h4>
+<p><strong>Off-dry Riesling</strong> is the gold standard for spicy Thai dishes &mdash; sweetness tempers chili heat while acidity matches the food. <strong>Gew&uuml;rztraminer</strong> works with coconut curries, and <strong>Sauvignon Blanc</strong> is excellent with Thai salads and seafood.</p>
+</div>
+
+<div class="wn-faq-q">
+<h4>What is the difference between Syrah and Shiraz?</h4>
+<p>Same grape, different names. "Syrah" is used in France and Europe; "Shiraz" in Australia and the New World. French Syrah tends to be more elegant and peppery; Australian Shiraz is typically riper, fruitier, and more powerful.</p>
+</div>
+
+<div class="wn-faq-q">
+<h4>Which wine grapes age the longest?</h4>
+<p>Reds: <strong>Nebbiolo</strong> (Barolo) 30+ years, <strong>Cabernet Sauvignon</strong> 25+ years, <strong>Tempranillo</strong> (Gran Reserva) 20+ years. Whites: <strong>Riesling</strong> 30+ years, <strong>Semillon</strong> (Sauternes) 50+ years, <strong>Chenin Blanc</strong> 25+ years.</p>
+</div>
+
+<div class="wn-faq-q">
+<h4>What is the most popular red wine grape in the world?</h4>
+<p><strong>Cabernet Sauvignon</strong> is the world's most widely planted red grape, grown in virtually every major wine-producing country. Merlot is a close second.</p>
+</div>
+
+<div class="wn-faq-q">
+<h4>What temperature should I serve wine at?</h4>
+<p><strong>Light reds</strong> (Pinot Noir): 13&ndash;16&deg;C. <strong>Full reds</strong> (Cabernet, Syrah): 16&ndash;18&deg;C. <strong>Light whites</strong> (Pinot Grigio, Sauvignon Blanc): 7&ndash;10&deg;C. <strong>Full whites</strong> (oaked Chardonnay): 10&ndash;14&deg;C. <strong>Sweet wines &amp; Moscato</strong>: 6&ndash;8&deg;C.</p>
+</div>
+
+</div>
+
+<div class="wn-line">
+<div class="wn-line-t">
+<h3>Need Help Choosing a Wine?</h3>
+<p>Chat with our sommelier team on LINE &mdash; we will help you pick the perfect bottle for your taste, occasion, and budget.</p>
+</div>
+<a href="https://lin.ee/winenow" class="wn-lbtn">Chat with us on LINE</a>
+</div>
+
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html" target="_blank" rel="noopener">Browse All Wines at Wine-Now</a></p>
+
+<div class="wn-rel">
+<p class="wn-rel-t">Related Articles</p>
+<div class="wn-rel-g">
+<div class="wn-rel-c wn-rel-red">
+<div class="wn-rel-inner">
+<p class="wn-rel-tag">Food &amp; Wine</p>
+<h4><a href="https://th.wine-now.com/blog/" target="_blank" rel="noopener">The Complete Guide to Wine and Food Pairing</a></h4>
+<p class="wn-rel-read">8 min read</p>
+</div>
+</div>
+<div class="wn-rel-c wn-rel-blue">
+<div class="wn-rel-inner">
+<p class="wn-rel-tag">Wine Education</p>
+<h4><a href="https://th.wine-now.com/blog/" target="_blank" rel="noopener">Top Wine Regions Every Enthusiast Should Know</a></h4>
+<p class="wn-rel-read">10 min read</p>
+</div>
+</div>
+<div class="wn-rel-c wn-rel-red">
+<div class="wn-rel-inner">
+<p class="wn-rel-tag">Thai Food &amp; Wine</p>
+<h4><a href="https://th.wine-now.com/blog/" target="_blank" rel="noopener">Best Wines to Pair with Thai Cuisine</a></h4>
+<p class="wn-rel-read">7 min read</p>
+</div>
+</div>
+</div>
+</div>
+
+<p class="wn-foot">Wine is a journey, not a destination. Every bottle tells a story &mdash; of the land, the grape, the vintage, and the hands that made it. We hope this guide helps you discover your next favorite.</p>
+
+</div>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"18 Noble Grapes: The Complete Guide to the World's Most Popular Wine Grapes","description":"Discover 18 of the world's most important wine grape varieties with tasting notes, food pairings including Thai dishes, key regions, and sommelier tips.","image":"https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble Grape Chart.jpg","author":{"@type":"Organization","name":"Wine-Now Sommelier Team","url":"https://th.wine-now.com/"},"publisher":{"@type":"Organization","name":"Wine-Now Thailand","url":"https://th.wine-now.com/"},"datePublished":"2025-01-15","dateModified":"2026-04-03","mainEntityOfPage":{"@type":"WebPage","@id":"https://th.wine-now.com/blog/18-noble-grapes-wine-challenge.html"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are the noble grapes and why are they called that?","acceptedAnswer":{"@type":"Answer","text":"The term noble grapes traditionally refers to the grape varieties considered the finest in international winemaking. The original six were Cabernet Sauvignon, Merlot, Pinot Noir, Chardonnay, Sauvignon Blanc, and Riesling."}},{"@type":"Question","name":"Which wine grape is best for beginners?","acceptedAnswer":{"@type":"Answer","text":"For red wine, start with Merlot. For white wine, try Moscato (sweet and low alcohol) or Pinot Grigio (crisp and easy-drinking)."}},{"@type":"Question","name":"What wine grapes pair best with Thai food?","acceptedAnswer":{"@type":"Answer","text":"Off-dry Riesling is the gold standard for spicy Thai dishes. Gewurztraminer works with coconut curries, and Sauvignon Blanc is excellent with Thai salads and seafood."}},{"@type":"Question","name":"What is the difference between Syrah and Shiraz?","acceptedAnswer":{"@type":"Answer","text":"Syrah and Shiraz are the same grape variety. Syrah is used in France and Europe, while Shiraz is used in Australia and the New World."}},{"@type":"Question","name":"Which wine grapes age the longest?","acceptedAnswer":{"@type":"Answer","text":"Nebbiolo (Barolo) can age 30+ years, Cabernet Sauvignon 25+ years. For whites, Riesling 30+ years and Semillon (Sauternes) 50+ years."}},{"@type":"Question","name":"What is the most popular red wine grape in the world?","acceptedAnswer":{"@type":"Answer","text":"Cabernet Sauvignon is the world's most widely planted red grape variety, grown in virtually every major wine-producing country."}},{"@type":"Question","name":"What temperature should I serve wine at?","acceptedAnswer":{"@type":"Answer","text":"Light reds 13-16C, full reds 16-18C, light whites 7-10C, full whites 10-14C, sweet wines 6-8C."}}]}
+</script>

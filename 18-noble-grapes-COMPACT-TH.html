@@ -1,0 +1,412 @@
+<style>
+.wn{max-width:1200px;margin:auto;padding:0 20px;color:#444}
+.wn h1,.wn h2,.wn h3,.wn-card-icon,.wn-toc-t,.wn-stats-t,.wn-pbox-t,.wn-tip-t,.wn-rel-t{color:#8B0000}
+.wn h1{font:700 34px/1.3 Arial,sans-serif;margin:24px 0 6px}.wn h2{font:700 26px/1.3 Arial,sans-serif;margin:36px 0 16px;padding-bottom:10px;border-bottom:3px solid #8B0000;display:inline-block}.wn h3{font:700 20px/1.3 Arial,sans-serif;margin:30px 0 14px}
+.wn-intro{font-size:19px;line-height:1.9;max-width:900px;margin:0 auto 36px;text-align:center;color:#555}
+.wn-cards,.wn-pair,.wn-rel-g,.wn-line{display:flex;gap:16px;flex-wrap:wrap}
+.wn-card,.wn-pbox,.wn-faq-q,.wn-rel-c{background:#fff;border:1px solid #eee;border-radius:12px}
+.wn-card{flex:1;min-width:240px;padding:20px;text-align:center}.wn-card-icon{font-size:32px;font-weight:700;margin:0 0 8px}.wn-card h4{font-size:17px;margin:0 0 6px}
+.wn-card p,.wn-pbox p,.wn-faq-q p,.wn-line-t p,.wn-rel-read{font-size:14px;line-height:1.6;color:#666;margin:0}
+.wn-toc,.wn-stats,.wn-alt{background:#faf8f5;border:1px solid #ede8e2;border-radius:12px}
+.wn-toc{max-width:700px;margin:20px auto 36px;padding:20px 24px}.wn-toc-t,.wn-pbox-t,.wn-rel-tag{font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.wn-toc ol{margin:0;padding-left:20px}.wn-toc li{margin:0 0 6px;font-size:15px}.wn-toc a{color:#555;text-decoration:none}.wn-toc a:hover,.wn-rel-c h4 a:hover{text-decoration:underline}.wn-toc-g{list-style:none;margin:10px 0 4px -20px;font-weight:700}
+.wn-img{margin:20px 0}.wn-img img,.wn-rel-c img{width:100%;display:block;border-radius:12px}
+.wn-cap,.wn-foot,.wn-meta,.wn-arole,.wn-rel-read{color:#888}.wn-cap,.wn-foot{text-align:center;font-size:13px;font-style:italic;margin-top:8px}
+.wn-alt{padding:28px 22px;margin:24px 0}
+.wn-stats{margin:16px 0 20px;padding:16px 20px}.wn-stats-t{margin:0 0 8px;padding-bottom:8px;border-bottom:2px solid #8B0000}
+.wn-st{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f0ebe5;font-size:14px}.wn-st:last-child{border:0}.wn-sl{color:#888}.wn-sv{font-weight:600;color:#333}
+.wn-pbox{flex:1;min-width:220px;padding:14px 16px}
+.wn-tip{background:linear-gradient(135deg,#fdf6f0,#fff5f5);border-left:4px solid #8B0000;border-radius:0 12px 12px 0;padding:18px 22px;margin:24px 0}.wn-tip p{margin:0;line-height:1.7}
+.wn-cta{text-align:center;padding:24px 0}.wn-btn,.wn-lbtn{display:inline-block;text-decoration:none!important;font-weight:600}
+.wn-btn{background:#8B0000;color:#fff!important;padding:12px 32px;border-radius:8px}.wn-lbtn{background:#06C755;color:#fff!important;padding:12px 28px;border-radius:50px}
+.wn-tbl{overflow-x:auto;margin:24px 0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}.wn-tbl table{width:100%;border-collapse:collapse;min-width:580px;font-size:14px}
+.wn-tbl th{background:#8B0000;color:#fff;padding:12px 14px;text-align:left;font-size:13px}.wn-tbl td{padding:10px 14px;border-bottom:1px solid #f0ebe5}.wn-tbl tr:nth-child(even){background:#faf8f5}
+.wn-faq{margin:24px 0}.wn-faq-q{padding:16px 20px;margin-bottom:10px}.wn-faq-q h4{font-size:16px;margin:0 0 10px;color:#333}
+.wn-line{background:linear-gradient(135deg,#f0f7ef,#e8f5e6);border-radius:16px;padding:28px 32px;margin:36px 0;align-items:center}.wn-line-t{flex:1;min-width:220px}.wn-line-t h3{color:#06C755!important;margin:0 0 6px;border:0;padding:0}
+.wn-rel{padding:36px 0}.wn-rel-t{font-size:22px;text-align:center;margin-bottom:20px}.wn-rel-c{flex:1 1 0;min-width:260px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06);text-decoration:none;color:inherit}.wn-rel-c img{height:170px;object-fit:cover;border-radius:0}.wn-rel-inner{padding:14px 18px}.wn-rel-c h4{font-size:16px;line-height:1.35;margin:0 0 4px}.wn-rel-c h4 a{color:inherit;text-decoration:none}.wn-rel-red{background:linear-gradient(135deg,#8B0000,#b22222);color:#fff}.wn-rel-blue{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff}.wn-rel-red .wn-rel-tag{color:#ffcaca}.wn-rel-blue .wn-rel-tag{color:#bbdefb}
+.wn-foot{max-width:700px;margin:0 auto;padding:24px 20px}.wn-hr{border:0;height:1px;background:linear-gradient(to right,transparent,#ccc,transparent);margin:36px 0}
+.wn-author{display:flex;align-items:center;gap:14px;padding:20px 0;margin:20px 0;border-top:1px solid #eee;border-bottom:1px solid #eee}.wn-avatar{width:50px;height:50px;border-radius:50%;background:#f5efe8;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;color:#8B0000;font-weight:700}.wn-ainfo{flex:1}.wn-aname{font-size:15px;font-weight:600;color:#333;margin:0}
+@media(max-width:768px){.wn h1{font-size:24px}.wn h2{font-size:22px}.wn h3{font-size:18px}.wn-intro{text-align:left;font-size:16px}.wn-cards,.wn-pair,.wn-rel-g,.wn-line{flex-direction:column}.wn-line{text-align:center;padding:20px}.wn-author{flex-direction:column;text-align:center}}
+</style>
+<div class="wn">
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble Grape Chart.jpg" alt="18 องุ่นพันธุ์พรีเมียม ไกด์ฉบับสมบูรณ์"></div>
+<h1>18 Noble Grapes: ไกด์ฉบับสมบูรณ์ขององุ่นทำไวน์ยอดนิยมของโลก</h1>
+<p class="wn-meta">WINE EDUCATION | อ่าน 25 นาที</p>
+<div class="wn-author"><p class="wn-avatar">W</p><div class="wn-ainfo"><p class="wn-aname">Wine-Now Sommelier Team</p><p class="wn-arole">Certified Sommelier | อัปเดต: เมษายน 2026</p></div></div>
+<p class="wn-intro">การเข้าใจพันธุ์องุ่นคือก้าวแรกที่สำคัญที่สุดในการเลือกไวน์ที่ถูกใจคุณ ไกด์นี้รวบรวม <strong>องุ่น 18 สายพันธุ์ที่ทั่วโลกยกย่อง</strong> พร้อมโปรไฟล์รสชาติ แหล่งผลิตสำคัญ และเมนูจับคู่ทั้งอาหารตะวันตกและอาหารไทย</p>
+<div class="wn-cards">
+<div class="wn-card"><p class="wn-card-icon">RED</p><h4>องุ่นแดง 9 สายพันธุ์</h4><p>ตั้งแต่ Pinot Noir สง่างามไปจนถึง Cabernet Sauvignon เข้มข้น</p></div>
+<div class="wn-card"><p class="wn-card-icon">WHITE</p><h4>องุ่นขาว 9 สายพันธุ์</h4><p>ตั้งแต่ Sauvignon Blanc สดชื่นไปจนถึง Riesling หอมละมุน</p></div>
+<div class="wn-card"><p class="wn-card-icon">PAIR</p><h4>จับคู่อาหารไทย</h4><p>ทุกสายพันธุ์จับคู่กับเมนูไทยโดยเฉพาะ</p></div>
+</div>
+<div class="wn-toc"><p class="wn-toc-t">สารบัญ</p>
+<ol>
+<li class="wn-toc-g">องุ่นแดง (Red Grapes)</li>
+<li><a href="#pinot-noir">Pinot Noir</a></li><li><a href="#merlot">Merlot</a></li><li><a href="#nebbiolo">Nebbiolo</a></li><li><a href="#cabernet-sauvignon">Cabernet Sauvignon</a></li><li><a href="#malbec">Malbec</a></li><li><a href="#zinfandel">Zinfandel</a></li><li><a href="#sangiovese">Sangiovese</a></li><li><a href="#tempranillo">Tempranillo</a></li><li><a href="#syrah">Syrah / Shiraz</a></li>
+<li class="wn-toc-g">องุ่นขาว (White Grapes)</li>
+<li><a href="#riesling">Riesling</a></li><li><a href="#chenin-blanc">Chenin Blanc</a></li><li><a href="#gewurztraminer">Gew&uuml;rztraminer</a></li><li><a href="#viognier">Viognier</a></li><li><a href="#pinot-grigio">Pinot Grigio</a></li><li><a href="#sauvignon-blanc">Sauvignon Blanc</a></li><li><a href="#moscato">Moscato</a></li><li><a href="#semillon">Semillon</a></li><li><a href="#chardonnay">Chardonnay</a></li>
+</ol></div>
+<hr class="wn-hr">
+<h2 id="red-grapes">องุ่นแดง (Red Grape Varieties)</h2>
+
+<div class="wn-alt" id="pinot-noir">
+<h3>1. Pinot Noir &mdash; องุ่นบอบบางแต่เสน่ห์ล้น</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Pinot-Noir.jpg" alt="องุ่น Pinot Noir จาก Burgundy"></div>
+<p>Pinot Noir มีเปลือกบางและไวต่อสภาพอากาศและดินอย่างมาก ทำให้เป็นองุ่นที่สะท้อน terroir ได้ดีที่สุด เป็นองุ่นหลักของ Burgundy ฝรั่งเศส และยังเติบโตได้ดีใน Oregon, New Zealand และชายฝั่ง California</p>
+<p><strong>รสชาติ:</strong> เชอร์รี่ ราสเบอร์รี่ กุหลาบ ไวโอเล็ต เมื่อบ่มนาน: เห็ด ทรัฟเฟิล กลิ่นป่า บอดี้เบา แทนนินนุ่ม</p>
+<p><strong>แหล่งผลิต:</strong> Burgundy, Willamette Valley, Central Otago, Sonoma Coast</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">เบา / ต่ำ&ndash;กลาง</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">สูง / 5&ndash;15 ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">13&ndash;16&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>อกเป็ดย่าง แซลมอนย่าง มัชรูมริซอตโต้</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ไก่ย่าง น้ำตกเนื้อ ลาบหมู</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>เสิร์ฟในแก้วทรงทิวลิปใหญ่ อย่าแช่เย็นเกินไป &mdash; ความเย็นจะกดกลิ่นดอกไม้</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=74" target="_blank" rel="noopener">เลือกซื้อ Pinot Noir</a></p>
+</div>
+
+<div id="merlot">
+<h3>2. Merlot &mdash; นุ่มนวล เข้าถึงง่าย ใครก็ชอบ</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Merlot.jpg" alt="ไวน์แดง Merlot จาก Bordeaux"></div>
+<p>ชื่อ Merlot มาจาก "Merle" (นกแบล็กเบิร์ด) เป็นไวน์นุ่ม ผลไม้นำ เหมาะกับมือใหม่ที่สุด บน Right Bank ของ Bordeaux เป็นองุ่นหลักของ Ch&acirc;teau P&eacute;trus และมักเบลนด์คู่กับ Cabernet Sauvignon</p>
+<p><strong>รสชาติ:</strong> แบล็กเชอร์รี่ พลัม โกโก้ ช็อกโกแลต วานิลลา นุ่มกำมะหยี่</p>
+<p><strong>แหล่งผลิต:</strong> Right Bank Bordeaux, Napa Valley, Chile, Washington State</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">กลาง&ndash;เต็ม / กลาง</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">กลาง / 5&ndash;10 ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">15&ndash;18&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>พาสต้าเนื้อ ซี่โครงบาร์บีคิว แกะอบ</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>แกงพะแนงเนื้อ ข้าวซอย ผัดเป็ดกระเพรา</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>คุ้มค่าที่สุด: Merlot จากหุบเขา Colchagua ชิลี เหมาะสำหรับคนเริ่มต้นดื่มไวน์</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=104" target="_blank" rel="noopener">เลือกซื้อ Merlot</a></p>
+</div>
+
+<div class="wn-alt" id="nebbiolo">
+<h3>3. Nebbiolo &mdash; องุ่นผู้ทรงเกียรติแห่งอิตาลี</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Nebbiolo.jpg" alt="Nebbiolo จาก Barolo Piedmont"></div>
+<p>"Nebbiolo" มาจาก "nebbia" (หมอก) สื่อถึงหมอกในไร่องุ่นแห่ง Piedmont ผลิตไวน์ที่ทรงเกียรติที่สุดของอิตาลี &mdash; Barolo และ Barbaresco สีอ่อนหลอกตา แต่แทนนินแน่นที่สุดในบรรดาองุ่นแดง</p>
+<p><strong>รสชาติ:</strong> กุหลาบแห้ง ทาร์ หนัง เชอร์รี่ ทรัฟเฟิล แทนนินเข้ม กรดสูง</p>
+<p><strong>แหล่งผลิต:</strong> Piedmont (Barolo, Barbaresco), Langhe, Roero</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">เต็ม / สูงมาก</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">สูง / 10&ndash;30+ ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>เนื้อตุ๋น มัชรูมริซอตโต้ พาร์มิจาโน่บ่ม</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>แกงพะแนงเนื้อ เนื้อแดดเดียว แกงฮังเล</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>เริ่มต้นที่ Langhe Nebbiolo สำหรับ Barolo ควร decant อย่างน้อย 1 ชั่วโมง</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=68" target="_blank" rel="noopener">เลือกซื้อ Nebbiolo</a></p>
+</div>
+
+<div id="cabernet-sauvignon">
+<h3>4. Cabernet Sauvignon &mdash; ราชาแห่งองุ่นแดง</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-Red-Cabernet-Sauvignon.jpg" alt="Cabernet Sauvignon"></div>
+<p>องุ่นแดงที่ปลูกมากที่สุดในโลก เกิดจากการผสมข้ามสายพันธุ์ของ Cabernet Franc กับ Sauvignon Blanc ใน Bordeaux ศตวรรษที่ 17 เปลือกหนาให้แทนนินสูงและสีเข้ม เหมาะกับการบ่มในถังโอ๊คและเก็บระยะยาว</p>
+<p><strong>รสชาติ:</strong> แบล็กเคอร์แรนต์ ซีดาร์ ยาสูบ กราไฟต์ ดาร์กช็อกโกแลต แทนนินหนักที่นุ่มลงเมื่อบ่ม</p>
+<p><strong>แหล่งผลิต:</strong> Left Bank Bordeaux, Napa Valley, Coonawarra, Maipo Valley</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">เต็ม / สูง</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">กลาง&ndash;สูง / 10&ndash;25+ ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>ริบอายย่าง แร็คแกะ บีฟเวลลิงตัน</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>คอหมูย่าง แกงมัสมั่นเนื้อ เนื้อตุ๋นหางวัว</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>Decant ไวน์อายุน้อย 30&ndash;60 นาที คุ้มค่าที่สุด: Cabernet จาก Maipo Valley ชิลี</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=91" target="_blank" rel="noopener">เลือกซื้อ Cabernet Sauvignon</a></p>
+</div>
+
+<div class="wn-alt" id="malbec">
+<h3>5. Malbec &mdash; ทูตผู้ทรงพลังจากอาร์เจนตินา</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-Red-Malbec.jpg" alt="Malbec จาก Mendoza อาร์เจนตินา"></div>
+<p>แต่เดิมมาจาก Cahors ฝรั่งเศส แต่ Malbec เจอบ้านที่แท้จริงใน Mendoza อาร์เจนตินา ที่ความสูง 1,000&ndash;1,500 เมตร แดดจัดและความสูงสร้างไวน์ที่ผลไม้อิ่ม แทนนินนุ่ม น่าดื่ม</p>
+<p><strong>รสชาติ:</strong> พลัมสุก แบล็กเบอร์รี่ ดาร์กช็อกโกแลต หนัง ไวโอเล็ต ฉ่ำและเข้มข้น</p>
+<p><strong>แหล่งผลิต:</strong> Mendoza &amp; Uco Valley (อาร์เจนตินา), Cahors (ฝรั่งเศส)</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">เต็ม / กลาง&ndash;สูง</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">กลาง / 5&ndash;12 ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>สเต๊กย่าง เอมปานาดา ซี่โครงตุ๋น</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>เสือร้องไห้ ไส้อั่ว แกงแดงหมู</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>มองหา Uco Valley บนฉลาก &mdash; ความสูงให้ความสดและซับซ้อนมากขึ้น</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=103" target="_blank" rel="noopener">เลือกซื้อ Malbec</a></p>
+</div>
+
+<div id="zinfandel">
+<h3>6. Zinfandel &mdash; องุ่นมรดกแห่งอเมริกา</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-Red-Zinfandel.jpg" alt="Zinfandel จาก California"></div>
+<p>พันธุกรรมเดียวกับ Crljenak ของโครเอเชียและ Primitivo ของอิตาลี แต่ Zinfandel กลายเป็นองุ่นแดงประจำอเมริกาใน California ไร่เถาองุ่นเก่าให้ไวน์เข้มข้น มักมีแอลกอฮอล์สูง 14&ndash;16%</p>
+<p><strong>รสชาติ:</strong> แบล็กเบอร์รี่ บอยเซนเบอร์รี่ พริกไทยดำ อบเชย โอ๊คสโมก เข้มข้นและอบอุ่น</p>
+<p><strong>แหล่งผลิต:</strong> Sonoma, Paso Robles, Lodi (California), Puglia (ในชื่อ Primitivo)</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">เต็ม / กลาง</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">กลาง / 3&ndash;10 ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">15&ndash;18&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>บริสเก็ตรมควัน พิซซ่าเปปเปอโรนี หมูรมควัน</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ซี่โครงหมูย่าง หมูกระเทียมพริกไทย ผัดกระเพรา</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>มองหา "Old Vine" บนฉลาก &mdash; เถาแก่ให้ผลเข้มข้นกว่า</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=86" target="_blank" rel="noopener">เลือกซื้อ Zinfandel</a></p>
+</div>
+
+<div class="wn-alt" id="sangiovese">
+<h3>7. Sangiovese &mdash; หัวใจของไวน์อิตาลี</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-Red-Sangiovese.jpg" alt="Sangiovese จาก Chianti Tuscany"></div>
+<p>องุ่นไอคอนิกที่สุดของอิตาลี &mdash; วิญญาณของ Tuscany เบื้องหลัง Chianti, Brunello di Montalcino และ Super Tuscan ชื่ออาจมาจาก "sanguis Jovis" (เลือดของจูปิเตอร์)</p>
+<p><strong>รสชาติ:</strong> เชอร์รี่แดง แครนเบอร์รี่ หนัง ยาสูบ สมุนไพรแห้ง เซฟวอรี่พร้อมกรดแน่น</p>
+<p><strong>แหล่งผลิต:</strong> Tuscany (Chianti, Montalcino), Umbria, Emilia-Romagna</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">กลาง&ndash;เต็ม / กลาง&ndash;สูง</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">สูง / 5&ndash;20 ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>พาสต้าโบโลเนส พิซซ่า ลาซานญ่า</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>แกงไก่ ข้าวคลุกกะปิ ผัดพริกขิง</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>กรดสูงทำให้เป็นไวน์คู่พาสต้าที่ดีที่สุด Brunello di Montalcino ต้องบ่มขั้นต่ำ 5 ปี</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=78" target="_blank" rel="noopener">เลือกซื้อ Sangiovese</a></p>
+</div>
+
+<div id="tempranillo">
+<h3>8. Tempranillo &mdash; จิตวิญญาณแห่งไวน์สเปน</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Tempranillo.jpg" alt="Tempranillo จาก Rioja สเปน"></div>
+<p>จิตวิญญาณของไวน์สเปน "Temprano" แปลว่า "เร็ว" เพราะสุกเร็วกว่าพันธุ์อื่น ไวน์เมกเกอร์สเปนบ่มในถังโอ๊คอเมริกัน ให้กลิ่นวานิลลาและเครื่องเทศหวานเป็นเอกลักษณ์</p>
+<p><strong>รสชาติ:</strong> เชอร์รี่ แบล็กเบอร์รี่ ยาสูบ หนัง วานิลลา เครื่องเทศจากโอ๊ค</p>
+<p><strong>แหล่งผลิต:</strong> Rioja, Ribera del Duero, Navarra, Toro (สเปน)</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">กลาง&ndash;เต็ม / กลาง</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">กลาง&ndash;สูง / 5&ndash;20 ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>สเต๊กย่าง ทาปาส แฮมอิเบริโก้</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ไส้อั่ว คอหมูย่าง หมูแดดเดียว</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>Rioja Gran Reserva เป็นหนึ่งในไวน์บ่มที่คุ้มค่าที่สุดในโลก</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=82" target="_blank" rel="noopener">เลือกซื้อ Tempranillo</a></p>
+</div>
+
+<div class="wn-alt" id="syrah">
+<h3>9. Syrah (Shiraz) &mdash; นักรบแห่งไวน์แดง</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-Red-Syrah.jpg" alt="Syrah Shiraz จาก Rhone และ Barossa"></div>
+<p>องุ่นเดียวกัน สองชื่อ: Syrah ฝรั่งเศสจะเรียบหรูและพริกไทย ส่วน Shiraz ออสเตรเลียจะเข้มข้นและผลไม้จัด เป็นส่วนสำคัญของ GSM Blend (Grenache-Syrah-Mourv&egrave;dre)</p>
+<p><strong>รสชาติ:</strong> แบล็กเบอร์รี่ พริกไทยดำ มะกอกดำ หนัง โอ๊คสโมก ทรงพลังและยาว</p>
+<p><strong>แหล่งผลิต:</strong> Northern Rh&ocirc;ne, Barossa Valley, McLaren Vale, Stellenbosch</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / แทนนิน</span><span class="wn-sv">เต็ม / กลาง&ndash;สูง</span></div>
+<div class="wn-st"><span class="wn-sl">กรด / บ่มได้</span><span class="wn-sv">กลาง / 7&ndash;20 ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">16&ndash;18&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>บริสเก็ตรมควัน สตูว์เนื้อ ซี่โครงบาร์บีคิว</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>แกงฮังเล หมูสามชั้นตุ๋น แกงเผ็ดเป็ด</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>Northern Rh&ocirc;ne สำหรับความสง่างาม Barossa สำหรับพลังเต็มที่ ทั้งคู่เข้ากับเนื้อย่างรมควัน</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=81" target="_blank" rel="noopener">เลือกซื้อ Syrah/Shiraz</a></p>
+</div>
+
+<hr class="wn-hr">
+<h2 id="white-grapes">องุ่นขาว (White Grape Varieties)</h2>
+
+<div class="wn-alt" id="riesling">
+<h3>10. Riesling &mdash; กรดสดชื่นและกลิ่นหอมสง่า</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Riesling.jpg" alt="Riesling จาก Germany และ Alsace"></div>
+<p>Riesling มีตั้งแต่แห้งสนิทไปจนถึงหวานเข้มข้น ทั้งหมดยึดเข้าด้วยกันด้วยกรดที่เฉียบคม เป็นหนึ่งในไวน์ขาวไม่กี่ชนิดที่บ่มได้นานหลายสิบปี ความหวานและกรดทำให้เข้ากับอาหารไทยรสจัดได้ดีมาก</p>
+<p><strong>รสชาติ:</strong> แอปเปิ้ลเขียว ส้ม น้ำผึ้ง ดอกไม้ขาว กลิ่นเชื้อเพลิงเมื่อบ่ม</p>
+<p><strong>แหล่งผลิต:</strong> Germany (Mosel, Rheingau), Alsace, Clare Valley (ออสเตรเลีย)</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / กรด</span><span class="wn-sv">เบา / สูงมาก</span></div>
+<div class="wn-st"><span class="wn-sl">ความหวาน / บ่มได้</span><span class="wn-sv">แห้ง&ndash;หวาน / 10&ndash;30 ปี</span></div>
+<div class="wn-st"><span class="wn-sl">เสิร์ฟที่</span><span class="wn-sv">8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>ซีฟู้ด หมูอบ ฟัวกราส์</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ต้มยำกุ้ง ส้มตำปลาร้า แกงส้ม</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>"Trocken" = แห้ง Sp&auml;tlese แบบ off-dry เป็นตัวเลือกที่ดีที่สุดสำหรับอาหารไทยรสเผ็ด</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=77" target="_blank" rel="noopener">เลือกซื้อ Riesling</a></p>
+</div>
+
+<div id="chenin-blanc">
+<h3>11. Chenin Blanc &mdash; ดาวสารพัดประโยชน์จาก Loire Valley</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Chenin-Blanc.jpg" alt="Chenin Blanc จาก Loire Valley"></div>
+<p>กิ้งก่าแห่งองุ่นขาว &mdash; ผลิตได้ตั้งแต่ไวน์แห้งกรอบไปจนถึงไวน์หวานและสปาร์กลิง ถิ่นกำเนิดคือ Loire Valley ฝรั่งเศส บ้านที่สองคือแอฟริกาใต้ (เรียกว่า "Steen")</p>
+<p><strong>รสชาติ:</strong> แอปเปิ้ลเขียว ดอกไม้ ขิง น้ำผึ้ง ส้ม</p>
+<p><strong>แหล่งผลิต:</strong> Loire Valley (Vouvray), แอฟริกาใต้ (Swartland, Stellenbosch)</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / กรด</span><span class="wn-sv">เบา&ndash;กลาง / สูง</span></div>
+<div class="wn-st"><span class="wn-sl">บ่มได้ / เสิร์ฟที่</span><span class="wn-sv">5&ndash;25 ปี / 8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>หอยแมลงภู่ ปลาอบ ไก่อบสมุนไพร</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ปลานึ่งมะนาว แกงเหลือง ข้าวผัดปู</p></div>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=95" target="_blank" rel="noopener">เลือกซื้อ Chenin Blanc</a></p>
+</div>
+
+<div class="wn-alt" id="gewurztraminer">
+<h3>12. Gew&uuml;rztraminer &mdash; กลิ่นหอมที่ลืมไม่ลง</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Gewurztraminer.jpg" alt="Gewurztraminer จาก Alsace"></div>
+<p>องุ่นที่มีกลิ่นหอมเข้มข้นที่สุดในโลก "Gew&uuml;rz" แปลว่า "เครื่องเทศ" ในภาษาเยอรมัน ความหวานผสมกรดทำให้เข้ากับอาหารเอเชียรสจัดได้ยอดเยี่ยม</p>
+<p><strong>รสชาติ:</strong> ลิ้นจี่ กลีบกุหลาบ ดอกส้ม เครื่องเทศแปลกใหม่ ขนมตุรกี</p>
+<p><strong>แหล่งผลิต:</strong> Alsace (ฝรั่งเศส), เยอรมนี, Trentino-Alto Adige (อิตาลี)</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / กรด</span><span class="wn-sv">กลาง&ndash;เต็ม / ต่ำ&ndash;กลาง</span></div>
+<div class="wn-st"><span class="wn-sl">บ่มได้ / เสิร์ฟที่</span><span class="wn-sv">5&ndash;15 ปี / 8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>ฟัวกราส์ แฮมรมควัน ชีสเปลือกล้าง</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>แกงมัสมั่น ต้มข่าไก่ ข้าวซอย</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>ความหวานลิ้นจี่ช่วยดับความเผ็ดได้ดี &mdash; หนึ่งในไวน์ที่ดีที่สุดสำหรับอาหารเผ็ด</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=99" target="_blank" rel="noopener">เลือกซื้อ Gew&uuml;rztraminer</a></p>
+</div>
+
+<div id="viognier">
+<h3>13. Viognier &mdash; องุ่นกลิ่นพีชจาก Rh&ocirc;ne Valley</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Viognier.jpg" alt="Viognier จาก Rhone และ California"></div>
+<p>เกือบสูญพันธุ์ในทศวรรษ 1960 (เหลือเพียง 30 เอเคอร์ทั่วโลก) Viognier ถูกกอบกู้โดยไวน์เมกเกอร์ผู้หลงใหล ปัจจุบันเป็นที่ชื่นชมในเรื่องกลิ่นดอกไม้เย้ายวนและเนื้อสัมผัสหนานุ่ม</p>
+<p><strong>รสชาติ:</strong> มะลิ ดอกส้ม พีช แอปริคอต ขิง บอดี้เต็ม กรดต่ำ</p>
+<p><strong>แหล่งผลิต:</strong> Rh&ocirc;ne Valley (Condrieu), California, ออสเตรเลีย</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / กรด</span><span class="wn-sv">กลาง&ndash;เต็ม / ต่ำ&ndash;กลาง</span></div>
+<div class="wn-st"><span class="wn-sl">บ่มได้ / เสิร์ฟที่</span><span class="wn-sv">3&ndash;8 ปี / 10&ndash;12&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>หอยเชลล์ย่าง ล็อบสเตอร์บิสก์ พาสต้าซอสขาว</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>แกงไก่ ยำส้มโอ ไก่ผัดเม็ดมะม่วงหิมพานต์</p></div>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=84" target="_blank" rel="noopener">เลือกซื้อ Viognier</a></p>
+</div>
+
+<div class="wn-alt" id="pinot-grigio">
+<h3>14. Pinot Grigio &mdash; สดชื่น ดื่มง่าย</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Pinot-Grigio.jpg" alt="Pinot Grigio จากอิตาลี"></div>
+<p>ไวน์ขาวดื่มง่ายยอดฮิต สไตล์อิตาลีจะเบาและกรอบ ส่วน Pinot Gris จาก Alsace จะเข้มข้นกว่า แม้จะเป็นไวน์ขาว แต่เปลือกองุ่นมีสีชมพูอมเทา ("Gris" แปลว่าเทา)</p>
+<p><strong>รสชาติ:</strong> ลูกแพร์สด แอปเปิ้ล มะนาว ดอกไม้ขาว กลิ่นแร่ธาตุ</p>
+<p><strong>แหล่งผลิต:</strong> อิตาลี (Veneto, Friuli), Alsace, เยอรมนี, Oregon</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / กรด</span><span class="wn-sv">เบา&ndash;กลาง / กลาง&ndash;สูง</span></div>
+<div class="wn-st"><span class="wn-sl">บ่มได้ / เสิร์ฟที่</span><span class="wn-sv">2&ndash;5 ปี / 7&ndash;9&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>ซาชิมิ หอยนางรมสด พาสต้าเบาๆ</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ยำวุ้นเส้น ต้มยำทะเล สลัดสาหร่าย</p></div>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=72" target="_blank" rel="noopener">เลือกซื้อ Pinot Grigio</a></p>
+</div>
+
+<div id="sauvignon-blanc">
+<h3>15. Sauvignon Blanc &mdash; กรอบสดชื่นและกลิ่นสมุนไพร</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Sauvignon-Blanc.jpg" alt="Sauvignon Blanc จาก Marlborough"></div>
+<p>องุ่นขาวที่สดชื่นที่สุดในโลก เป็นองุ่นพ่อ-แม่ของ Cabernet Sauvignon ดังระดับซุปเปอร์สตาร์ใน Marlborough นิวซีแลนด์ และเป็นส่วนประกอบสำคัญของไวน์หวาน Sauternes</p>
+<p><strong>รสชาติ:</strong> หญ้าสดตัด สมุนไพรเขียว เสาวรส เกรปฟรุต กรดเฉียบคม</p>
+<p><strong>แหล่งผลิต:</strong> Sancerre (Loire), Marlborough (นิวซีแลนด์), Bordeaux, ชิลี</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / กรด</span><span class="wn-sv">เบา&ndash;กลาง / สูง</span></div>
+<div class="wn-st"><span class="wn-sl">บ่มได้ / เสิร์ฟที่</span><span class="wn-sv">2&ndash;7 ปี / 8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>หอยนางรมสด ปลานึ่ง สลัดชีสแพะ</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ยำมะม่วง แกงเลียง ต้มยำปลา</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>Marlborough สำหรับผลไม้สดจัด Sancerre สำหรับความละเอียดอ่อน องุ่นเดียว สองบุคลิก</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=79" target="_blank" rel="noopener">เลือกซื้อ Sauvignon Blanc</a></p>
+</div>
+
+<div class="wn-alt" id="moscato">
+<h3>16. Moscato &mdash; หอม หวาน น่ารัก</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/moscato_grape_18.jpg" alt="Moscato จากอิตาลี"></div>
+<p>ไวน์ที่เหมาะกับมือใหม่ที่สุด &mdash; หวาน ฟู่เบาๆ แอลกอฮอล์ต่ำ (5&ndash;7%) มีชื่อเสียงที่สุดในรูปแบบ Moscato d'Asti จากอิตาลี ตระกูล Muscat เป็นหนึ่งในองุ่นที่เก่าแก่ที่สุดที่มนุษย์ปลูก</p>
+<p><strong>รสชาติ:</strong> พีช ลิ้นจี่ ดอกส้ม แอปริคอต น้ำผึ้ง หวานอ่อนพร้อมฟองเบาๆ</p>
+<p><strong>แหล่งผลิต:</strong> Piedmont (อิตาลี), สเปน, ใต้ฝรั่งเศส, California</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / ความหวาน</span><span class="wn-sv">เบา / หวาน</span></div>
+<div class="wn-st"><span class="wn-sl">บ่มได้ / เสิร์ฟที่</span><span class="wn-sv">1&ndash;3 ปี / 6&ndash;8&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>เค้กผลไม้ มาการอง ชีส Brie ราดน้ำผึ้ง</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ข้าวเหนียวมะม่วง ทับทิมกรอบ โรตีกรอบ</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>แอลกอฮอล์แค่ 5&ndash;7% &mdash; เหมาะกับคนที่รู้สึกว่าไวน์ปกติแรงไป เข้ากับขนมหวานไทยได้ดีมาก</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=106" target="_blank" rel="noopener">เลือกซื้อ Moscato</a></p>
+</div>
+
+<div id="semillon">
+<h3>17. Semillon &mdash; องุ่นไวน์หวานตำนานจาก Bordeaux</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/media/blog/18-Noble-Grapes/WN-Noble-White-Semillon.jpg" alt="Semillon จาก Sauternes Bordeaux"></div>
+<p>Semillon มีชีวิตสองด้าน: เป็นองุ่นหลักใน Sauternes (ไวน์หวานชื่อดังที่สุดในโลกจากเชื้อรา noble rot) และใน Hunter Valley ออสเตรเลียผลิตไวน์ขาวแห้งที่บ่มได้นานหลายสิบปี</p>
+<p><strong>รสชาติ:</strong> แอปเปิ้ลเขียว น้ำผึ้ง ลูกแพร์ มะนาว โทสต์ แบบหวาน: แอปริคอตแห้ง หญ้าฝรั่น</p>
+<p><strong>แหล่งผลิต:</strong> Bordeaux (Sauternes), Hunter Valley (ออสเตรเลีย), แอฟริกาใต้</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / กรด</span><span class="wn-sv">กลาง&ndash;เต็ม / กลาง&ndash;สูง</span></div>
+<div class="wn-st"><span class="wn-sl">บ่มได้ / เสิร์ฟที่</span><span class="wn-sv">10&ndash;30+ ปี / 8&ndash;10&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>ฟัวกราส์ บลูชีส เครมบรูเล่</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ขนมหวานกะทิ กล้วยบวชชี</p></div>
+</div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=80" target="_blank" rel="noopener">เลือกซื้อ Semillon</a></p>
+</div>
+
+<div class="wn-alt" id="chardonnay">
+<h3>18. Chardonnay &mdash; ราชินีแห่งองุ่นขาว</h3>
+<div class="wn-img"><img src="https://th.wine-now.com/pub/media/blog/18-Noble-Grapes/WN-Noble-White-Chardonnay.jpg" alt="Chardonnay จาก Burgundy และ California"></div>
+<p>องุ่นขาวที่ปลูกมากที่สุดในโลก ไม่มีองุ่นขาวชนิดไหนปรับตัวตามสิ่งแวดล้อมได้สมบูรณ์เท่า &mdash; ตั้งแต่ Chablis แร่ธาตุจัดไปจนถึง Napa Valley เนย และยังเป็นส่วนสำคัญใน Champagne (Blanc de Blancs = Chardonnay 100%)</p>
+<p><strong>รสชาติ:</strong> เย็น: แอปเปิ้ลเขียว มะนาว แร่ธาตุ อุ่น: สับปะรด มะม่วง เนย วานิลลา โทสต์</p>
+<p><strong>แหล่งผลิต:</strong> Burgundy (Chablis, Meursault), Napa &amp; Sonoma, Margaret River, Champagne</p>
+<div class="wn-stats"><p class="wn-stats-t">สเปกด่วน</p>
+<div class="wn-st"><span class="wn-sl">บอดี้ / กรด</span><span class="wn-sv">กลาง&ndash;เต็ม / กลาง&ndash;สูง</span></div>
+<div class="wn-st"><span class="wn-sl">บ่มได้ / เสิร์ฟที่</span><span class="wn-sv">5&ndash;20+ ปี / 10&ndash;14&deg;C</span></div>
+</div>
+<div class="wn-pair">
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารตะวันตก</p><p>ล็อบสเตอร์ ไก่อบ ริซอตโต้ครีม</p></div>
+<div class="wn-pbox"><p class="wn-pbox-t">อาหารไทย</p><p>ปูผัดผงกะหรี่ แกงเขียวหวาน ซีฟู้ดย่าง</p></div>
+</div>
+<div class="wn-tip"><p class="wn-tip-t">Sommelier Tip</p><p>Chablis เสิร์ฟ 8&ndash;10&deg;C เพื่อความสดกรอบ Chardonnay บ่มโอ๊คเสิร์ฟ 12&ndash;14&deg;C เพื่อเนื้อสัมผัสครีมมี่</p></div>
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html?grape_class=92" target="_blank" rel="noopener">เลือกซื้อ Chardonnay</a></p>
+</div>
+
+<hr class="wn-hr">
+
+<h2 id="faq">FAQ: คำถามที่พบบ่อยเรื่ององุ่นทำไวน์</h2>
+<div class="wn-faq">
+<div class="wn-faq-q"><h4>"Noble Grapes" คืออะไร?</h4><p>เดิมหมายถึง 6 สายพันธุ์ (Cabernet Sauvignon, Merlot, Pinot Noir, Chardonnay, Sauvignon Blanc, Riesling) ที่ผลิตไวน์ระดับโลกได้ทุกที่ ไกด์ฉบับนี้ขยายเป็น 18 สายพันธุ์ที่ได้รับการยอมรับทั่วโลก</p></div>
+<div class="wn-faq-q"><h4>มือใหม่ควรเริ่มจากองุ่นอะไร?</h4><p>แดง: <strong>Merlot</strong> (นุ่ม ดื่มง่าย) ขาว: <strong>Moscato</strong> (หวาน แอลกอฮอล์ต่ำ) หรือ <strong>Pinot Grigio</strong> (สดชื่น ไม่ซับซ้อน)</p></div>
+<div class="wn-faq-q"><h4>องุ่นอะไรเข้ากับอาหารไทยที่สุด?</h4><p><strong>Riesling แบบ off-dry</strong> สำหรับอาหารเผ็ด <strong>Gew&uuml;rztraminer</strong> สำหรับแกงกะทิ <strong>Sauvignon Blanc</strong> สำหรับยำและซีฟู้ดไทย</p></div>
+<div class="wn-faq-q"><h4>Syrah กับ Shiraz ต่างกันอย่างไร?</h4><p>องุ่นเดียวกัน "Syrah" ในฝรั่งเศส (สง่า กลิ่นพริกไทย) "Shiraz" ในออสเตรเลีย (สุกกว่า เข้มกว่า)</p></div>
+<div class="wn-faq-q"><h4>องุ่นอะไรบ่มได้นานที่สุด?</h4><p>แดง: Nebbiolo 30+ ปี, Cabernet 25+ ปี ขาว: Riesling 30+ ปี, Semillon (Sauternes) 50+ ปี</p></div>
+<div class="wn-faq-q"><h4>อุณหภูมิเสิร์ฟไวน์ที่เหมาะสม?</h4><p>แดงเบา 13&ndash;16&deg;C, แดงเข้ม 16&ndash;18&deg;C, ขาวเบา 7&ndash;10&deg;C, ขาวเข้ม 10&ndash;14&deg;C, หวาน/Moscato 6&ndash;8&deg;C</p></div>
+</div>
+
+<div class="wn-line">
+<div class="wn-line-t"><h3>ต้องการความช่วยเหลือเลือกไวน์?</h3><p>แชทกับทีม Sommelier ของเราผ่าน LINE เพื่อรับคำแนะนำเฉพาะตัว</p></div>
+<a href="https://lin.ee/winenow" class="wn-lbtn">แชทกับเราผ่าน LINE</a>
+</div>
+
+<p class="wn-cta"><a class="wn-btn" href="https://th.wine-now.com/wine.html" target="_blank" rel="noopener">เลือกซื้อไวน์ทั้งหมดที่ Wine-Now</a></p>
+
+<div class="wn-rel"><p class="wn-rel-t">บทความที่เกี่ยวข้อง</p>
+<div class="wn-rel-g">
+<div class="wn-rel-c wn-rel-red"><div class="wn-rel-inner"><p class="wn-rel-tag">Food &amp; Wine</p><h4><a href="https://th.wine-now.com/blog/" target="_blank" rel="noopener">ไกด์ฉบับสมบูรณ์: จับคู่ไวน์กับอาหาร</a></h4><p class="wn-rel-read">อ่าน 8 นาที</p></div></div>
+<div class="wn-rel-c wn-rel-blue"><div class="wn-rel-inner"><p class="wn-rel-tag">Wine Education</p><h4><a href="https://th.wine-now.com/blog/" target="_blank" rel="noopener">แหล่งผลิตไวน์ที่คนรักไวน์ต้องรู้</a></h4><p class="wn-rel-read">อ่าน 10 นาที</p></div></div>
+<div class="wn-rel-c wn-rel-red"><div class="wn-rel-inner"><p class="wn-rel-tag">Thai Food &amp; Wine</p><h4><a href="https://th.wine-now.com/blog/" target="_blank" rel="noopener">ไวน์ที่เข้ากับอาหารไทยที่สุด</a></h4><p class="wn-rel-read">อ่าน 7 นาที</p></div></div>
+</div></div>
+
+<p class="wn-foot">ไวน์คือการเดินทาง ไม่ใช่จุดหมายปลายทาง ทุกขวดมีเรื่องราวเป็นของตัวเอง หวังว่าไกด์นี้จะช่วยให้คุณค้นพบไวน์ขวดโปรดขวดต่อไป</p>
+</div>

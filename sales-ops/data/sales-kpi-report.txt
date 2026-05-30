@@ -1,0 +1,335 @@
+﻿________________
+
+
+📊 SALES KPI SUMMARY — MARCH 2026
+🔢 ภาพรวมทีม (YUI + BOO + MIE)
+📈 Performance Overview
+* Total Orders (Closed): แนวโน้ม “Active แต่ยังไม่ Scale”
+* Revenue: กระจุกตัวที่บางคน (ไม่ Balanced)
+* AOV: มีความต่างสูง → บางคนขาย High Value ได้ดี
+* Conversion Rate: โดยรวม “ดี” แต่ยังไม่สม่ำเสมอ
+* Outbound Activity: ต่ำ → เป็น bottleneck หลัก
+________________
+
+
+⚠️ Insight สำคัญ (ระดับทีม)
+1. “Revenue ไม่ Stable”
+* รายได้ขึ้นกับ individual performance (ไม่ใช่ system)
+* ถ้าคน Top หยุด = Revenue Drop ทันที
+👉 Impact ต่อ Revenue
+ทีมยังไม่มี “Predictable Revenue Engine”
+________________
+
+
+2. “Outbound ต่ำ = เสียโอกาสเงิน”
+* หลายวัน outbound = 0
+* แปลว่าไม่มีการ “สร้าง demand ใหม่”
+👉 Impact
+รายได้ที่ควรได้ “หายไปโดยตรง” จาก Lead ที่ไม่ได้ follow
+________________
+
+
+3. “Upsell = 0 เกือบทั้งหมด”
+* ไม่มีการ maximize order value
+👉 Impact
+สูญเสีย Margin + Revenue เพิ่ม 10–30% ต่อ order
+________________
+
+
+👤 INDIVIDUAL PERFORMANCE ANALYSIS
+________________
+
+
+🟢 YUI — Top Closer / High Efficiency
+📊 จุดเด่น
+* Conversion สูงมาก (บางวันถึง 100%)
+* AOV สูง (7,000+)
+* ปิดการขายได้จริง
+📉 จุดที่ต้องพัฒนา
+* Outbound ยังน้อย
+* Upsell ยังไม่เกิด
+💰 Revenue Impact
+ถ้าเพิ่ม outbound + upsell → สามารถ “Scale Revenue ได้ทันที 1.5–2 เท่า”
+🎯 Recommendation
+* ให้เป็น Closer หลักของทีม
+* เพิ่ม role → handle lead ที่มี intent สูง
+________________
+
+
+🟡 BOO — High Value Seller (Big Ticket)
+📊 จุดเด่น
+* AOV สูงมาก (บางวัน 19,000+)
+* ปิด order มูลค่าสูงได้
+📉 จุดที่ต้องพัฒนา
+* Conversion ยังไม่ stable
+* Outbound ยังต่ำ
+* Upsell = 0
+💰 Revenue Impact
+เป็นคนที่ “ดึง Revenue ก้อนใหญ่ได้”
+แต่ถ้า conversion ไม่ดี → เสียโอกาสเงินก้อนใหญ่ทันที
+🎯 Recommendation
+* Focus:
+   * VIP / Premium client
+   * High value SKU
+* Training เรื่อง closing consistency
+________________
+
+
+🔴 MIE — Underutilized / Low Activity
+📊 จุดเด่น
+* มี closing บ้าง (บางวันมี order ใหญ่)
+📉 จุดที่ต้องพัฒนา
+* Outbound = 0
+* Conversion ต่ำ
+* Activity ต่ำ
+* AOV ไม่ stable
+💰 Revenue Impact
+KPI ต่ำกว่า 80% →
+“ตัวเลขนี้อาจกระทบรายได้ ~20–40% ของ potential ที่ควรทำได้”
+🎯 Recommendation
+* ต้องเพิ่ม:
+   * Outbound activity ทันที
+   * Daily target (ขั้นต่ำ 10 contacts/day)
+* ให้ script + guideline
+________________
+
+
+📊 PERFORMANCE SCORE (Team Estimate)
+KPI
+	Score
+	Revenue
+	75
+	Conversion
+	82
+	AOV
+	80
+	Outbound
+	40
+	Upsell
+	20
+	👉 คะแนนรวม: 59
+🏆 Grade: D (Critical)
+⚠️ สถานะ: Revenue Risk
+________________
+
+
+🚨 REVENUE IMPACT SUMMARY
+ถ้ายัง maintain pattern นี้:
+* เสียโอกาสจาก Outbound ต่ำ → -30% Revenue
+* ไม่มี Upsell → เสีย +10–25% Revenue เพิ่ม
+* Conversion ไม่สม่ำเสมอ → เสีย High Value Deal
+👉 รวมแล้ว:
+ทีมกำลังทำได้เพียง ~50–60% ของ Revenue Potential
+________________
+
+
+🚀 ACTION PLAN (สำคัญมาก)
+1. 📞 “Outbound = KPI หลัก”
+* ตั้งขั้นต่ำ:
+   * 10–20 contacts / day / person
+* Tracking รายวัน
+________________
+
+
+2. 💰 “Upsell Script บังคับใช้”
+* ทุก order ต้องเสนอ:
+   * bundle
+   * premium upgrade
+________________
+
+
+3. 🔥 “แบ่ง Role ให้ชัด”
+* YUI → Closer
+* BOO → Premium / High Value
+* MIE → Lead Generator + Support
+________________
+
+
+📌 สรุปสำหรับผู้บริหาร
+ทีมนี้ “มี potential สูงมาก”
+* มีทั้ง closer และ big ticket seller
+
+
+
+
+แต่ปัญหาคือ:
+❌ ยังไม่มี system
+❌ ยังไม่ drive demand
+❌ ยังไม่ maximize value ต่อ order
+________________
+
+
+ถ้าปรับ 3 เรื่อง:
+* Outbound
+* Upsell
+* Role clarity
+👉 สามารถดัน Revenue โตได้ +50–100% ภายใน 30–60 วัน
+________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________
+
+
+📊 INDIVIDUAL KPI SCORE — MARCH 2026
+เกณฑ์ที่ใช้ (Sales Standard KPI)
+* Revenue / Orders = 30%
+* Conversion Rate = 20%
+* AOV = 15%
+* Outbound Activity = 20%
+* Upsell = 15%
+________________
+
+
+🟢 YUI
+📊 KPI Score Breakdown
+* Revenue / Orders: 85
+* Conversion: 95
+* AOV: 85
+* Outbound: 50
+* Upsell: 20
+🧮 Weighted Score
+👉 (85×0.30) + (95×0.20) + (85×0.15) + (50×0.20) + (20×0.15)
+👉 = 70.25
+🏆 RESULT
+* คะแนนรวม: 70
+* Grade: C (Needs Improvement)
+📌 Insight
+* เป็น Top Performer ด้าน Closing
+* แต่คะแนนโดนดึงลงจาก:
+   * ❌ Outbound ต่ำ
+   * ❌ ไม่มี Upsell
+👉 ถ้าแก้ 2 จุดนี้ → ขึ้น A ได้ทันที
+________________
+
+
+🟡 BOO
+📊 KPI Score Breakdown
+* Revenue / Orders: 90
+* Conversion: 75
+* AOV: 95
+* Outbound: 50
+* Upsell: 20
+🧮 Weighted Score
+👉 (90×0.30) + (75×0.20) + (95×0.15) + (50×0.20) + (20×0.15)
+👉 = 69.25
+🏆 RESULT
+* คะแนนรวม: 69
+* Grade: D (Critical)
+📌 Insight
+* เป็น High Value Seller (ตัวทำเงินก้อนใหญ่)
+* แต่:
+   * Conversion ยังไม่นิ่ง
+   * ไม่มี Upsell
+   * Outbound ต่ำ
+👉 เสีย “Revenue ก้อนใหญ่” โดยไม่จำเป็น
+________________
+
+
+🔴 MIE
+📊 KPI Score Breakdown
+* Revenue / Orders: 40
+* Conversion: 50
+* AOV: 40
+* Outbound: 10
+* Upsell: 0
+🧮 Weighted Score
+👉 (40×0.30) + (50×0.20) + (40×0.15) + (10×0.20) + (0×0.15)
+👉 = 30
+🏆 RESULT
+* คะแนนรวม: 30
+* Grade: D (Critical)
+📌 Insight
+* Activity ต่ำ → ส่งผลตรงต่อ Revenue
+* ไม่มี pipeline → ไม่มีโอกาสปิด
+👉 KPI ต่ำกว่า 80% อย่างมีนัยสำคัญ
+🚨 Revenue Impact
+“ตัวเลขนี้อาจกระทบรายได้ประมาณ 30–50% ของศักยภาพที่ควรทำได้”
+________________
+
+
+📊 SUMMARY COMPARISON
+Name
+	Score
+	Grade
+	Key Role
+	YUI
+	70
+	C
+	Closer
+	BOO
+	69
+	D
+	Big Ticket
+	MIE
+	30
+	D
+	Underperform
+	________________
+
+
+🎯 EXECUTIVE INSIGHT
+1. ทีม “เก่งแต่ยังไม่เต็มระบบ”
+* YUI + BOO มีศักยภาพทำเงินสูง
+* แต่ KPI ตกเพราะ:
+   * ไม่มี Upsell
+   * Outbound ต่ำ
+________________
+
+
+2. MIE = จุดรั่ว Revenue
+* ไม่มี activity → ไม่มี revenue
+________________
+
+
+3. ทีมยังทำได้แค่ ~60% Potential
+________________
+
+
+🚀 ACTION PRIORITY (สำคัญสุด)
+🔥 Priority 1: Outbound KPI
+* บังคับขั้นต่ำ 10–20 ต่อวัน
+💰 Priority 2: Upsell ทุก order
+* Target +15% Revenue ต่อ order
+🧠 Priority 3: Role Clarity
+* YUI = Closer
+* BOO = High Value
+* MIE = Lead Generator
+________________
+
+
+📌 สรุปสุดท้าย
+👉 ไม่มีใครได้ A หรือ B
+👉 ทีมยังอยู่ในระดับ “ต้องเร่งแก้ทันที”
+แต่ข่าวดีคือ:
+“แก้แค่ 2 KPI (Outbound + Upsell) → ทั้งทีมขึ้น B–A ได้ภายใน 1 เดือน”
+________________

@@ -1,0 +1,837 @@
+<style>
+  /* ===== MAGENTO-SAFE STYLES ===== */
+  .wu-wrap, .wu-wrap * { box-sizing: border-box; margin: 0; padding: 0; }
+  .wu-wrap {
+    font-family: 'Kanit', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #1a1a1a;
+    background: #f8f7f5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wu-wrap a { color: inherit; text-decoration: none; }
+  .wu-wrap img { display: block; max-width: 100%; height: auto; }
+
+  /* Section Container */
+  .wu-container { max-width: 1240px; margin: 0 auto; padding: 48px 24px 56px; }
+
+  /* Section Header */
+  .wu-section-header { text-align: center; margin-bottom: 40px; }
+  .wu-section-label {
+    display: inline-block;
+    font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .wn-section .wu-section-label { color: #8B0000; }
+  .lq-section .wu-section-label { color: #0B2A66; }
+  .wu-section-title {
+    font-size: 32px; font-weight: 800; color: #1a1a1a; line-height: 1.2; letter-spacing: -0.3px;
+  }
+  .wn-section .wu-section-title span { color: #8B0000; }
+  .lq-section .wu-section-title span { color: #0B2A66; }
+
+  /* ===== CARD GRID (Flexbox) ===== */
+  .wu-card-grid {
+    display: -webkit-flex; display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+  }
+  .wu-card {
+    display: -webkit-flex; display: flex;
+    flex-direction: column;
+    width: calc(33.333% - 15px);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    transition: transform .4s cubic-bezier(.23,1,.32,1), box-shadow .4s cubic-bezier(.23,1,.32,1);
+  }
+  .wu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,.14);
+  }
+
+  /* Image */
+  .wu-card-img {
+    position: relative; overflow: hidden;
+    padding-top: 56.25%; /* 16:9 ratio */
+  }
+  .wu-card-img img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .6s cubic-bezier(.23,1,.32,1);
+  }
+  .wu-card:hover .wu-card-img img { transform: scale(1.05); }
+
+  /* Card Body */
+  .wu-card-body {
+    padding: 16px 18px 20px;
+    display: -webkit-flex; display: flex;
+    flex-direction: column; flex: 1;
+  }
+
+  /* Tag */
+  .wn-section .wu-card-tag {
+    display: inline-block; align-self: flex-start;
+    background: rgba(139,0,0,.12); color: #8B0000;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 6px; margin-bottom: 10px;
+  }
+  .lq-section .wu-card-tag {
+    display: inline-block; align-self: flex-start;
+    background: rgba(11,42,102,.1); color: #0B2A66;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 6px; margin-bottom: 10px;
+  }
+
+  .wu-card-name {
+    font-size: 16px; font-weight: 700; line-height: 1.35; color: #1a1a1a; margin-bottom: 6px;
+  }
+  .wu-card-desc {
+    font-size: 13px; font-weight: 400; line-height: 1.55; color: #6b6b6b; flex: 1;
+  }
+
+  /* Card Link */
+  .wn-section .wu-card-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 12px; font-size: 13px; font-weight: 600; color: #8B0000;
+    transition: gap .25s cubic-bezier(.23,1,.32,1);
+  }
+  .lq-section .wu-card-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 12px; font-size: 13px; font-weight: 600; color: #0B2A66;
+    transition: gap .25s cubic-bezier(.23,1,.32,1);
+  }
+  .wu-card:hover .wu-card-link { gap: 8px; }
+  .wn-section .wu-card-link svg { width: 14px; height: 14px; fill: none; stroke: #8B0000; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .lq-section .wu-card-link svg { width: 14px; height: 14px; fill: none; stroke: #0B2A66; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ===== DIVIDER ===== */
+  .wu-divider { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+  .wu-divider-line { height: 1px; background: linear-gradient(90deg, transparent 0%, #e2e0dc 20%, #e2e0dc 80%, transparent 100%); border: none; }
+
+  /* ===== COUPON SECTION ===== */
+  .wu-coupon-section { max-width: 1240px; margin: 0 auto; padding: 48px 24px 56px; }
+  .wu-coupon-header { text-align: center; margin-bottom: 36px; }
+  .wu-coupon-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .wn-section .wu-coupon-eyebrow { color: #8B0000; }
+  .wn-section .wu-coupon-eyebrow svg { width: 16px; height: 16px; fill: #8B0000; }
+  .lq-section .wu-coupon-eyebrow { color: #0B2A66; }
+  .lq-section .wu-coupon-eyebrow svg { width: 16px; height: 16px; fill: #0B2A66; }
+
+  .wu-coupon-title {
+    font-size: 28px; font-weight: 800; color: #1a1a1a; line-height: 1.25; margin-bottom: 8px;
+  }
+  .wu-coupon-subtitle {
+    font-size: 14px; color: #6b6b6b; line-height: 1.6; max-width: 540px; margin: 0 auto;
+  }
+  .wn-section .wu-coupon-subtitle strong { color: #8B0000; font-weight: 700; }
+  .lq-section .wu-coupon-subtitle strong { color: #0B2A66; font-weight: 700; }
+
+  /* Coupon Grid (Flexbox) */
+  .wu-coupon-grid {
+    display: -webkit-flex; display: flex;
+    flex-wrap: wrap; gap: 22px;
+  }
+  .wu-coupon {
+    position: relative;
+    width: calc(33.333% - 15px);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    overflow: visible;
+    transition: transform .35s cubic-bezier(.23,1,.32,1), box-shadow .35s cubic-bezier(.23,1,.32,1);
+  }
+  .wu-coupon:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,.14);
+  }
+
+  /* Ticket notches */
+  .wu-coupon::before, .wu-coupon::after {
+    content: ""; position: absolute;
+    width: 20px; height: 20px;
+    background: #f8f7f5; border-radius: 50%;
+    top: 50%; z-index: 4;
+  }
+  .wu-coupon::before { left: -10px; }
+  .wu-coupon::after { right: -10px; }
+
+  .wu-coupon-tear {
+    position: absolute; left: 20px; right: 20px; top: 50%;
+    border: none; border-top: 2px dashed #e2e0dc; z-index: 3; margin: 0;
+  }
+
+  /* Coupon Top */
+  .wu-coupon-top {
+    padding: 24px 22px 28px; text-align: center;
+    border-radius: 16px 16px 0 0; position: relative;
+  }
+  .wn-section .wu-coupon-top { background: #fdf6f6; }
+  .lq-section .wu-coupon-top { background: #f4f6fb; }
+
+  .wu-coupon-category {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 6px; margin-bottom: 12px;
+  }
+  .wn-section .wu-coupon-category { color: #8B0000; background: rgba(139,0,0,.12); }
+  .lq-section .wu-coupon-category { color: #0B2A66; background: rgba(11,42,102,.1); }
+
+  .wu-coupon-discount {
+    font-size: 44px; font-weight: 900; line-height: 1; margin-bottom: 4px; letter-spacing: -1px;
+  }
+  .wn-section .wu-coupon-discount { color: #8B0000; }
+  .lq-section .wu-coupon-discount { color: #0B2A66; }
+
+  .wu-coupon-maxsave { font-size: 13px; color: #6b6b6b; font-weight: 500; }
+  .wu-coupon-target { margin-top: 10px; font-size: 15px; font-weight: 700; color: #1a1a1a; line-height: 1.3; }
+
+  /* Coupon Bottom */
+  .wu-coupon-bottom { padding: 28px 22px 22px; border-radius: 0 0 16px 16px; }
+
+  .wu-coupon-conditions {
+    display: -webkit-flex; display: flex;
+    justify-content: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .wu-coupon-cond {
+    display: -webkit-flex; display: flex;
+    align-items: center; gap: 5px; font-size: 12px; color: #6b6b6b;
+  }
+  .wu-coupon-cond svg { width: 14px; height: 14px; fill: none; stroke: #6b6b6b; stroke-width: 2; }
+
+  .wu-code-row {
+    display: -webkit-flex; display: flex;
+    align-items: center; gap: 10px; margin-bottom: 14px;
+  }
+  .wu-code-pill {
+    flex: 1;
+    display: -webkit-flex; display: flex;
+    align-items: center; justify-content: center; gap: 8px;
+    background: #f2f1ee; border: 1.5px dashed #e2e0dc; border-radius: 10px;
+    padding: 11px 14px; font-size: 15px; font-weight: 800; letter-spacing: 1.5px;
+    color: #1a1a1a; cursor: pointer; position: relative;
+    transition: border-color .25s, background .25s;
+  }
+  .wn-section .wu-code-pill:hover { border-color: #8B0000; background: #fdf6f6; }
+  .lq-section .wu-code-pill:hover { border-color: #0B2A66; background: #f4f6fb; }
+  .wu-code-pill svg { width: 15px; height: 15px; fill: none; stroke: #9a9a9a; stroke-width: 2; flex-shrink: 0; }
+
+  .wu-code-pill .wu-copied-tip {
+    position: absolute; top: -30px; left: 50%;
+    transform: translateX(-50%);
+    color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .5px;
+    padding: 4px 10px; border-radius: 6px;
+    opacity: 0; pointer-events: none; transition: opacity .2s; white-space: nowrap;
+  }
+  .wn-section .wu-code-pill .wu-copied-tip { background: #8B0000; }
+  .lq-section .wu-code-pill .wu-copied-tip { background: #0B2A66; }
+  .wu-code-pill.copied .wu-copied-tip { opacity: 1; }
+  .wn-section .wu-code-pill.copied { border-color: #8B0000; background: #fdf6f6; }
+  .lq-section .wu-code-pill.copied { border-color: #0B2A66; background: #f4f6fb; }
+
+  /* Shop Button */
+  .wn-section .wu-shop-btn,
+  .wn-section .wu-shop-btn:link,
+  .wn-section .wu-shop-btn:visited,
+  .wn-section .wu-shop-btn:active {
+    display: block; width: 100%; text-align: center;
+    background: #8B0000 !important; color: #fff !important; text-decoration: none !important;
+    font-size: 14px; font-weight: 700; letter-spacing: .5px;
+    padding: 13px 20px; border-radius: 10px; border: none; cursor: pointer;
+    transition: background .2s, transform .15s;
+    box-shadow: 0 4px 14px rgba(139,0,0,.12);
+  }
+  .wn-section .wu-shop-btn:hover { background: #a82020 !important; transform: translateY(-1px); }
+
+  .lq-section .wu-shop-btn,
+  .lq-section .wu-shop-btn:link,
+  .lq-section .wu-shop-btn:visited,
+  .lq-section .wu-shop-btn:active {
+    display: block; width: 100%; text-align: center;
+    background: #0B2A66 !important; color: #fff !important; text-decoration: none !important;
+    font-size: 14px; font-weight: 700; letter-spacing: .5px;
+    padding: 13px 20px; border-radius: 10px; border: none; cursor: pointer;
+    transition: background .2s, transform .15s;
+    box-shadow: 0 4px 14px rgba(11,42,102,.1);
+  }
+  .lq-section .wu-shop-btn:hover { background: #1a4199 !important; transform: translateY(-1px); }
+
+  .wu-coupon-terms { text-align: center; margin-top: 12px; font-size: 11px; color: #9a9a9a; line-height: 1.5; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .wu-card { width: calc(50% - 11px); }
+    .wu-coupon { width: calc(50% - 11px); }
+  }
+  @media (max-width: 600px) {
+    .wu-card { width: 100%; }
+    .wu-coupon { width: 100%; }
+    .wu-card-grid { gap: 16px; }
+    .wu-coupon-grid { gap: 16px; }
+    .wu-container { padding: 32px 16px 40px; }
+    .wu-coupon-discount { font-size: 36px; }
+  }
+</style>
+
+<div class="wu-wrap">
+
+<!-- ================== LIQ9 SECTION ================== -->
+<section class="lq-section">
+  <div class="wu-container">
+    <header class="wu-section-header">
+      <div class="wu-section-label">&mdash; This Week's Picks &mdash;</div>
+      <h2 class="wu-section-title">What's New on <span>LIQ9</span></h2>
+    </header>
+
+    <div class="wu-card-grid">
+
+      <a class="wu-card" href="https://th.liq9.com/blog/10-frequently-liq9-mentioned-spirits.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.liq9.com/media/amasty/blog/cache/1/0/1200/628/10_Frequently_Asked_Spirits_2_.jpg" alt="10 Frequently Asked Spirits" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Blog</span>
+          <h3 class="wu-card-name">10 Spirits Everyone Asks About on LIQ9</h3>
+          <p class="wu-card-desc">Our customer service team reveals the most-asked-about bottles. From crowd favourites to hidden gems &mdash; these are the spirits people keep coming back for.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/recommend/special-of-the-week-liquor.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Splash_Sip_Thailand_1200.jpg" alt="Splash and Sip Thailand" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Seasonal</span>
+          <h3 class="wu-card-name">Splash &amp; Sip Thailand</h3>
+          <p class="wu-card-desc">Cool cocktails and refreshing spirits for the Songkran season. Hand-picked bottles that mix beautifully with ice, soda, and sunshine.</p>
+          <span class="wu-card-link">Shop the selection <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/blog/espresso-martini-cocktail.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.liq9.com/media/amasty/blog/cache/E/S/1200/628/ESPRESSO_MARTINI_2_.jpg" alt="Espresso Martini" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Cocktail</span>
+          <h3 class="wu-card-name">Espresso Martini: The Wake-Up Cocktail</h3>
+          <p class="wu-card-desc">Born from a simple request &mdash; "wake me up" &mdash; this coffee-meets-vodka classic is the cocktail that launched a thousand after-dinner orders. Recipe inside.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/teremana" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Teremana_Tequila_.jpg" alt="Teremana Tequila" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Brand</span>
+          <h3 class="wu-card-name">Teremana Tequila</h3>
+          <p class="wu-card-desc">Dwayne "The Rock" Johnson's small-batch tequila, distilled in the highlands of Jalisco. Smooth enough to sip neat, fun enough for any party.</p>
+          <span class="wu-card-link">Shop Teremana <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/iron-balls-gin-700-ml.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Iron_Balls_Gin_1200.jpg" alt="Iron Balls Gin" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Spotlight</span>
+          <h3 class="wu-card-name">Iron Balls Gin (700 ml)</h3>
+          <p class="wu-card-desc">Bangkok's own craft gin &mdash; distilled with pineapple, coconut, and a bold attitude. A Thai-born spirit with a cult following worldwide.</p>
+          <span class="wu-card-link">View product <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/suntory-haku-vodka-700-ml.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Suntory_Haku_Vodka_700_ml__1200.jpg" alt="Suntory Haku Vodka" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Spotlight</span>
+          <h3 class="wu-card-name">Suntory Haku Vodka (700 ml)</h3>
+          <p class="wu-card-desc">Japanese rice vodka by Suntory &mdash; soft, subtly sweet, and filtered through bamboo charcoal. Clean and refined, ideal for premium cocktails.</p>
+          <span class="wu-card-link">View product <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/feature-selection-liq-9/flavoured-gin.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/flavourgin_1200.jpg" alt="Flavoured Gin" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Category</span>
+          <h3 class="wu-card-name">Flavoured Gin Collection</h3>
+          <p class="wu-card-desc">From pink grapefruit to violet and elderflower &mdash; explore our curated range of flavoured gins that bring colour and creativity to your G&amp;T.</p>
+          <span class="wu-card-link">Browse gins <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/recommend/special-of-the-month-liq9.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/SPECIAL_OF_THE_MONTH_LIQ9_BLOG.jpg" alt="Special of the Month" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Monthly Pick</span>
+          <h3 class="wu-card-name">Special of the Month</h3>
+          <p class="wu-card-desc">This month's hand-picked spirit at a special price. Don't miss our editors' favourite &mdash; available while stocks last.</p>
+          <span class="wu-card-link">See this month's pick <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/blog/campari.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.liq9.com/media/amasty/blog/cache/C/a/1200/628/Campari.jpg" alt="Campari" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Blog</span>
+          <h3 class="wu-card-name">Campari: The Red That Won The World</h3>
+          <p class="wu-card-desc">From a small caf&eacute; in Milan to the backbone of the Negroni and Spritz &mdash; how Campari's bold, bitter recipe conquered cocktail menus everywhere.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/blog/drinking-snack-around-the-world.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.liq9.com/media/amasty/blog/cache/D/r/1200/628/Drinking_snack_around_the_world.jpg" alt="Drinking Snacks Around the World" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Culture</span>
+          <h3 class="wu-card-name">Drinking Snacks Around the World</h3>
+          <p class="wu-card-desc">From Spanish tapas to Japanese izakaya bites &mdash; discover what people across the globe reach for when the drinks start flowing.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/blog/7-type-of-american-whiskey.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.liq9.com/media/amasty/blog/cache/7/_/1200/628/7_type_of_american_Whiskey_2_.jpg" alt="American Whiskey" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Guide</span>
+          <h3 class="wu-card-name">7 American Whiskeys You Need to Know</h3>
+          <p class="wu-card-desc">Bourbon, rye, Tennessee, corn &mdash; understand the key styles of American whiskey and what makes each one different. A beginner-friendly breakdown.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.liq9.com/blog/top-spirits-restart.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.liq9.com/media/amasty/blog/cache/T/o/1200/628/Top_Spirits_Restart.jpg" alt="Top Spirits Restart" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Trending</span>
+          <h3 class="wu-card-name">Top Spirits Restart</h3>
+          <p class="wu-card-desc">Resetting your home bar? These are the essential bottles our community recommends as the foundation of any serious spirits collection.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- LIQ9 COUPONS -->
+  <div class="wu-coupon-section">
+    <header class="wu-coupon-header">
+      <div class="wu-coupon-eyebrow">Exclusive Coupons</div>
+      <h2 class="wu-coupon-title">This Week's <span style="color:#0B2A66">LIQ9</span> Deals</h2>
+      <p class="wu-coupon-subtitle">Tap the code to copy, then apply at checkout. <strong>Member-exclusive</strong> pricing.</p>
+    </header>
+
+    <div class="wu-coupon-grid">
+
+      <article class="wu-coupon">
+        <hr class="wu-coupon-tear">
+        <div class="wu-coupon-top">
+          <span class="wu-coupon-category">Blended Whisky</span>
+          <div class="wu-coupon-discount">5% OFF</div>
+          <div class="wu-coupon-maxsave">Save up to 600 THB</div>
+          <div class="wu-coupon-target">All Blended Whiskies</div>
+        </div>
+        <div class="wu-coupon-bottom">
+          <div class="wu-coupon-conditions">
+            <span class="wu-coupon-cond">Min. 4,500 THB</span>
+            <span class="wu-coupon-cond">Until 7 Apr 2026</span>
+          </div>
+          <div class="wu-code-row">
+            <span class="wu-code-pill" onclick="copyCode(this,'LQBLED5')" role="button" tabindex="0" aria-label="Copy code LQBLED5">
+              LQBLED5
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span class="wu-copied-tip">Copied!</span>
+            </span>
+          </div>
+          <a class="wu-shop-btn" href="https://th.liq9.com/whisky.html?whisky_type=178" target="_blank" rel="noopener">Shop Blended Whiskies</a>
+          <p class="wu-coupon-terms">Limited to 1 use per account. T&amp;Cs apply.</p>
+        </div>
+      </article>
+
+      <article class="wu-coupon">
+        <hr class="wu-coupon-tear">
+        <div class="wu-coupon-top">
+          <span class="wu-coupon-category">Flavoured Gin</span>
+          <div class="wu-coupon-discount">5% OFF</div>
+          <div class="wu-coupon-maxsave">Save up to 500 THB</div>
+          <div class="wu-coupon-target">All Flavoured Gins</div>
+        </div>
+        <div class="wu-coupon-bottom">
+          <div class="wu-coupon-conditions">
+            <span class="wu-coupon-cond">Min. 2,500 THB</span>
+            <span class="wu-coupon-cond">Until 7 Apr 2026</span>
+          </div>
+          <div class="wu-code-row">
+            <span class="wu-code-pill" onclick="copyCode(this,'LQGINF5')" role="button" tabindex="0" aria-label="Copy code LQGINF5">
+              LQGINF5
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span class="wu-copied-tip">Copied!</span>
+            </span>
+          </div>
+          <a class="wu-shop-btn" href="https://th.liq9.com/feature-selection-liq-9/flavoured-gin.html" target="_blank" rel="noopener">Shop Flavoured Gins</a>
+          <p class="wu-coupon-terms">Limited to 1 use per account. T&amp;Cs apply.</p>
+        </div>
+      </article>
+
+      <article class="wu-coupon">
+        <hr class="wu-coupon-tear">
+        <div class="wu-coupon-top">
+          <span class="wu-coupon-category">Brand: Campari</span>
+          <div class="wu-coupon-discount">5% OFF</div>
+          <div class="wu-coupon-maxsave">Save up to 500 THB</div>
+          <div class="wu-coupon-target">All Campari Products</div>
+        </div>
+        <div class="wu-coupon-bottom">
+          <div class="wu-coupon-conditions">
+            <span class="wu-coupon-cond">Min. 2,500 THB</span>
+            <span class="wu-coupon-cond">Until 7 Apr 2026</span>
+          </div>
+          <div class="wu-code-row">
+            <span class="wu-code-pill" onclick="copyCode(this,'LQCAMP5')" role="button" tabindex="0" aria-label="Copy code LQCAMP5">
+              LQCAMP5
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span class="wu-copied-tip">Copied!</span>
+            </span>
+          </div>
+          <a class="wu-shop-btn" href="https://th.liq9.com/campari" target="_blank" rel="noopener">Shop Campari</a>
+          <p class="wu-coupon-terms">Limited to 1 use per account. T&amp;Cs apply.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIVIDER ===== -->
+<div class="wu-divider"><hr class="wu-divider-line"></div>
+
+<!-- ================== WINE-NOW SECTION ================== -->
+<section class="wn-section">
+  <div class="wu-container">
+    <header class="wu-section-header">
+      <div class="wu-section-label">&mdash; This Week's Picks &mdash;</div>
+      <h2 class="wu-section-title">What's New on <span>Wine-Now</span></h2>
+    </header>
+
+    <div class="wu-card-grid">
+
+      <a class="wu-card" href="https://th.wine-now.com/blog/10-surprisngly-accessible-wine.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/amasty/blog/cache/1/0/1200/628/10_surprisingly_accessible_wine_2_.jpg" alt="10 Surprisingly Accessible Wines" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Blog</span>
+          <h3 class="wu-card-name">10 Surprisingly Accessible Wines</h3>
+          <p class="wu-card-desc">Think great wine has to be expensive? These 10 labels prove otherwise &mdash; quality bottles that are easier to find and friendlier on your wallet than you'd expect.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/recommend/special-of-the-week.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Songkran_Summer_Sips_1200.jpg" alt="Songkran and Summer Sips" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Seasonal</span>
+          <h3 class="wu-card-name">Songkran &amp; Summer Sips</h3>
+          <p class="wu-card-desc">Beat the heat this Songkran with our hand-picked refreshing whites, ros&eacute;s, and sparkling wines perfect for Thailand's hottest season.</p>
+          <span class="wu-card-link">Shop the selection <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/blog/wine-vs-umami-effect.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/amasty/blog/cache/W/i/1200/628/Wine_vs_Umami_Effect_2_.jpg" alt="Umami Effect" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Pairing</span>
+          <h3 class="wu-card-name">Umami Effect: Wine Pairing Challenge</h3>
+          <p class="wu-card-desc">Umami-rich dishes can clash with tannic reds and make wines taste bitter. Learn which bottles actually shine next to soy, miso, and fermented flavours.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/chateau-d-armailhac-2023.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Chateau_D_Armailhac_2023_1200.jpg" alt="Chateau D'Armailhac 2023" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">New Arrival</span>
+          <h3 class="wu-card-name">Ch&acirc;teau D'Armailhac 2023</h3>
+          <p class="wu-card-desc">A fifth-growth Pauillac from the Mouton Rothschild family. The 2023 vintage brings dark fruit intensity with elegant tannins &mdash; available now.</p>
+          <span class="wu-card-link">View product <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/greywacke-wild-sauvignon.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Greywacke_Wild_Sauvignon_1200.jpg" alt="Greywacke Wild Sauvignon" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Spotlight</span>
+          <h3 class="wu-card-name">Greywacke Wild Sauvignon</h3>
+          <p class="wu-card-desc">Kevin Judd's wild-fermented take on Marlborough Sauvignon Blanc &mdash; textured, complex, and nothing like ordinary Kiwi Sauv. A sommelier favourite.</p>
+          <span class="wu-card-link">View product <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/brancaia-tre-collection-by-viola-granucci-set-of-6-with-package.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Brancaia_Tre_Collection_By_Viola_Granucci_Set_of_6__1200.jpg" alt="Brancaia Tre Collection" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Gift Set</span>
+          <h3 class="wu-card-name">Brancaia Tre Collection by Viola Granucci</h3>
+          <p class="wu-card-desc">Six bottles of Tuscan excellence with artist-designed packaging by Viola Granucci. An ideal gift for collectors and wine lovers alike.</p>
+          <span class="wu-card-link">View set <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/recommend/artist-s-label-collection.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/Artist_s_Label_Collection_1200.jpg" alt="Artist's Label Collection" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Collection</span>
+          <h3 class="wu-card-name">Artist's Label Collection</h3>
+          <p class="wu-card-desc">Where art meets wine &mdash; bottles featuring stunning label artwork from renowned artists. Collectible editions that look as good as they taste.</p>
+          <span class="wu-card-link">Explore collection <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/recommend/special-of-the-month.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/catalog/category/featured-recommend-banner/SPECIAL_OF_THE_MONTH_BLOG.jpg" alt="Special of the Month" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Monthly Pick</span>
+          <h3 class="wu-card-name">Special of the Month</h3>
+          <p class="wu-card-desc">Our editors' monthly top pick &mdash; a standout bottle at a special price. Available for a limited time while stocks last.</p>
+          <span class="wu-card-link">See this month's pick <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/blog/santa-julia.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/amasty/blog/cache/S/a/1200/628/Santa_Julia_2_.jpg" alt="Santa Julia" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Blog</span>
+          <h3 class="wu-card-name">Santa Julia: Organic Wine That Delivers</h3>
+          <p class="wu-card-desc">Argentina's Zuccardi family crafts organic wines that prove sustainability doesn't mean sacrifice. Approachable prices, serious quality.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/blog/first-impression-wine.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/amasty/blog/cache/F/i/1200/628/First_Impression_Wine_1_.jpg" alt="First Impression Wine" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Guide</span>
+          <h3 class="wu-card-name">First Impression Wine</h3>
+          <p class="wu-card-desc">Meeting a client and need one perfect bottle? These crowd-pleasing picks make a strong first impression every time &mdash; elegant, balanced, and universally appealing.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/blog/albarino-grape.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/amasty/blog/cache/A/l/1200/628/Albari_o.jpg" alt="Albariño" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Grape Variety</span>
+          <h3 class="wu-card-name">Albari&ntilde;o: The Hidden Gem White Grape</h3>
+          <p class="wu-card-desc">From the coast of Galicia, Spain &mdash; a crisp, aromatic white grape with peachy minerality. Perfect for seafood and still under most people's radar.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+      <a class="wu-card" href="https://th.wine-now.com/blog/best-sellers-right-now.html" target="_blank" rel="noopener">
+        <div class="wu-card-img"><img src="https://th.wine-now.com/media/amasty/blog/cache/B/e/1200/628/Best_Sellers_Right_Now_1_.jpg" alt="Best Sellers" width="1200" height="628"></div>
+        <div class="wu-card-body">
+          <span class="wu-card-tag">Trending</span>
+          <h3 class="wu-card-name">Best Sellers Right Now</h3>
+          <p class="wu-card-desc">See what other Wine-Now customers are buying this week. Real-time bestsellers across reds, whites, and bubbles &mdash; updated regularly.</p>
+          <span class="wu-card-link">Read more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- WINE-NOW COUPONS -->
+  <div class="wu-coupon-section">
+    <header class="wu-coupon-header">
+      <div class="wu-coupon-eyebrow">Exclusive Coupons</div>
+      <h2 class="wu-coupon-title">This Week's <span style="color:#8B0000">Wine-Now</span> Deals</h2>
+      <p class="wu-coupon-subtitle">Tap the code to copy, then apply at checkout. <strong>Member-exclusive</strong> pricing.</p>
+    </header>
+
+    <div class="wu-coupon-grid">
+
+      <article class="wu-coupon">
+        <hr class="wu-coupon-tear">
+        <div class="wu-coupon-top">
+          <span class="wu-coupon-category">Sangiovese Grape Variety</span>
+          <div class="wu-coupon-discount">8% OFF</div>
+          <div class="wu-coupon-maxsave">Save up to 1,000 THB</div>
+          <div class="wu-coupon-target">All Sangiovese Wines</div>
+        </div>
+        <div class="wu-coupon-bottom">
+          <div class="wu-coupon-conditions">
+            <span class="wu-coupon-cond">Min. 5,000 THB</span>
+            <span class="wu-coupon-cond">Until 7 Apr 2026</span>
+          </div>
+          <div class="wu-code-row">
+            <span class="wu-code-pill" onclick="copyCode(this,'WNSANG8')" role="button" tabindex="0" aria-label="Copy code WNSANG8">
+              WNSANG8
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span class="wu-copied-tip">Copied!</span>
+            </span>
+          </div>
+          <a class="wu-shop-btn" href="https://th.wine-now.com/wine.html?grape_class=78" target="_blank" rel="noopener">Shop Sangiovese Wines</a>
+          <p class="wu-coupon-terms">Limited to 1 use per account. T&amp;Cs apply.</p>
+        </div>
+      </article>
+
+      <article class="wu-coupon">
+        <hr class="wu-coupon-tear">
+        <div class="wu-coupon-top">
+          <span class="wu-coupon-category">Italy &mdash; Piedmont</span>
+          <div class="wu-coupon-discount">8% OFF</div>
+          <div class="wu-coupon-maxsave">Save up to 1,000 THB</div>
+          <div class="wu-coupon-target">Piedmont Region Wines</div>
+        </div>
+        <div class="wu-coupon-bottom">
+          <div class="wu-coupon-conditions">
+            <span class="wu-coupon-cond">Min. 5,000 THB</span>
+            <span class="wu-coupon-cond">Until 7 Apr 2026</span>
+          </div>
+          <div class="wu-code-row">
+            <span class="wu-code-pill" onclick="copyCode(this,'WNPIED8')" role="button" tabindex="0" aria-label="Copy code WNPIED8">
+              WNPIED8
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span class="wu-copied-tip">Copied!</span>
+            </span>
+          </div>
+          <a class="wu-shop-btn" href="https://th.wine-now.com/wine.html?country=1241&amp;region_wine=9558" target="_blank" rel="noopener">Shop Piedmont Wines</a>
+          <p class="wu-coupon-terms">Limited to 1 use per account. T&amp;Cs apply.</p>
+        </div>
+      </article>
+
+      <article class="wu-coupon">
+        <hr class="wu-coupon-tear">
+        <div class="wu-coupon-top">
+          <span class="wu-coupon-category">Brand: Santa Julia</span>
+          <div class="wu-coupon-discount">5% OFF</div>
+          <div class="wu-coupon-maxsave">Save up to 300 THB</div>
+          <div class="wu-coupon-target">All Santa Julia Wines</div>
+        </div>
+        <div class="wu-coupon-bottom">
+          <div class="wu-coupon-conditions">
+            <span class="wu-coupon-cond">Min. 2,000 THB</span>
+            <span class="wu-coupon-cond">Until 7 Apr 2026</span>
+          </div>
+          <div class="wu-code-row">
+            <span class="wu-code-pill" onclick="copyCode(this,'WNSJUL5')" role="button" tabindex="0" aria-label="Copy code WNSJUL5">
+              WNSJUL5
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              <span class="wu-copied-tip">Copied!</span>
+            </span>
+          </div>
+          <a class="wu-shop-btn" href="https://th.wine-now.com/santa_julia" target="_blank" rel="noopener">Shop Santa Julia</a>
+          <p class="wu-coupon-terms">Limited to 1 use per account. T&amp;Cs apply.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- Copy-to-clipboard script -->
+<script>
+function copyCode(el, code) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code);
+  } else {
+    var t = document.createElement('textarea');
+    t.value = code;
+    document.body.appendChild(t);
+    t.select();
+    document.execCommand('copy');
+    document.body.removeChild(t);
+  }
+  el.classList.add('copied');
+  setTimeout(function(){ el.classList.remove('copied'); }, 1800);
+}
+</script>
+<!-- Schema.org Structured Data for SEO & AEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Weekly Deals & New Arrivals | LIQ9 & Wine-Now Thailand",
+  "description": "Discover this week's best deals, new arrivals, and exclusive member coupons on premium wines and spirits at Wine-Now and LIQ9 Thailand. Updated every week.",
+  "url": "https://th.liq9.com/liq9-weekly-update",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "LIQ9 Thailand",
+    "url": "https://th.liq9.com"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Wine deals in Thailand"
+    },
+    {
+      "@type": "Thing",
+      "name": "Spirits and liquor promotions"
+    }
+  ],
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "This Week's Exclusive Coupons",
+    "numberOfItems": 6,
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "5% OFF Blended Whisky",
+        "description": "5% discount on all Blended Whiskies, save up to 600 THB. Min. order 4,500 THB.",
+        "validThrough": "2026-04-07",
+        "eligibleRegion": { "@type": "Country", "name": "TH" },
+        "offeredBy": { "@type": "Organization", "name": "LIQ9", "url": "https://th.liq9.com" }
+      },
+      {
+        "@type": "Offer",
+        "name": "5% OFF Flavoured Gin",
+        "description": "5% discount on all Flavoured Gins, save up to 500 THB. Min. order 2,500 THB.",
+        "validThrough": "2026-04-07",
+        "eligibleRegion": { "@type": "Country", "name": "TH" },
+        "offeredBy": { "@type": "Organization", "name": "LIQ9", "url": "https://th.liq9.com" }
+      },
+      {
+        "@type": "Offer",
+        "name": "5% OFF Campari",
+        "description": "5% discount on all Campari products, save up to 500 THB. Min. order 2,500 THB.",
+        "validThrough": "2026-04-07",
+        "eligibleRegion": { "@type": "Country", "name": "TH" },
+        "offeredBy": { "@type": "Organization", "name": "LIQ9", "url": "https://th.liq9.com" }
+      },
+      {
+        "@type": "Offer",
+        "name": "8% OFF Sangiovese Wines",
+        "description": "8% discount on all Sangiovese grape variety wines, save up to 1,000 THB. Min. order 5,000 THB.",
+        "validThrough": "2026-04-07",
+        "eligibleRegion": { "@type": "Country", "name": "TH" },
+        "offeredBy": { "@type": "Organization", "name": "Wine-Now", "url": "https://th.wine-now.com" }
+      },
+      {
+        "@type": "Offer",
+        "name": "8% OFF Piedmont Wines",
+        "description": "8% discount on all Italy Piedmont region wines, save up to 1,000 THB. Min. order 5,000 THB.",
+        "validThrough": "2026-04-07",
+        "eligibleRegion": { "@type": "Country", "name": "TH" },
+        "offeredBy": { "@type": "Organization", "name": "Wine-Now", "url": "https://th.wine-now.com" }
+      },
+      {
+        "@type": "Offer",
+        "name": "5% OFF Santa Julia Wines",
+        "description": "5% discount on all Santa Julia wines, save up to 300 THB. Min. order 2,000 THB.",
+        "validThrough": "2026-04-07",
+        "eligibleRegion": { "@type": "Country", "name": "TH" },
+        "offeredBy": { "@type": "Organization", "name": "Wine-Now", "url": "https://th.wine-now.com" }
+      }
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "LIQ9 Thailand",
+    "url": "https://th.liq9.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://th.liq9.com/media/logo/stores/1/liq9-logo.png"
+    }
+  }
+}
+</script>
+<!-- ================== /END WEEKLY UPDATE ================== -->
