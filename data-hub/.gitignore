@@ -2,3 +2,6 @@ venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Google service-account credentials (secret -- never commit)
+config/google-credentials.json
