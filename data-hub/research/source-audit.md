@@ -157,44 +157,101 @@ Total Priority Score = (Content Quality × 3 + Accessibility × 2 + Update Frequ
 
 | Source | Quality | Accessibility | Frequency | Thai | **Priority Score** | Tier |
 |--------|---------|---|---|---|---|---|
-| Decanter | 5 | 5 | 5 | 2 | **4.71** | **Tier 1** |
+| Decanter | 5 | 5 | 5 | 2 | **4.57** | **Tier 1** |
 | Wine Spectator | 5 | 2 | 5 | 2 | **3.71** | Tier 2 |
-| Robert Parker | 5 | 1 | 4 | 2 | **3.00** | Tier 2 |
-| Wine Enthusiast | 4 | 2 | 5 | 2 | **3.57** | Tier 2 |
+| Wine Enthusiast | 4 | 2 | 5 | 2 | **3.29** | Tier 2 |
+| Robert Parker | 5 | 1 | 4 | 2 | **3.29** | Tier 2 |
 | James Suckling | 4 | 2 | 4 | 2 | **3.14** | Tier 3 |
-| Vivino | 3 | 2 | 5 | 2 | **3.00** | Tier 3 |
+| Vivino | 3 | 2 | 5 | 2 | **2.86** | Tier 3 |
 
 ### Spirits Publications Scoring
 
 | Source | Quality | Accessibility | Frequency | Thai | **Priority Score** | Tier |
 |--------|---------|---|---|---|---|---|
-| The Spirits Business | 5 | 5 | 5 | 1 | **4.57** | **Tier 1** |
-| Whisky Advocate | 5 | 2 | 5 | 1 | **3.71** | Tier 2 |
-| Difford's Guide | 4 | 3 | 4 | 1 | **3.43** | Tier 2 |
+| The Spirits Business | 5 | 5 | 5 | 1 | **4.43** | **Tier 1** |
+| Whisky Advocate | 5 | 2 | 5 | 1 | **3.57** | Tier 2 |
+| Difford's Guide | 4 | 3 | 4 | 1 | **3.29** | Tier 2 |
 | Punch Drinks | 4 | 1 | 5 | 1 | **2.86** | Tier 3 |
-| Scotch Whisky Research | 4 | 1 | 1 | 1 | **1.71** | **DEFUNCT** |
+| Scotch Whisky Research | 4 | 1 | 1 | 1 | **2.29** | **DEFUNCT** |
 
 ### Food & Beverage Scoring
 
 | Source | Quality | Accessibility | Frequency | Thai | **Priority Score** | Tier |
 |--------|---------|---|---|---|---|---|
 | Eater | 4 | 3 | 5 | 1 | **3.43** | Tier 2 |
-| Bon Appétit | 4 | 2 | 5 | 1 | **3.29** | Tier 3 |
+| Bon Appétit | 4 | 2 | 5 | 1 | **3.14** | Tier 3 |
 
 ### Social Trends Scoring
 
 | Source | Quality | Accessibility | Frequency | Thai | **Priority Score** | Tier |
 |--------|---------|---|---|---|---|---|
-| Reddit Communities | 3 | 5 | 5 | 1 | **3.57** | **Tier 1** |
-| TikTok Trends | 3 | 2 | 5 | 3 | **3.29** | Tier 2 |
-| Instagram Trends | 3 | 2 | 5 | 3 | **3.29** | Tier 2 |
+| Reddit Communities | 3 | 5 | 5 | 1 | **3.57** | Tier 2 |
+| TikTok Trends | 3 | 2 | 5 | 3 | **3.00** | Tier 2 |
+| Instagram Trends | 3 | 2 | 5 | 3 | **3.00** | Tier 2 |
 
 ### Thai Local Scoring
 
 | Source | Quality | Accessibility | Frequency | Thai | **Priority Score** | Tier |
 |--------|---------|---|---|---|---|---|
 | Wongnai | 4 | 5 | 4 | 5 | **4.43** | **Tier 1** |
-| Pantip | 3 | 4 | 4 | 5 | **3.86** | Tier 2 |
+| Pantip | 3 | 4 | 4 | 5 | **3.71** | Tier 2 |
+
+---
+
+## Calculation Verification
+
+All priority scores calculated using the formula: **(Content Quality × 3 + Accessibility × 2 + Update Frequency × 1 + Thai Relevance × 1) / 7**
+
+### Sample Calculations (Spot-Check Verification)
+
+**Decanter (Wine publication):** Content=5, Accessibility=5, Frequency=5, Thai=2
+```
+Score = (5×3 + 5×2 + 5×1 + 2×1) / 7
+      = (15 + 10 + 5 + 2) / 7
+      = 32 / 7
+      = 4.57 ✓
+```
+
+**The Spirits Business (Spirits publication):** Content=5, Accessibility=5, Frequency=5, Thai=1
+```
+Score = (5×3 + 5×2 + 5×1 + 1×1) / 7
+      = (15 + 10 + 5 + 1) / 7
+      = 31 / 7
+      = 4.43 ✓
+```
+
+**Wongnai (Thai local source):** Content=4, Accessibility=5, Frequency=4, Thai=5
+```
+Score = (4×3 + 5×2 + 4×1 + 5×1) / 7
+      = (12 + 10 + 4 + 5) / 7
+      = 31 / 7
+      = 4.43 ✓
+```
+
+**Pantip (Thai local source):** Content=3, Accessibility=4, Frequency=4, Thai=5
+```
+Score = (3×3 + 4×2 + 4×1 + 5×1) / 7
+      = (9 + 8 + 4 + 5) / 7
+      = 26 / 7
+      = 3.71 ✓
+```
+
+**Reddit Communities (Social trends):** Content=3, Accessibility=5, Frequency=5, Thai=1
+```
+Score = (3×3 + 5×2 + 5×1 + 1×1) / 7
+      = (9 + 10 + 5 + 1) / 7
+      = 25 / 7
+      = 3.57 ✓
+```
+
+### Tier 1 Sources After Recalculation
+
+The following sources remain **Tier 1** (4.0+ after correction):
+- **Decanter** (4.57) - Wine publications
+- **The Spirits Business** (4.43) - Spirits publications
+- **Wongnai** (4.43) - Thai local sources
+
+Note: Redis Communities (3.57) was incorrectly marked as Tier 1; it is now correctly classified as Tier 2. All three Tier 1 sources maintain strong priority alignment with implementation roadmap goals.
 
 ---
 
@@ -203,12 +260,12 @@ Total Priority Score = (Content Quality × 3 + Accessibility × 2 + Update Frequ
 ### Phase 1: Tier 1 Quick Wins (Start Here)
 **Priority Score 4.0+, no auth required, working RSS/scrape endpoints**
 
-1. **Decanter** (Wine, RSS, Score 4.71) - HIGHEST PRIORITY
+1. **Decanter** (Wine, RSS, Score 4.57) - HIGHEST PRIORITY
    - Implementation: Simple RSS feed parser
    - Estimated effort: 2-4 hours (lowest friction)
    - Value: Daily updates, premium authority, 100% free
 
-2. **The Spirits Business** (Spirits, RSS, Score 4.57) - HIGHEST PRIORITY
+2. **The Spirits Business** (Spirits, RSS, Score 4.43) - HIGHEST PRIORITY
    - Implementation: Simple RSS feed parser
    - Estimated effort: 2-4 hours
    - Value: Hourly updates, industry intelligence, excellent trend signals
@@ -218,68 +275,68 @@ Total Priority Score = (Content Quality × 3 + Accessibility × 2 + Update Frequ
    - Estimated effort: 4-6 hours (low-complexity scraper)
    - Value: Thai wine bar/spirits venue discovery, local market intelligence
 
-4. **Reddit Communities** (Social, Web Scrape, Score 3.57) - HIGH PRIORITY
-   - Implementation: PRAW library with rate limiting
-   - Estimated effort: 4-6 hours (multiple subreddits)
-   - Value: Sentiment analysis, discussion mining, early trend detection
-
-**Phase 1 Total Effort:** 12-20 hours  
-**Phase 1 Value:** 4 daily/real-time content streams covering wine, spirits, Thai market, and community sentiment
+**Phase 1 Total Effort:** 8-14 hours  
+**Phase 1 Value:** 3 daily/real-time content streams covering wine, spirits, and Thai market
 
 ---
 
 ### Phase 2: Tier 2 Medium Priority (Implement After Phase 1)
 **Priority Score 3.0-3.9, acceptable barriers (paywall, scrape difficulty, auth)**
 
-5. **Wine Spectator** (Wine, Scrape, Score 3.71)
+4. **Wine Spectator** (Wine, Scrape, Score 3.71)
    - Note: RSS broken; requires scraping
    - Implementation: Scraper for /wines/ or /reviews/ pages
    - Estimated effort: 6-8 hours (need to identify working selector)
    - Value: Premium wine authority; mitigate by scraping free headlines/summaries
 
-6. **Whisky Advocate** (Spirits, Verify RSS, Score 3.71)
+5. **Whisky Advocate** (Spirits, Verify RSS, Score 3.57)
    - Note: Needs RSS verification after domain redirect
    - Implementation: Confirm RSS endpoint; add to feed parser
    - Estimated effort: 2-4 hours (if RSS works)
    - Value: Daily whisky news and reviews
 
-7. **Wine Enthusiast** (Wine, Scrape, Score 3.57)
+6. **Reddit Communities** (Social, Web Scrape, Score 3.57)
+   - Implementation: PRAW library with rate limiting
+   - Estimated effort: 4-6 hours (multiple subreddits)
+   - Value: Sentiment analysis, discussion mining, early trend detection
+
+7. **Pantip.com** (Thai local, Scrape, Score 3.71)
+   - Note: Domain redirect; needs URL verification
+   - Implementation: Update URL; build scraper for /forum/topic/search results
+   - Estimated effort: 4-8 hours (topic selector may vary)
+   - Value: Thai consumer sentiment on wine/spirits; forum discussions
+
+8. **Wine Enthusiast** (Wine, Scrape, Score 3.29)
    - Note: Domain changed to wineenthusiast.com; needs URL update in sources.yaml
    - Implementation: Update URL; verify RSS or scraper endpoints
    - Estimated effort: 4-6 hours (requires testing new domain)
    - Value: Broad wine coverage, daily updates
 
-8. **Eater** (Food & Beverage, Scrape, Score 3.43)
-   - Implementation: Scraper for wine/spirits articles with .c-entry-box selector
-   - Estimated effort: 6-8 hours (JS rendering may be needed)
-   - Value: Food/beverage trend signals; broader cultural context
-
-9. **Difford's Guide** (Spirits, Scrape, Score 3.43)
+9. **Difford's Guide** (Spirits, Scrape, Score 3.29)
    - Note: Requires headless browser (JS rendering)
    - Implementation: Selenium/Puppeteer scraper for /en/spirits/reviews/
    - Estimated effort: 8-10 hours (headless browser setup)
    - Value: Comprehensive spirits database and reviews
 
-10. **TikTok Trends** (Social, API, Score 3.29)
+10. **Eater** (Food & Beverage, Scrape, Score 3.43)
+    - Implementation: Scraper for wine/spirits articles with .c-entry-box selector
+    - Estimated effort: 6-8 hours (JS rendering may be needed)
+    - Value: Food/beverage trend signals; broader cultural context
+
+11. **TikTok Trends** (Social, API, Score 3.00)
     - Note: Requires API authentication
     - Implementation: TikTok API client; hashtag monitor; trend aggregation
     - Estimated effort: 10-12 hours (API setup, auth flow)
     - Value: Real-time viral content; youth market signals
 
-11. **Instagram Trends** (Social, API, Score 3.29)
+12. **Instagram Trends** (Social, API, Score 3.00)
     - Note: Requires Meta API authentication
     - Implementation: Instagram Graph API client; hashtag monitor; image analysis (optional)
     - Estimated effort: 10-12 hours (API setup; NLP if adding image analysis)
     - Value: Influencer sentiment; premium market signals
 
-12. **Pantip.com** (Thai local, Scrape, Score 3.86)
-    - Note: Domain redirect; needs URL verification
-    - Implementation: Update URL; build scraper for /forum/topic/search results
-    - Estimated effort: 4-8 hours (topic selector may vary)
-    - Value: Thai consumer sentiment on wine/spirits; forum discussions
-
 **Phase 2 Total Effort:** 60-80 hours  
-**Phase 2 Value:** 8 additional sources covering depth in wine ratings, spirits industry, social trends, and Thai consumer insights
+**Phase 2 Value:** 9 additional sources covering depth in wine ratings, spirits industry, social trends, and Thai consumer insights
 
 ---
 
@@ -292,29 +349,29 @@ Total Priority Score = (Content Quality × 3 + Accessibility × 2 + Update Frequ
     - Status: Lower priority; consider after core Tier 1/2 established
     - Value: Strong Italian/Spanish wine authority
 
-14. **Vivino** (Wine, API, Score 3.00)
-    - Note: API endpoint returns 404; CloudFront blocking
-    - Implementation: Clarify API status; may require authentication
-    - Status: Uncertain viability; requires manual verification
-    - Value: Crowdsourced ratings; real-time user sentiment
-
-15. **Bon Appétit** (Food & Beverage, Scrape, Score 3.29)
+14. **Bon Appétit** (Food & Beverage, Scrape, Score 3.14)
     - Note: RSS broken; JS-heavy modern site
     - Implementation: Complex JS rendering setup; paywall detection
     - Status: Lower priority; less wine-specific
     - Value: Premium food/beverage trends; wine pairing content
 
-16. **Punch Drinks** (Spirits, Scrape, Score 2.86)
-    - Note: HTTP 403 bot protection; aggressive WAF
-    - Implementation: Headless browser + proxy rotation required
-    - Status: High technical friction; lower priority
-    - Value: Cocktails/mixology trends; cultural signals
-
-17. **Robert Parker** (Wine, Scrape, Score 3.00)
+15. **Robert Parker** (Wine, Scrape, Score 3.29)
     - Note: High paywall; premium content locked
     - Implementation: Scrape freely available summaries only
     - Status: Lower value due to paywall; consider after Phase 2
     - Value: Premium wine ratings; SEO authority
+
+16. **Vivino** (Wine, API, Score 2.86)
+    - Note: API endpoint returns 404; CloudFront blocking
+    - Implementation: Clarify API status; may require authentication
+    - Status: Uncertain viability; requires manual verification
+    - Value: Crowdsourced ratings; real-time user sentiment
+
+17. **Punch Drinks** (Spirits, Scrape, Score 2.86)
+    - Note: HTTP 403 bot protection; aggressive WAF
+    - Implementation: Headless browser + proxy rotation required
+    - Status: High technical friction; lower priority
+    - Value: Cocktails/mixology trends; cultural signals
 
 **Phase 3 Total Effort:** 20-30 hours (if all implemented)  
 **Phase 3 Value:** Incremental coverage; lower ROI than Tier 1/2
@@ -335,9 +392,9 @@ Total Priority Score = (Content Quality × 3 + Accessibility × 2 + Update Frequ
 
 | Phase | Sources | Timeline | Effort | Value |
 |-------|---------|----------|--------|-------|
-| **Phase 1** | Decanter, The Spirits Business, Wongnai, Reddit | Weeks 1-2 | 12-20h | 4 active streams, 100% free, no auth |
-| **Phase 2** | Wine Spectator, Whisky Advocate, Wine Enthusiast, Eater, Difford's, TikTok, Instagram, Pantip | Weeks 3-6 | 60-80h | 8 depth sources, 2 require auth |
-| **Phase 3** | James Suckling, Vivino, Bon Appétit, Punch Drinks, Robert Parker | Weeks 7-8+ | 20-30h | 5 supplementary sources, lower ROI |
+| **Phase 1** | Decanter, The Spirits Business, Wongnai | Weeks 1-2 | 8-14h | 3 active streams, 100% free, no auth |
+| **Phase 2** | Wine Spectator, Whisky Advocate, Reddit, Pantip, Wine Enthusiast, Difford's, Eater, TikTok, Instagram | Weeks 3-6 | 60-80h | 9 depth sources, 2 require auth |
+| **Phase 3** | James Suckling, Bon Appétit, Robert Parker, Vivino, Punch Drinks | Weeks 7-8+ | 20-30h | 5 supplementary sources, lower ROI |
 
 ---
 
@@ -394,8 +451,8 @@ Total Priority Score = (Content Quality × 3 + Accessibility × 2 + Update Frequ
 
 ### Implementation Priority
 
-**Start with Phase 1:** Decanter → The Spirits Business → Wongnai → Reddit  
-**Then Phase 2:** Based on API availability and team capacity  
+**Start with Phase 1:** Decanter → The Spirits Business → Wongnai  
+**Then Phase 2:** Reddit Communities, Wine Spectator, Whisky Advocate, Pantip, and others based on API availability and team capacity  
 
 ---
 
