@@ -32,3 +32,6 @@ yarn-error.log*
 .vscode/
 .idea/
 *.swp
+
+# Claude local settings (contains API keys)
+.claude/settings.json
