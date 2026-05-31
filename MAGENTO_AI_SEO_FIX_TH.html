@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>รายงานแก้ไข Technical SEO + AI/GEO สำหรับ Magento | Wine Now & LIQ9</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Sarabun', sans-serif;
+    line-height: 1.7;
+    color: #2d2d2d;
+    background: #f4f1ed;
+  }
+  .container { max-width: 1000px; margin: 0 auto; background: #fff; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
+  header {
+    background: linear-gradient(135deg, #5b1a2e 0%, #7d2840 55%, #a13b58 100%);
+    color: #fff; padding: 50px 40px; text-align: center;
+  }
+  header h1 { font-size: 28px; font-weight: 700; margin-bottom: 12px; }
+  header .sub { font-size: 17px; opacity: 0.95; font-weight: 400; }
+  header .meta { margin-top: 18px; font-size: 14px; opacity: 0.8; }
+  header .badge {
+    display: inline-block; background: rgba(255,255,255,0.18); padding: 5px 14px;
+    border-radius: 20px; font-size: 13px; margin: 4px;
+  }
+  nav {
+    background: #faf7f4; padding: 22px 40px; border-bottom: 2px solid #ecdfe2;
+    position: sticky; top: 0; z-index: 10;
+  }
+  nav h3 { font-size: 14px; color: #7d2840; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  nav a {
+    display: inline-block; color: #5b1a2e; text-decoration: none; font-size: 14px;
+    padding: 6px 14px; margin: 3px; background: #fff; border: 1px solid #e3d3d7;
+    border-radius: 6px; transition: all 0.2s;
+  }
+  nav a:hover { background: #7d2840; color: #fff; }
+  section { padding: 38px 40px; border-bottom: 1px solid #f0eae6; }
+  h2 {
+    font-size: 23px; color: #5b1a2e; margin-bottom: 8px; padding-bottom: 12px;
+    border-bottom: 3px solid #a13b58; display: flex; align-items: center; gap: 10px;
+  }
+  h2 .num {
+    background: #7d2840; color: #fff; width: 36px; height: 36px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0;
+  }
+  h3 { font-size: 18px; color: #7d2840; margin: 26px 0 10px; }
+  h4 { font-size: 15px; color: #5b1a2e; margin: 18px 0 8px; font-weight: 600; }
+  p { margin-bottom: 12px; }
+  ul, ol { margin: 12px 0 16px 26px; }
+  li { margin-bottom: 7px; }
+  .intro-lead { font-size: 16px; color: #555; margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+  th { background: #5b1a2e; color: #fff; padding: 11px 13px; text-align: left; font-weight: 600; }
+  td { padding: 10px 13px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr:nth-child(even) td { background: #faf7f4; }
+  code {
+    font-family: 'JetBrains Mono', monospace; background: #f2e8eb; color: #a13b58;
+    padding: 2px 6px; border-radius: 4px; font-size: 13px;
+  }
+  pre {
+    background: #2b2333; color: #e8e0ec; padding: 18px 20px; border-radius: 8px;
+    overflow-x: auto; margin: 14px 0; font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.55; border-left: 4px solid #a13b58;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+  .callout {
+    border-radius: 8px; padding: 16px 20px; margin: 18px 0; font-size: 14.5px;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .callout .ico { font-size: 20px; flex-shrink: 0; }
+  .warn { background: #fff4e5; border-left: 4px solid #e8a33d; }
+  .tip { background: #eaf6ee; border-left: 4px solid #4caf6e; }
+  .crit { background: #fdecef; border-left: 4px solid #d63d57; }
+  .pill {
+    display: inline-block; padding: 3px 11px; border-radius: 14px; font-size: 12px;
+    font-weight: 600; color: #fff;
+  }
+  .p-high { background: #d63d57; }
+  .p-mid { background: #e8a33d; }
+  .p-low { background: #4caf6e; }
+  .check-grid { columns: 2; column-gap: 30px; }
+  .check-grid h4 { break-after: avoid; }
+  .check-grid ul { list-style: none; margin-left: 0; }
+  .check-grid li { padding-left: 26px; position: relative; }
+  .check-grid li::before {
+    content: "☐"; position: absolute; left: 0; color: #a13b58; font-size: 17px; top: -1px;
+  }
+  .phase-card {
+    border: 1px solid #e3d3d7; border-radius: 10px; padding: 4px 22px 18px; margin: 16px 0;
+  }
+  .phase-card.ph1 { border-top: 5px solid #d63d57; }
+  .phase-card.ph2 { border-top: 5px solid #e8a33d; }
+  .phase-card.ph3 { border-top: 5px solid #4caf6e; }
+  footer {
+    background: #2b2333; color: #d8cdd2; padding: 30px 40px; text-align: center; font-size: 13px;
+  }
+  footer strong { color: #fff; }
+  .toc-section { background: #faf7f4; }
+  @media print {
+    nav { position: static; } .container { box-shadow: none; }
+    pre { white-space: pre-wrap; }
+  }
+  @media (max-width: 700px) {
+    .check-grid { columns: 1; }
+    section { padding: 28px 22px; }
+    header { padding: 36px 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🔧 รายงานแก้ไข Technical SEO + AI/GEO สำหรับ Magento</h1>
+  <div class="sub">Wine Now (th.wine-now.com) &amp; LIQ9 (th.liq9.com)</div>
+  <div class="meta">
+    <span class="badge">📅 31 พฤษภาคม 2026</span>
+    <span class="badge">👨‍💻 สำหรับทีม Developer</span>
+    <span class="badge">🛒 Platform: Magento</span>
+  </div>
+</header>
+
+<nav>
+  <h3>สารบัญ</h3>
+  <a href="#overview">ภาพรวม</a>
+  <a href="#s1">1. Magento Technical</a>
+  <a href="#s2">2. AI / GEO</a>
+  <a href="#s3">3. Schema Markup</a>
+  <a href="#s4">4. ความเร็ว (CWV)</a>
+  <a href="#priority">ลำดับความสำคัญ</a>
+  <a href="#checklist">Checklist</a>
+</nav>
+
+<!-- OVERVIEW -->
+<section id="overview" class="toc-section">
+  <h2>🎯 ภาพรวมและเป้าหมาย</h2>
+  <p class="intro-lead">รายงานนี้แยกจากรายงาน SEO หลัก โดยเน้นเฉพาะ <strong>สิ่งที่ทีม Dev ต้องแก้ในระบบ Magento</strong> และการทำให้ <strong>AI (ChatGPT, Google AI Overviews, Perplexity, Claude)</strong> ดึงข้อมูลสินค้าของเราได้อย่างมีประสิทธิภาพ</p>
+
+  <h3>ปัญหาหลักที่ต้องแก้</h3>
+  <table>
+    <tr><th>ปัญหา</th><th>ผลกระทบ</th><th>ความเร่งด่วน</th></tr>
+    <tr><td>ไม่มี Product Schema (JSON-LD)</td><td>AI + Google ไม่เห็นราคา / รีวิว / สต็อก</td><td><span class="pill p-high">สูงสุด</span></td></tr>
+    <tr><td>Layered Navigation สร้าง URL ซ้ำมหาศาล</td><td>Crawl budget เสีย, duplicate content</td><td><span class="pill p-high">สูง</span></td></tr>
+    <tr><td>ไม่มีไฟล์ <code>llms.txt</code></td><td>AI ไม่รู้ว่าจะอ่านอะไร</td><td><span class="pill p-high">สูง</span></td></tr>
+    <tr><td>robots.txt ไม่อนุญาต AI crawler</td><td>ChatGPT / Perplexity เข้าไม่ได้</td><td><span class="pill p-high">สูง</span></td></tr>
+    <tr><td>Core Web Vitals ช้า (Magento หนัก)</td><td>อันดับตก, CTR ต่ำ</td><td><span class="pill p-mid">กลาง</span></td></tr>
+    <tr><td>Canonical tag ตั้งค่าไม่ครบ</td><td>duplicate content</td><td><span class="pill p-mid">กลาง</span></td></tr>
+    <tr><td>Title / Meta เป็น template ซ้ำกัน</td><td>CTR ต่ำ (ปัจจุบัน 4.26%)</td><td><span class="pill p-mid">กลาง</span></td></tr>
+  </table>
+  <div class="callout tip"><span class="ico">💡</span><div>ข้อความอธิบายเป็นภาษาไทย แต่ code/config เป็นภาษาอังกฤษตามมาตรฐานการพัฒนา เพื่อให้ copy ไปใช้ได้ทันที</div></div>
+</section>
+
+<!-- SECTION 1: MAGENTO TECHNICAL -->
+<section id="s1">
+  <h2><span class="num">1</span> แก้ Technical SEO ใน Magento</h2>
+
+  <h3>1.1 ตั้งค่า Canonical Tag ให้ครบ ⭐</h3>
+  <p><strong>ปัญหา:</strong> Magento สร้าง URL ได้หลายแบบสำหรับสินค้าเดียวกัน เช่น <code>/robert-mondavi.html</code>, <code>/red-wine/robert-mondavi.html</code>, <code>/robert-mondavi.html?color=red</code> → Google มองว่าเป็นเนื้อหาซ้ำ อันดับตก</p>
+  <h4>วิธีแก้ (Magento Admin):</h4>
+  <pre><code>Stores → Configuration → Catalog → Catalog → Search Engine Optimization
+- Use Canonical Link Meta Tag for Categories = Yes
+- Use Canonical Link Meta Tag for Products = Yes</code></pre>
+  <p>ตรวจสอบใน HTML ว่าได้:</p>
+  <pre><code>&lt;link rel="canonical" href="https://th.wine-now.com/robert-mondavi-cabernet.html" /&gt;</code></pre>
+
+  <h3>1.2 ควบคุม Layered Navigation (Filter) ⭐ สำคัญมาก</h3>
+  <p><strong>ปัญหา:</strong> หน้า filter เช่น <code>?price=500-1000&amp;color=red</code> สร้าง URL ได้เป็นพันๆ แบบ Google crawl จนหมด budget แล้วไม่เหลือมา crawl หน้าสินค้าจริง</p>
+  <h4>วิธีแก้ที่ 1 — robots.txt (บล็อก parameter):</h4>
+  <pre><code># Block layered navigation parameters
+Disallow: /*?price=
+Disallow: /*?color=
+Disallow: /*?size=
+Disallow: /*?material=
+Disallow: /*?*filter
+Disallow: /*?p=
+Disallow: /*?product_list_order=
+Disallow: /*?product_list_dir=
+Disallow: /*?product_list_limit=</code></pre>
+  <h4>วิธีแก้ที่ 2 — เพิ่ม <code>noindex, follow</code> ที่หน้า filter:</h4>
+  <p>ถ้าใช้ extension <strong>Amasty Improved Layered Navigation</strong> หรือ <strong>Mirasvit</strong> ให้เปิด: Add nofollow to filter links = Yes, Add noindex,follow robots meta = Yes, Use canonical to main category = Yes</p>
+  <pre><code>// ถ้าไม่มี extension: ใน Block/Plugin
+if ($this-&gt;hasFilterParams()) {
+    $this-&gt;pageConfig-&gt;setRobots('NOINDEX,FOLLOW');
+    // set canonical กลับไปหน้า category หลัก
+}</code></pre>
+
+  <h3>1.3 robots.txt ฉบับสมบูรณ์ ⭐</h3>
+  <p><strong>ตั้งค่าที่:</strong> Stores → Configuration → General → Design → Search Engine Robots → Edit custom instruction</p>
+  <pre><code>User-agent: *
+# Magento system paths
+Disallow: /index.php/
+Disallow: /catalog/product_compare/
+Disallow: /catalogsearch/
+Disallow: /checkout/
+Disallow: /customer/
+Disallow: /sales/
+Disallow: /wishlist/
+Disallow: /*?SID=
+Disallow: /*?___store=
+
+# Layered navigation parameters
+Disallow: /*?price=
+Disallow: /*?color=
+Disallow: /*?p=
+Disallow: /*?product_list_order=
+Disallow: /*?product_list_limit=
+
+# Allow important resources (ห้ามบล็อก CSS/JS!)
+Allow: /media/
+Allow: /static/
+Allow: /pub/
+
+# Sitemap
+Sitemap: https://th.wine-now.com/sitemap.xml
+
+# ===== AI Crawlers =====
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: CCBot
+Allow: /</code></pre>
+  <div class="callout warn"><span class="ico">⚠️</span><div>อย่าบล็อก <code>/media/</code>, <code>/static/</code>, <code>/pub/</code> เพราะ Google ต้องโหลด CSS/JS เพื่อ render หน้า — ถ้าบล็อก mobile-friendly test จะ fail</div></div>
+
+  <h3>1.4 XML Sitemap ที่ถูกต้อง</h3>
+  <pre><code>Stores → Configuration → Catalog → XML Sitemap
+- Products: Frequency = daily, Priority = 1.0
+- Add product images to sitemap = Yes  ⭐ (สำคัญ! Google Images + AI)
+- Generation: Enabled = Yes, Frequency = Daily, Start Time = ตี 3</code></pre>
+  <ul>
+    <li>สินค้า out-of-stock / disabled ต้อง <strong>ไม่</strong> อยู่ใน sitemap</li>
+    <li>ทุก URL ต้องตอบ HTTP 200 (ไม่ใช่ 301/404)</li>
+    <li>Submit ทั้ง 2 sitemap ใน Google Search Console</li>
+  </ul>
+
+  <h3>1.5 Title &amp; Meta ไม่ให้ซ้ำ</h3>
+  <p><strong>ปัญหา:</strong> Magento ใช้ template เดียว title ซ้ำกันหมด → CTR ต่ำ (4.26%)</p>
+  <pre><code>Stores → Configuration → Catalog → Catalog → Product Fields Auto-Generation
+- Mask for Meta Title: {{name}} ราคา | Wine Now & LIQ9
+- Mask for Meta Description: ซื้อ {{name}} ของแท้ ราคาดี จัดส่งไว {{short_description}}</code></pre>
+  <div class="callout tip"><span class="ico">💡</span><div>หน้า traffic สูง (homepage, expensive wine, champagne, robert mondavi) ให้เขียน title/meta เองทุกหน้า — ดูสูตรใน <code>QUICK_WINS_THIS_WEEK.md</code></div></div>
+
+  <h3>1.6 Pagination &amp; 1.7 URL สะอาด</h3>
+  <pre><code>Stores → Configuration → General → Web → Search Engine Optimization
+- Use Web Server Rewrites = Yes   (ตัด index.php)
+
+Catalog → Search Engine Optimization
+- Use Categories Path for Product URLs = No  ⭐ (ป้องกัน URL ซ้ำ)
+- Create Permanent Redirect if URL Key Changed = Yes</code></pre>
+  <div class="callout warn"><span class="ico">⚠️</span><div>ถ้าเปลี่ยน URL suffix ต้องทำ 301 redirect ทุก URL เก่า ไม่งั้นอันดับหายหมด</div></div>
+</section>
+
+<!-- SECTION 2: AI / GEO -->
+<section id="s2">
+  <h2><span class="num">2</span> ทำให้ AI เข้าถึงข้อมูลได้ดี (GEO)</h2>
+  <p class="intro-lead"><strong>GEO (Generative Engine Optimization)</strong> = การทำให้ AI search ดึงข้อมูลและ <strong>อ้างอิงเว็บเรา</strong> เมื่อผู้ใช้ถามเกี่ยวกับไวน์ เป็น traffic ช่องทางใหม่ที่กำลังโตเร็วมาก</p>
+
+  <h3>2.1 สร้างไฟล์ <code>llms.txt</code> ⭐</h3>
+  <p>ไฟล์มาตรฐานใหม่ (เหมือน robots.txt แต่สำหรับ AI) บอก AI ว่าเว็บเรามีอะไร อ่านตรงไหน — สร้างที่ <code>https://th.wine-now.com/llms.txt</code></p>
+  <pre><code># Wine Now (th.wine-now.com)
+
+&gt; ร้านไวน์และเครื่องดื่มแอลกอฮอล์ออนไลน์ชั้นนำในไทย จำหน่ายไวน์แดง
+&gt; ไวน์ขาว แชมเปญ สปาร์กลิงไวน์ และไวน์ราคาพิเศษ จัดส่งทั่วไทย
+
+## สินค้าหลัก (Product Categories)
+- [ไวน์แดง](https://th.wine-now.com/red-wine): Bordeaux, Napa, Tuscany
+- [แชมเปญ](https://th.wine-now.com/champagne): Moët, Dom Pérignon
+- [ไวน์ราคาพิเศษ](https://th.wine-now.com/expensive-wine): ฿500-฿100,000+
+
+## คู่มือและความรู้
+- [วิธีเลือกไวน์](https://th.wine-now.com/wine-guide)
+- [การจับคู่ไวน์กับอาหาร](https://th.wine-now.com/wine-pairing)
+
+## ข้อมูลร้าน
+- จัดส่งฟรีเมื่อสั่ง ฿1,000+ / สินค้าของแท้ 100% / มี sommelier แนะนำ</code></pre>
+  <p>ทำแบบเดียวกันสำหรับ <code>th.liq9.com/llms.txt</code> — ใน Magento สร้างเป็น static file ใน <code>pub/</code> หรือ CMS page + URL rewrite</p>
+
+  <h3>2.2 อนุญาต AI Crawlers ⭐</h3>
+  <table>
+    <tr><th>Bot</th><th>เจ้าของ</th><th>ทำหน้าที่</th></tr>
+    <tr><td><code>GPTBot</code></td><td>OpenAI</td><td>เทรน + ChatGPT search</td></tr>
+    <tr><td><code>OAI-SearchBot</code></td><td>OpenAI</td><td>ChatGPT search results</td></tr>
+    <tr><td><code>ChatGPT-User</code></td><td>OpenAI</td><td>เมื่อ user ถาม real-time</td></tr>
+    <tr><td><code>ClaudeBot</code></td><td>Anthropic</td><td>Claude</td></tr>
+    <tr><td><code>PerplexityBot</code></td><td>Perplexity</td><td>Perplexity AI search</td></tr>
+    <tr><td><code>Google-Extended</code></td><td>Google</td><td>Gemini + AI Overviews</td></tr>
+    <tr><td><code>Applebot-Extended</code></td><td>Apple</td><td>Apple Intelligence</td></tr>
+  </table>
+  <div class="callout crit"><span class="ico">⚠️</span><div>ถ้าบล็อก bot พวกนี้ = เว็บเรา <strong>ไม่ปรากฏ</strong> ใน AI search เลย ซึ่งเป็นช่องทาง traffic ที่กำลังโต</div></div>
+
+  <h3>2.3 เนื้อหาต้องเป็น Server-Side Rendered (SSR) ⭐</h3>
+  <p><strong>ปัญหา:</strong> AI crawler ส่วนใหญ่ <strong>ไม่ run JavaScript</strong> ถ้าราคา/รายละเอียดโหลดด้วย JS/AJAX → AI มองไม่เห็น</p>
+  <p><strong>ทดสอบ:</strong> ปิด JavaScript ใน browser แล้วเปิดหน้าสินค้า — เห็นราคา = ผ่าน, หน้าว่าง = ต้องแก้</p>
+  <ul>
+    <li>Magento (Luma theme) เป็น SSR อยู่แล้ว ✅ — แต่ถ้าใช้ PWA/Headless (Venia) ต้องทำ SSR/prerender เพิ่ม</li>
+    <li>ราคาและ stock ต้อง render ใน HTML ตั้งแต่แรก ไม่ใช่โหลดทีหลังด้วย AJAX</li>
+  </ul>
+
+  <h3>2.4 โครงสร้างเนื้อหาที่ AI ชอบ (Citability)</h3>
+  <pre><code>&lt;h2&gt;แชมเปญต่างจากสปาร์กลิงไวน์อย่างไร?&lt;/h2&gt;
+&lt;p&gt;แชมเปญคือสปาร์กลิงไวน์ที่ผลิตเฉพาะในแคว้นช็องปาญ ฝรั่งเศส
+ด้วยกรรมวิธี méthode traditionnelle ส่วนสปาร์กลิงไวน์ทั่วไป
+ผลิตที่ไหนก็ได้ ราคาเริ่มต้น ฿400&lt;/p&gt;</code></pre>
+  <ol>
+    <li>ใช้ heading เป็นคำถาม (H2/H3) — ตรงกับที่คนถาม AI</li>
+    <li>ตอบใน 2-3 ประโยคแรกทันที (ไม่อ้อมค้อม)</li>
+    <li>ใส่ตัวเลข/ข้อเท็จจริงชัดเจน (ราคา, ปี, %)</li>
+    <li>ใช้ bullet list และ table สำหรับเปรียบเทียบ</li>
+    <li>มี FAQ section ในทุกหน้าสำคัญ</li>
+  </ol>
+
+  <h3>2.5 E-E-A-T Signals</h3>
+  <ul>
+    <li>ใส่ชื่อ <strong>sommelier/ผู้เชี่ยวชาญ</strong> ที่เขียน tasting notes (พร้อม credential เช่น WSET, Certified Sommelier)</li>
+    <li>หน้า About บอกประสบการณ์ร้าน</li>
+    <li>ใส่วันที่อัปเดต (<code>dateModified</code> ใน schema)</li>
+    <li>มีรีวิวจริงจากลูกค้า (พร้อม Review schema)</li>
+  </ul>
+</section>
+
+<!-- SECTION 3: SCHEMA -->
+<section id="s3">
+  <h2><span class="num">3</span> Schema Markup (JSON-LD)</h2>
+  <div class="callout crit"><span class="ico">🔥</span><div>นี่คือสิ่งที่ให้ผลเร็วและแรงที่สุด ทั้งสำหรับ rich results ใน Google และให้ AI เข้าใจสินค้า</div></div>
+
+  <h3>3.1 Product Schema (ทุกหน้าสินค้า) ⭐⭐⭐</h3>
+  <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Robert Mondavi Cabernet Sauvignon 2019 750ml",
+  "image": ["https://th.wine-now.com/media/catalog/product/r/m/robert.jpg"],
+  "description": "ไวน์แดง Cabernet Sauvignon จาก Napa Valley รสนุ่มนวล กลมกล่อม",
+  "brand": { "@type": "Brand", "name": "Robert Mondavi" },
+  "sku": "RM-CAB-2019",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://th.wine-now.com/robert-mondavi-cabernet.html",
+    "priceCurrency": "THB",
+    "price": "850",
+    "priceValidUntil": "2026-12-31",
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "24"
+  }
+}
+&lt;/script&gt;</code></pre>
+  <p><strong>วิธีทำใน Magento:</strong></p>
+  <ul>
+    <li><strong>แนะนำ:</strong> ติดตั้ง extension <strong>Magefan Rich Snippets</strong>, <strong>Amasty SEO Toolkit</strong>, หรือ <strong>MageWorx SEO Suite</strong> — generate อัตโนมัติทุกสินค้า</li>
+    <li><strong>หรือ:</strong> Dev เขียน template ใน <code>view/frontend/templates/product/view/</code> ดึงค่าจริงจาก product object</li>
+  </ul>
+  <div class="callout warn"><span class="ico">⚠️</span><div>Magento native มี structured data แค่บางส่วน (มักไม่ครบ/ไม่ valid) — แนะนำใช้ extension ดีกว่าเขียนเอง</div></div>
+
+  <h3>3.2 FAQPage Schema (category + บทความ) ⭐⭐</h3>
+  <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "Prosecco คืออะไร?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Prosecco คือสปาร์กลิงไวน์อิตาลีจากองุ่น Glera รสเบาและหวานกว่าแชมเปญ ราคาเริ่ม ฿400"
+    }
+  }]
+}
+&lt;/script&gt;</code></pre>
+  <div class="callout tip"><span class="ico">💡</span><div>FAQ schema ช่วย 2 อย่าง: rich result ใน Google + AI ดึงไปตอบใน AI Overviews/ChatGPT — ตอบโจทย์ keyword "prosecco คือ", "most expensive wine" ที่ impression สูงแต่ click ต่ำ</div></div>
+
+  <h3>3.3 BreadcrumbList + 3.4 Organization Schema</h3>
+  <p>เพิ่ม BreadcrumbList ทุกหน้า และ Organization/OnlineStore schema ที่หน้าแรก (ใส่ logo, sameAs social, contactPoint)</p>
+
+  <h3>3.5 ตรวจสอบ Schema</h3>
+  <p>ทดสอบทุกหน้าที่ <strong>validator.schema.org</strong> และ <strong>search.google.com/test/rich-results</strong></p>
+</section>
+
+<!-- SECTION 4: SPEED -->
+<section id="s4">
+  <h2><span class="num">4</span> Core Web Vitals / ความเร็ว</h2>
+  <p class="intro-lead">Magento หนักโดยธรรมชาติ ถ้าไม่ optimize จะช้ามาก ทำให้อันดับตกและ AI crawler timeout</p>
+
+  <h3>4.1 เปิด Full Page Cache + Varnish ⭐</h3>
+  <pre><code>Stores → Configuration → Advanced → System → Full Page Cache
+- Caching Application = Varnish Cache (แนะนำ)</code></pre>
+  <p>ตั้ง Varnish บน server (ไม่ใช่ built-in cache) — ลด TTFB จากวินาทีเหลือ &lt; 200ms</p>
+
+  <h3>4.2 Production Mode + รวม/ย่อ JS/CSS</h3>
+  <pre><code>php bin/magento deploy:mode:set production
+
+Stores → Configuration → Advanced → Developer
+- Merge + Minify JavaScript = Yes
+- Merge + Minify CSS = Yes
+- Minify Html = Yes</code></pre>
+
+  <h3>4.3 Optimize รูปภาพ (ร้านไวน์มีรูปขวดเยอะ)</h3>
+  <ul>
+    <li>แปลงรูปเป็น <strong>WebP</strong> (ลดขนาด 25-35%) — ใช้ Mageplaza WebP หรือ CDN</li>
+    <li>ใส่ <code>loading="lazy"</code> กับรูปใต้ fold</li>
+    <li>ใส่ <code>width</code>/<code>height</code> ป้องกัน CLS</li>
+    <li>ใส่ <code>alt</code> text ทุกรูป (SEO + AI + accessibility)</li>
+  </ul>
+
+  <h3>4.4-4.5 CDN &amp; Indexing</h3>
+  <pre><code># Indexer เป็น schedule (cron) ไม่ใช่ on save
+php bin/magento indexer:set-mode schedule</code></pre>
+  <p>ใช้ CDN (Cloudflare/Fastly) สำหรับ static + media files</p>
+
+  <h3>4.6 เป้าหมาย Core Web Vitals</h3>
+  <table>
+    <tr><th>Metric</th><th>เป้าหมาย</th><th>ความหมาย</th></tr>
+    <tr><td>LCP</td><td>&lt; 2.5s</td><td>โหลดเนื้อหาหลักเร็ว</td></tr>
+    <tr><td>INP</td><td>&lt; 200ms</td><td>ตอบสนองการคลิกเร็ว</td></tr>
+    <tr><td>CLS</td><td>&lt; 0.1</td><td>หน้าไม่กระตุก</td></tr>
+    <tr><td>TTFB</td><td>&lt; 200ms</td><td>server ตอบเร็ว (Varnish ช่วย)</td></tr>
+  </table>
+  <p>ทดสอบที่ <strong>pagespeed.web.dev</strong> (ใส่ URL ทั้ง 2 เว็บ)</p>
+</section>
+
+<!-- PRIORITY -->
+<section id="priority">
+  <h2>🎯 ลำดับความสำคัญในการแก้</h2>
+
+  <div class="phase-card ph1">
+    <h3>🔴 Phase 1 — ทำทันที (สัปดาห์นี้, ผลเร็ว)</h3>
+    <table>
+      <tr><th>งาน</th><th>เวลา</th><th>ผลกระทบ</th></tr>
+      <tr><td>1. เพิ่ม AI crawlers ใน robots.txt</td><td>30 นาที</td><td>AI เข้าถึงได้</td></tr>
+      <tr><td>2. สร้าง llms.txt ทั้ง 2 เว็บ</td><td>1-2 ชม.</td><td>AI เข้าใจเว็บ</td></tr>
+      <tr><td>3. ติดตั้ง extension Product Schema</td><td>2-3 ชม.</td><td>Google + AI เห็นราคา/รีวิว</td></tr>
+      <tr><td>4. เปิด Canonical tag</td><td>15 นาที</td><td>ลด duplicate</td></tr>
+      <tr><td>5. บล็อก layered nav params</td><td>30 นาที</td><td>ประหยัด crawl budget</td></tr>
+    </table>
+  </div>
+
+  <div class="phase-card ph2">
+    <h3>🟡 Phase 2 — ภายใน 2-4 สัปดาห์</h3>
+    <table>
+      <tr><th>งาน</th><th>เวลา</th></tr>
+      <tr><td>6. เพิ่ม FAQ schema หน้าสำคัญ</td><td>3-4 ชม.</td></tr>
+      <tr><td>7. เพิ่ม BreadcrumbList + Organization schema</td><td>2 ชม.</td></tr>
+      <tr><td>8. เปิด Varnish + Production mode</td><td>1 วัน</td></tr>
+      <tr><td>9. แปลงรูปเป็น WebP + lazy load</td><td>1-2 วัน</td></tr>
+      <tr><td>10. เขียน Title/Meta หน้า traffic สูงเอง</td><td>4 ชม.</td></tr>
+    </table>
+  </div>
+
+  <div class="phase-card ph3">
+    <h3>🟢 Phase 3 — ภายใน 1-3 เดือน</h3>
+    <ul>
+      <li>ตรวจสอบ SSR ทุกหน้าสินค้า (ปิด JS test)</li>
+      <li>ปรับโครงสร้างเนื้อหาให้ AI อ้างอิงง่าย</li>
+      <li>เพิ่ม E-E-A-T (sommelier credentials, author)</li>
+      <li>Optimize Core Web Vitals ให้ผ่านทุก metric</li>
+      <li>ตั้ง hreflang ถ้ามีหลายภาษา (th/en)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <h2>✅ Checklist สำหรับ Dev</h2>
+  <div class="check-grid">
+    <h4>robots.txt &amp; Crawling</h4>
+    <ul>
+      <li>เพิ่ม AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended)</li>
+      <li>บล็อก layered navigation parameters</li>
+      <li>บล็อก Magento system paths</li>
+      <li>อนุญาต /media/, /static/, /pub/</li>
+      <li>ใส่ Sitemap URL</li>
+    </ul>
+    <h4>llms.txt &amp; AI</h4>
+    <ul>
+      <li>สร้าง /llms.txt (wine-now)</li>
+      <li>สร้าง /llms.txt (liq9)</li>
+      <li>ปิด JS แล้วยังเห็นราคา/รายละเอียด</li>
+    </ul>
+    <h4>Schema (JSON-LD)</h4>
+    <ul>
+      <li>Product schema ทุกหน้า (price, availability, rating)</li>
+      <li>BreadcrumbList ทุกหน้า</li>
+      <li>FAQPage (category + บทความ)</li>
+      <li>Organization (หน้าแรก)</li>
+      <li>ทดสอบ validator + Rich Results Test</li>
+    </ul>
+    <h4>Magento Config</h4>
+    <ul>
+      <li>Canonical tag = Yes</li>
+      <li>Use Categories Path for Product URLs = No</li>
+      <li>Web Server Rewrites = Yes</li>
+      <li>Sitemap: add images, exclude out-of-stock</li>
+      <li>Submit sitemap ใน GSC ทั้ง 2 เว็บ</li>
+    </ul>
+    <h4>Performance</h4>
+    <ul>
+      <li>Production mode</li>
+      <li>Varnish Full Page Cache</li>
+      <li>Merge + Minify JS/CSS/HTML</li>
+      <li>WebP + lazy loading</li>
+      <li>width/height ทุกรูป (กัน CLS)</li>
+      <li>CDN สำหรับ static/media</li>
+      <li>Indexer = schedule mode</li>
+      <li>PageSpeed &gt; 80 (mobile)</li>
+    </ul>
+    <h4>Content</h4>
+    <ul>
+      <li>Title/Meta หน้า traffic สูงไม่ซ้ำ</li>
+      <li>alt text ทุกรูปสินค้า</li>
+      <li>FAQ section ในหน้าสำคัญ</li>
+      <li>dateModified ในบทความ</li>
+    </ul>
+  </div>
+
+  <h3>🎓 สรุป: 3 สิ่งที่ให้ผลเร็วที่สุด ทำก่อนเลย</h3>
+  <ol>
+    <li><strong>Product Schema (JSON-LD)</strong> → Google โชว์ราคา/ดาว/สต็อก + AI เข้าใจสินค้า → CTR +25-30%</li>
+    <li><strong>llms.txt + เปิด AI crawlers</strong> → เว็บเริ่มปรากฏใน ChatGPT/Perplexity/AI Overviews</li>
+    <li><strong>บล็อก layered nav + เปิด canonical</strong> → Google เลิกเสีย crawl budget มา crawl หน้าจริง</li>
+  </ol>
+</section>
+
+<footer>
+  <p><strong>รายงานจัดทำ:</strong> 31 พฤษภาคม 2026</p>
+  <p>ใช้คู่กับ: SEO_AUDIT_REPORT.html · QUICK_WINS_THIS_WEEK.md · ACTION_PLAN_IMPLEMENTATION.md</p>
+  <p>แพลตฟอร์ม: Magento &nbsp;|&nbsp; เว็บไซต์: th.wine-now.com, th.liq9.com</p>
+  <p style="margin-top:14px; opacity:0.7;">🍷 ทำให้ทั้ง Google bot และ AI bot เข้าถึงสินค้าเราได้ง่าย ครบ และเร็ว</p>
+</footer>
+
+</div>
+</body>
+</html>
