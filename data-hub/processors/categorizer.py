@@ -223,6 +223,20 @@ class Categorizer:
               "auction"), "investment_opportunity"),
             (("counterfeit", "fake", "fraud", "authentication"),
              "counterfeit_warning"),
+            (("emerging", "up-and-coming", "new region", "rising",
+              "underrated", "overlooked"), "emerging_region"),
+            (("health benefits", "antioxidant", "heart health",
+              "good for you", "wellness"), "health_angle_positive"),
+            (("health risk", "cancer", "liver", "warning", "harmful",
+              "dangers of"), "health_angle_negative"),
+            (("celebrity", "celebrity-owned", "actor", "musician",
+              "athlete", "star-backed"), "celebrity_tie"),
+            (("limited release", "limited edition", "limited run",
+              "exclusive release", "small batch"), "limited_release"),
+            (("viral", "tiktok", "instagram", "trending on", "went viral",
+              "social media sensation"), "viral_on_social"),
+            (("climate", "frost", "drought", "heatwave", "wildfire",
+              "global warming", "vintage conditions"), "climate_impact"),
         ]
 
         for keywords, signal in signal_keywords:

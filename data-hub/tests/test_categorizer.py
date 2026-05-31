@@ -90,6 +90,80 @@ def test_detect_trend_signals_multiple(categorizer):
     assert "investment_opportunity" in signals
 
 
+def test_detect_emerging_region(categorizer):
+    article = _article(
+        title="Thailand: An Emerging Region for Wine",
+        excerpt="This new region is gaining attention from critics.",
+    )
+    signals = categorizer._detect_trend_signals(article)
+    assert "emerging_region" in signals
+
+
+def test_detect_health_positive(categorizer):
+    article = _article(
+        title="Red Wine and Heart Health",
+        excerpt="Researchers tout the antioxidant health benefits of moderate consumption.",
+    )
+    signals = categorizer._detect_trend_signals(article)
+    assert "health_angle_positive" in signals
+
+
+def test_detect_health_negative(categorizer):
+    article = _article(
+        title="The Cancer Risk of Alcohol",
+        excerpt="A new health warning about the dangers of drinking and liver damage.",
+    )
+    signals = categorizer._detect_trend_signals(article)
+    assert "health_angle_negative" in signals
+
+
+def test_detect_celebrity_tie(categorizer):
+    article = _article(
+        title="Inside the Celebrity-Owned Tequila Boom",
+        excerpt="An actor and a musician launch a star-backed brand.",
+    )
+    signals = categorizer._detect_trend_signals(article)
+    assert "celebrity_tie" in signals
+
+
+def test_detect_limited_release(categorizer):
+    article = _article(
+        title="Macallan Drops a Limited Edition Single Malt",
+        excerpt="A small batch, exclusive release for collectors.",
+    )
+    signals = categorizer._detect_trend_signals(article)
+    assert "limited_release" in signals
+
+
+def test_detect_viral_social(categorizer):
+    article = _article(
+        title="This Wine Cocktail Went Viral on TikTok",
+        excerpt="A social media sensation trending on Instagram.",
+    )
+    signals = categorizer._detect_trend_signals(article)
+    assert "viral_on_social" in signals
+
+
+def test_detect_climate_impact(categorizer):
+    article = _article(
+        title="Frost Destroyed the Vintage in Burgundy",
+        excerpt="Drought and heatwave conditions hammered the harvest amid global warming.",
+    )
+    signals = categorizer._detect_trend_signals(article)
+    assert "climate_impact" in signals
+
+
+def test_multiple_signals_coexist(categorizer):
+    article = _article(
+        title="Celebrity-Owned Limited Edition Whisky Goes Viral on TikTok",
+        excerpt="A star-backed small batch release became a social media sensation.",
+    )
+    signals = categorizer._detect_trend_signals(article)
+    assert "celebrity_tie" in signals
+    assert "limited_release" in signals
+    assert "viral_on_social" in signals
+
+
 def test_estimate_aeo_high(categorizer):
     guide = _article(title="Wine Buying Guide", content_type="news")
     # Force guide classification via title keyword.
