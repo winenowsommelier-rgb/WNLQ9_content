@@ -42,17 +42,23 @@ export function parseCSV(text: string): string[][] {
   return rows;
 }
 
+/** Normalize a header cell: lowercase, strip underscores/spaces/dashes. */
+function norm(s: string): string {
+  return s.trim().toLowerCase().replace(/[_\s-]+/g, "");
+}
+
 function header(cols: string[]): Record<string, number> {
   const map: Record<string, number> = {};
   cols.forEach((c, i) => {
-    map[c.trim().toLowerCase()] = i;
+    map[norm(c)] = i;
   });
   return map;
 }
 
 function pick(h: Record<string, number>, ...keys: string[]): number {
   for (const k of keys) {
-    if (k.toLowerCase() in h) return h[k.toLowerCase()];
+    const nk = norm(k);
+    if (nk in h) return h[nk];
   }
   return -1;
 }
