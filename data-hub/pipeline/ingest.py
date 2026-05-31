@@ -1,0 +1,365 @@
+"""Daily ingestion orchestration for the Content Trend Data Hub.
+
+This module ties the whole pipeline together: it reads the source registry
+(``config/sources.yaml``), instantiates the right collector for each source,
+runs them, deduplicates and categorizes the results, and exports the final
+articles to the Google Sheet storage hub.
+
+Design goals (matching the rest of the codebase):
+
+* **Dependency injection / testability.** The exporter and the list of
+  collectors can be injected, so the orchestration logic is fully testable
+  without touching the network or the Google Sheets API. Tests pass in
+  ``MagicMock`` collectors and a ``MagicMock`` exporter.
+* **Fail-soft.** A single misbehaving source (raising during ``collect()``)
+  is logged and recorded, but never aborts the run -- the remaining sources
+  still contribute their articles.
+* **Observability.** Every stage logs its counts via the ``logging`` module
+  to both a rotating-friendly file handler (``logs/ingest.log``) and the
+  console. ``run()`` returns a structured summary dict for the caller.
+
+Entry point: ``python -m pipeline.ingest`` (see ``main``), which reads the
+target sheet id from ``DATA_HUB_SHEET_ID`` or a ``--sheet-id`` argument.
+"""
+
+from __future__ import annotations
+
+import argparse
+import logging
+import os
+import sys
+from typing import Dict, List, Optional
+
+import yaml
+
+from collectors.rss_collector import RSSCollector
+from collectors.web_scraper import WebScraper
+from exporters.sheets_exporter import SheetsExporter
+from processors.categorizer import Categorizer
+from processors.deduplicator import Deduplicator
+
+logger = logging.getLogger("pipeline.ingest")
+
+# Selector keys WebScraper needs at minimum to produce a valid article.
+# sources.yaml currently only carries a single ``scrape_selector`` (the
+# article container), so most entries cannot yet be scraped and are skipped.
+_REQUIRED_SCRAPER_SELECTORS = ("article", "title", "link")
+
+# Default location for run logs.
+_DEFAULT_LOG_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"
+)
+
+
+class IngestPipeline:
+    """Orchestrate collect -> dedup -> categorize -> export.
+
+    Parameters
+    ----------
+    sources_config_path:
+        Path to the source registry YAML (``config/sources.yaml``).
+    sheet_id:
+        Target Google Sheet id. Used to build a :class:`SheetsExporter`
+        when one is not injected via ``exporter``.
+    exporter:
+        Pre-built exporter (or any object exposing
+        ``export_articles(articles, sheet_name) -> dict``). Injected by
+        tests so no real Google API access is required. When omitted, a
+        :class:`SheetsExporter` is built from ``sheet_id``.
+    """
+
+    def __init__(
+        self,
+        sources_config_path: str = "config/sources.yaml",
+        sheet_id: Optional[str] = None,
+        exporter=None,
+    ) -> None:
+        self.sources_config_path = sources_config_path
+        self.sheet_id = sheet_id
+
+        if exporter is not None:
+            self.exporter = exporter
+        elif sheet_id is not None:
+            self.exporter = SheetsExporter(sheet_id=sheet_id)
+        else:
+            # Defer the failure to export() so the rest of the pipeline
+            # (collect/process) can still be exercised without a sheet.
+            self.exporter = None
+
+        self.deduplicator = Deduplicator()
+        self.categorizer = Categorizer()
+
+        # Populated by build_collectors(); may be injected directly by tests.
+        self.collectors: List = []
+        # Per-run error messages, surfaced in the run() summary.
+        self.errors: List[str] = []
+
+    # -- config ---------------------------------------------------------
+
+    def load_sources(self) -> Dict:
+        """Parse the sources YAML registry into a dict."""
+        with open(self.sources_config_path, "r", encoding="utf-8") as fh:
+            data = yaml.safe_load(fh)
+        return data or {}
+
+    # -- collector construction -----------------------------------------
+
+    def build_collectors(self) -> List:
+        """Instantiate a collector for each supported source in the registry.
+
+        * ``rss`` -> :class:`RSSCollector` wired to the source's ``rss_feed``.
+        * ``web_scrape`` -> :class:`WebScraper` *only* when the source carries
+          a full ``selectors`` mapping (article/title/link at minimum).
+          sources.yaml entries that only have ``scrape_selector`` are skipped
+          gracefully and logged.
+        * ``api`` / ``keyword_monitor`` -> skipped (not yet implemented),
+          logged so the gap is visible.
+
+        The built collectors are stored on ``self.collectors`` and returned.
+        """
+        config = self.load_sources()
+        categories = config.get("sources", {}) or {}
+
+        collectors: List = []
+        for category, sources in categories.items():
+            for source in sources or []:
+                collector = self._build_one(category, source)
+                if collector is not None:
+                    collectors.append(collector)
+
+        logger.info("Built %d collector(s) from %s", len(collectors),
+                    self.sources_config_path)
+        self.collectors = collectors
+        return collectors
+
+    def _build_one(self, category: str, source: Dict):
+        """Build a single collector from one source config entry (or None)."""
+        name = source.get("name", "<unnamed>")
+        api_type = source.get("api_type")
+
+        if api_type == "rss":
+            feed = source.get("rss_feed")
+            if not feed:
+                logger.warning("Skipping RSS source %r: no rss_feed configured",
+                               name)
+                return None
+            return RSSCollector(name=name, feed_url=feed)
+
+        if api_type == "web_scrape":
+            selectors = source.get("selectors")
+            if not self._has_required_selectors(selectors):
+                logger.info(
+                    "Skipping web_scrape source %r: no full selectors "
+                    "configured yet (needs %s)",
+                    name, ", ".join(_REQUIRED_SCRAPER_SELECTORS),
+                )
+                return None
+            listing_url = source.get("scrape_endpoint") or source.get("url")
+            return WebScraper(name=name, listing_url=listing_url,
+                              selectors=selectors)
+
+        if api_type in ("api", "keyword_monitor"):
+            logger.info("Skipping source %r (api_type=%r): not yet implemented",
+                        name, api_type)
+            return None
+
+        logger.warning("Skipping source %r: unknown api_type %r", name, api_type)
+        return None
+
+    @staticmethod
+    def _has_required_selectors(selectors) -> bool:
+        """True only if a selectors mapping has all required keys."""
+        if not isinstance(selectors, dict):
+            return False
+        return all(selectors.get(key) for key in _REQUIRED_SCRAPER_SELECTORS)
+
+    # -- stages ---------------------------------------------------------
+
+    def collect_all(self, collectors: List) -> List[Dict]:
+        """Run every collector, aggregating their articles. Fail-soft.
+
+        A collector that raises during ``collect()`` is logged, recorded in
+        ``self.errors``, and skipped; the remaining collectors still run.
+        """
+        articles: List[Dict] = []
+        for collector in collectors:
+            name = getattr(collector, "name", repr(collector))
+            try:
+                collected = collector.collect() or []
+            except Exception as exc:  # noqa: BLE001 -- fail soft per source
+                message = f"Collector {name!r} failed: {exc}"
+                logger.error(message)
+                self.errors.append(message)
+                continue
+            logger.info("Collected %d article(s) from %r", len(collected), name)
+            articles.extend(collected)
+
+        logger.info("Collected %d article(s) total from %d collector(s)",
+                    len(articles), len(collectors))
+        return articles
+
+    def process(self, articles: List[Dict]) -> List[Dict]:
+        """Deduplicate then categorize the collected articles."""
+        deduped = self.deduplicator.deduplicate(articles)
+        logger.info("Deduplicated %d -> %d article(s)",
+                    len(articles), len(deduped))
+        categorized = self.categorizer.categorize(deduped)
+        logger.info("Categorized %d article(s)", len(categorized))
+        return categorized
+
+    def export(self, articles: List[Dict], sheet_name: str = "Articles") -> Dict:
+        """Export processed articles via the configured exporter."""
+        if self.exporter is None:
+            message = "No exporter configured (set sheet_id or inject exporter)"
+            logger.error(message)
+            self.errors.append(message)
+            return {"exported": 0, "error": message}
+
+        result = self.exporter.export_articles(articles, sheet_name=sheet_name)
+        logger.info("Exported %s article(s) to sheet %r",
+                    result.get("exported"), result.get("sheet", sheet_name))
+        if result.get("error"):
+            self.errors.append(f"Export error: {result['error']}")
+        return result
+
+    # -- orchestration --------------------------------------------------
+
+    def run(self, sheet_name: str = "Articles") -> Dict:
+        """Run the full pipeline and return a structured summary dict.
+
+        Stages: build_collectors (if none injected) -> collect_all ->
+        process -> export.
+
+        Returns
+        -------
+        dict
+            ``{"collected": N, "after_dedup": M, "exported": K,
+            "sources_run": [...], "errors": [...]}``
+        """
+        logger.info("=== Content Hub ingestion run starting ===")
+
+        collectors = self.collectors or self.build_collectors()
+
+        collected = self.collect_all(collectors)
+        processed = self.process(collected)
+        export_result = self.export(processed, sheet_name=sheet_name)
+
+        summary = {
+            "collected": len(collected),
+            "after_dedup": len(processed),
+            "exported": export_result.get("exported", 0),
+            "sources_run": [getattr(c, "name", repr(c)) for c in collectors],
+            "errors": list(self.errors),
+        }
+
+        logger.info(
+            "=== Run complete: collected=%d after_dedup=%d exported=%s "
+            "sources=%d errors=%d ===",
+            summary["collected"], summary["after_dedup"], summary["exported"],
+            len(summary["sources_run"]), len(summary["errors"]),
+        )
+        return summary
+
+
+# -- logging setup -----------------------------------------------------------
+
+
+def configure_logging(log_dir: str = _DEFAULT_LOG_DIR,
+                       level: int = logging.INFO) -> None:
+    """Configure root logging to a file (logs/ingest.log) and the console.
+
+    Idempotent: repeated calls do not stack duplicate handlers.
+    """
+    root = logging.getLogger()
+    root.setLevel(level)
+
+    # Avoid duplicate handlers if called more than once (e.g. tests + main).
+    if getattr(configure_logging, "_configured", False):
+        return
+
+    formatter = logging.Formatter(
+        "%(asctime)s %(levelname)s %(name)s: %(message)s"
+    )
+
+    console = logging.StreamHandler()
+    console.setFormatter(formatter)
+    root.addHandler(console)
+
+    try:
+        os.makedirs(log_dir, exist_ok=True)
+        file_handler = logging.FileHandler(os.path.join(log_dir, "ingest.log"))
+        file_handler.setFormatter(formatter)
+        root.addHandler(file_handler)
+    except OSError as exc:  # noqa: BLE001 -- logging must never crash the run
+        root.warning("Could not create log file in %s: %s", log_dir, exc)
+
+    configure_logging._configured = True  # type: ignore[attr-defined]
+
+
+# -- CLI entry point ---------------------------------------------------------
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    """CLI entry point: run the daily ingestion pipeline.
+
+    Reads the target sheet id from ``--sheet-id`` or the
+    ``DATA_HUB_SHEET_ID`` environment variable. Prints the run summary and
+    returns 0 on success, 1 on failure.
+    """
+    parser = argparse.ArgumentParser(
+        description="Run the Content Hub daily ingestion pipeline."
+    )
+    parser.add_argument(
+        "--sheet-id",
+        default=os.environ.get("DATA_HUB_SHEET_ID"),
+        help="Target Google Sheet id (defaults to $DATA_HUB_SHEET_ID).",
+    )
+    parser.add_argument(
+        "--sources-config",
+        default="config/sources.yaml",
+        help="Path to the sources registry YAML.",
+    )
+    parser.add_argument(
+        "--sheet-name",
+        default="Articles",
+        help="Worksheet/tab name to append articles to.",
+    )
+    args = parser.parse_args(argv)
+
+    configure_logging()
+
+    if not args.sheet_id:
+        logger.error(
+            "No sheet id provided. Set DATA_HUB_SHEET_ID or pass --sheet-id."
+        )
+        print("ERROR: no sheet id (set DATA_HUB_SHEET_ID or --sheet-id).",
+              file=sys.stderr)
+        return 1
+
+    try:
+        pipeline = IngestPipeline(
+            sources_config_path=args.sources_config,
+            sheet_id=args.sheet_id,
+        )
+        summary = pipeline.run(sheet_name=args.sheet_name)
+    except Exception as exc:  # noqa: BLE001 -- top-level guard for a clean exit
+        logger.exception("Ingestion pipeline crashed: %s", exc)
+        print(f"ERROR: ingestion pipeline failed: {exc}", file=sys.stderr)
+        return 1
+
+    print("Content Hub ingestion summary:")
+    print(f"  collected   : {summary['collected']}")
+    print(f"  after_dedup : {summary['after_dedup']}")
+    print(f"  exported    : {summary['exported']}")
+    print(f"  sources_run : {len(summary['sources_run'])}")
+    print(f"  errors      : {len(summary['errors'])}")
+    for error in summary["errors"]:
+        print(f"    - {error}")
+
+    # Treat collector/export errors as a non-fatal partial success (exit 0);
+    # only a hard crash (caught above) is a failure exit.
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
