@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import type { ContentBrief } from "@/lib/types";
-import { BRANDS } from "@/lib/brands";
-import { STATUS_LABEL } from "@/lib/types";
 
 const NOTION_TOKEN = process.env.NOTION_API_TOKEN;
 const NOTION_DB = process.env.NOTION_DATABASE_ID;
@@ -42,18 +40,37 @@ export async function POST(req: Request) {
     );
   }
 
-  const brandName = BRANDS[brief.brand]?.name ?? brief.brand;
+  // "Site" select option names in the real DB schema.
+  const siteName = brief.brand === "liq9" ? "LIQ9" : "Wine-Now";
 
-  // Notion property names — adjust here if your DB uses different labels.
+  // Map internal status → exact Notion select option names (note: "In progress").
+  // DB options: Not started, Brief Ready, In progress, Review, Done, Published
+  const NOTION_STATUS: Record<string, string> = {
+    draft: "Not started",
+    brief_ready: "Brief Ready",
+    in_progress: "In progress",
+    review: "Review",
+    done: "Done",
+    published: "Published",
+  };
+  const statusName = NOTION_STATUS[brief.status] ?? "Brief Ready";
+
+  // Property names + types must match the data source schema exactly.
+  // Title=title, Site/Status/Type/Month=select, Target Keyword/KEY/TENSION/STORY=text.
   const properties: Record<string, unknown> = {
-    Topic: { title: [{ text: { content: brief.topic || "Untitled" } }] },
-    Brand: { select: { name: brandName } },
-    Status: { select: { name: STATUS_LABEL[brief.status] } },
+    Title: { title: [{ text: { content: brief.topic || "Untitled" } }] },
+    Site: { select: { name: siteName } },
+    Status: { select: { name: statusName } },
+    Type: { select: { name: "Blog" } },
+    Month: { select: { name: "June 2026" } },
     "Publish Date": brief.publishDate
       ? { date: { start: brief.publishDate } }
       : undefined,
-    "SEO Keyword": brief.seoKeyword
+    "Target Keyword": brief.seoKeyword
       ? { rich_text: [{ text: { content: brief.seoKeyword } }] }
+      : undefined,
+    "Brief ID": brief.id
+      ? { rich_text: [{ text: { content: brief.id } }] }
       : undefined,
     KEY: brief.key
       ? { rich_text: [{ text: { content: brief.key } }] }
