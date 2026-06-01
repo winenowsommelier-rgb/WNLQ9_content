@@ -106,6 +106,8 @@ sources:
       api_type: "web_scrape"
       scrape_endpoint: "https://www.diffordsguide.com/en/spirits/reviews/"
       scrape_selector: ".spirit-review"
+      static_scrape_verified: false
+      static_scrape_note: "VERIFIED 2026-06-01: this endpoint 404s and the site is JS-rendered. Static requests+BeautifulSoup returns no article structure. Needs a headless (Playwright/Selenium) scraper before it can be activated."
       categories: ["reviews", "spirits_guide"]
       language: "en"
       update_frequency: "weekly"
@@ -145,19 +147,25 @@ sources:
       regions: ["Scotland", "UK"]
       notes: "Research reports on Scotch whisky market, production data, and industry trends."
 
-    - name: "Punch Drinks"
-      url: "https://punchdrinks.com"
-      api_type: "rss"
-      rss_feed: "https://punchdrinks.com/feed/"
+    - name: "Punch"
+      url: "https://punchdrink.com"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://punchdrink.com/articles/"
+      scrape_selector: "article.tease"
+      selectors:
+        article: "article.tease"
+        title: "h3"
+        link: "a[href]"
+        excerpt: "p"
       categories: ["news", "trends", "culture"]
       language: "en"
       update_frequency: "daily"
       auth_required: false
-      content_types: ["news", "opinion"]
-      coverage: ["spirits"]
+      content_types: ["news", "opinion", "guide"]
+      coverage: ["spirits", "wine"]
       spirits_types: ["whisky", "gin", "rum", "vodka", "cocktails"]
       regions: ["Global"]
-      notes: "Cocktails and spirits culture publication; good for emerging trends and mixology content."
+      notes: "Long-form drinks journalism (cocktails, spirits, wine). VERIFIED 2026-06-01: domain is punchdrink.com (singular); the /articles/ listing is server-rendered static HTML and scrapes cleanly with the selectors above (12 article.tease cards). The old punchdrinks.com RSS in the audit was the wrong domain. Cards carry no date element, so published_date falls back to collected time."
 
   food_beverage:
     - name: "Bon Appétit"
@@ -176,8 +184,10 @@ sources:
     - name: "Eater"
       url: "https://www.eater.com"
       api_type: "web_scrape"
-      scrape_endpoint: "https://www.eater.com/search?q=wine&type=article"
+      scrape_endpoint: "https://www.eater.com/drinks"
       scrape_selector: ".c-entry-box"
+      static_scrape_verified: false
+      static_scrape_note: "VERIFIED 2026-06-01: /drinks returns HTTP 200 but the article cards are JS-hydrated (no <article> elements in static HTML). Needs a headless scraper. The old /search?q= endpoint is unreliable."
       categories: ["food", "drinks", "news"]
       language: "en"
       update_frequency: "daily"
@@ -237,6 +247,8 @@ sources:
       api_type: "web_scrape"
       scrape_endpoint: "https://www.wongnai.com/restaurants/search?q=wine+bar&q=whisky"
       scrape_selector: ".WnRestaurantCard"
+      static_scrape_verified: false
+      static_scrape_note: "VERIFIED 2026-06-01: this search URL 404s and Wongnai is a JS single-page app; static scraping returns no cards. Needs either a headless scraper or Wongnai's internal JSON API. High strategic value (Thai market) but blocked on tooling."
       categories: ["local_news", "restaurant_reviews", "wine_bars"]
       language: "th"
       update_frequency: "weekly"
