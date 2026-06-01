@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WNLQ9 — Content Brief Intake</title>
+    <style>
+      :root { --bg: #0f0f11; --card: #1a1a1f; --line: #2c2c34; --fg: #e8e8ea; --muted: #9a9aa3; --accent: #7c3aed; --ok: #16a34a; --err: #dc2626; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+      h1 { font-size: 22px; margin: 0 0 4px; }
+      p.sub { color: var(--muted); margin: 0 0 24px; }
+      form { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+      .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      label { display: block; margin: 12px 0 4px; font-size: 13px; color: var(--muted); }
+      input, select, textarea { width: 100%; background: #121216; color: var(--fg); border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px; font: inherit; }
+      textarea { min-height: 70px; resize: vertical; }
+      button { margin-top: 20px; width: 100%; background: var(--accent); color: #fff; border: 0; border-radius: 10px; padding: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
+      button:disabled { opacity: .6; cursor: default; }
+      #out { margin-top: 16px; padding: 12px 14px; border-radius: 10px; display: none; white-space: pre-wrap; word-break: break-word; }
+      #out.ok { display: block; background: #0c2a18; border: 1px solid var(--ok); }
+      #out.err { display: block; background: #2a0c0c; border: 1px solid var(--err); }
+      a { color: #c4b5fd; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Content Brief Intake</h1>
+      <p class="sub">Creates a row in <strong>2026 JUN — WNLQ9 — Content Production</strong>.</p>
+
+      <form id="form">
+        <label>Title *</label>
+        <input name="title" required placeholder="Terroir in One Minute" />
+
+        <div class="row">
+          <div>
+            <label>Site *</label>
+            <select name="site" required>
+              <option>Wine-Now</option>
+              <option>LIQ9</option>
+            </select>
+          </div>
+          <div>
+            <label>Type</label>
+            <select name="type">
+              <option value="">—</option>
+              <option>Pillar</option>
+              <option>Blog</option>
+              <option>Social</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Category</label>
+            <select name="category">
+              <option value="">—</option>
+              <option>Education</option>
+              <option>Pairing</option>
+              <option>Travel</option>
+              <option>Tips</option>
+              <option>Spotlights</option>
+            </select>
+          </div>
+          <div>
+            <label>Status</label>
+            <select name="status">
+              <option>Brief Ready</option>
+              <option>Not started</option>
+              <option>In progress</option>
+              <option>Review</option>
+              <option>Done</option>
+              <option>Published</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Day</label>
+            <input name="day" type="number" min="1" max="31" placeholder="3" />
+          </div>
+          <div>
+            <label>Publish Date</label>
+            <input name="publishDate" type="date" />
+          </div>
+        </div>
+
+        <label>Target Keyword</label>
+        <input name="targetKeyword" placeholder="what is terroir" />
+
+        <label>Content Brief</label>
+        <textarea name="contentBrief" placeholder="What the piece must cover…"></textarea>
+
+        <div class="row">
+          <div>
+            <label>STORY</label>
+            <textarea name="story"></textarea>
+          </div>
+          <div>
+            <label>TENSION</label>
+            <textarea name="tension"></textarea>
+          </div>
+        </div>
+
+        <label>CTA</label>
+        <input name="cta" placeholder="Shop terroir-driven wines" />
+
+        <button type="submit">Create row in Notion</button>
+      </form>
+
+      <div id="out"></div>
+    </div>
+
+    <script>
+      const form = document.getElementById("form");
+      const out = document.getElementById("out");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector("button");
+        btn.disabled = true;
+        out.className = "";
+        out.textContent = "";
+
+        const brief = {};
+        for (const [k, v] of new FormData(form).entries()) {
+          if (v !== "") brief[k] = v;
+        }
+
+        try {
+          const res = await fetch("/api/ingest", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(brief),
+          });
+          const data = await res.json();
+          if (data.ok && data.status === "created") {
+            out.className = "ok";
+            out.innerHTML = `✅ Created <strong>${data.briefId}</strong>\n<a href="${data.url}" target="_blank">Open in Notion →</a>`;
+            form.reset();
+          } else if (data.ok && data.status === "skipped") {
+            out.className = "ok";
+            out.innerHTML = `↩︎ Already exists: <strong>${data.briefId}</strong>\n<a href="${data.url}" target="_blank">Open in Notion →</a>`;
+          } else {
+            out.className = "err";
+            out.textContent = "⚠️ " + (data.errors ? data.errors.join("\n") : data.error || "Failed");
+          }
+        } catch (err) {
+          out.className = "err";
+          out.textContent = "⚠️ " + err.message;
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

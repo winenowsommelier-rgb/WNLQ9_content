@@ -1,1 +1,7 @@
 .env.production.local
+
+# Node / pipeline
+node_modules/
+.env
+.env.local
+.vercel/
