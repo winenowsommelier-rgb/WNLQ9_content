@@ -11,8 +11,7 @@ import { createSign } from "node:crypto";
 import { getConfig } from "./config.mjs";
 
 const TOKEN_URL = "https://oauth2.googleapis.com/token";
-const UPLOAD_URL =
-  "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true&fields=id";
+const UPLOAD_BASE = "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&supportsAllDrives=true";
 const SCOPE = "https://www.googleapis.com/auth/drive";
 
 export class DriveError extends Error {
@@ -84,39 +83,64 @@ export function createDriveClient({ config = getConfig(), fetchImpl = fetch } = 
     return data.access_token;
   }
 
+  // Shared multipart upload: metadata part + content part.
+  async function uploadMultipart({ metadata, contentType, content, fields = "id" }) {
+    const token = await getAccessToken();
+    const boundary = `wnlq9-${Date.now()}`;
+    const body =
+      `--${boundary}\r\n` +
+      `Content-Type: application/json; charset=UTF-8\r\n\r\n` +
+      `${JSON.stringify(metadata)}\r\n` +
+      `--${boundary}\r\n` +
+      `Content-Type: ${contentType}\r\n\r\n` +
+      `${content}\r\n` +
+      `--${boundary}--`;
+
+    const res = await fetchImpl(`${UPLOAD_BASE}&fields=${encodeURIComponent(fields)}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": `multipart/related; boundary=${boundary}`,
+      },
+      body,
+    });
+    const data = await res.json();
+    if (!res.ok) throw new DriveError(data?.error?.message || `Drive upload failed (${res.status})`);
+    return data;
+  }
+
   return {
     /**
-     * Create a Google Doc from an HTML body.
+     * Create a native Google Doc from an HTML body (Drive converts it).
      * @returns {Promise<{id: string, url: string}>}
      */
     async createDoc({ name, html, folderId = config.driveFolderId }) {
-      const token = await getAccessToken();
-      const boundary = `wnlq9-${Date.now()}`;
-      const metadata = {
-        name,
-        mimeType: "application/vnd.google-apps.document",
-        ...(folderId ? { parents: [folderId] } : {}),
-      };
-      const body =
-        `--${boundary}\r\n` +
-        `Content-Type: application/json; charset=UTF-8\r\n\r\n` +
-        `${JSON.stringify(metadata)}\r\n` +
-        `--${boundary}\r\n` +
-        `Content-Type: text/html; charset=UTF-8\r\n\r\n` +
-        `${html}\r\n` +
-        `--${boundary}--`;
-
-      const res = await fetchImpl(UPLOAD_URL, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": `multipart/related; boundary=${boundary}`,
+      const data = await uploadMultipart({
+        metadata: {
+          name,
+          mimeType: "application/vnd.google-apps.document",
+          ...(folderId ? { parents: [folderId] } : {}),
         },
-        body,
+        contentType: "text/html; charset=UTF-8",
+        content: html,
       });
-      const data = await res.json();
-      if (!res.ok) throw new DriveError(data?.error?.message || `Drive upload failed (${res.status})`);
       return { id: data.id, url: `https://docs.google.com/document/d/${data.id}/edit` };
+    },
+
+    /**
+     * Upload a full, self-contained .html file — stored as-is (NOT converted to
+     * a Doc), so widgets, schema, tables and styling are preserved for handoff.
+     * @returns {Promise<{id: string, url: string}>}
+     */
+    async uploadHtmlFile({ name, html, folderId = config.driveFolderId }) {
+      const fileName = name.endsWith(".html") ? name : `${name}.html`;
+      const data = await uploadMultipart({
+        metadata: { name: fileName, mimeType: "text/html", ...(folderId ? { parents: [folderId] } : {}) },
+        contentType: "text/html; charset=UTF-8",
+        content: html,
+        fields: "id,webViewLink",
+      });
+      return { id: data.id, url: data.webViewLink || `https://drive.google.com/file/d/${data.id}/view` };
     },
   };
 }

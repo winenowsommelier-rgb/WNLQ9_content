@@ -1,0 +1,10 @@
+{
+  "_comment": "Maps a Notion page id -> the self-contained article HTML file in public/content. Used by /api/approve to upload the full .html to Google Drive. You can also override per-request with { pageId, file }.",
+  "articles": {
+    "36e9d75a-e4b5-8177-a04d-d113068d4c51": "day1-wine-label-old-world-vs-new-world.html",
+    "36e9d75a-e4b5-8196-abed-e8f051a44b31": "day2-tannin.html",
+    "36e9d75a-e4b5-811f-a3f2-dee30fc82ee4": "day3-wine-storage-condo.html",
+    "36e9d75a-e4b5-81df-ada0-fb190dd204c8": "day5-natural-organic-biodynamic.html",
+    "36e9d75a-e4b5-81e4-9c9b-c3ebfb7c5971": "day5-proof-vs-abv.html"
+  }
+}

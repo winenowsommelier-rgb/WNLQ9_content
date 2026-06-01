@@ -68,3 +68,26 @@ test("approveToDrive refuses when drafts are missing", async () => {
   const drive = { async createDoc() { throw new Error("should not be called"); } };
   await assert.rejects(approveToDrive("page-1", { notion, drive }), /not generated/i);
 });
+
+test("approveToDrive uploads full HTML when a resolver provides it", async () => {
+  const notion = fakeNotion(rawPage({ title: "Old World", contentEN: "", contentTH: "" }));
+  const drive = {
+    uploaded: [],
+    async createDoc() { throw new Error("should not build a Doc when full HTML exists"); },
+    async uploadHtmlFile(file) {
+      this.uploaded.push(file);
+      return { id: "f1", url: "https://drive.google.com/file/d/f1/view" };
+    },
+  };
+  const resolveHtml = async () => ({ name: "Old World — Wine-Now.html", html: "<html>full</html>" });
+
+  const r = await approveToDrive("page-1", { notion, drive, resolveHtml });
+
+  assert.equal(r.status, "approved");
+  assert.equal(r.format, "html");
+  assert.equal(drive.uploaded.length, 1);
+  assert.match(drive.uploaded[0].name, /\.html$/);
+  const props = notion.calls.updated[0].props;
+  assert.equal(props["URL"].url, "https://drive.google.com/file/d/f1/view");
+  assert.deepEqual(props["Status"], { select: { name: "Done" } });
+});
