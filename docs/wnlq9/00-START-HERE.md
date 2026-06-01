@@ -21,30 +21,36 @@
 
 ---
 
-## ✅ What's DONE (verified in Notion 2026-06-01)
-- Market research complete — 40+ data points (auction records, CAGR %, producers, regions).
-- 10 new premium topics created with full briefs (5 Wine-Now, 5 LIQ9), Status = **"Not started"**.
-- Confirmed live in the database: *Portfolio Strategy*, *The Portugal Opportunity*, *Private
-  Château Tours* (implied set), *Mount Etna Renaissance* (set), *Provenance Matters* (set),
-  *Craft Spirits Investment*, *The Gin Boom*, *Fruit-Forward Spirits Collecting*, *Heirloom
-  Grains & Heritage Whiskeys* (set), *Spirits Portfolio Diversification*.
-- Mapping of old→new documented (see `01` §5 / `03` mapping).
+## ✅ What's DONE — GA4+GSC data-driven refresh (2026-06-01)
+**Major pivot:** the 10 premium *investment/collector* topics were found to have **zero search
+demand** (GSC) and wrong audience. Ran a full GA4 (90-day landing pages) + GSC (queries) pull
+for both sites, then executed a **~50% swap**:
+- **29 weak rows → trashed** (no demand / not GA performers / gimmick / luxury-niche). Parked in
+  Notion page **"🗑️ Cut from June Plan — 2026-06-01"** (`3729d75a-e4b5-81b7-b50f-db779ad9f5e5`),
+  recoverable. Includes all 10 premium topics + En Primeur, Pauillac, Wine Journal, Body, Wine
+  Faults, Brunch, Pizza/Lambrusco, Cheese Board, Beachfront (WN) and Ocean-Aged, Tasmanian,
+  Distillery Tourism, Vodka, Organic-spirits, Savory Cocktails, Post-Massage, Cigar, Infinity
+  Bottle, Japanese Gin/Yuzu (LIQ9).
+- **29 new demand-driven rows created** (14 WN + 15 LIQ9), each fully populated (Title, Site,
+  Type, Category, Week, Status=Not started, Target Keyword, KEY/TENSION/STORY, CTA, Content
+  Brief + body outline). Themes: most-expensive-wine (~60K imp), champagne/sparkling (~60K),
+  mainstream brands (Mondavi/Mouton Cadet/Penfolds), beginner TH education, grape guides (WN);
+  VSOP cognac, whisky 101, whisky/gin/tequila buying guides, Thai spirits, cocktails (LIQ9).
+- **25 keep rows completed:** parsed `Content Brief` → filled KEY/TENSION/STORY/CTA columns,
+  fixed Category mismatches (e.g. Tannin Pairing→Education, Why-Every-Gin Travel→Education),
+  set Status → **Brief Ready**.
+
+➡️ **Net active plan = 54 rows (25 keep + 29 new), ALL columns complete.** Mapping in `01` §5 is
+now superseded by this GA/GSC swap.
 
 ## ⚠️ OPEN ITEMS (the actual to-do list)
-1. **Old "Review" items were NOT deleted.** The new 10 were *added*, but old rows still
-   appear in the database (e.g. *Cheese Board x Wine*, *Singapore Bar Scene*, *Spirit
-   Spectrum*, *Buying Wine Online*, *Pauillac→Saint-Émilion*, *Bangkok Cocktail Renaissance*).
-   → **Decision needed:** delete/archive the old Review rows, or keep both? This is likely the
-   source of "I thought you replaced all the Review content already?"
-2. **Analysis columns are empty on many rows.** `KEY`, `TENSION`, `STORY`, `CTA` are filled on
-   some rows but blank on others — even though that info is bundled inside the `Content Brief`
-   column (`KEY: … / TENSION: … / STORY: …`). → **Task:** parse `Content Brief` into the
-   dedicated columns for every June row so the month plan is fully analyzable in table view.
-   (This is the "put data into all columns to analyse the month plan" request.)
-3. **Article text lives in page *bodies*, not in `Content EN` / `Content TH` columns** — those
-   columns are empty across rows. Decide whether to also mirror body text into the columns.
-4. **Production not started** — briefs still need to become 1200-1500 word articles (EN + TH),
-   images, SEO, scheduling. See `01` §6 checklist.
+1. **Production not started** — briefs are now complete; next is writing 1200-1500 word articles
+   (EN + TH) into page bodies / `Content EN`·`Content TH`, images, SEO, scheduling. Two rows
+   already have full Thai copy (*Rosé Myths*, partial others) as the style reference.
+2. **Body outlines** exist on the 29 new rows; the 25 keep rows have complete briefs in columns
+   but blank bodies — add production outlines (H2/FAQ/meta) if desired before writing.
+3. **Trash bin cleanup** — the connector can't reach system Trash, so cut rows live in the
+   "🗑️ Cut from June Plan" page. Empty it manually in Notion when confident.
 
 ---
 
