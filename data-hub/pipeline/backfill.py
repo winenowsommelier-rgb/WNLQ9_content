@@ -1,0 +1,575 @@
+"""Historical backfill orchestration for the Content Trend Data Hub.
+
+Where :mod:`pipeline.ingest` runs *daily* and captures whatever is fresh in
+each source's feed, this module seeds the hub with *past* content so trend
+analysis has history to work against. It reuses the same building blocks --
+the collectors, :class:`Deduplicator`, :class:`Categorizer`, and
+:class:`SheetsExporter` -- and adds two backfill-specific capabilities:
+
+1. **Date-window filtering.** Whatever the collectors return is filtered to a
+   trailing window (default the last 12 months) via :meth:`filter_by_date`.
+   The reference "now" is injectable (``reference_date``) so the windowing is
+   fully deterministic in tests.
+2. **Pagination / archive traversal.** Many WordPress feeds expose older items
+   behind ``?paged=2``, ``?paged=3`` ... so :meth:`build_paginated_urls` and
+   :meth:`collect_with_pagination` walk those pages, stopping as soon as a page
+   comes back empty.
+
+Results are written to a SEPARATE worksheet -- ``Historical_Backfill`` -- so
+the one-off historical seed never mixes with the daily ``Articles`` tab.
+
+----------------------------------------------------------------------------
+IMPORTANT LIMITATION (honest by design)
+----------------------------------------------------------------------------
+Standard RSS feeds only expose the most recent ~20-50 items, so RSS alone
+*cannot* truly reach back 12 months. WordPress ``?paged=`` pagination helps,
+but many sites cap how far it goes (or disable it entirely). Genuine 12-month
+historical depth requires one of:
+
+* archive-page scraping (year/month archive listings),
+* sitemap crawling, or
+* a paid content/news API.
+
+This engine collects as much as each source actually exposes and then filters
+by date. The same caveat is surfaced in the run summary's ``limitations`` key
+so callers are never misled about how deep the backfill really went.
+
+Entry point: ``python -m pipeline.backfill`` (see :func:`main`). This is a
+*manual / quarterly* job, NOT a daily cron task (see scripts/cron_setup.md).
+"""
+
+from __future__ import annotations
+
+import argparse
+import datetime
+import logging
+import os
+import sys
+from typing import Callable, Dict, List, Optional
+
+import yaml
+from dateutil import parser as date_parser
+
+from collectors.rss_collector import RSSCollector
+from collectors.web_scraper import WebScraper
+from exporters.sheets_exporter import SheetsExporter
+from processors.categorizer import Categorizer
+from processors.deduplicator import Deduplicator
+
+logger = logging.getLogger("pipeline.backfill")
+
+# The worksheet/tab historical content is written to, kept separate from the
+# daily "Articles" tab so the one-off seed never contaminates daily data.
+BACKFILL_SHEET_NAME = "Historical_Backfill"
+
+# Average days per month, used to convert a months-back window to a cutoff
+# date. Approximate by design -- a backfill window does not need calendar
+# precision, and this keeps the math dependency-free.
+_DAYS_PER_MONTH = 30.44
+
+# The honest caveat surfaced in the run summary (see module docstring).
+LIMITATIONS_NOTE = (
+    "RSS feeds typically expose only the most recent ~20-50 items, so "
+    "RSS-only sources cannot truly reach back the full window. WordPress "
+    "?paged= pagination extends this where supported, but many sites cap or "
+    "disable it. True multi-month historical depth requires archive-page "
+    "scraping, sitemap crawling, or a paid content/news API. This run "
+    "collected as much as each source exposed, then filtered by date."
+)
+
+# Selectors the WebScraper needs at minimum (mirrors pipeline.ingest).
+_REQUIRED_SCRAPER_SELECTORS = ("article", "title", "link")
+
+_DEFAULT_LOG_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"
+)
+
+
+class BackfillPipeline:
+    """Orchestrate paginated collect -> date filter -> dedup/categorize ->
+    export-to-Historical_Backfill.
+
+    Parameters
+    ----------
+    sources_config_path:
+        Path to the source registry YAML (``config/sources.yaml``).
+    sheet_id:
+        Target Google Sheet id. Used to build a :class:`SheetsExporter` when
+        one is not injected via ``exporter``.
+    exporter:
+        Pre-built exporter (or any object exposing
+        ``export_articles(articles, sheet_name) -> dict``). Injected by tests
+        so no real Google API access is required.
+    months_back:
+        Size of the trailing date window to keep, in months (default 12).
+    """
+
+    def __init__(
+        self,
+        sources_config_path: str = "config/sources.yaml",
+        sheet_id: Optional[str] = None,
+        exporter=None,
+        months_back: int = 12,
+    ) -> None:
+        self.sources_config_path = sources_config_path
+        self.sheet_id = sheet_id
+        self.months_back = months_back
+
+        if exporter is not None:
+            self.exporter = exporter
+        elif sheet_id is not None:
+            self.exporter = SheetsExporter(sheet_id=sheet_id)
+        else:
+            # Defer the failure to export() so collect/filter/process can
+            # still be exercised without a sheet.
+            self.exporter = None
+
+        self.deduplicator = Deduplicator()
+        self.categorizer = Categorizer()
+
+        # Optional fixed "now" for deterministic date filtering. When None,
+        # filter_by_date defaults to the real current time.
+        self.reference_date: Optional[datetime.datetime] = None
+
+        # Populated by build_collectors(); may be injected directly by tests.
+        self.collectors: List = []
+        self.errors: List[str] = []
+
+    # -- config ---------------------------------------------------------
+
+    def load_sources(self) -> Dict:
+        """Parse the sources YAML registry into a dict."""
+        with open(self.sources_config_path, "r", encoding="utf-8") as fh:
+            data = yaml.safe_load(fh)
+        return data or {}
+
+    # -- date windowing -------------------------------------------------
+
+    def filter_by_date(
+        self,
+        articles: List[Dict],
+        months_back: int,
+        reference_date: Optional[datetime.datetime] = None,
+    ) -> List[Dict]:
+        """Keep only articles published within ``months_back`` of the reference.
+
+        ``reference_date`` is injectable purely for deterministic tests; when
+        ``None`` it falls back to ``self.reference_date`` and then to the real
+        current UTC time.
+
+        Articles whose ``published_date`` is missing or unparseable are KEPT
+        (with a warning) rather than silently dropped -- we never throw away
+        data just because a date is messy.
+        """
+        ref = reference_date or self.reference_date or datetime.datetime.now(
+            datetime.timezone.utc
+        )
+        ref = self._ensure_aware(ref)
+        cutoff = ref - datetime.timedelta(days=_DAYS_PER_MONTH * months_back)
+
+        kept: List[Dict] = []
+        dropped = 0
+        undated = 0
+
+        for article in articles:
+            raw = article.get("published_date") if isinstance(article, dict) else None
+            parsed = self._parse_iso(raw)
+
+            if parsed is None:
+                # Unparseable / missing date -> keep, don't drop data.
+                undated += 1
+                logger.warning(
+                    "Article has missing/unparseable published_date %r; "
+                    "keeping it (url=%s)",
+                    raw,
+                    article.get("article_url") if isinstance(article, dict) else "?",
+                )
+                kept.append(article)
+                continue
+
+            if parsed >= cutoff:
+                kept.append(article)
+            else:
+                dropped += 1
+
+        logger.info(
+            "Date filter (last %d months, cutoff=%s): kept %d, dropped %d, "
+            "undated-kept %d",
+            months_back,
+            cutoff.date().isoformat(),
+            len(kept),
+            dropped,
+            undated,
+        )
+        return kept
+
+    @staticmethod
+    def _parse_iso(value) -> Optional[datetime.datetime]:
+        """Parse an ISO published_date to an aware UTC datetime, or None."""
+        if not value or not isinstance(value, str):
+            return None
+        try:
+            dt = date_parser.parse(value)
+        except (ValueError, OverflowError, TypeError):
+            return None
+        return BackfillPipeline._ensure_aware(dt)
+
+    @staticmethod
+    def _ensure_aware(dt: datetime.datetime) -> datetime.datetime:
+        """Normalize a datetime to timezone-aware UTC (assume UTC if naive)."""
+        if dt.tzinfo is None:
+            return dt.replace(tzinfo=datetime.timezone.utc)
+        return dt.astimezone(datetime.timezone.utc)
+
+    # -- pagination -----------------------------------------------------
+
+    def build_paginated_urls(
+        self, base_feed_url: str, max_pages: int
+    ) -> List[str]:
+        """Generate WordPress-style paginated feed URLs.
+
+        Page 1 is the base URL untouched; subsequent pages append a
+        ``paged=N`` query parameter. URLs that already carry a query string
+        get ``&paged=N`` instead of ``?paged=N``.
+        """
+        if max_pages < 1:
+            return []
+
+        urls = [base_feed_url]
+        separator = "&" if "?" in base_feed_url else "?"
+        for page in range(2, max_pages + 1):
+            urls.append(f"{base_feed_url}{separator}paged={page}")
+        return urls
+
+    def collect_with_pagination(
+        self,
+        collector_factory: Callable[[str], object],
+        base_url: str,
+        max_pages: int,
+    ) -> List[Dict]:
+        """Collect across paginated URLs, aggregating results.
+
+        ``collector_factory(url)`` builds a fresh collector pointed at each
+        page URL. Collection stops early as soon as a page returns zero
+        articles (the conventional signal there are no more pages). Each page
+        is collected fail-soft: a page that raises is logged/recorded and
+        skipped without aborting the remaining pages.
+        """
+        urls = self.build_paginated_urls(base_url, max_pages)
+        articles: List[Dict] = []
+
+        for url in urls:
+            try:
+                collector = collector_factory(url)
+                page_articles = collector.collect() or []
+            except Exception as exc:  # noqa: BLE001 -- fail soft per page
+                message = f"Pagination page {url!r} failed: {exc}"
+                logger.error(message)
+                self.errors.append(message)
+                continue
+
+            if not page_articles:
+                logger.info("Page %r returned 0 articles; stopping pagination", url)
+                break
+
+            logger.info("Page %r returned %d article(s)", url, len(page_articles))
+            articles.extend(page_articles)
+
+        return articles
+
+    # -- collector construction -----------------------------------------
+
+    def build_collectors(self) -> List:
+        """Instantiate collectors for supported sources (mirrors ingest).
+
+        Returns a list of ``(collector, source_dict)`` is intentionally NOT
+        used -- to keep pagination simple, RSS sources are returned as plain
+        :class:`RSSCollector` instances and their feed URL is read back off
+        the instance in :meth:`run`.
+        """
+        config = self.load_sources()
+        categories = config.get("sources", {}) or {}
+
+        collectors: List = []
+        for sources in categories.values():
+            for source in sources or []:
+                collector = self._build_one(source)
+                if collector is not None:
+                    collectors.append(collector)
+
+        logger.info(
+            "Built %d collector(s) from %s",
+            len(collectors),
+            self.sources_config_path,
+        )
+        self.collectors = collectors
+        return collectors
+
+    def _build_one(self, source: Dict):
+        """Build a single collector from one source config entry (or None)."""
+        name = source.get("name", "<unnamed>")
+        api_type = source.get("api_type")
+
+        if api_type == "rss":
+            feed = source.get("rss_feed")
+            if not feed:
+                logger.warning(
+                    "Skipping RSS source %r: no rss_feed configured", name
+                )
+                return None
+            return RSSCollector(name=name, feed_url=feed)
+
+        if api_type == "web_scrape":
+            selectors = source.get("selectors")
+            if not self._has_required_selectors(selectors):
+                logger.info(
+                    "Skipping web_scrape source %r: no full selectors yet", name
+                )
+                return None
+            listing_url = source.get("scrape_endpoint") or source.get("url")
+            return WebScraper(name=name, listing_url=listing_url, selectors=selectors)
+
+        if api_type in ("api", "keyword_monitor"):
+            logger.info(
+                "Skipping source %r (api_type=%r): not yet implemented",
+                name,
+                api_type,
+            )
+            return None
+
+        logger.warning("Skipping source %r: unknown api_type %r", name, api_type)
+        return None
+
+    @staticmethod
+    def _has_required_selectors(selectors) -> bool:
+        if not isinstance(selectors, dict):
+            return False
+        return all(selectors.get(key) for key in _REQUIRED_SCRAPER_SELECTORS)
+
+    # -- stages ---------------------------------------------------------
+
+    def collect_all(self, collectors: List, max_pages: int) -> List[Dict]:
+        """Collect from every collector, paginating RSS feeds where possible.
+
+        RSS collectors expose a ``feed_url`` we can paginate over; for those
+        we walk ``?paged=`` pages. Any other collector (or one without a
+        ``feed_url``) is collected once. All collection is fail-soft.
+        """
+        articles: List[Dict] = []
+
+        for collector in collectors:
+            name = getattr(collector, "name", repr(collector))
+            feed_url = getattr(collector, "feed_url", None)
+
+            if isinstance(collector, RSSCollector) and feed_url:
+                # Paginate this RSS feed; rebuild a fresh collector per page.
+                collected = self.collect_with_pagination(
+                    lambda url, _name=name: RSSCollector(name=_name, feed_url=url),
+                    feed_url,
+                    max_pages,
+                )
+            else:
+                try:
+                    collected = collector.collect() or []
+                except Exception as exc:  # noqa: BLE001 -- fail soft per source
+                    message = f"Collector {name!r} failed: {exc}"
+                    logger.error(message)
+                    self.errors.append(message)
+                    continue
+
+            logger.info("Collected %d article(s) from %r", len(collected), name)
+            articles.extend(collected)
+
+        logger.info(
+            "Collected %d article(s) total from %d collector(s)",
+            len(articles),
+            len(collectors),
+        )
+        return articles
+
+    def process(self, articles: List[Dict]) -> List[Dict]:
+        """Deduplicate (across all batches) then categorize."""
+        deduped = self.deduplicator.deduplicate(articles)
+        logger.info("Deduplicated %d -> %d article(s)", len(articles), len(deduped))
+        categorized = self.categorizer.categorize(deduped)
+        logger.info("Categorized %d article(s)", len(categorized))
+        return categorized
+
+    def export(self, articles: List[Dict]) -> Dict:
+        """Export processed articles to the Historical_Backfill worksheet."""
+        if self.exporter is None:
+            message = "No exporter configured (set sheet_id or inject exporter)"
+            logger.error(message)
+            self.errors.append(message)
+            return {"exported": 0, "error": message}
+
+        result = self.exporter.export_articles(
+            articles, sheet_name=BACKFILL_SHEET_NAME
+        )
+        logger.info(
+            "Exported %s article(s) to sheet %r",
+            result.get("exported"),
+            result.get("sheet", BACKFILL_SHEET_NAME),
+        )
+        if result.get("error"):
+            self.errors.append(f"Export error: {result['error']}")
+        return result
+
+    # -- orchestration --------------------------------------------------
+
+    def run(self, max_pages: int = 5) -> Dict:
+        """Run the full backfill and return a structured summary dict.
+
+        Stages: build_collectors (if none injected) -> collect_all (with
+        pagination) -> filter_by_date -> process -> export.
+        """
+        logger.info("=== Content Hub historical backfill starting ===")
+
+        collectors = self.collectors or self.build_collectors()
+
+        collected = self.collect_all(collectors, max_pages=max_pages)
+        filtered = self.filter_by_date(
+            collected, months_back=self.months_back,
+            reference_date=self.reference_date,
+        )
+        processed = self.process(filtered)
+        export_result = self.export(processed)
+
+        summary = {
+            "collected": len(collected),
+            "after_date_filter": len(filtered),
+            "after_dedup": len(processed),
+            "exported": export_result.get("exported", 0),
+            "months_back": self.months_back,
+            "sources_run": [getattr(c, "name", repr(c)) for c in collectors],
+            "errors": list(self.errors),
+            "limitations": LIMITATIONS_NOTE,
+        }
+
+        logger.info(
+            "=== Backfill complete: collected=%d after_date_filter=%d "
+            "after_dedup=%d exported=%s sources=%d errors=%d ===",
+            summary["collected"],
+            summary["after_date_filter"],
+            summary["after_dedup"],
+            summary["exported"],
+            len(summary["sources_run"]),
+            len(summary["errors"]),
+        )
+        return summary
+
+
+# -- logging setup -----------------------------------------------------------
+
+
+def configure_logging(
+    log_dir: str = _DEFAULT_LOG_DIR, level: int = logging.INFO
+) -> None:
+    """Configure root logging to logs/backfill.log and the console.
+
+    Idempotent: repeated calls do not stack duplicate handlers.
+    """
+    root = logging.getLogger()
+    root.setLevel(level)
+
+    if getattr(configure_logging, "_configured", False):
+        return
+
+    formatter = logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
+
+    console = logging.StreamHandler()
+    console.setFormatter(formatter)
+    root.addHandler(console)
+
+    try:
+        os.makedirs(log_dir, exist_ok=True)
+        file_handler = logging.FileHandler(os.path.join(log_dir, "backfill.log"))
+        file_handler.setFormatter(formatter)
+        root.addHandler(file_handler)
+    except OSError as exc:  # noqa: BLE001 -- logging must never crash the run
+        root.warning("Could not create log file in %s: %s", log_dir, exc)
+
+    configure_logging._configured = True  # type: ignore[attr-defined]
+
+
+# -- CLI entry point ---------------------------------------------------------
+
+
+def main(argv: Optional[List[str]] = None) -> int:
+    """CLI entry point: run the historical backfill pipeline.
+
+    Reads the target sheet id from ``--sheet-id`` or ``DATA_HUB_SHEET_ID``,
+    plus optional ``--months-back`` and ``--max-pages``. Prints the run
+    summary including the limitations note. Returns 0 on success, 1 on
+    failure.
+    """
+    parser = argparse.ArgumentParser(
+        description="Seed the Content Hub with historical content (backfill)."
+    )
+    parser.add_argument(
+        "--sheet-id",
+        default=os.environ.get("DATA_HUB_SHEET_ID"),
+        help="Target Google Sheet id (defaults to $DATA_HUB_SHEET_ID).",
+    )
+    parser.add_argument(
+        "--sources-config",
+        default="config/sources.yaml",
+        help="Path to the sources registry YAML.",
+    )
+    parser.add_argument(
+        "--months-back",
+        type=int,
+        default=12,
+        help="Trailing window to keep, in months (default 12).",
+    )
+    parser.add_argument(
+        "--max-pages",
+        type=int,
+        default=5,
+        help="Max paginated feed pages to walk per RSS source (default 5).",
+    )
+    args = parser.parse_args(argv)
+
+    configure_logging()
+
+    if not args.sheet_id:
+        logger.error(
+            "No sheet id provided. Set DATA_HUB_SHEET_ID or pass --sheet-id."
+        )
+        print(
+            "ERROR: no sheet id (set DATA_HUB_SHEET_ID or --sheet-id).",
+            file=sys.stderr,
+        )
+        return 1
+
+    try:
+        pipeline = BackfillPipeline(
+            sources_config_path=args.sources_config,
+            sheet_id=args.sheet_id,
+            months_back=args.months_back,
+        )
+        summary = pipeline.run(max_pages=args.max_pages)
+    except Exception as exc:  # noqa: BLE001 -- top-level guard for a clean exit
+        logger.exception("Backfill pipeline crashed: %s", exc)
+        print(f"ERROR: backfill pipeline failed: {exc}", file=sys.stderr)
+        return 1
+
+    print("Content Hub historical backfill summary:")
+    print(f"  months_back        : {summary['months_back']}")
+    print(f"  collected          : {summary['collected']}")
+    print(f"  after_date_filter  : {summary['after_date_filter']}")
+    print(f"  after_dedup        : {summary['after_dedup']}")
+    print(f"  exported           : {summary['exported']} -> {BACKFILL_SHEET_NAME}")
+    print(f"  sources_run        : {len(summary['sources_run'])}")
+    print(f"  errors             : {len(summary['errors'])}")
+    for error in summary["errors"]:
+        print(f"    - {error}")
+    print()
+    print("  LIMITATIONS:")
+    print(f"    {summary['limitations']}")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

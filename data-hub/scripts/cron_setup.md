@@ -98,4 +98,34 @@ exit code 0.
   `cron` under System Settings → Privacy & Security if it cannot read the repo.
 - To change the schedule (e.g. twice daily at 2 AM and 2 PM), use
   `0 2,14 * * *`.
+
+## 8. Historical backfill (manual / quarterly — NOT a daily cron job)
+
+Daily ingestion (`run_ingest.sh`) only captures what is *currently* in each
+source's feed. To seed the hub with *past* content there is a separate
+one-off job: `scripts/run_backfill.sh` (the `pipeline.backfill` module). It
+writes to a SEPARATE worksheet — **`Historical_Backfill`** — so historical
+data never mixes with the daily `Articles` tab.
+
+**Do not schedule this in cron alongside the daily run.** Run it:
+
+- **Once** after first setting up the hub, to seed history.
+- **Roughly quarterly** thereafter, mainly to backfill any newly added
+  sources.
+
+```bash
+cd /absolute/path/to/data-hub
+DATA_HUB_SHEET_ID=YOUR_SHEET_ID_HERE ./scripts/run_backfill.sh
+
+# Optional: wider window / deeper pagination
+DATA_HUB_SHEET_ID=YOUR_SHEET_ID_HERE ./scripts/run_backfill.sh --months-back 18 --max-pages 10
+```
+
+**Limitation (be realistic):** standard RSS feeds only expose the most recent
+~20–50 items, so RSS alone cannot truly reach back 12 months. WordPress
+`?paged=` pagination (which the engine walks automatically) extends this where
+supported, but many sites cap or disable it. Genuine multi-month depth needs
+archive-page scraping, sitemap crawling, or a paid content/news API. The
+engine collects as much as each source exposes, then filters by date, and
+prints this same caveat in its run summary.
 ```
