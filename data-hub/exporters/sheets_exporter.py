@@ -17,9 +17,16 @@ Setup instructions for credentials: docs/GOOGLE_SHEETS_SETUP.md.
 from __future__ import annotations
 
 import logging
+import re
 from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
+
+# An ISO-8601 datetime: a date, a 'T' (or space) separator, and a time, with an
+# optional fractional-seconds part and an optional 'Z'/+HH:MM timezone suffix.
+_ISO_DATETIME_RE = re.compile(
+    r"^(\d{4}-\d{2}-\d{2})[T ](\d{2}:\d{2}:\d{2})(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?$"
+)
 
 # Scope required to append values to a spreadsheet.
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
@@ -76,6 +83,11 @@ class SheetsExporter:
 
     TREND_SIGNAL_SEPARATOR = " | "
 
+    # Columns holding datetimes. Stored as Sheets-native "YYYY-MM-DD HH:MM:SS"
+    # strings so USER_ENTERED parses them as real dates (MIN/MAX, COUNTIF ">=",
+    # QUERY date literals all work). Resolved to indices in __init__.
+    DATE_COLUMNS = ("Published Date", "Collected Date")
+
     def __init__(
         self,
         sheet_id: str,
@@ -86,8 +98,30 @@ class SheetsExporter:
         # Lazy: built on first use via _get_service(). NOT connected here so
         # the object can be constructed without credentials (e.g. in tests).
         self._service = None
+        # Field names of the date columns, derived from COLUMNS by name (never
+        # hardcoded indices) so reordering COLUMNS can't silently misalign them.
+        self._date_fields = {
+            self._FIELD_BY_COLUMN[col] for col in self.DATE_COLUMNS
+        }
 
     # -- formatting -----------------------------------------------------
+
+    @staticmethod
+    def _to_sheets_datetime(value: str) -> str:
+        """Convert an ISO-8601 datetime to Sheets-native "YYYY-MM-DD HH:MM:SS".
+
+        - Empty / falsy -> "".
+        - ISO datetime (has a date + time, optional fractional seconds and
+          timezone) -> "YYYY-MM-DD HH:MM:SS" (drops fractional seconds and tz).
+        - Anything not matching ISO -> returned unchanged (don't crash).
+        """
+        if not value:
+            return ""
+        text = str(value).strip()
+        match = _ISO_DATETIME_RE.match(text)
+        if not match:
+            return str(value)
+        return f"{match.group(1)} {match.group(2)}"
 
     def header_row(self) -> List[str]:
         """Return the ordered column headers."""
@@ -111,6 +145,11 @@ class SheetsExporter:
         """Stringify a single field value for a spreadsheet cell."""
         if value is None:
             return ""
+
+        if field in self._date_fields:
+            # Normalise ISO datetimes to a Sheets-native string; leave
+            # empties as "" and unparseable values untouched.
+            return self._to_sheets_datetime(value)
 
         if field == "trend_signals":
             if isinstance(value, (list, tuple)):
@@ -142,15 +181,26 @@ class SheetsExporter:
         """
         rows = [self.format_article_row(article) for article in articles]
 
-        if include_header:
-            rows = [self.header_row()] + rows
-
         # Nothing to send (and no header requested): skip the API entirely.
-        if not rows:
+        if not rows and not include_header:
             return {"exported": 0, "sheet": sheet_name}
 
         try:
             service = self._get_service()
+
+            # Gap A: the append API can't auto-create tabs, so ensure the
+            # target tab exists first (fail-soft -- a metadata hiccup lets the
+            # append surface the real error).
+            self._ensure_tab_exists(service, sheet_name)
+
+            # Gap B: a fresh/empty tab gets a header row automatically so the
+            # dashboard QUERY ",1" header param and humans both have one. An
+            # explicit include_header=True still forces a header. A tab that
+            # already has data is appended to without a duplicate header.
+            prepend_header = include_header or self._tab_is_empty(service, sheet_name)
+            if prepend_header:
+                rows = [self.header_row()] + rows
+
             service.spreadsheets().values().append(
                 spreadsheetId=self.sheet_id,
                 range=f"{sheet_name}!A:O",
@@ -163,6 +213,70 @@ class SheetsExporter:
             return {"exported": 0, "error": str(exc)}
 
         return {"exported": len(articles), "sheet": sheet_name}
+
+    # -- tab management (Gap A / Gap B) ---------------------------------
+
+    def _ensure_tab_exists(self, service, sheet_name: str) -> None:
+        """Create ``sheet_name`` if it's not already a tab in the spreadsheet.
+
+        The Sheets append API does NOT auto-create tabs (appending to a missing
+        tab fails with "Unable to parse range"). This reads spreadsheet
+        metadata and, if the tab is absent, issues an ``addSheet`` batchUpdate.
+
+        Fail-soft: if metadata can't be read, log and return so the subsequent
+        append surfaces the real error rather than masking it here.
+        """
+        try:
+            meta = service.spreadsheets().get(spreadsheetId=self.sheet_id).execute()
+            titles = [
+                sheet["properties"]["title"]
+                for sheet in meta.get("sheets", [])
+                if "properties" in sheet and "title" in sheet["properties"]
+            ]
+        except Exception as exc:  # noqa: BLE001 -- fail soft; let append surface errors
+            logger.warning(
+                "Could not read spreadsheet metadata to ensure tab %r exists: %s",
+                sheet_name,
+                exc,
+            )
+            return
+
+        if sheet_name in titles:
+            return
+
+        service.spreadsheets().batchUpdate(
+            spreadsheetId=self.sheet_id,
+            body={"requests": [{"addSheet": {"properties": {"title": sheet_name}}}]},
+        ).execute()
+
+    def _tab_is_empty(self, service, sheet_name: str) -> bool:
+        """Return True if ``sheet_name`` has no existing rows in column A.
+
+        Fail-soft: on a read error, assume the tab is NOT empty so we never
+        inject a spurious header into a tab that already has data.
+        """
+        try:
+            result = (
+                service.spreadsheets()
+                .values()
+                .get(spreadsheetId=self.sheet_id, range=f"{sheet_name}!A1:A1")
+                .execute()
+            )
+        except Exception as exc:  # noqa: BLE001 -- fail soft
+            logger.warning(
+                "Could not probe tab %r for emptiness; assuming non-empty: %s",
+                sheet_name,
+                exc,
+            )
+            return False
+
+        values = result.get("values")
+        # A1:A1 returns a row only if the cell is populated. Treat a non-list
+        # (e.g. a MagicMock attribute) as "has data" so tests/real calls that
+        # don't model an empty tab don't get an unexpected header.
+        if not isinstance(values, list):
+            return False
+        return len(values) == 0
 
     # -- service seam (mocked in tests) ---------------------------------
 

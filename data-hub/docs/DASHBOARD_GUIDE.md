@@ -463,11 +463,14 @@ Language, which is *almost* SQL but has sharp edges:
    prefix and an ISO `yyyy-mm-dd` string. `WHERE D >= '2026-04-01'` (no `date`)
    fails or compares as text. For datetimes use `datetime 'yyyy-mm-dd HH:mm:ss'`.
 5. **The Published/Collected columns must be real dates** for date math to work
-   (MIN/MAX, COUNTIF `>=`, QUERY `date` literals). The exporter writes ISO
-   strings with `valueInputOption=USER_ENTERED`, which Sheets normally parses to
-   real dates. If a column behaves like text, select it → **Format → Number →
-   Date**, or wrap comparisons in `DATEVALUE(...)`. Symptom: MIN/MAX return blank
-   or 0, or `date` literals match nothing.
+   (MIN/MAX, COUNTIF `>=`, QUERY `date` literals). The exporter normalises ISO
+   timestamps to Sheets-native `YYYY-MM-DD HH:MM:SS` strings and writes them with
+   `valueInputOption=USER_ENTERED`, so Sheets parses them as real datetimes. (Raw
+   ISO 8601 like `2026-06-01T09:27:45Z` lands as *text*, which makes MIN/MAX
+   return the epoch and `>=` counters return 0 — that's why the exporter strips
+   the `T`/`Z` first.) If a column ever behaves like text anyway, select it →
+   **Format → Number → Date**, or wrap comparisons in `DATEVALUE(...)`. Symptom:
+   MIN/MAX return blank or 0, or `date` literals match nothing.
 6. **`LABEL` renames aggregate columns.** Without `LABEL COUNT(C) 'Articles'`,
    the header reads `count`. Put `LABEL` *after* `ORDER BY`/`LIMIT`.
 7. **`LIMIT`/`OFFSET` go before `LABEL`** and after `ORDER BY`. Clause order:

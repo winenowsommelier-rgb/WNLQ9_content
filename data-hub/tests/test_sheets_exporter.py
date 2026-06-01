@@ -8,6 +8,7 @@ network access are ever required.
 
 from __future__ import annotations
 
+from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -45,14 +46,52 @@ def full_article():
     }
 
 
-def _make_mock_service():
-    """Build a mock googleapiclient service whose append().execute() is tracked."""
+def _make_mock_service(existing_tabs=("Articles",), tab_rows=1):
+    """Build a mock googleapiclient service whose API calls are tracked.
+
+    - ``existing_tabs``: tab titles reported by spreadsheets().get() metadata.
+    - ``tab_rows``: number of existing data rows the target tab reports via
+      values().get() (0 => empty tab => auto-header expected).
+
+    Returns ``(service, calls)`` where ``calls`` exposes append/get/batchUpdate.
+    """
     service = MagicMock()
-    append = service.spreadsheets.return_value.values.return_value.append
-    append.return_value.execute.return_value = {
-        "updates": {"updatedRows": 1}
+    spreadsheets = service.spreadsheets.return_value
+
+    # values().append(...).execute()
+    append = spreadsheets.values.return_value.append
+    append.return_value.execute.return_value = {"updates": {"updatedRows": 1}}
+
+    # spreadsheets().get(...).execute() -> metadata with sheet titles
+    meta_get = spreadsheets.get
+    meta_get.return_value.execute.return_value = {
+        "sheets": [
+            {"properties": {"title": title}} for title in existing_tabs
+        ]
     }
-    return service, append
+
+    # values().get(...).execute() -> emptiness probe of the target tab
+    values_get = spreadsheets.values.return_value.get
+    rows = [["x"]] * tab_rows
+    values_get.return_value.execute.return_value = {"values": rows}
+
+    # spreadsheets().batchUpdate(...).execute()
+    batch_update = spreadsheets.batchUpdate
+    batch_update.return_value.execute.return_value = {}
+
+    calls = SimpleNamespace(
+        append=append,
+        meta_get=meta_get,
+        values_get=values_get,
+        batch_update=batch_update,
+    )
+    return service, calls
+
+
+def _make_legacy_mock_service():
+    """Back-compat shim returning (service, append) like the original helper."""
+    service, calls = _make_mock_service()
+    return service, calls.append
 
 
 def test_format_article_row_orders_fields(exporter, full_article):
@@ -61,7 +100,7 @@ def test_format_article_row_orders_fields(exporter, full_article):
         "Decanter",
         "Bordeaux 2024: A Buying Guide",
         "https://www.decanter.com/articles/bordeaux-2024",
-        "2024-05-15T09:30:00Z",
+        "2024-05-15 09:30:00",  # Gap C: ISO datetime -> Sheets-native
         "Jane Anson",
         "A guide to the 2024 Bordeaux en primeur campaign.",
         "guide",
@@ -71,7 +110,7 @@ def test_format_article_row_orders_fields(exporter, full_article):
         "wine",
         "enthusiast",
         "high",
-        "2024-05-16T14:22:00Z",
+        "2024-05-16 14:22:00",  # Gap C: ISO datetime -> Sheets-native
         "en",
     ]
     assert len(row) == len(SheetsExporter.COLUMNS)
@@ -102,7 +141,8 @@ def test_header_row_matches_columns(exporter):
 
 
 def test_export_articles_calls_api(exporter, full_article):
-    service, append = _make_mock_service()
+    # Tab already exists and already has data -> append only, no header.
+    service, append = _make_legacy_mock_service()
     with patch.object(exporter, "_get_service", return_value=service):
         result = exporter.export_articles([full_article])
 
@@ -118,7 +158,7 @@ def test_export_articles_calls_api(exporter, full_article):
 
 
 def test_export_articles_with_header(exporter, full_article):
-    service, append = _make_mock_service()
+    service, append = _make_legacy_mock_service()
     with patch.object(exporter, "_get_service", return_value=service):
         result = exporter.export_articles([full_article], include_header=True)
 
@@ -144,8 +184,115 @@ def test_export_handles_api_error(exporter, full_article):
 
 
 def test_export_empty_list_no_api_call(exporter):
-    service, append = _make_mock_service()
+    service, append = _make_legacy_mock_service()
     with patch.object(exporter, "_get_service", return_value=service):
         result = exporter.export_articles([])
     assert result["exported"] == 0
     append.assert_not_called()
+
+
+# -- Gap C: ISO date -> Sheets-native datetime ------------------------------
+
+
+def test_format_converts_iso_dates_to_sheets_format(exporter):
+    article = {
+        "title": "Dated Article",
+        "published_date": "2026-06-01T09:27:45Z",
+        "collected_date": "2026-05-31T10:00:00Z",
+    }
+    row = exporter.format_article_row(article)
+    pub_idx = SheetsExporter.COLUMNS.index("Published Date")
+    col_idx = SheetsExporter.COLUMNS.index("Collected Date")
+    assert row[pub_idx] == "2026-06-01 09:27:45"
+    assert row[col_idx] == "2026-05-31 10:00:00"
+
+
+def test_format_leaves_nondate_fields_untouched(exporter, full_article):
+    row = exporter.format_article_row(full_article)
+    assert row[SheetsExporter.COLUMNS.index("Title")] == "Bordeaux 2024: A Buying Guide"
+    assert (
+        row[SheetsExporter.COLUMNS.index("Excerpt")]
+        == "A guide to the 2024 Bordeaux en primeur campaign."
+    )
+    assert row[SheetsExporter.COLUMNS.index("Source")] == "Decanter"
+    assert row[SheetsExporter.COLUMNS.index("URL")] == (
+        "https://www.decanter.com/articles/bordeaux-2024"
+    )
+    # But the date columns WERE converted (T -> space, no Z).
+    assert row[SheetsExporter.COLUMNS.index("Published Date")] == "2024-05-15 09:30:00"
+    assert row[SheetsExporter.COLUMNS.index("Collected Date")] == "2024-05-16 14:22:00"
+    assert len(row) == len(SheetsExporter.COLUMNS)
+
+
+def test_format_handles_empty_or_bad_date(exporter):
+    article = {
+        "published_date": "",            # empty -> ""
+        "collected_date": "not a date",  # garbage -> unchanged, no crash
+    }
+    row = exporter.format_article_row(article)
+    assert row[SheetsExporter.COLUMNS.index("Published Date")] == ""
+    assert row[SheetsExporter.COLUMNS.index("Collected Date")] == "not a date"
+    assert len(row) == len(SheetsExporter.COLUMNS)
+
+
+# -- Gap A: auto-create missing tab -----------------------------------------
+
+
+def test_ensure_tab_creates_missing(exporter, full_article):
+    # Metadata reports only "Sheet1"; exporting to "Articles" must addSheet it.
+    service, calls = _make_mock_service(existing_tabs=("Sheet1",), tab_rows=0)
+    with patch.object(exporter, "_get_service", return_value=service):
+        exporter.export_articles([full_article], sheet_name="Articles")
+
+    calls.batch_update.assert_called_once()
+    _, kwargs = calls.batch_update.call_args
+    requests = kwargs["body"]["requests"]
+    titles = [r["addSheet"]["properties"]["title"] for r in requests]
+    assert "Articles" in titles
+
+
+def test_ensure_tab_skips_existing(exporter, full_article):
+    # "Articles" already present -> no addSheet batchUpdate.
+    service, calls = _make_mock_service(existing_tabs=("Articles",), tab_rows=1)
+    with patch.object(exporter, "_get_service", return_value=service):
+        exporter.export_articles([full_article], sheet_name="Articles")
+
+    calls.batch_update.assert_not_called()
+
+
+def test_ensure_tab_failsoft(exporter, full_article):
+    # Metadata get raises -> export still attempts append, doesn't crash.
+    service, calls = _make_mock_service(existing_tabs=("Articles",), tab_rows=1)
+    calls.meta_get.return_value.execute.side_effect = RuntimeError("meta boom")
+    with patch.object(exporter, "_get_service", return_value=service):
+        result = exporter.export_articles([full_article], sheet_name="Articles")
+
+    calls.append.assert_called_once()
+    assert result["exported"] == 1
+
+
+# -- Gap B: auto-header on an empty tab -------------------------------------
+
+
+def test_export_empty_tab_auto_prepends_header(exporter, full_article):
+    # Empty tab (values get returns no rows) -> appended rows start with header.
+    service, calls = _make_mock_service(existing_tabs=("Articles",), tab_rows=0)
+    with patch.object(exporter, "_get_service", return_value=service):
+        exporter.export_articles([full_article], sheet_name="Articles")
+
+    _, kwargs = calls.append.call_args
+    rows = kwargs["body"]["values"]
+    assert rows[0] == exporter.header_row()
+    assert rows[1] == exporter.format_article_row(full_article)
+
+
+def test_export_nonempty_tab_no_header(exporter, full_article):
+    # Tab already has rows -> header NOT prepended.
+    service, calls = _make_mock_service(existing_tabs=("Articles",), tab_rows=3)
+    with patch.object(exporter, "_get_service", return_value=service):
+        exporter.export_articles([full_article], sheet_name="Articles")
+
+    _, kwargs = calls.append.call_args
+    rows = kwargs["body"]["values"]
+    assert rows[0] == exporter.format_article_row(full_article)
+    assert rows[0] != exporter.header_row()
