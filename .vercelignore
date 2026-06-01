@@ -1,0 +1,6 @@
+supabase/
+docs/
+.claude/
+.github/
+*.md
+.env.production.local
