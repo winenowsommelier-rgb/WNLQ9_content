@@ -145,9 +145,30 @@ The Google client libraries are already pinned in `requirements.txt`:
 - `google-auth-oauthlib`
 - `google-auth-httplib2`
 
-Run a quick export to confirm everything is wired up. If the first row in
-your sheet shows the column headers (Source, Title, URL, …) and your
-articles below, you're done.
+### Verify with one command (recommended)
+
+Instead of guessing whether each step worked, run the preflight verifier:
+
+```bash
+export DATA_HUB_SHEET_ID="your-sheet-id"
+./scripts/verify_sheets_setup.sh            # read-only checks
+./scripts/verify_sheets_setup.sh --write    # also append one test row
+```
+
+It runs five checks and prints a clear PASS/FAIL report with the exact fix
+for each failure mode:
+
+1. Google client libraries installed
+2. `config/google-credentials.json` exists and is a valid service-account key
+   (it prints the `client_email` you must share the sheet with — Step 5)
+3. Sheet ID present
+4. Live connection + access (distinguishes **403 = not shared** from
+   **404 = wrong sheet ID**)
+5. Optional test write to a throwaway `Setup_Test` tab (safe to delete after)
+
+When every check shows `PASS`, you're done — run `./scripts/run_ingest.sh`
+for the first real collection. If you ran with `--write`, delete the
+`Setup_Test` tab afterwards.
 
 ---
 
