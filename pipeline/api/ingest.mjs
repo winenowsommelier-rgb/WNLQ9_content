@@ -2,7 +2,7 @@
 //
 // Required env: NOTION_TOKEN, INGEST_SECRET.  Optional: NOTION_DATABASE_ID.
 
-import { ingestBrief } from "../../src/ingest.mjs";
+import { ingestBrief } from "../src/ingest.mjs";
 import { requireSecret } from "./_auth.mjs";
 
 export default async function handler(req, res) {

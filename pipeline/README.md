@@ -11,24 +11,27 @@ A web **control-panel dashboard** drives the whole thing; a CLI handles batch
 intake. Dependency-free (Node 22 native `fetch`, no SDK, no build step), so it
 runs locally, in CI, or on Vercel.
 
+`pipeline/` is the self-contained Vercel deploy root (`api/` + `public/` +
+`src/` colocated — no out-of-root imports).
+
 ```
-pipeline/
+pipeline/                ← Vercel Root Directory
+├── api/                Vercel serverless endpoints (see below)
+├── public/             index.html (control panel) + intake.html (brief form)
 ├── src/
-│   ├── config.mjs     endpoints, DB id, canonical options, env wiring
-│   ├── validate.mjs   brief validation + defaults + Category↔Week derivation
-│   ├── mapping.mjs    brief → Notion `properties` (exact column names, chunked)
-│   ├── notion.mjs     REST client: create / update / list / page-comment log
-│   ├── llm.mjs        Anthropic draft generation (EN + TH) with prompt caching
-│   ├── docbuilder.mjs markdown → HTML body for the Google Doc
-│   ├── drive.mjs      Google Drive Doc creation (service-account JWT)
-│   ├── pipeline.mjs   lifecycle: generateDrafts · approveToDrive
-│   ├── ingest.mjs     intake: validate → dedupe → map → create
-│   └── cli.mjs        batch ingest from a JSON file
-├── dashboard/
-│   ├── api/           Vercel serverless endpoints (see below)
-│   └── public/        index.html (control panel) + intake.html (brief form)
-├── examples/          sample-briefs.json
-└── test/              34 offline unit tests (node:test)
+│   ├── config.mjs      endpoints, DB id, canonical options, env wiring
+│   ├── validate.mjs    brief validation + defaults + Category↔Week derivation
+│   ├── mapping.mjs     brief → Notion `properties` (exact column names, chunked)
+│   ├── notion.mjs      REST client: create / update / list / page-comment log
+│   ├── llm.mjs         Anthropic draft generation (EN + TH) with prompt caching
+│   ├── docbuilder.mjs  markdown → HTML body for the Google Doc
+│   ├── drive.mjs       Google Drive Doc creation (service-account JWT)
+│   ├── pipeline.mjs    lifecycle: generateDrafts · approveToDrive
+│   ├── ingest.mjs      intake: validate → dedupe → map → create
+│   └── cli.mjs         batch ingest from a JSON file
+├── vercel.json         static (public/) + functions (api/*.mjs)
+├── examples/           sample-briefs.json
+└── test/               34 offline unit tests (node:test)
 ```
 
 ## Dashboard API
@@ -121,12 +124,13 @@ either `category` or `weekTheme` — the other is derived. A stable `briefId`
 
 ## Dashboard (Vercel)
 
-`dashboard/public/index.html` is the **control panel** (lists items, shows the
-status pipeline, review pane, and per-item activity log, with Generate / Approve
+`public/index.html` is the **control panel** (lists items, shows the status
+pipeline, review pane, and per-item activity log, with Generate / Approve
 actions). `intake.html` is the brief form. Both call the serverless API in
-`dashboard/api/`.
+`api/`.
 
-Deploy with project root `pipeline/dashboard` and set these env vars:
+**Vercel project settings:** Root Directory = `pipeline`, Framework Preset =
+`Other` (it is *not* a Next.js app). Then set these env vars:
 
 | Env var                       | Required for | Purpose |
 |-------------------------------|--------------|---------|

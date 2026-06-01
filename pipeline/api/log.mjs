@@ -1,6 +1,6 @@
 // GET /api/log?pageId=... -> activity log (Notion page comments), oldest first.
 
-import { createClient } from "../../src/notion.mjs";
+import { createClient } from "../src/notion.mjs";
 import { requireSecret } from "./_auth.mjs";
 
 export default async function handler(req, res) {

@@ -1,9 +1,10 @@
-// POST /api/generate { pageId } -> draft Content EN + TH, move row to Review.
+// POST /api/approve { pageId } -> create the Google Doc, link back, mark Done.
 //
-// Additional env: ANTHROPIC_API_KEY (optional ANTHROPIC_MODEL).
+// Additional env: GOOGLE_SERVICE_ACCOUNT_JSON, DRIVE_FOLDER_ID.
 
-import { createClient } from "../../src/notion.mjs";
-import { generateDrafts } from "../../src/pipeline.mjs";
+import { createDriveClient } from "../src/drive.mjs";
+import { createClient } from "../src/notion.mjs";
+import { approveToDrive } from "../src/pipeline.mjs";
 import { requireSecret } from "./_auth.mjs";
 
 export default async function handler(req, res) {
@@ -19,7 +20,10 @@ export default async function handler(req, res) {
       res.status(400).json({ ok: false, error: "pageId is required" });
       return;
     }
-    const result = await generateDrafts(body.pageId, { notion: createClient() });
+    const result = await approveToDrive(body.pageId, {
+      notion: createClient(),
+      drive: createDriveClient(),
+    });
     res.status(200).json({ ok: true, ...result });
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });

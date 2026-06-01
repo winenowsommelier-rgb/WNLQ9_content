@@ -1,6 +1,6 @@
 // GET /api/items -> all content rows from Notion, normalized for the dashboard.
 
-import { createClient } from "../../src/notion.mjs";
+import { createClient } from "../src/notion.mjs";
 import { requireSecret } from "./_auth.mjs";
 
 export default async function handler(req, res) {
