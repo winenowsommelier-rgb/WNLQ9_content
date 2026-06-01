@@ -271,11 +271,16 @@ class SheetsExporter:
             return False
 
         values = result.get("values")
-        # A1:A1 returns a row only if the cell is populated. Treat a non-list
-        # (e.g. a MagicMock attribute) as "has data" so tests/real calls that
-        # don't model an empty tab don't get an unexpected header.
+        # The REAL Sheets API OMITS the 'values' key entirely for an empty
+        # range (e.g. {'range': 'Articles!A1', 'majorDimension': 'ROWS'}), so a
+        # missing key means the tab is genuinely empty.
+        if values is None:
+            return True
+        # Defensive: any unexpected, non-list shape -> assume non-empty so we
+        # never inject a header into a tab that already has data.
         if not isinstance(values, list):
             return False
+        # 'values' present but [] -> empty; present with rows -> non-empty.
         return len(values) == 0
 
     # -- service seam (mocked in tests) ---------------------------------

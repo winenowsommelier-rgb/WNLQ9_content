@@ -46,12 +46,16 @@ def full_article():
     }
 
 
-def _make_mock_service(existing_tabs=("Articles",), tab_rows=1):
+def _make_mock_service(existing_tabs=("Articles",), tab_rows=1, empty_shape="real"):
     """Build a mock googleapiclient service whose API calls are tracked.
 
     - ``existing_tabs``: tab titles reported by spreadsheets().get() metadata.
     - ``tab_rows``: number of existing data rows the target tab reports via
       values().get() (0 => empty tab => auto-header expected).
+    - ``empty_shape``: how an empty tab (tab_rows == 0) is modelled by the
+      values().get() probe. ``"real"`` reproduces the REAL Sheets API, which
+      OMITS the ``values`` key entirely for an empty range; ``"values_list"``
+      uses the synthetic ``{"values": []}`` shape the real API never returns.
 
     Returns ``(service, calls)`` where ``calls`` exposes append/get/batchUpdate.
     """
@@ -70,10 +74,19 @@ def _make_mock_service(existing_tabs=("Articles",), tab_rows=1):
         ]
     }
 
-    # values().get(...).execute() -> emptiness probe of the target tab
+    # values().get(...).execute() -> emptiness probe of the target tab.
+    # The REAL Sheets API omits the 'values' key entirely for an empty range,
+    # so model that by default; only populated ranges carry a 'values' list.
     values_get = spreadsheets.values.return_value.get
-    rows = [["x"]] * tab_rows
-    values_get.return_value.execute.return_value = {"values": rows}
+    if tab_rows == 0 and empty_shape == "real":
+        probe = {"range": "Articles!A1", "majorDimension": "ROWS"}
+    else:
+        probe = {
+            "range": "Articles!A1",
+            "majorDimension": "ROWS",
+            "values": [["x"]] * tab_rows,
+        }
+    values_get.return_value.execute.return_value = probe
 
     # spreadsheets().batchUpdate(...).execute()
     batch_update = spreadsheets.batchUpdate
@@ -271,12 +284,65 @@ def test_ensure_tab_failsoft(exporter, full_article):
     assert result["exported"] == 1
 
 
+# -- _tab_is_empty: real Sheets API contract --------------------------------
+
+
+def test_tab_is_empty_when_no_values_key(exporter):
+    # The REAL Sheets API omits 'values' entirely for a genuinely empty range.
+    service = MagicMock()
+    probe = service.spreadsheets.return_value.values.return_value.get
+    probe.return_value.execute.return_value = {
+        "range": "Articles!A1",
+        "majorDimension": "ROWS",
+    }
+    assert exporter._tab_is_empty(service, "Articles") is True
+
+
+def test_tab_is_empty_when_empty_values_list(exporter):
+    # Synthetic empty shape (the real API doesn't emit this, but be tolerant).
+    service = MagicMock()
+    probe = service.spreadsheets.return_value.values.return_value.get
+    probe.return_value.execute.return_value = {"values": []}
+    assert exporter._tab_is_empty(service, "Articles") is True
+
+
+def test_tab_not_empty_when_has_row(exporter):
+    service = MagicMock()
+    probe = service.spreadsheets.return_value.values.return_value.get
+    probe.return_value.execute.return_value = {"values": [["Source"]]}
+    assert exporter._tab_is_empty(service, "Articles") is False
+
+
+def test_tab_is_empty_failsoft_on_error(exporter):
+    # A read error must fail soft to NON-empty so no header is injected blindly.
+    service = MagicMock()
+    probe = service.spreadsheets.return_value.values.return_value.get
+    probe.return_value.execute.side_effect = RuntimeError("read boom")
+    assert exporter._tab_is_empty(service, "Articles") is False
+
+
 # -- Gap B: auto-header on an empty tab -------------------------------------
 
 
 def test_export_empty_tab_auto_prepends_header(exporter, full_article):
-    # Empty tab (values get returns no rows) -> appended rows start with header.
-    service, calls = _make_mock_service(existing_tabs=("Articles",), tab_rows=0)
+    # Real empty tab (probe omits 'values' key) -> appended rows start w/ header.
+    service, calls = _make_mock_service(
+        existing_tabs=("Articles",), tab_rows=0, empty_shape="real"
+    )
+    with patch.object(exporter, "_get_service", return_value=service):
+        exporter.export_articles([full_article], sheet_name="Articles")
+
+    _, kwargs = calls.append.call_args
+    rows = kwargs["body"]["values"]
+    assert rows[0] == exporter.header_row()
+    assert rows[1] == exporter.format_article_row(full_article)
+
+
+def test_export_empty_tab_auto_prepends_header_values_list_shape(exporter, full_article):
+    # Synthetic empty shape ({"values": []}) must also trigger the auto-header.
+    service, calls = _make_mock_service(
+        existing_tabs=("Articles",), tab_rows=0, empty_shape="values_list"
+    )
     with patch.object(exporter, "_get_service", return_value=service):
         exporter.export_articles([full_article], sheet_name="Articles")
 
