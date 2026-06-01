@@ -46,8 +46,8 @@ function date(value) {
 export function briefToNotionProperties(brief) {
   const props = {};
 
-  // Title (required)
-  props["Title"] = title(brief.title);
+  // Title (required on create; omitted on partial updates)
+  if (brief.title != null) props["Title"] = title(brief.title);
 
   // Selects
   if (brief.status) props["Status"] = select(brief.status);

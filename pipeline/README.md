@@ -1,25 +1,50 @@
-# WNLQ9 Content Production — Ingest Pipeline
+# WNLQ9 Content Production Pipeline
 
-Turns a **content brief** (from the web Dashboard or a JSON batch) into a row in
-the Notion database **`2026 JUN — WNLQ9 — Content Production`**.
+Runs the full content lifecycle for **`2026 JUN — WNLQ9 — Content Production`**:
 
-This is the source for the *Dashboard → Notion* flow verified by the live E2E
-test. It is dependency-free (Node 22 native `fetch`, no SDK, no build step), so
-it runs anywhere Node 22+ is available — locally, in CI, or on Vercel.
+```
+ Brief intake ──▶ Notion row ──▶ generate EN+TH drafts ──▶ review ──▶ Google Doc ──▶ Published
+                  (source of truth, status + activity log)            (link back to Notion)
+```
+
+A web **control-panel dashboard** drives the whole thing; a CLI handles batch
+intake. Dependency-free (Node 22 native `fetch`, no SDK, no build step), so it
+runs locally, in CI, or on Vercel.
 
 ```
 pipeline/
 ├── src/
-│   ├── config.mjs    Notion endpoint, DB id, and canonical select options
-│   ├── validate.mjs  brief validation + defaults + Category↔Week derivation
-│   ├── mapping.mjs   brief → Notion `properties` payload (exact column names)
-│   ├── notion.mjs    thin Notion REST client (createRow / findByBriefId)
-│   ├── ingest.mjs    orchestration: validate → dedupe → map → create
-│   └── cli.mjs       batch ingest from a JSON file
-├── dashboard/        web intake form + Vercel serverless /api/ingest
-├── examples/         sample-briefs.json
-└── test/             offline unit tests (node:test)
+│   ├── config.mjs     endpoints, DB id, canonical options, env wiring
+│   ├── validate.mjs   brief validation + defaults + Category↔Week derivation
+│   ├── mapping.mjs    brief → Notion `properties` (exact column names, chunked)
+│   ├── notion.mjs     REST client: create / update / list / page-comment log
+│   ├── llm.mjs        Anthropic draft generation (EN + TH) with prompt caching
+│   ├── docbuilder.mjs markdown → HTML body for the Google Doc
+│   ├── drive.mjs      Google Drive Doc creation (service-account JWT)
+│   ├── pipeline.mjs   lifecycle: generateDrafts · approveToDrive
+│   ├── ingest.mjs     intake: validate → dedupe → map → create
+│   └── cli.mjs        batch ingest from a JSON file
+├── dashboard/
+│   ├── api/           Vercel serverless endpoints (see below)
+│   └── public/        index.html (control panel) + intake.html (brief form)
+├── examples/          sample-briefs.json
+└── test/              34 offline unit tests (node:test)
 ```
+
+## Dashboard API
+
+All endpoints require the `X-Ingest-Secret` header (fail-closed on `INGEST_SECRET`).
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/items`    | GET  | List all rows from Notion (normalized) |
+| `/api/ingest`   | POST | Create a row from a brief |
+| `/api/generate` | POST `{pageId}` | Draft Content EN + TH → status `Review` |
+| `/api/approve`  | POST `{pageId}` | Create Google Doc → link back → status `Done` |
+| `/api/log`      | GET `?pageId=` | Activity log (Notion page comments) |
+
+The activity log is stored as **Notion page comments**, so every step is visible
+both in the dashboard and directly in Notion.
 
 ## Setup
 
@@ -96,22 +121,27 @@ either `category` or `weekTheme` — the other is derived. A stable `briefId`
 
 ## Dashboard (Vercel)
 
-`dashboard/` is a static intake form (`public/index.html`) backed by a
-serverless function (`api/ingest.mjs`) that calls the same ingest core.
+`dashboard/public/index.html` is the **control panel** (lists items, shows the
+status pipeline, review pane, and per-item activity log, with Generate / Approve
+actions). `intake.html` is the brief form. Both call the serverless API in
+`dashboard/api/`.
 
-Deploy with project root `pipeline/dashboard` and set these env vars in the
-Vercel project:
+Deploy with project root `pipeline/dashboard` and set these env vars:
 
-| Env var             | Required | Purpose |
-|---------------------|----------|---------|
-| `NOTION_TOKEN`      | yes      | Notion integration secret (server-side only) |
-| `INGEST_SECRET`     | yes      | Shared passphrase callers must present (`X-Ingest-Secret` header) |
-| `NOTION_DATABASE_ID`| no       | Override target database |
+| Env var                       | Required for | Purpose |
+|-------------------------------|--------------|---------|
+| `NOTION_TOKEN`                | everything   | Notion integration secret |
+| `INGEST_SECRET`               | everything   | Passphrase callers send as `X-Ingest-Secret` |
+| `NOTION_DATABASE_ID`          | optional     | Override target database |
+| `ANTHROPIC_API_KEY`           | `/api/generate` | Draft EN + TH content |
+| `ANTHROPIC_MODEL`             | optional     | Model override (default `claude-sonnet-4-6`) |
+| `GOOGLE_SERVICE_ACCOUNT_JSON` | `/api/approve`  | Service account `{client_email, private_key}` |
+| `DRIVE_FOLDER_ID`             | `/api/approve`  | Destination Drive folder (shared with the SA) |
 
-`/api/ingest` **fails closed**: if `INGEST_SECRET` is not set it refuses every
+The API **fails closed**: if `INGEST_SECRET` is not set it refuses every
 write (503), and requests without a matching `X-Ingest-Secret` header are
 rejected (401). This stops a public deploy from being used to spam the
-production database. The intake form prompts for the passphrase and remembers it
+production database. The dashboard prompts for the passphrase and remembers it
 locally. For stronger protection, also enable Vercel deployment protection in
 front of the project.
 

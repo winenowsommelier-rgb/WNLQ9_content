@@ -17,6 +17,18 @@ export function getConfig(env = process.env) {
   return {
     token: env.NOTION_TOKEN || env.NOTION_API_KEY || "",
     databaseId: env.NOTION_DATABASE_ID || DEFAULT_DATABASE_ID,
+
+    // Shared secret guarding the dashboard API (fail-closed when unset).
+    ingestSecret: env.INGEST_SECRET || "",
+
+    // Anthropic (draft generation).
+    anthropicKey: env.ANTHROPIC_API_KEY || "",
+    anthropicModel: env.ANTHROPIC_MODEL || "claude-sonnet-4-6",
+
+    // Google Drive (Doc creation on approval). Service-account JSON string
+    // ({client_email, private_key}) + the destination Drive folder id.
+    googleServiceAccount: env.GOOGLE_SERVICE_ACCOUNT_JSON || "",
+    driveFolderId: env.DRIVE_FOLDER_ID || "",
   };
 }
 
