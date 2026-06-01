@@ -30,6 +30,9 @@
       <p class="sub">Creates a row in <strong>2026 JUN — WNLQ9 — Content Production</strong>.</p>
 
       <form id="form">
+        <label>Passphrase *</label>
+        <input name="secret" type="password" required placeholder="Ingest secret (INGEST_SECRET)" autocomplete="current-password" />
+
         <label>Title *</label>
         <input name="title" required placeholder="Terroir in One Minute" />
 
@@ -117,6 +120,10 @@
     <script>
       const form = document.getElementById("form");
       const out = document.getElementById("out");
+      const secretInput = form.elements.secret;
+
+      // Remember the passphrase locally so it isn't retyped every submit.
+      secretInput.value = localStorage.getItem("ingestSecret") || "";
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -126,14 +133,17 @@
         out.textContent = "";
 
         const brief = {};
+        let secret = "";
         for (const [k, v] of new FormData(form).entries()) {
+          if (k === "secret") { secret = v; continue; }
           if (v !== "") brief[k] = v;
         }
+        localStorage.setItem("ingestSecret", secret);
 
         try {
           const res = await fetch("/api/ingest", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "X-Ingest-Secret": secret },
             body: JSON.stringify(brief),
           });
           const data = await res.json();
@@ -141,6 +151,7 @@
             out.className = "ok";
             out.innerHTML = `✅ Created <strong>${data.briefId}</strong>\n<a href="${data.url}" target="_blank">Open in Notion →</a>`;
             form.reset();
+            secretInput.value = secret; // keep the passphrase after reset
           } else if (data.ok && data.status === "skipped") {
             out.className = "ok";
             out.innerHTML = `↩︎ Already exists: <strong>${data.briefId}</strong>\n<a href="${data.url}" target="_blank">Open in Notion →</a>`;

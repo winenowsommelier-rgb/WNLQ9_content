@@ -99,8 +99,21 @@ either `category` or `weekTheme` — the other is derived. A stable `briefId`
 `dashboard/` is a static intake form (`public/index.html`) backed by a
 serverless function (`api/ingest.mjs`) that calls the same ingest core.
 
-Deploy with project root `pipeline/dashboard` and set `NOTION_TOKEN` (and
-optionally `NOTION_DATABASE_ID`) in the Vercel project's environment variables.
+Deploy with project root `pipeline/dashboard` and set these env vars in the
+Vercel project:
+
+| Env var             | Required | Purpose |
+|---------------------|----------|---------|
+| `NOTION_TOKEN`      | yes      | Notion integration secret (server-side only) |
+| `INGEST_SECRET`     | yes      | Shared passphrase callers must present (`X-Ingest-Secret` header) |
+| `NOTION_DATABASE_ID`| no       | Override target database |
+
+`/api/ingest` **fails closed**: if `INGEST_SECRET` is not set it refuses every
+write (503), and requests without a matching `X-Ingest-Secret` header are
+rejected (401). This stops a public deploy from being used to spam the
+production database. The intake form prompts for the passphrase and remembers it
+locally. For stronger protection, also enable Vercel deployment protection in
+front of the project.
 
 ## Tests
 

@@ -4,11 +4,24 @@
 // (note: the column whose schema key is "userDefined:URL" is named "URL").
 // Only defined fields are emitted, so partial briefs produce partial rows.
 
+// Notion rejects any single text item whose content exceeds 2000 characters,
+// so long values (Content Brief / TH / EN) are split across multiple items.
+const NOTION_TEXT_LIMIT = 2000;
+
+function chunk(value) {
+  const s = String(value);
+  const items = [];
+  for (let i = 0; i < s.length; i += NOTION_TEXT_LIMIT) {
+    items.push({ type: "text", text: { content: s.slice(i, i + NOTION_TEXT_LIMIT) } });
+  }
+  return items.length ? items : [{ type: "text", text: { content: "" } }];
+}
+
 function title(value) {
-  return { title: [{ type: "text", text: { content: String(value) } }] };
+  return { title: chunk(value) };
 }
 function richText(value) {
-  return { rich_text: [{ type: "text", text: { content: String(value) } }] };
+  return { rich_text: chunk(value) };
 }
 function select(name) {
   return { select: { name } };

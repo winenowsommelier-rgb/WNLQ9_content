@@ -54,6 +54,21 @@ test("omits properties for absent fields (partial brief)", () => {
   assert.ok(!("Final URL" in props));
 });
 
+test("chunks rich-text longer than Notion's 2000-char limit", () => {
+  const long = "x".repeat(4500);
+  const props = mapped({ title: "X", site: "LIQ9", contentBrief: long });
+  const items = props["Content Brief"].rich_text;
+  assert.equal(items.length, 3); // 2000 + 2000 + 500
+  assert.equal(items[0].text.content.length, 2000);
+  assert.equal(items[2].text.content.length, 500);
+  assert.equal(items.map((i) => i.text.content).join(""), long);
+});
+
+test("chunks an over-long title too", () => {
+  const props = mapped({ title: "t".repeat(2500), site: "LIQ9" });
+  assert.equal(props["Title"].title.length, 2);
+});
+
 test("expands a full ISO datetime publishDate to ISO start", () => {
   const props = mapped({
     title: "X",
