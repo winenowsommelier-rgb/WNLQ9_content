@@ -107,14 +107,45 @@ export function createClient(config = getConfig()) {
       return data.results?.[0] || null;
     },
 
-    /** List every row in the database (paginated), normalized for the dashboard. */
-    async listItems({ pageSize = 100 } = {}) {
+    /**
+     * List rows in the database (paginated), normalized for the dashboard.
+     *
+     * Supports server-side filtering so callers fetch only the rows they need
+     * (e.g. one Day, a Day range, or a single Site) instead of pulling the whole
+     * database and filtering in memory. Results default to Day ascending.
+     *
+     * @param {object}  [opts]
+     * @param {number}  [opts.pageSize=100]
+     * @param {number}  [opts.day]        exact Day number
+     * @param {number}  [opts.dayFrom]    inclusive lower bound for Day
+     * @param {number}  [opts.dayTo]      inclusive upper bound for Day
+     * @param {string}  [opts.site]       "Wine-Now" | "LIQ9"
+     * @param {string}  [opts.status]     e.g. "Review", "Done"
+     * @param {object}  [opts.filter]     raw Notion filter to AND in (advanced)
+     * @param {object[]}[opts.sorts]      raw Notion sorts (overrides default)
+     */
+    async listItems({ pageSize = 100, day, dayFrom, dayTo, site, status, filter, sorts } = {}) {
+      const conditions = [];
+      if (typeof day === "number") conditions.push({ property: "Day", number: { equals: day } });
+      if (typeof dayFrom === "number") conditions.push({ property: "Day", number: { greater_than_or_equal_to: dayFrom } });
+      if (typeof dayTo === "number") conditions.push({ property: "Day", number: { less_than_or_equal_to: dayTo } });
+      if (site) conditions.push({ property: "Site", select: { equals: site } });
+      if (status) conditions.push({ property: "Status", select: { equals: status } });
+      if (filter) conditions.push(filter);
+      const composedFilter =
+        conditions.length === 0 ? undefined : conditions.length === 1 ? conditions[0] : { and: conditions };
+
       const items = [];
       let cursor;
       do {
         const data = await request(`/databases/${config.databaseId}/query`, {
           method: "POST",
-          body: { page_size: pageSize, start_cursor: cursor },
+          body: {
+            page_size: pageSize,
+            start_cursor: cursor,
+            ...(composedFilter ? { filter: composedFilter } : {}),
+            sorts: sorts || [{ property: "Day", direction: "ascending" }],
+          },
         });
         for (const page of data.results || []) items.push(pageToItem(page));
         cursor = data.has_more ? data.next_cursor : undefined;
