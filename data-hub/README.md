@@ -122,6 +122,23 @@ column (column K), so the Dashboard's "by category" breakdown shows the
 six-vertical split automatically — no new column needed. (For un-tagged or
 manually-entered articles, the categorizer falls back to keyword detection.)
 
+**Thailand focus (cross-vertical geo tag)**
+
+Geo-relevance cuts ACROSS the six verticals — it is **not** a vertical. Every
+article gets a **Thailand Focus** value (column P: `high`, `medium`, or blank)
+via two paths:
+
+- **Source flag** — a source with `geo_focus: thailand` in `sources.yaml`
+  (e.g. the Bangkok Post and Coconuts Bangkok feeds) auto-tags all its articles
+  `high`, no matter which vertical it feeds.
+- **Keyword / Thai-script detection** — any article from any vertical is tagged
+  `high` when a Thailand/Bangkok/Phuket/etc. signal (or Thai script) is in the
+  title or URL, `medium` when it's only in the body.
+
+A dedicated **Thailand** dashboard tab lists every Thailand-focused article
+across all verticals. To make a non-Thai source Thailand-focused, add
+`geo_focus: thailand` to its entry in `sources.yaml`.
+
 **Add a new source**
 1. Edit `config/sources.yaml` (copy an existing entry).
 2. Set `vertical:` (one of the six) and `enabled: true`.

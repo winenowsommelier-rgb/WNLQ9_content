@@ -354,6 +354,7 @@ class BackfillPipeline:
         name = source.get("name", "<unnamed>")
         api_type = source.get("api_type")
         vertical = source.get("vertical")
+        geo_focus = source.get("geo_focus")
 
         if api_type == "rss":
             feed = source.get("rss_feed")
@@ -362,7 +363,8 @@ class BackfillPipeline:
                     "Skipping RSS source %r: no rss_feed configured", name
                 )
                 return None
-            return RSSCollector(name=name, feed_url=feed, vertical=vertical)
+            return RSSCollector(name=name, feed_url=feed, vertical=vertical,
+                                geo_focus=geo_focus)
 
         if api_type == "web_scrape":
             selectors = source.get("selectors")
@@ -374,7 +376,7 @@ class BackfillPipeline:
             listing_url = source.get("scrape_endpoint") or source.get("url")
             return WebScraper(
                 name=name, listing_url=listing_url, selectors=selectors,
-                vertical=vertical,
+                vertical=vertical, geo_focus=geo_focus,
             )
 
         if api_type == "sitemap":
@@ -392,6 +394,7 @@ class BackfillPipeline:
                 child_pattern=source.get("sitemap_child_pattern"),
                 max_child_sitemaps=source.get("max_child_sitemaps", 12),
                 vertical=vertical,
+                geo_focus=geo_focus,
             )
 
         if api_type in ("api", "keyword_monitor"):
@@ -431,9 +434,10 @@ class BackfillPipeline:
                 # preserving the source's vertical so paginated articles are
                 # stamped the same way.
                 _vertical = getattr(collector, "vertical", None)
+                _geo = getattr(collector, "geo_focus", None)
                 collected = self.collect_with_pagination(
-                    lambda url, _name=name, _v=_vertical: RSSCollector(
-                        name=_name, feed_url=url, vertical=_v
+                    lambda url, _name=name, _v=_vertical, _g=_geo: RSSCollector(
+                        name=_name, feed_url=url, vertical=_v, geo_focus=_g
                     ),
                     feed_url,
                     max_pages,

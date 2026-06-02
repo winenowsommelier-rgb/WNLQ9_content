@@ -111,3 +111,18 @@ def test_collect_handles_parse_failure_gracefully():
     ):
         articles = collector.collect()
     assert articles == []
+
+
+def test_geo_focus_thailand_stamps_high_on_collected_articles():
+    """geo_focus threads through to enrich, stamping thailand_focus='high'."""
+    collector = RSSCollector(
+        name="Bangkok Post", feed_url=FEED_URL, geo_focus="thailand"
+    )
+    fake_feed = SimpleNamespace(entries=[_make_entry()], bozo=0)
+    with mock.patch(
+        "collectors.rss_collector.feedparser.parse", return_value=fake_feed
+    ):
+        articles = collector.collect()
+
+    assert len(articles) == 1
+    assert articles[0]["thailand_focus"] == "high"

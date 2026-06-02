@@ -173,6 +173,7 @@ class IngestPipeline:
         name = source.get("name", "<unnamed>")
         api_type = source.get("api_type")
         vertical = source.get("vertical")
+        geo_focus = source.get("geo_focus")
 
         if api_type == "rss":
             feed = source.get("rss_feed")
@@ -180,7 +181,8 @@ class IngestPipeline:
                 logger.warning("Skipping RSS source %r: no rss_feed configured",
                                name)
                 return None
-            return RSSCollector(name=name, feed_url=feed, vertical=vertical)
+            return RSSCollector(name=name, feed_url=feed, vertical=vertical,
+                                geo_focus=geo_focus)
 
         if api_type == "web_scrape":
             selectors = source.get("selectors")
@@ -193,7 +195,8 @@ class IngestPipeline:
                 return None
             listing_url = source.get("scrape_endpoint") or source.get("url")
             return WebScraper(name=name, listing_url=listing_url,
-                              selectors=selectors, vertical=vertical)
+                              selectors=selectors, vertical=vertical,
+                              geo_focus=geo_focus)
 
         if api_type == "sitemap":
             # Sitemap crawling is deep-history work reserved for the backfill

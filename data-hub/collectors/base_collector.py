@@ -38,6 +38,7 @@ class BaseCollector(ABC):
         name: str,
         source_config: Optional[dict] = None,
         vertical: Optional[str] = None,
+        geo_focus: Optional[str] = None,
     ) -> None:
         self.name = name
         self.source_config = source_config or {}
@@ -46,6 +47,12 @@ class BaseCollector(ABC):
         # it onto each article's primary_category so the source's vertical is
         # authoritative (the categorizer keeps a valid preset).
         self.vertical = vertical
+        # Optional geographic focus of the SOURCE itself (cross-vertical, NOT a
+        # vertical). When set to "thailand", enrich_article stamps every article
+        # with thailand_focus="high" -- a Thai-market source is Thailand-focused
+        # regardless of which vertical it feeds. The categorizer keeps this
+        # preset and won't downgrade it.
+        self.geo_focus = geo_focus
 
     def validate_article(self, article: Dict) -> bool:
         """Return True only if all REQUIRED_FIELDS are present and non-empty.
@@ -79,6 +86,11 @@ class BaseCollector(ABC):
         # overwrite it; keyword detection is the fallback for un-stamped items.
         if self.vertical:
             article["primary_category"] = self.vertical
+        # Stamp source-level Thailand focus (cross-vertical). A Thai-market
+        # source is authoritative: thailand_focus="high". The categorizer's
+        # keyword detection keeps a valid preset and won't downgrade it.
+        if self.geo_focus == "thailand":
+            article["thailand_focus"] = "high"
         return article
 
     @staticmethod

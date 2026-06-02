@@ -48,12 +48,14 @@ class WebScraper(BaseCollector):
     )
 
     def __init__(
-        self, name: str, listing_url: str, selectors: Dict, vertical=None
+        self, name: str, listing_url: str, selectors: Dict, vertical=None,
+        geo_focus=None,
     ) -> None:
         super().__init__(
             name=name,
             source_config={"listing_url": listing_url, "selectors": selectors},
             vertical=vertical,
+            geo_focus=geo_focus,
         )
         self.listing_url = listing_url
         self.selectors = selectors

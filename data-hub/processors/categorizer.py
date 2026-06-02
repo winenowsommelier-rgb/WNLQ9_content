@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from typing import Dict, List, Optional
 
 # config/taxonomy.json lives alongside this package, one level up.
@@ -26,6 +27,27 @@ _DEFAULT_TAXONOMY_PATH = os.path.join(
     "config",
     "taxonomy.json",
 )
+
+# -- Thailand-focus detection (cross-vertical geo-tagging) -------------------
+# Geo-relevance cuts ACROSS the six verticals; it is NOT a vertical. The
+# categorizer tags each article high / medium / "" so any article (wine,
+# spirits, travel, ...) can be filtered down to Thailand/Bangkok relevance.
+
+# Valid (non-empty) stamped/detected levels; "" means not Thailand-focused.
+_VALID_THAILAND_FOCUS = {"high", "medium"}
+
+# Any character in the Thai Unicode block U+0E00-U+0E7F is a strong signal.
+_THAI_SCRIPT_RE = re.compile(r"[฀-๿]")
+
+# STRONG signals: word-boundaried so "thai" never matches inside "Thatcher",
+# "thatched", "Thanksgiving", etc. A strong signal in the TITLE or URL -> high.
+_THAILAND_STRONG_RE = re.compile(
+    r"\b(?:thailand|thai|bangkok|phuket|chiang\s*mai|pattaya|"
+    r"koh\s*samui|krabi|isaan|isan)\b"
+)
+
+# WEAKER signals: regional / currency cues. Anywhere -> at most medium.
+_THAILAND_WEAK_RE = re.compile(r"\b(?:southeast\s*asia|baht)\b")
 
 
 class Categorizer:
@@ -69,6 +91,12 @@ class Categorizer:
             | {r["region"] for r in self.taxonomy["regions_spirits"]}
             | {self.DEFAULT_REGION}
         )
+        # Thailand-focus levels for reference/validation. "" maps to "none".
+        # Backward compatible: default to the canonical set if the key is
+        # absent from an older taxonomy.json.
+        self._valid_thailand_focus = set(
+            self.taxonomy.get("thailand_focus_levels", ["high", "medium", "none"])
+        )
 
     # -- public API -----------------------------------------------------
 
@@ -100,6 +128,8 @@ class Categorizer:
             article["trend_signals"] = self._detect_trend_signals(article)
             article["buyer_persona"] = self._detect_buyer_persona(article)
             article["aeo_citation_opportunity"] = self._estimate_aeo_value(article)
+            # Cross-vertical Thailand geo-tagging (high / medium / "").
+            article["thailand_focus"] = self._detect_thailand_focus(article)
 
             enriched.append(article)
         return enriched
@@ -344,6 +374,59 @@ class Categorizer:
             value = "low"
 
         return value if value in self._valid_aeo else "low"
+
+    def _detect_thailand_focus(self, article: Dict) -> str:
+        """Classify cross-vertical Thailand relevance as high / medium / "".
+
+        Two paths feed this field; this is the keyword/Thai-script path:
+
+        * If the article already carries a non-empty VALID ``thailand_focus``
+          (e.g. a source-level stamp of "high" from ``geo_focus: thailand``),
+          KEEP it -- never downgrade an authoritative source stamp.
+        * HIGH when a strong, word-boundaried signal (thailand/thai/bangkok/
+          phuket/chiang mai/pattaya/koh samui/krabi/isaan, or any Thai-script
+          char) appears in the TITLE or the article URL.
+        * MEDIUM when a strong signal appears only in the excerpt/body, or a
+          weaker signal (southeast asia / baht) appears anywhere.
+        * "" otherwise (not Thailand-focused).
+
+        Word-boundaried matching means "Thatcher", "thatched" and
+        "Thanksgiving" never trigger a false positive on ``\\bthai\\b``.
+        """
+        if not isinstance(article, dict):
+            return ""
+
+        # Respect an authoritative preset (source-level stamp); don't downgrade.
+        preset = article.get("thailand_focus")
+        if isinstance(preset, str) and preset.strip() in _VALID_THAILAND_FOCUS:
+            return preset.strip()
+
+        title = article.get("title") or ""
+        excerpt = article.get("content_excerpt") or ""
+        url = article.get("article_url") or ""
+
+        title_url = f"{title} {url}".lower()
+        excerpt_lower = str(excerpt).lower()
+
+        # Strong signal in the title or URL (or Thai script in the raw title)
+        # -> HIGH.
+        if (
+            _THAILAND_STRONG_RE.search(title_url)
+            or _THAI_SCRIPT_RE.search(str(title))
+            or _THAI_SCRIPT_RE.search(str(url))
+        ):
+            return "high"
+
+        # Strong signal only in the excerpt/body (or Thai script there), or a
+        # weaker signal anywhere -> MEDIUM.
+        if (
+            _THAILAND_STRONG_RE.search(excerpt_lower)
+            or _THAI_SCRIPT_RE.search(str(excerpt))
+            or _THAILAND_WEAK_RE.search(f"{title_url} {excerpt_lower}")
+        ):
+            return "medium"
+
+        return ""
 
     # -- helpers --------------------------------------------------------
 

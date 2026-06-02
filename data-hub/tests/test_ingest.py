@@ -171,6 +171,26 @@ def test_build_collectors_passes_vertical(tmp_path):
     assert collectors[0].vertical == "travel"
 
 
+def test_build_collectors_passes_geo_focus(tmp_path):
+    """A source with geo_focus: thailand yields a collector geo_focus='thailand'."""
+    config = _write_config(tmp_path, """
+        sources:
+          lifestyle:
+            - name: "Bangkok Post Life"
+              api_type: "rss"
+              rss_feed: "https://www.bangkokpost.com/rss/data/life.xml"
+              vertical: "lifestyle"
+              geo_focus: "thailand"
+              enabled: true
+        collection_config:
+          enabled_verticals: [lifestyle]
+    """)
+    pipeline = IngestPipeline(sources_config_path=config)
+    collectors = pipeline.build_collectors()
+    assert len(collectors) == 1
+    assert collectors[0].geo_focus == "thailand"
+
+
 def test_enabled_verticals_defaults_to_all(tmp_path):
     """Absent enabled_verticals -> no vertical filtering (backward compatible)."""
     config = _write_config(tmp_path, """

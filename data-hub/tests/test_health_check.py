@@ -111,9 +111,10 @@ def test_check_recent_articles_healthy():
     assert result["status"] == "healthy"
     assert result["recent_count"] == 8
     assert result["total_count"] == 8
-    # Reads the Articles tab, columns A:O.
+    # Reads the Articles tab over the full column range (derived from the
+    # exporter's COLUMNS, now A:P with the Thailand Focus column).
     _, kwargs = get.call_args
-    assert "Articles!A:O" in kwargs["range"]
+    assert "Articles!A:P" in kwargs["range"]
 
 
 def test_check_recent_articles_warning():

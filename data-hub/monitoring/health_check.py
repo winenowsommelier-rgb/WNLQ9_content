@@ -71,8 +71,9 @@ _IDX_REGION = _COLS.index("Region")
 _IDX_AEO = _COLS.index("AEO Value")
 _IDX_COLLECTED = _COLS.index("Collected Date")
 
-# Range covering all Articles columns (A:O), same as the exporter writes to.
-_ARTICLES_RANGE = "Articles!A:O"
+# Range covering all Articles columns, derived from the exporter's COLUMNS so
+# it stays in lockstep when columns are appended (e.g. A:P with 16 columns).
+_ARTICLES_RANGE = f"Articles!A:{SheetsExporter._last_column_letter()}"
 
 
 class HealthCheck:
@@ -146,7 +147,7 @@ class HealthCheck:
         return dt
 
     def _read_rows(self) -> List[List[str]]:
-        """Read the Articles worksheet (A:O), returning data rows.
+        """Read the Articles worksheet (full column range), returning data rows.
 
         The header row (row 0) is dropped. Raises on API/credential errors;
         callers wrap this so a failure surfaces as a per-check error.

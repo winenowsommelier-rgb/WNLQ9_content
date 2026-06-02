@@ -465,6 +465,73 @@ sources:
       regions: ["Thailand"]
       notes: "Thai community forum; discussions on wine, spirits, and premium beverages; sentiment analysis opportunity."
 
+  # Thai-market news sources. Geo-relevance (Thailand focus) cuts ACROSS the
+  # six verticals -- it is NOT a vertical. Each source below is tagged with a
+  # normal content vertical (so it builds when that vertical is enabled) PLUS
+  # geo_focus: thailand, which makes BaseCollector.enrich_article stamp every
+  # article thailand_focus="high" automatically. The keyword/Thai-script
+  # detector in the categorizer is the second path for non-Thai sources.
+  thai_news:
+    - name: "Bangkok Post - Life"
+      url: "https://www.bangkokpost.com"
+      api_type: "rss"
+      rss_feed: "https://www.bangkokpost.com/rss/data/life.xml"
+      vertical: "lifestyle"
+      geo_focus: "thailand"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "guide", "blog"]
+      coverage: ["lifestyle", "food", "wine", "spirits"]
+      regions: ["Thailand"]
+      notes: "Thai-market source (Bangkok Post Life). Auto-tagged Thailand focus=high via geo_focus. Verified live 2026-06-02."
+
+    - name: "Bangkok Post - Travel"
+      url: "https://www.bangkokpost.com"
+      api_type: "rss"
+      rss_feed: "https://www.bangkokpost.com/rss/data/travel.xml"
+      vertical: "travel"
+      geo_focus: "thailand"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "guide", "blog"]
+      coverage: ["travel", "lifestyle"]
+      regions: ["Thailand"]
+      notes: "Thai-market source (Bangkok Post Travel). Auto-tagged Thailand focus=high via geo_focus. Verified live 2026-06-02."
+
+    - name: "Bangkok Post - Business"
+      url: "https://www.bangkokpost.com"
+      api_type: "rss"
+      rss_feed: "https://www.bangkokpost.com/rss/data/business.xml"
+      vertical: "hospitality"
+      geo_focus: "thailand"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "research", "opinion"]
+      coverage: ["hospitality", "travel", "food"]
+      regions: ["Thailand"]
+      notes: "Thai-market source (Bangkok Post Business). Auto-tagged Thailand focus=high via geo_focus. Verified live 2026-06-02."
+
+    - name: "Coconuts Bangkok"
+      url: "https://coconuts.co/bangkok/"
+      api_type: "rss"
+      rss_feed: "https://coconuts.co/bangkok/feed/"
+      vertical: "lifestyle"
+      geo_focus: "thailand"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "blog"]
+      coverage: ["lifestyle", "food", "travel"]
+      regions: ["Thailand"]
+      notes: "Thai-market source (Coconuts Bangkok). Auto-tagged Thailand focus=high via geo_focus. Verified live 2026-06-02."
+
 # Backfill-only sources (deep historical seeding via XML sitemaps).
 #
 # Sitemaps list EVERY article URL a site has published -- often with a

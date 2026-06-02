@@ -30,9 +30,12 @@ class RSSCollector(BaseCollector):
     DEFAULT_CONTENT_TYPE = "news"
     EXCERPT_MAX_CHARS = 500
 
-    def __init__(self, name: str, feed_url: str, vertical=None) -> None:
+    def __init__(self, name: str, feed_url: str, vertical=None, geo_focus=None) -> None:
         super().__init__(
-            name=name, source_config={"feed_url": feed_url}, vertical=vertical
+            name=name,
+            source_config={"feed_url": feed_url},
+            vertical=vertical,
+            geo_focus=geo_focus,
         )
         self.feed_url = feed_url
 

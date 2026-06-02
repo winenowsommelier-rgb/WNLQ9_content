@@ -42,8 +42,11 @@ class SheetsExporter:
     """
 
     # Ordered column headers. The order is the contract for every row
-    # produced by :meth:`format_article_row`; do not reorder without also
-    # updating the append range (A:O) and downstream consumers.
+    # produced by :meth:`format_article_row`. The append range is computed
+    # from len(COLUMNS) via :meth:`_last_column_letter`, so appending a new
+    # column here is safe (no hardcoded range to keep in sync). Downstream
+    # consumers that resolve indices by name (existing_urls, health_check)
+    # stay correct as long as you only APPEND, never reorder.
     COLUMNS: List[str] = [
         "Source",
         "Title",
@@ -60,6 +63,7 @@ class SheetsExporter:
         "AEO Value",
         "Collected Date",
         "Source Language",
+        "Thailand Focus",
     ]
 
     # Maps each column header to the article dict field that feeds it.
@@ -79,6 +83,7 @@ class SheetsExporter:
         "AEO Value": "aeo_citation_opportunity",
         "Collected Date": "collected_date",
         "Source Language": "source_language",
+        "Thailand Focus": "thailand_focus",
     }
 
     TREND_SIGNAL_SEPARATOR = " | "
@@ -126,6 +131,25 @@ class SheetsExporter:
     def header_row(self) -> List[str]:
         """Return the ordered column headers."""
         return list(self.COLUMNS)
+
+    @staticmethod
+    def _column_letter(index: int) -> str:
+        """Convert a 0-based column index to a spreadsheet letter (A, ..., Z, AA).
+
+        Defensive beyond Z so future column additions never silently break the
+        computed append range.
+        """
+        letters = ""
+        index += 1
+        while index > 0:
+            index, rem = divmod(index - 1, 26)
+            letters = chr(ord("A") + rem) + letters
+        return letters
+
+    @classmethod
+    def _last_column_letter(cls) -> str:
+        """Letter of the last column, derived from len(COLUMNS) (e.g. 'P')."""
+        return cls._column_letter(len(cls.COLUMNS) - 1)
 
     def format_article_row(self, article: Dict) -> List:
         """Convert one article dict to a row (list) in COLUMNS order.
@@ -201,9 +225,10 @@ class SheetsExporter:
             if prepend_header:
                 rows = [self.header_row()] + rows
 
+            last_col = self._last_column_letter()
             service.spreadsheets().values().append(
                 spreadsheetId=self.sheet_id,
-                range=f"{sheet_name}!A:O",
+                range=f"{sheet_name}!A:{last_col}",
                 valueInputOption="USER_ENTERED",
                 insertDataOption="INSERT_ROWS",
                 body={"values": rows},

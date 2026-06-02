@@ -66,7 +66,8 @@ def test_constructs_without_credentials():
 
 
 def test_default_tabs_match_guide():
-    # The six dashboard tabs from DASHBOARD_GUIDE.md, in order.
+    # The dashboard tabs from DASHBOARD_GUIDE.md, in order. "Thailand" is the
+    # cross-vertical geo view appended after the original six.
     assert DashboardBootstrap.DASHBOARD_TABS == [
         "Dashboard",
         "Trends",
@@ -74,7 +75,25 @@ def test_default_tabs_match_guide():
         "Brands",
         "AEO Opportunities",
         "Editorial",
+        "Thailand",
     ]
+
+
+def test_thailand_tab_query_uses_full_range():
+    # The Thailand tab QUERY pulls across all verticals filtered by column P.
+    formula = DashboardBootstrap.DEFAULT_FORMULAS["Thailand"]["A1"]
+    assert "Articles!A:P" in formula
+    assert "P = 'high'" in formula
+    assert "P = 'medium'" in formula
+
+
+def test_existing_queries_use_full_range():
+    # Every seeded QUERY must reference A:P now that the table has 16 columns.
+    for tab, formulas in DashboardBootstrap.DEFAULT_FORMULAS.items():
+        for cell, value in formulas.items():
+            if isinstance(value, str) and "QUERY(Articles!" in value:
+                assert "Articles!A:P" in value, f"{tab}!{cell} not A:P"
+                assert "Articles!A:O" not in value
 
 
 # -- create_dashboard_tabs --------------------------------------------
@@ -109,7 +128,9 @@ def test_create_dashboard_tabs_skips_existing(boot):
         r["addSheet"]["properties"]["title"]
         for r in kwargs["body"]["requests"]
     ]
-    assert titles == ["Regions", "Brands", "AEO Opportunities", "Editorial"]
+    assert titles == [
+        "Regions", "Brands", "AEO Opportunities", "Editorial", "Thailand"
+    ]
     assert "Dashboard" in result["skipped"]
     assert "Trends" in result["skipped"]
     assert "Regions" in result["created"]

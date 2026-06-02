@@ -269,3 +269,65 @@ def test_taxonomy_has_new_verticals(taxonomy):
     assert set(taxonomy["verticals"]) == {
         "wine", "spirits", "food", "lifestyle", "travel", "hospitality"
     }
+
+
+# -- Thailand focus detection (cross-vertical geo-tagging) ------------------
+
+
+def test_detect_thailand_high_in_title(categorizer):
+    article = _article(title="Best rooftop bars in Bangkok")
+    assert categorizer._detect_thailand_focus(article) == "high"
+
+
+def test_detect_thailand_thai_script(categorizer):
+    # Thai-script chars (U+0E00-U+0E7F) in the title -> high.
+    article = _article(title="เที่ยวกรุงเทพ")
+    assert categorizer._detect_thailand_focus(article) == "high"
+
+
+def test_detect_thailand_medium_in_excerpt(categorizer):
+    article = _article(
+        title="A great evening out",
+        excerpt="We visited a wine bar in Thailand last week.",
+    )
+    assert categorizer._detect_thailand_focus(article) == "medium"
+
+
+def test_detect_thailand_none(categorizer):
+    article = _article(
+        title="Bordeaux 2024 En Primeur",
+        excerpt="A report on the French vintage.",
+    )
+    assert categorizer._detect_thailand_focus(article) == ""
+
+
+def test_detect_thailand_respects_preset(categorizer):
+    # An already-stamped (source-level) value must NOT be downgraded.
+    article = _article(title="A generic story with no geo signal")
+    article["thailand_focus"] = "high"
+    assert categorizer._detect_thailand_focus(article) == "high"
+
+
+def test_detect_thailand_no_false_positive(categorizer):
+    # "thatched"/"Thanksgiving" must NOT match \bthai\b / \bthailand\b.
+    article = _article(
+        title="Thatcher's thatched roof and Thanksgiving",
+        excerpt="A story about a thatched cottage.",
+    )
+    assert categorizer._detect_thailand_focus(article) == ""
+
+
+def test_categorize_adds_thailand_focus(categorizer):
+    # Every categorized article gets a thailand_focus field.
+    article = _article(title="Phuket beach guide")
+    result = categorizer.categorize([article])[0]
+    assert result["thailand_focus"] == "high"
+
+    plain = _article(title="Napa Valley Cabernet report")
+    result2 = categorizer.categorize([plain])[0]
+    assert result2["thailand_focus"] == ""
+
+
+def test_taxonomy_has_thailand_focus_levels(taxonomy):
+    assert "thailand_focus_levels" in taxonomy
+    assert taxonomy["thailand_focus_levels"] == ["high", "medium", "none"]

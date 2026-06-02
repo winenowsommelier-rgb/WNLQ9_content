@@ -32,7 +32,8 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 class DashboardBootstrap:
     """Create dashboard tabs and seed starter formulas in a hub spreadsheet."""
 
-    # The six dashboard tabs from DASHBOARD_GUIDE.md, in display order.
+    # The dashboard tabs from DASHBOARD_GUIDE.md, in display order. "Thailand"
+    # is a cross-vertical geo view (NOT a vertical) added alongside the others.
     DASHBOARD_TABS: List[str] = [
         "Dashboard",
         "Trends",
@@ -40,6 +41,7 @@ class DashboardBootstrap:
         "Brands",
         "AEO Opportunities",
         "Editorial",
+        "Thailand",
     ]
 
     # Starter formulas per tab, keyed by A1-notation cell. These mirror the
@@ -65,30 +67,40 @@ class DashboardBootstrap:
             "A8": "High-AEO articles",
             "B8": '=COUNTIF(Articles!M2:M, "high")',
             "D1": (
-                "=QUERY(Articles!A:O, \"SELECT K, COUNT(K) WHERE K IS NOT NULL "
+                "=QUERY(Articles!A:P, \"SELECT K, COUNT(K) WHERE K IS NOT NULL "
                 "GROUP BY K ORDER BY COUNT(K) DESC LABEL COUNT(K) 'Articles'\", 1)"
             ),
         },
         "Regions": {
             "A1": (
-                "=QUERY(Articles!A:O, \"SELECT H, COUNT(C) WHERE H IS NOT NULL "
+                "=QUERY(Articles!A:P, \"SELECT H, COUNT(C) WHERE H IS NOT NULL "
                 "GROUP BY H ORDER BY COUNT(C) DESC LABEL COUNT(C) 'Articles'\", 1)"
             ),
         },
         "AEO Opportunities": {
             "A1": (
-                "=QUERY(Articles!A:O, \"SELECT B, A, H, J, D WHERE M = 'high' "
+                "=QUERY(Articles!A:P, \"SELECT B, A, H, J, D WHERE M = 'high' "
                 "ORDER BY D DESC LIMIT 50\", 1)"
             ),
         },
         "Editorial": {
             "A1": (
-                "=QUERY(Articles!A:O, \"SELECT D, B, A, H, J, K WHERE M = 'high' "
+                "=QUERY(Articles!A:P, \"SELECT D, B, A, H, J, K WHERE M = 'high' "
                 "AND J IS NOT NULL AND J <> '' ORDER BY D DESC LIMIT 100\", 1)"
             ),
             "G1": "Content Idea",
             "H1": "Priority (1-5)",
             "I1": "Owner / Status",
+        },
+        # Cross-vertical geo view: every Thailand-focused article (any vertical),
+        # tagged high or medium in column P (Thailand Focus). Columns selected:
+        # D=Published Date, B=Title, A=Source, K=primary_category/vertical,
+        # H=Region, P=Thailand Focus.
+        "Thailand": {
+            "A1": (
+                "=QUERY(Articles!A:P, \"SELECT D, B, A, K, H, P "
+                "WHERE P = 'high' OR P = 'medium' ORDER BY D DESC LIMIT 200\", 1)"
+            ),
         },
     }
 

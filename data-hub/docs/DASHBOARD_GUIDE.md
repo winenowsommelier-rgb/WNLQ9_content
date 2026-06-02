@@ -39,9 +39,17 @@ the contract enforced by `SheetsExporter.COLUMNS`.
 | M   | AEO Value        | aeo_citation_opportunity   | high/medium/low |
 | N   | Collected Date   | collected_date             | when the pipeline grabbed it |
 | O   | Source Language  | source_language            | en/th/es/fr/de/it/ja/zh/pt |
+| P   | Thailand Focus   | thailand_focus             | high/medium/"" — cross-vertical geo tag |
 
 Row 1 is the header row. Data starts at row 2. Open-ended ranges like
 `Articles!C2:C` grow automatically as new rows land.
+
+> **Range note:** the table now has **16 columns (A–P)**. QUERY formulas read
+> `Articles!A:P` so the new **Thailand Focus** column (P) is in scope. The older
+> `Articles!A:O` formulas in this guide still work for the columns they select,
+> but use `A:P` for anything that references column P. **Thailand Focus** is a
+> cross-vertical geo tag (NOT a vertical): any article in any vertical can be
+> `high`, `medium`, or `""` (blank = not Thailand-focused).
 
 ---
 
@@ -399,6 +407,36 @@ this score descending to get your shortlist.
 Top of the list = trending **and** AI-citation-worthy = highest-leverage content
 to produce now. The manual columns turn the radar into an actual editorial
 backlog.
+
+---
+
+## View 8 — Thailand focus (cross-vertical geo view)
+
+**Thailand Focus** (column P) is a geo-relevance tag that cuts ACROSS all six
+verticals — it is **not** a vertical. Every article is tagged `high`, `medium`,
+or `""` (blank = not Thailand-focused) by two paths:
+
+1. **Source-level stamp.** Thai-market sources carry `geo_focus: thailand` in
+   `config/sources.yaml` (e.g. Bangkok Post, Coconuts Bangkok); the collector
+   stamps every article from them `thailand_focus = high`.
+2. **Keyword / Thai-script detection.** The categorizer tags any other article
+   `high` when a strong, word-boundaried signal (thailand, thai, bangkok,
+   phuket, chiang mai, pattaya, koh samui, krabi, isaan, or any Thai-script
+   character) is in the **title or URL**; `medium` when it's only in the
+   excerpt/body or a weaker signal (southeast asia, baht) appears.
+
+The bootstrapper creates a dedicated **Thailand** tab. Paste this one QUERY into
+**A1** to list every Thailand-focused article across all verticals
+(D=Published Date, B=Title, A=Source, K=vertical, H=Region, P=Thailand Focus):
+
+```
+=QUERY(Articles!A:P, "SELECT D, B, A, K, H, P WHERE P = 'high' OR P = 'medium' ORDER BY D DESC LIMIT 200", 1)
+```
+
+### How to read it
+Use it to surface Thailand/Bangkok-relevant content regardless of which
+publication or vertical it came from. Filter to `WHERE P = 'high'` for the
+strongest matches only.
 
 ---
 

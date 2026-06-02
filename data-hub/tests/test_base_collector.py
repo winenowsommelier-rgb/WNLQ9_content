@@ -89,3 +89,22 @@ def test_enrich_no_vertical_leaves_primary_category():
     assert "primary_category" not in article
     enriched = collector.enrich_article(article)
     assert "primary_category" not in enriched
+
+
+# -- geo_focus stamping (cross-vertical Thailand tagging) --------------------
+
+
+def test_geo_focus_thailand_stamps_high():
+    """A collector with geo_focus='thailand' stamps thailand_focus='high'."""
+    collector = DummyCollector(name="Bangkok Post", geo_focus="thailand")
+    article = _complete_article()
+    enriched = collector.enrich_article(article)
+    assert enriched["thailand_focus"] == "high"
+
+
+def test_no_geo_focus_no_stamp():
+    """With no geo_focus, enrich_article does not stamp thailand_focus."""
+    collector = DummyCollector(name="Decanter")  # geo_focus defaults to None
+    article = _complete_article()
+    enriched = collector.enrich_article(article)
+    assert "thailand_focus" not in enriched
