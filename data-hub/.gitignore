@@ -9,3 +9,12 @@ config/google-credentials.json
 # Runtime logs (keep the directory via logs/.gitkeep, ignore log files)
 logs/*
 !logs/.gitkeep
+
+# SQLite system-of-record DB + its WAL/SHM sidecar files (keep the dir via
+# data/.gitkeep, never commit the data itself).
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/*.sqlite
+data/*.sqlite3
+!data/.gitkeep

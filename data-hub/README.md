@@ -11,16 +11,27 @@ It runs itself daily. You mostly just *read the Google Sheet*.
 ## 1. What it does (in one picture)
 
 ```
-  PREMIUM SOURCES          PIPELINE (runs daily, 2 AM)            YOUR GOOGLE SHEET
-  ───────────────          ──────────────────────────            ─────────────────
-  Decanter (RSS)      ┐                                          ┌ Articles  (raw feed)
-  The Spirits Biz     │    collect → dedupe (within-run          │ Dashboard (overview)
-  Punch (scraper)     ├──▶          + against the sheet) ──────▶ │ Trends    (signals)
-  Whisky Advocate     │    → categorize (region, type,           │ Regions
-  (+ more configured) ┘      trend signals, AEO value)           │ Brands
-                                                                 │ AEO Opportunities
-                                                                 └ Editorial
+  PREMIUM SOURCES        PIPELINE (runs daily, 2 AM)        SQLITE DB              GOOGLE SHEET (mirror)
+  ───────────────        ──────────────────────────        ──────────────         ─────────────────────
+  Decanter (RSS)      ┐                                     data/content_hub.db   ┌ Articles  (raw feed)
+  The Spirits Biz     │  collect → dedupe (within-run)      ┌────────────────┐    │ Dashboard (overview)
+  Punch (scraper)     ├▶ → categorize (region, type,   ───▶ │ articles table │──▶ │ Trends    (signals)
+  Whisky Advocate     │    trend signals, AEO value)        │ (system of     │    │ Regions
+  (+ more configured) ┘                                     │  record + dedup)│    │ Brands
+                            DB upsert is the cross-run       └────────────────┘    │ AEO Opportunities
+                            dedup; only NEW rows mirror                            └ Editorial
+                            to the Sheet (no full read).
 ```
+
+**Architecture (source of truth):** the SQLite database
+`data/content_hub.db` is now the **system of record**. Each run writes new
+articles to the DB *first* (deduping against an indexed `url_normalized`
+column — no more reading the whole Sheet), then **mirrors only the
+newly-inserted rows** to Google Sheets so the dashboards keep updating with no
+duplicates. The Sheet is a **read-only mirror/view**, not the store. If the
+Sheets API ever fails, the data is already safe in the DB. Swapping SQLite for
+Supabase/Postgres later is a drop-in: implement the same `ArticleStore`
+interface (`storage/article_store.py`) and inject it — nothing else changes.
 
 Every article is auto-tagged with: **source, title, URL, date, region,
 spirits/wine type, trend signals, primary category, buyer persona, AEO value.**
@@ -32,7 +43,8 @@ spirits/wine type, trend signals, primary category, buyer persona, AEO value.**
 | Piece | Where | Status |
 |-------|-------|--------|
 | Code & pipeline | `/Users/admin/WNLQ9 CONTENT/data-hub/` | ✅ on GitHub |
-| Google Sheet | "WNQL9 Content Data Hub" (ID `1c5X9wcg…qJuM`) | ✅ live |
+| SQLite DB (system of record) | `data/content_hub.db` (gitignored) | ✅ auto-created |
+| Google Sheet (mirror/view) | "WNQL9 Content Data Hub" (ID `1c5X9wcg…qJuM`) | ✅ live |
 | Credentials | `config/google-credentials.json` (gitignored secret) | ✅ installed |
 | Daily scheduler | macOS LaunchAgent `com.wnlq9.datahub.ingest`, 2 AM | ✅ running |
 | Sheet ID | baked into the LaunchAgent + run script | ✅ set |
@@ -46,13 +58,23 @@ spirits/wine type, trend signals, primary category, buyer persona, AEO value.**
 Every day at **2:00 AM** the LaunchAgent runs the pipeline:
 
 1. **Collect** — pulls latest articles from each configured source
-2. **Dedupe** — removes repeats *within* the run **and** skips anything whose
-   URL is already in the sheet (so no duplicates pile up day after day)
+2. **Dedupe** — removes repeats *within* the run
 3. **Categorize** — tags region, spirits type, trend signals, AEO value, etc.
-4. **Export** — appends only the *new* articles to the **Articles** tab
-5. **Dashboards** — formulas recompute automatically when you open the sheet
+4. **Store (system of record)** — upserts into the SQLite DB
+   (`data/content_hub.db`). The DB's indexed `url_normalized` column **is** the
+   cross-run dedup: anything already stored from a prior run is skipped — no
+   full-Sheet read needed, so it scales past the Sheets cell ceiling.
+5. **Mirror** — appends only the *newly-inserted* articles to the **Articles**
+   tab (so no duplicates pile up day after day). This happens *after* the DB
+   write, so a Sheets/API hiccup never loses data.
+6. **Dashboards** — formulas recompute automatically when you open the sheet
 
 Output of each run is logged to `logs/cron.log`.
+
+> **First-time cutover:** if you already have rows in the Sheet from before the
+> DB existed, import them once with `./scripts/migrate_sheet_to_db.sh` (reads
+> the `Articles` + `Historical_Backfill` tabs into the DB; idempotent — safe to
+> re-run, dupes are skipped by normalized URL).
 
 ---
 
@@ -88,6 +110,7 @@ export DATA_HUB_SHEET_ID="1c5X9wcgBivLKVarNl0md0XgpnzE-zpPHhpsFiFmqJuM"
 | I want to… | Command |
 |------------|---------|
 | Run a collection *right now* (don't wait for 2 AM) | `./scripts/run_ingest.sh` |
+| Import existing Sheet rows into the DB (one-time cutover) | `./scripts/migrate_sheet_to_db.sh` |
 | Confirm the sheet connection is healthy | `./scripts/verify_sheets_setup.sh` |
 | Check the pipeline's health (recent data, logs) | `./scripts/run_health_check.sh` |
 | Backfill ~12 months of history (one-time/quarterly) | `./scripts/run_backfill.sh --months-back 12` |

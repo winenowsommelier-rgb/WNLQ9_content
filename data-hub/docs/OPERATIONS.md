@@ -41,20 +41,34 @@ th.Wine-Now.com and th.LIQ9.com.
    |                                           +-------+-------+  |
    |                                                   |          |
    |                                                   v          |
-   |                                          +-----------------+ |
-   |                                          | SheetsExporter  | |
-   |                                          +--------+--------+ |
-   +-------------------------------------------------- | --------+
-                                                       v
-                                          +-------------------------+
-                                          |     Google Sheet hub    |
-                                          | Articles / Backfill /   |
-                                          | Dashboard / Trends ...  |
-                                          +-------------------------+
-                                                       ^
-                                                       |
-                       monitoring/health_check.py reads it back to verify health
+   |   (1) DB upsert FIRST              +-----------------------+  |
+   |       (cross-run dedup,            | SqliteArticleStore    |  |
+   |        system of record) ───────▶  | data/content_hub.db   |  |
+   |                                    | (articles table)      |  |
+   |                                    +-----------+-----------+  |
+   |                                                |              |
+   |   (2) mirror ONLY new rows                     v              |
+   |       to Sheets                    +-----------------+        |
+   |                                    | SheetsExporter  |        |
+   |                                    +--------+--------+        |
+   +-------------------------------------------- | ---------------+
+                                                 v
+                                    +-------------------------+
+                                    | Google Sheet (MIRROR)   |
+                                    | Articles / Backfill /   |
+                                    | Dashboard / Trends ...  |
+                                    +-------------------------+
+                                                 ^
+                                                 |
+                 monitoring/health_check.py reads it back to verify health
 ```
+
+**System of record = SQLite (`data/content_hub.db`).** The Google Sheet is a
+**read-only mirror/view** that keeps the dashboards working. The DB is written
+*first* and is authoritative; the Sheet is updated *after* with only the new
+rows. The `ArticleStore` interface (`storage/article_store.py`) is the seam for
+a future drop-in swap to Supabase/Postgres — implement the same methods against
+the new backend and inject it; the pipelines don't change.
 
 ### Data flow
 
@@ -63,21 +77,36 @@ th.Wine-Now.com and th.LIQ9.com.
    details (RSS feed URL, scrape selectors, etc.).
 2. **Collect** — `pipeline/ingest.py` builds a collector per source and runs
    each one fail-soft (a single broken source never aborts the run).
-3. **Process** — collected articles are deduplicated (by URL/title hash) then
-   categorized (region, spirits type, trend signals, AEO value, etc.) against
-   `schema/data-schema.md`.
-4. **Cross-run dedup** — before export, `pipeline/ingest.py` reads the URL
-   column already in the **Articles** tab (`SheetsExporter.existing_urls`) and
-   skips any article whose `article_url` is already there, so the daily cron
-   never re-appends the same RSS items it saw on previous runs (the in-run
-   Deduplicator only collapses duplicates *within* a single run). This read is
-   fail-soft: if it errors, the run risks a duplicate rather than dropping new
-   articles. The run summary reports the surviving count as
-   `after_cross_run_dedup`.
-5. **Export** — `exporters/sheets_exporter.py` appends the processed rows to
-   the **Articles** tab of the Google Sheet, in the fixed `A:O` column order.
-6. **Observe** — every stage logs to `logs/ingest.log`; `monitoring/health_check.py`
-   reads the sheet and the log back to confirm the run worked.
+3. **Process** — collected articles are deduplicated *within the run* (by
+   URL/title hash) then categorized (region, spirits type, trend signals, AEO
+   value, etc.) against `schema/data-schema.md`.
+4. **Store + cross-run dedup (DB-first)** — `pipeline/ingest.py` upserts the
+   processed articles into the SQLite store (`storage/article_store.py`). The
+   DB's **indexed `url_normalized` column is the cross-run dedup**: any article
+   already stored from a prior run is skipped on upsert. This replaces the old
+   full-Sheet `existing_urls` read — it scales past the Sheets cell ceiling and
+   needs no Sheets round-trip. `upsert_articles` returns the list of
+   *newly-inserted* rows; the run summary reports `db_inserted`,
+   `db_total`, and `after_cross_run_dedup` (= `db_inserted`).
+5. **Mirror to Sheets** — `pipeline/ingest.py` then appends **only the
+   newly-inserted rows** to the **Articles** tab via
+   `exporters/sheets_exporter.py`, in the fixed column order. The mirror runs
+   *after* the DB write, so a Sheets/API failure is recorded in the summary's
+   `errors` but never loses data (it's already durable in the DB) and never
+   crashes the run. With no exporter configured the mirror is skipped.
+6. **Observe** — every stage logs to `logs/ingest.log`; each run is also
+   appended to the DB `runs` ledger; `monitoring/health_check.py` reads the
+   sheet and the log back to confirm the run worked.
+
+> **One-time cutover (existing Sheet data → DB):** run
+> `./scripts/migrate_sheet_to_db.sh` once. It reads the `Articles` and
+> `Historical_Backfill` tabs (`valueRenderOption=UNFORMATTED_VALUE`), maps each
+> row back to an article dict (the inverse of `format_article_row`, including
+> the `AEO Value` → `aeo_citation_opportunity` and `Trend Signals` →
+> list mappings), and upserts them into `data/content_hub.db`. It is
+> idempotent — re-running skips rows already present (by normalized URL) — and
+> fail-soft per row. It prints read/inserted/skipped counts per tab plus a
+> total.
 
 ---
 
@@ -325,8 +354,17 @@ collection_config:
 
 ## 7. Accessing the Data
 
-- **The Google Sheet** is the hub. Open it at
-  `https://docs.google.com/spreadsheets/d/<DATA_HUB_SHEET_ID>/edit`
+- **The SQLite DB (`data/content_hub.db`) is the system of record.** Query it
+  directly for analysis/time-series:
+  ```bash
+  sqlite3 data/content_hub.db "SELECT COUNT(*) FROM articles;"
+  sqlite3 data/content_hub.db \
+    "SELECT primary_category, COUNT(*) FROM articles GROUP BY 1 ORDER BY 2 DESC;"
+  ```
+  Or from Python via the `ArticleStore` interface
+  (`store.query(...)`, `store.count(...)` in `storage/article_store.py`).
+- **The Google Sheet** is a **read-only mirror/view** for humans + dashboards.
+  Open it at `https://docs.google.com/spreadsheets/d/<DATA_HUB_SHEET_ID>/edit`
   (the id is whatever you set in `DATA_HUB_SHEET_ID` / the cron entry).
 - **Tabs:**
   - **Articles** — the daily-ingested, deduplicated, categorized rows (columns
@@ -362,12 +400,15 @@ collection_config:
 
 ### Google Sheets is corrupted or rows look wrong
 
-1. **Do not panic-delete.** The sheet has version history:
-   *File → Version history → See version history* in Google Sheets — restore to
-   the last good snapshot.
+1. **The Sheet is only a mirror — the DB (`data/content_hub.db`) is the source
+   of truth, so a corrupted Sheet is not data loss.** Rebuild the mirror from
+   the DB by re-exporting (e.g. `store.query(...)` → `exporter.export_articles`),
+   or restore the Sheet from its own version history
+   (*File → Version history → See version history*).
 2. If only the **Articles** tab is bad, you can clear it and let the daily run
-   repopulate going forward, then optionally re-seed history with
-   `./scripts/run_backfill.sh` (writes to Historical_Backfill).
+   repopulate going forward (new rows mirror automatically), then optionally
+   re-seed history with `./scripts/run_backfill.sh` (writes to
+   Historical_Backfill). The DB de-dupes, so nothing is double-counted.
 3. If the **header row** was lost, re-add it once with a header-included export
    (the exporter supports `include_header=True`) or paste
    `SheetsExporter.COLUMNS` into row 1 of the Articles tab.
