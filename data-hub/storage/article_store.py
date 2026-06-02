@@ -57,6 +57,23 @@ ARTICLE_FIELDS: List[str] = [
     "thailand_focus",
 ]
 
+# ``thailand_focus`` is a 3-level string set by the categorizer, NOT a boolean:
+# Thai-market sources and strong title/URL signals -> "high"; weaker/body-only
+# signals -> "medium"; otherwise "" (not Thailand-focused). Anything outside
+# this set normalizes to "".
+THAILAND_FOCUS_LEVELS = {"high", "medium"}
+
+
+def _normalize_thailand_focus(value) -> str:
+    """Coerce a raw ``thailand_focus`` value to a level string {"high","medium",""}.
+
+    None / unknown / empty -> "". Case and surrounding whitespace are ignored.
+    """
+    if value is None:
+        return ""
+    level = str(value).strip().lower()
+    return level if level in THAILAND_FOCUS_LEVELS else ""
+
 
 class ArticleStore(ABC):
     """Interface every article backend must implement (the seam for swapping
@@ -89,7 +106,7 @@ class ArticleStore(ABC):
         self,
         *,
         vertical: Optional[str] = None,
-        thailand_focus: Optional[bool] = None,
+        thailand_focus: Optional[str] = None,
         since: Optional[str] = None,
         until: Optional[str] = None,
         limit: Optional[int] = None,
@@ -144,13 +161,10 @@ class SqliteArticleStore(ArticleStore):
         conn = self._connect()
         # Build the articles-column DDL from ARTICLE_FIELDS so the schema and
         # the field list can never drift apart.
-        column_defs = []
-        for field in ARTICLE_FIELDS:
-            if field == "thailand_focus":
-                # Stored as 0/1; keep INTEGER for clean boolean filtering.
-                column_defs.append(f"{field} INTEGER")
-            else:
-                column_defs.append(f"{field} TEXT")
+        # Every schema field is stored as TEXT. ``thailand_focus`` is a 3-level
+        # string ("high"/"medium"/""), NOT a boolean -- a TEXT column with an
+        # index supports the equality filters (= 'high', = 'medium') we need.
+        column_defs = [f"{field} TEXT" for field in ARTICLE_FIELDS]
         columns_sql = ",\n                ".join(column_defs)
 
         with self._lock:
@@ -202,7 +216,8 @@ class SqliteArticleStore(ArticleStore):
             # A pre-joined string -> wrap as a single-element list for fidelity.
             return json.dumps([str(value)])
         if field == "thailand_focus":
-            return 1 if value else 0
+            # A 3-level string, stored as-is (normalized), NOT a 0/1 boolean.
+            return _normalize_thailand_focus(value)
         if value is None:
             return ""
         return str(value)
@@ -219,7 +234,8 @@ class SqliteArticleStore(ArticleStore):
                 except (ValueError, TypeError):
                     article[field] = []
             elif field == "thailand_focus":
-                article[field] = bool(value)
+                # The 3-level string ("high"/"medium"/""), never a bool.
+                article[field] = value if value else ""
             else:
                 article[field] = value
         return article
@@ -317,8 +333,9 @@ class SqliteArticleStore(ArticleStore):
             clauses.append("primary_category = ?")
             params.append(str(vertical))
         if thailand_focus is not None:
+            # Filter on the level string (e.g. 'high' / 'medium' / '').
             clauses.append("thailand_focus = ?")
-            params.append(1 if thailand_focus else 0)
+            params.append(str(thailand_focus))
         if since is not None:
             clauses.append("published_date >= ?")
             params.append(str(since))
@@ -332,7 +349,7 @@ class SqliteArticleStore(ArticleStore):
         self,
         *,
         vertical: Optional[str] = None,
-        thailand_focus: Optional[bool] = None,
+        thailand_focus: Optional[str] = None,
         since: Optional[str] = None,
         until: Optional[str] = None,
         limit: Optional[int] = None,

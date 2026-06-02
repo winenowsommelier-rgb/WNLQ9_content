@@ -32,7 +32,7 @@ def _article(url, **overrides):
         "aeo_citation_opportunity": "high",
         "collected_date": "2026-05-31T00:00:00Z",
         "source_language": "en",
-        "thailand_focus": False,
+        "thailand_focus": "",
     }
     article.update(overrides)
     return article
@@ -173,16 +173,53 @@ def test_query_filters_by_vertical():
     assert {a["article_url"] for a in wine} == {"https://w.com/1"}
 
 
-def test_query_filters_by_thailand_focus():
-    """query(thailand_focus=True) returns only Thailand-focused rows."""
+def test_query_filters_by_thailand_focus_level():
+    """query(thailand_focus='high'/'medium') filters by the LEVEL string."""
     store = _store()
     store.upsert_articles([
-        _article("https://th.com/1", thailand_focus=True),
-        _article("https://gl.com/2", thailand_focus=False),
+        _article("https://th.com/1", thailand_focus="high"),
+        _article("https://th.com/2", thailand_focus="medium"),
+        _article("https://gl.com/3", thailand_focus=""),
     ])
 
-    thai = store.query(thailand_focus=True)
-    assert {a["article_url"] for a in thai} == {"https://th.com/1"}
+    high = store.query(thailand_focus="high")
+    assert {a["article_url"] for a in high} == {"https://th.com/1"}
+
+    medium = store.query(thailand_focus="medium")
+    assert {a["article_url"] for a in medium} == {"https://th.com/2"}
+
+
+def test_thailand_focus_round_trips_as_level_string():
+    """thailand_focus stores/returns the LEVEL string, not a bool/0/1."""
+    store = _store()
+    store.upsert_articles([
+        _article("https://th.com/1", thailand_focus="high"),
+        _article("https://th.com/2", thailand_focus="medium"),
+        _article("https://gl.com/3", thailand_focus=""),
+    ])
+
+    by_url = {a["article_url"]: a["thailand_focus"] for a in store.query()}
+    assert by_url["https://th.com/1"] == "high"
+    assert by_url["https://th.com/2"] == "medium"
+    assert by_url["https://gl.com/3"] == ""
+    # Explicitly NOT booleans.
+    assert by_url["https://th.com/1"] is not True
+    assert by_url["https://gl.com/3"] is not False
+
+
+def test_count_by_thailand_focus_level():
+    """count(thailand_focus='high'/'medium') counts only that level."""
+    store = _store()
+    store.upsert_articles([
+        _article("https://th.com/1", thailand_focus="high"),
+        _article("https://th.com/2", thailand_focus="high"),
+        _article("https://th.com/3", thailand_focus="medium"),
+        _article("https://gl.com/4", thailand_focus=""),
+    ])
+
+    assert store.count() == 4
+    assert store.count(thailand_focus="high") == 2
+    assert store.count(thailand_focus="medium") == 1
 
 
 def test_query_filters_by_date_range():

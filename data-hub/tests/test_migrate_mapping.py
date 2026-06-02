@@ -36,7 +36,7 @@ def _full_row():
         "high",                           # AEO Value -> aeo_citation_opportunity
         "2026-05-31 00:00:00",            # Collected Date -> collected_date
         "en",                             # Source Language -> source_language
-        "FALSE",                          # Thailand Focus -> thailand_focus
+        "",                               # Thailand Focus -> thailand_focus (level)
     ]
 
 
@@ -55,7 +55,8 @@ def test_row_to_article_maps_all_columns():
     assert article["spirits_type"] == ""
     assert article["primary_category"] == "wine"
     assert article["buyer_persona"] == "collector"
-    # The AEO Value header maps to the aeo_citation_opportunity field.
+    # The AEO Value header maps to the aeo_citation_opportunity field --
+    # a LEVEL string (high/medium/low), passed through as-is (NOT bool-coerced).
     assert article["aeo_citation_opportunity"] == "high"
     assert article["collected_date"] == "2026-05-31 00:00:00"
     assert article["source_language"] == "en"
@@ -109,15 +110,39 @@ def test_row_to_article_short_row_is_padded():
     assert article["source_language"] == ""
 
 
-def test_row_to_article_thailand_focus_truthy():
-    """A "TRUE" Thailand Focus cell maps to a truthy value the store accepts."""
-    row = _full_row()
-    row[15] = "TRUE"
-    article = row_to_article(row)
-    assert bool(article["thailand_focus"]) is True
+def test_row_to_article_thailand_focus_is_level_string():
+    """The Thailand Focus cell is a LEVEL string (high/medium/""), not a bool.
 
+    It maps straight through (normalized to {"high","medium",""}); anything
+    else (including legacy "TRUE"/"FALSE") collapses to "".
+    """
+    row = _full_row()
+
+    row[15] = "high"
+    assert row_to_article(row)["thailand_focus"] == "high"
+
+    row[15] = "medium"
+    assert row_to_article(row)["thailand_focus"] == "medium"
+
+    row[15] = "MEDIUM"  # case/whitespace normalized
+    assert row_to_article(row)["thailand_focus"] == "medium"
+
+    row[15] = ""
+    assert row_to_article(row)["thailand_focus"] == ""
+
+    # Legacy/unknown values are not levels -> "".
     row[15] = "FALSE"
-    assert bool(row_to_article(row)["thailand_focus"]) is False
+    assert row_to_article(row)["thailand_focus"] == ""
+    row[15] = "TRUE"
+    assert row_to_article(row)["thailand_focus"] == ""
+
+
+def test_row_to_article_aeo_value_is_level_string():
+    """AEO Value is a LEVEL string (high/medium/low), passed through, not bool."""
+    row = _full_row()
+    for level in ("high", "medium", "low"):
+        row[12] = level
+        assert row_to_article(row)["aeo_citation_opportunity"] == level
 
 
 def test_mapping_is_inverse_of_format_article_row():
@@ -140,7 +165,7 @@ def test_mapping_is_inverse_of_format_article_row():
         "source_language": "en",
         "published_date": "2026-05-30T09:00:00Z",
         "collected_date": "2026-05-31T00:00:00Z",
-        "thailand_focus": False,
+        "thailand_focus": "high",
     }
     row = exporter.format_article_row(original)
     article = row_to_article(row)
@@ -150,3 +175,5 @@ def test_mapping_is_inverse_of_format_article_row():
     assert article["article_url"] == original["article_url"]
     assert article["trend_signals"] == original["trend_signals"]
     assert article["aeo_citation_opportunity"] == "high"
+    # thailand_focus survives the round-trip as the level string.
+    assert article["thailand_focus"] == "high"

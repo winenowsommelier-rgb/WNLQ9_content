@@ -84,22 +84,18 @@ def row_to_article(row: List) -> Dict:
                     if part.strip()
                 ]
         elif field == "thailand_focus":
-            # The cell holds "TRUE"/"FALSE" (or a bool from UNFORMATTED_VALUE).
-            # Convert to a real bool so the store doesn't treat the non-empty
-            # string "FALSE" as truthy and mis-store it as Thailand-focused.
-            article[field] = _coerce_bool(raw)
+            # thailand_focus is a 3-LEVEL string ("high"/"medium"/""), NOT a
+            # boolean. Pass the cell straight through, normalized: keep only
+            # "high"/"medium" (case/whitespace-insensitive); anything else
+            # (blank, legacy "TRUE"/"FALSE", unknown) collapses to "".
+            level = value.strip().lower()
+            article[field] = level if level in ("high", "medium") else ""
         else:
+            # All other fields (including the AEO Value level high/medium/low)
+            # pass through as the raw string -- no bool coercion.
             article[field] = value
 
     return article
-
-
-def _coerce_bool(raw) -> bool:
-    """Coerce a sheet cell into a bool (handles bool, "TRUE"/"FALSE", 1/0)."""
-    if isinstance(raw, bool):
-        return raw
-    text = str(raw).strip().lower()
-    return text in ("true", "1", "yes")
 
 
 # -- live migration (network; not in the mocked suite) -----------------------
