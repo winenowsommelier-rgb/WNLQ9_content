@@ -1,0 +1,16 @@
+{
+  "name": "wnlq9-content-pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ingest content briefs (Dashboard or JSON batch) into the 2026 JUN - WNLQ9 - Content Production Notion database.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test",
+    "ingest": "node src/cli.mjs",
+    "ingest:dry": "node src/cli.mjs examples/sample-briefs.json --dry-run"
+  },
+  "dependencies": {}
+}

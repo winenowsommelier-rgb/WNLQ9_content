@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WNLQ9 — Content Production Dashboard</title>
+    <style>
+      :root { --bg:#0f0f11; --card:#1a1a1f; --card2:#15151a; --line:#2c2c34; --fg:#e8e8ea; --muted:#9a9aa3; --accent:#7c3aed; --ok:#16a34a; --warn:#d97706; --err:#dc2626; }
+      * { box-sizing:border-box; }
+      body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+      a { color:#c4b5fd; text-decoration:none; }
+      header { display:flex; gap:12px; align-items:center; flex-wrap:wrap; padding:14px 20px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:5; }
+      header h1 { font-size:17px; margin:0; margin-right:auto; }
+      header input, header select, header button { background:#121216; color:var(--fg); border:1px solid var(--line); border-radius:8px; padding:7px 10px; font:inherit; }
+      header button { background:var(--accent); border:0; cursor:pointer; font-weight:600; }
+      header button.secondary { background:#121216; border:1px solid var(--line); }
+      .pipeline { display:flex; gap:8px; flex-wrap:wrap; padding:12px 20px; border-bottom:1px solid var(--line); }
+      .stage { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:6px 12px; font-size:12px; color:var(--muted); }
+      .stage b { color:var(--fg); font-size:15px; margin-left:6px; }
+      .layout { display:grid; grid-template-columns:minmax(320px,420px) 1fr; gap:0; }
+      @media (max-width:820px){ .layout{ grid-template-columns:1fr; } #detail{ border-left:0; border-top:1px solid var(--line);} }
+      .list { border-right:1px solid var(--line); max-height:calc(100vh - 132px); overflow:auto; }
+      .item { padding:12px 16px; border-bottom:1px solid var(--line); cursor:pointer; }
+      .item:hover { background:var(--card2); }
+      .item.active { background:var(--card); border-left:3px solid var(--accent); padding-left:13px; }
+      .item .t { font-weight:600; margin-bottom:4px; }
+      .item .meta { color:var(--muted); font-size:12px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+      .badge { font-size:11px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); }
+      .st-Notstarted{ color:#9a9aa3;} .st-BriefReady{ color:#60a5fa; border-color:#60a5fa55;}
+      .st-Inprogress{ color:#fbbf24; border-color:#fbbf2455;} .st-Review{ color:#fb923c; border-color:#fb923c55;}
+      .st-Done{ color:#34d399; border-color:#34d39955;} .st-Published{ color:#a78bfa; border-color:#a78bfa55;}
+      #detail { padding:20px; max-height:calc(100vh - 132px); overflow:auto; }
+      #detail h2 { margin:0 0 4px; font-size:18px; }
+      .sub { color:var(--muted); font-size:12px; margin-bottom:16px; }
+      .actions { display:flex; gap:10px; flex-wrap:wrap; margin:14px 0; }
+      .actions button { background:var(--accent); color:#fff; border:0; border-radius:9px; padding:9px 14px; font:inherit; font-weight:600; cursor:pointer; }
+      .actions button:disabled { opacity:.4; cursor:default; }
+      .actions a.btn { display:inline-block; padding:9px 14px; border:1px solid var(--line); border-radius:9px; }
+      .panel { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px; margin:12px 0; }
+      .panel h3 { margin:0 0 8px; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+      .content { white-space:pre-wrap; word-break:break-word; max-height:300px; overflow:auto; font-size:13px; }
+      .log { list-style:none; margin:0; padding:0; }
+      .log li { padding:6px 0; border-bottom:1px dashed var(--line); font-size:13px; }
+      .log time { color:var(--muted); font-size:11px; display:block; }
+      #toast { position:fixed; bottom:18px; left:50%; transform:translateX(-50%); padding:10px 16px; border-radius:9px; display:none; max-width:90%; }
+      #toast.ok{ display:block; background:#0c2a18; border:1px solid var(--ok);} #toast.err{ display:block; background:#2a0c0c; border:1px solid var(--err);}
+      .empty { color:var(--muted); padding:40px 20px; text-align:center; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>📋 Content Production — June 2026</h1>
+      <select id="fSite"><option value="">All sites</option><option>Wine-Now</option><option>LIQ9</option></select>
+      <select id="fStatus"><option value="">All statuses</option><option>Not started</option><option>Brief Ready</option><option>In progress</option><option>Review</option><option>Done</option><option>Published</option></select>
+      <input id="secret" type="password" placeholder="Passphrase" autocomplete="current-password" style="width:130px" />
+      <button id="refresh" class="secondary">↻ Refresh</button>
+      <a href="/intake.html"><button>+ New brief</button></a>
+    </header>
+
+    <div class="pipeline" id="pipeline"></div>
+
+    <div class="layout">
+      <div class="list" id="list"><div class="empty">Enter passphrase and Refresh to load items.</div></div>
+      <div id="detail"><div class="empty">Select an item to review it.</div></div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const secretInput = $("secret");
+      secretInput.value = localStorage.getItem("ingestSecret") || "";
+      secretInput.addEventListener("change", () => localStorage.setItem("ingestSecret", secretInput.value));
+
+      let items = [];
+      let selectedId = null;
+
+      const stKey = (s) => "st-" + String(s || "Not started").replace(/\s/g, "");
+      const fmtDate = (d) => (d ? new Date(d).toLocaleString() : "—");
+
+      function toast(msg, kind = "ok") {
+        const t = $("toast");
+        t.className = kind;
+        t.textContent = msg;
+        clearTimeout(toast._t);
+        toast._t = setTimeout(() => (t.className = ""), 5000);
+      }
+
+      async function api(path, { method = "GET", body } = {}) {
+        const res = await fetch(path, {
+          method,
+          headers: { "Content-Type": "application/json", "X-Ingest-Secret": secretInput.value },
+          body: body ? JSON.stringify(body) : undefined,
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.ok === false) {
+          throw new Error(data.error || (data.errors || []).join("; ") || `HTTP ${res.status}`);
+        }
+        return data;
+      }
+
+      function renderPipeline() {
+        const order = ["Not started", "Brief Ready", "In progress", "Review", "Done", "Published"];
+        const counts = Object.fromEntries(order.map((s) => [s, 0]));
+        for (const it of items) if (counts[it.status] != null) counts[it.status]++;
+        $("pipeline").innerHTML = order
+          .map((s) => `<span class="stage">${s}<b class="${stKey(s)}">${counts[s]}</b></span>`)
+          .join("");
+      }
+
+      function filtered() {
+        const site = $("fSite").value, status = $("fStatus").value;
+        return items
+          .filter((it) => (!site || it.site === site) && (!status || it.status === status))
+          .sort((a, b) => (a.day ?? 99) - (b.day ?? 99));
+      }
+
+      function renderList() {
+        const rows = filtered();
+        if (!rows.length) { $("list").innerHTML = '<div class="empty">No items match.</div>'; return; }
+        $("list").innerHTML = rows
+          .map(
+            (it) => `<div class="item ${it.id === selectedId ? "active" : ""}" data-id="${it.id}">
+              <div class="t">${it.day != null ? "D" + it.day + " · " : ""}${escapeHtml(it.title) || "(untitled)"}</div>
+              <div class="meta">
+                <span class="badge ${stKey(it.status)}">${it.status || "—"}</span>
+                <span>${it.site || ""}</span><span>${it.category || ""}</span><span>${it.type || ""}</span>
+              </div></div>`,
+          )
+          .join("");
+        for (const el of $("list").querySelectorAll(".item")) {
+          el.onclick = () => selectItem(el.dataset.id);
+        }
+      }
+
+      function escapeHtml(s) {
+        return String(s || "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+      }
+
+      async function selectItem(id) {
+        selectedId = id;
+        renderList();
+        const it = items.find((x) => x.id === id);
+        if (!it) return;
+
+        const canGenerate = ["Not started", "Brief Ready", "In progress"].includes(it.status);
+        // Approve uploads a full HTML file (manifest-backed) when present, else
+        // falls back to the EN/TH drafts — so enable for either path.
+        const canApprove = (it.hasHtml || (it.contentEN && it.contentTH)) && it.status !== "Done" && it.status !== "Published";
+
+        $("detail").innerHTML = `
+          <h2>${escapeHtml(it.title)}</h2>
+          <div class="sub">${it.briefId || ""} · ${it.site || ""} · ${it.category || ""} · Day ${it.day ?? "—"} · ${it.publishDate || "no date"} · <span class="badge ${stKey(it.status)}">${it.status || "—"}</span></div>
+          <div class="actions">
+            <button id="btnGen" ${canGenerate ? "" : "disabled"}>✨ Generate drafts</button>
+            <button id="btnApprove" ${canApprove ? "" : "disabled"}>✅ Approve → Drive</button>
+            <a class="btn" href="${it.url}" target="_blank">Notion ↗</a>
+            ${it.driveUrl ? `<a class="btn" href="${it.driveUrl}" target="_blank">Google Doc ↗</a>` : ""}
+          </div>
+          <div class="panel"><h3>Brief</h3><div class="content">${escapeHtml(it.contentBrief) || "—"}</div>
+            ${it.targetKeyword ? `<p class="sub" style="margin-top:8px">🎯 ${escapeHtml(it.targetKeyword)}</p>` : ""}
+            ${it.story ? `<p class="sub">STORY: ${escapeHtml(it.story)}</p>` : ""}
+            ${it.tension ? `<p class="sub">TENSION: ${escapeHtml(it.tension)}</p>` : ""}
+            ${it.cta ? `<p class="sub">CTA: ${escapeHtml(it.cta)}</p>` : ""}
+          </div>
+          <div class="panel"><h3>Content EN</h3><div class="content">${escapeHtml(it.contentEN) || "— not generated —"}</div></div>
+          <div class="panel"><h3>Content TH</h3><div class="content">${escapeHtml(it.contentTH) || "— ยังไม่ได้สร้าง —"}</div></div>
+          <div class="panel"><h3>Activity log</h3><ul class="log" id="log"><li class="sub">loading…</li></ul></div>`;
+
+        $("btnGen").onclick = () => runAction("generate", it.id, "Generating drafts…");
+        $("btnApprove").onclick = () => runAction("approve", it.id, "Creating Google Doc…");
+        loadLog(it.id);
+      }
+
+      async function loadLog(id) {
+        try {
+          const { log } = await api(`/api/log?pageId=${id}`);
+          const ul = $("log");
+          if (!ul) return;
+          ul.innerHTML = log.length
+            ? log.map((e) => `<li>${escapeHtml(e.text)}<time>${fmtDate(e.createdAt)}</time></li>`).join("")
+            : '<li class="sub">No activity yet.</li>';
+        } catch (e) { /* log is best-effort */ }
+      }
+
+      async function runAction(kind, pageId, msg) {
+        const btn = kind === "generate" ? $("btnGen") : $("btnApprove");
+        btn.disabled = true;
+        toast(msg);
+        try {
+          await api(`/api/${kind}`, { method: "POST", body: { pageId } });
+          toast(kind === "generate" ? "Drafts generated ✓" : "Saved to Google Drive ✓", "ok");
+          await load();
+          selectItem(pageId);
+        } catch (e) {
+          toast(e.message, "err");
+          btn.disabled = false;
+        }
+      }
+
+      async function load() {
+        if (!secretInput.value) { toast("Enter the passphrase first.", "err"); return; }
+        localStorage.setItem("ingestSecret", secretInput.value);
+        try {
+          const data = await api("/api/items");
+          items = data.items;
+          renderPipeline();
+          renderList();
+        } catch (e) {
+          $("list").innerHTML = `<div class="empty">⚠️ ${escapeHtml(e.message)}</div>`;
+          toast(e.message, "err");
+        }
+      }
+
+      $("refresh").onclick = load;
+      $("fSite").onchange = renderList;
+      $("fStatus").onchange = renderList;
+      if (secretInput.value) load();
+    </script>
+  </body>
+</html>
