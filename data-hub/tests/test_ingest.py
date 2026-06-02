@@ -18,9 +18,17 @@ import pytest
 
 import pipeline.ingest as ingest_module
 from pipeline.ingest import IngestPipeline, configure_logging
+from storage.article_store import SqliteArticleStore
 
 
 SOURCES_CONFIG_PATH = "config/sources.yaml"
+
+
+def _store():
+    """A fresh in-memory SqliteArticleStore with its schema initialised."""
+    store = SqliteArticleStore(db_path=":memory:")
+    store.init_schema()
+    return store
 
 
 def _article(url, title="A wine story", excerpt="Bordeaux vintage report"):
@@ -44,6 +52,7 @@ def pipeline():
     return IngestPipeline(
         sources_config_path=SOURCES_CONFIG_PATH,
         exporter=exporter,
+        store=_store(),
     )
 
 
@@ -284,7 +293,8 @@ def test_process_dedups_and_categorizes(pipeline):
 
 
 def test_run_full_pipeline_with_mocks():
-    """Inject mock collectors + exporter; run() returns a correct summary."""
+    """Inject mock collectors + exporter; run() upserts to the DB and mirrors
+    only the newly-inserted rows to the exporter."""
     exporter = MagicMock()
     exporter.export_articles.return_value = {"exported": 2, "sheet": "Articles"}
 
@@ -300,9 +310,11 @@ def test_run_full_pipeline_with_mocks():
     # Returns a duplicate of x.com/1 -> should be collapsed by dedup.
     c2.collect.return_value = [_article("https://x.com/1", title="Barolo wine review")]
 
+    store = _store()
     pipeline = IngestPipeline(
         sources_config_path=SOURCES_CONFIG_PATH,
         exporter=exporter,
+        store=store,
     )
     # Inject collectors directly, bypassing build_collectors / the network.
     pipeline.collectors = [c1, c2]
@@ -311,13 +323,108 @@ def test_run_full_pipeline_with_mocks():
 
     assert summary["collected"] == 3
     assert summary["after_dedup"] == 2
+    assert summary["after_cross_run_dedup"] == 2
     assert summary["exported"] == 2
+    assert summary["db_inserted"] == 2
+    assert summary["db_total"] == 2
     assert set(summary["sources_run"]) == {"Mock RSS One", "Mock RSS Two"}
     assert summary["errors"] == []
-    # The exporter was actually invoked with the processed articles.
+    # The DB is the system of record: both distinct articles are stored.
+    assert store.count() == 2
+    # The exporter was invoked with exactly the newly-inserted articles.
     exporter.export_articles.assert_called_once()
     exported_articles = exporter.export_articles.call_args[0][0]
     assert len(exported_articles) == 2
+
+
+def test_run_second_identical_run_is_a_noop():
+    """A second identical run inserts nothing new and mirrors nothing."""
+    exporter = MagicMock()
+    exporter.export_articles.return_value = {"exported": 2, "sheet": "Articles"}
+
+    def fresh_collector():
+        c = MagicMock()
+        c.name = "Mock RSS"
+        c.collect.return_value = [
+            _article("https://x.com/1", title="Barolo wine review"),
+            _article("https://x.com/2", title="Bourbon whiskey news"),
+        ]
+        return c
+
+    store = _store()
+    pipeline = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH, exporter=exporter, store=store,
+    )
+    pipeline.collectors = [fresh_collector()]
+    first = pipeline.run()
+    assert first["db_inserted"] == 2
+    assert store.count() == 2
+
+    # Second run with the same articles: the DB skips them all.
+    exporter.reset_mock()
+    pipeline.errors = []
+    pipeline.collectors = [fresh_collector()]
+    second = pipeline.run()
+
+    assert second["db_inserted"] == 0
+    assert second["after_cross_run_dedup"] == 0
+    assert second["db_total"] == 2
+    # No duplicates: the DB still has just the two originals.
+    assert store.count() == 2
+    # Nothing new to mirror -> exporter not called (or called with empty set).
+    if exporter.export_articles.called:
+        mirrored = exporter.export_articles.call_args[0][0]
+        assert mirrored == []
+
+
+def test_run_db_write_survives_sheets_failure():
+    """A Sheets/exporter failure never loses DB data; the error is recorded."""
+    exporter = MagicMock()
+    exporter.export_articles.side_effect = RuntimeError("Sheets API down")
+
+    collector = MagicMock()
+    collector.name = "Mock RSS"
+    collector.collect.return_value = [
+        _article("https://x.com/1", title="Barolo wine review"),
+        _article("https://x.com/2", title="Bourbon whiskey news"),
+    ]
+
+    store = _store()
+    pipeline = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH, exporter=exporter, store=store,
+    )
+    pipeline.collectors = [collector]
+
+    # run() must NOT raise even though the mirror blows up.
+    summary = pipeline.run()
+
+    # DB still has the rows -- the upsert happened before the failing mirror.
+    assert store.count() == 2
+    assert summary["db_inserted"] == 2
+    assert summary["db_total"] == 2
+    # The mirror failure is surfaced in the summary errors.
+    assert any("Sheets API down" in e or "mirror" in e.lower()
+               for e in summary["errors"])
+
+
+def test_run_mirror_skipped_when_no_exporter():
+    """With no exporter, run() still writes to the DB and does not crash."""
+    store = _store()
+    pipeline = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH, store=store,
+    )
+    assert pipeline.exporter is None
+
+    collector = MagicMock()
+    collector.name = "Mock RSS"
+    collector.collect.return_value = [_article("https://x.com/1")]
+    pipeline.collectors = [collector]
+
+    summary = pipeline.run()
+
+    assert store.count() == 1
+    assert summary["db_inserted"] == 1
+    assert summary["exported"] == 0
 
 
 def test_filter_already_exported_skips_known():
@@ -366,11 +473,17 @@ def test_filter_already_exported_no_exporter():
 
 
 def test_run_applies_cross_run_dedup():
-    """run() filters articles already present in the sheet before export."""
+    """run() dedups against the DB (not a Sheets read) before mirroring.
+
+    The DB is the authoritative cross-run dedup index: an article already
+    stored from a prior run is skipped on upsert and never re-mirrored.
+    """
     exporter = MagicMock()
-    # The sheet already contains x.com/1; only the new article should export.
-    exporter.existing_urls.return_value = {"https://x.com/1"}
     exporter.export_articles.return_value = {"exported": 1, "sheet": "Articles"}
+
+    store = _store()
+    # Pre-seed the DB with x.com/1 as if a prior run had stored it.
+    store.upsert_articles([_article("https://x.com/1", title="Barolo wine review")])
 
     collector = MagicMock()
     collector.name = "Mock RSS"
@@ -382,16 +495,21 @@ def test_run_applies_cross_run_dedup():
     pipeline = IngestPipeline(
         sources_config_path=SOURCES_CONFIG_PATH,
         exporter=exporter,
+        store=store,
     )
     pipeline.collectors = [collector]
 
     summary = pipeline.run()
 
-    # Both collected & survived dedup, but one is already in the sheet.
+    # Both collected & survived within-run dedup, but one is already in the DB.
     assert summary["collected"] == 2
     assert summary["after_dedup"] == 2
     assert summary["after_cross_run_dedup"] == 1
+    assert summary["db_inserted"] == 1
+    assert summary["db_total"] == 2
     assert summary["exported"] == 1
+    # The cross-run dedup is the DB; the Sheets read must NOT be consulted.
+    exporter.existing_urls.assert_not_called()
     # Existing keys remain intact.
     assert set(summary["sources_run"]) == {"Mock RSS"}
     assert summary["errors"] == []
@@ -417,6 +535,7 @@ def test_run_records_collector_errors_in_summary():
     pipeline = IngestPipeline(
         sources_config_path=SOURCES_CONFIG_PATH,
         exporter=exporter,
+        store=_store(),
     )
     pipeline.collectors = [bad, good]
 

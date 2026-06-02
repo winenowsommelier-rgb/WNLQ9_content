@@ -18,9 +18,17 @@ import textwrap
 
 from collectors.sitemap_collector import SitemapCollector
 from pipeline.backfill import BackfillPipeline
+from storage.article_store import SqliteArticleStore
 
 
 SOURCES_CONFIG_PATH = "config/sources.yaml"
+
+
+def _store():
+    """A fresh in-memory SqliteArticleStore with its schema initialised."""
+    store = SqliteArticleStore(db_path=":memory:")
+    store.init_schema()
+    return store
 
 # A fixed reference "today" so date-window tests are fully deterministic.
 REFERENCE_DATE = datetime.datetime(2026, 6, 1, tzinfo=datetime.timezone.utc)
@@ -51,6 +59,7 @@ def pipeline():
         sources_config_path=SOURCES_CONFIG_PATH,
         exporter=exporter,
         months_back=12,
+        store=_store(),
     )
 
 
@@ -241,10 +250,12 @@ def test_run_exports_to_backfill_sheet():
     collector.name = "Mock RSS"
     collector.collect.return_value = [recent, ancient]
 
+    store = _store()
     pipeline = BackfillPipeline(
         sources_config_path=SOURCES_CONFIG_PATH,
         exporter=exporter,
         months_back=12,
+        store=store,
     )
     # Inject collectors directly, bypassing build_collectors / the network.
     pipeline.collectors = [collector]
@@ -258,16 +269,63 @@ def test_run_exports_to_backfill_sheet():
     _, kwargs = exporter.export_articles.call_args
     assert kwargs.get("sheet_name") == "Historical_Backfill"
 
+    # The DB stored the one kept article (system-of-record).
+    assert store.count() == 1
+    # Only the newly-inserted row was mirrored.
+    mirrored = exporter.export_articles.call_args[0][0]
+    assert len(mirrored) == 1
+    assert mirrored[0]["article_url"] == "https://x.com/1"
+
     # Summary reports the funnel and includes a limitations note about RSS.
     assert summary["collected"] == 2
     assert summary["after_date_filter"] == 1
     assert summary["after_dedup"] == 1
     assert summary["exported"] == 1
+    assert summary["db_inserted"] == 1
+    assert summary["db_total"] == 1
     assert summary["months_back"] == 12
     assert "Mock RSS" in summary["sources_run"]
     assert isinstance(summary["limitations"], str)
     assert "RSS" in summary["limitations"]
     assert summary["errors"] == []
+
+
+def test_run_dedups_against_db_and_survives_sheets_failure():
+    """A backfill row already in the DB (e.g. from ingest) is skipped, and a
+    Sheets mirror failure never loses the DB data."""
+    # Pre-seed the shared DB with an article that the backfill will re-collect.
+    store = _store()
+    store.upsert_articles([
+        _article("https://shared.com/1", published_date="2026-05-15T00:00:00Z"),
+    ])
+
+    exporter = MagicMock()
+    exporter.export_articles.side_effect = RuntimeError("Sheets API down")
+
+    collector = MagicMock()
+    collector.name = "Mock RSS"
+    collector.collect.return_value = [
+        _article("https://shared.com/1", published_date="2026-05-15T00:00:00Z"),
+        _article("https://new.com/2", published_date="2026-05-16T00:00:00Z"),
+    ]
+
+    pipeline = BackfillPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH,
+        exporter=exporter,
+        months_back=12,
+        store=store,
+    )
+    pipeline.collectors = [collector]
+    pipeline.reference_date = REFERENCE_DATE
+
+    summary = pipeline.run(max_pages=1)
+
+    # Global dedup by normalized URL: only the genuinely-new article inserts.
+    assert summary["db_inserted"] == 1
+    assert store.count() == 2  # the pre-seeded one + the new one
+    # The mirror raised, but the DB write already happened -> data is safe.
+    assert any("Sheets API down" in e or "mirror" in e.lower()
+               for e in summary["errors"])
 
 
 # -- build_collectors / backfill_sources -------------------------------------

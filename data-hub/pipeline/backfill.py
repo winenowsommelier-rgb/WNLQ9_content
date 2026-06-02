@@ -57,6 +57,7 @@ from collectors.web_scraper import WebScraper
 from exporters.sheets_exporter import SheetsExporter
 from processors.categorizer import Categorizer
 from processors.deduplicator import Deduplicator
+from storage.article_store import SqliteArticleStore
 
 logger = logging.getLogger("pipeline.backfill")
 
@@ -108,6 +109,13 @@ class BackfillPipeline:
         so no real Google API access is required.
     months_back:
         Size of the trailing date window to keep, in months (default 12).
+    store:
+        The :class:`~storage.article_store.ArticleStore` system-of-record --
+        the SAME db/articles table the daily ingest writes to. Global dedup by
+        normalized URL across ingest + backfill is correct and desired. The DB
+        upsert is the authoritative dedup; Sheets (the Historical_Backfill tab)
+        is just a mirror. Injected by tests; defaults to a file-backed
+        :class:`SqliteArticleStore`.
     """
 
     def __init__(
@@ -116,6 +124,7 @@ class BackfillPipeline:
         sheet_id: Optional[str] = None,
         exporter=None,
         months_back: int = 12,
+        store=None,
     ) -> None:
         self.sources_config_path = sources_config_path
         self.sheet_id = sheet_id
@@ -129,6 +138,11 @@ class BackfillPipeline:
             # Defer the failure to export() so collect/filter/process can
             # still be exercised without a sheet.
             self.exporter = None
+
+        # The DB is the system-of-record + cross-run dedup index, shared with
+        # the daily ingest (same articles table). Lazy: the default
+        # SqliteArticleStore constructor never opens a file.
+        self.store = store if store is not None else SqliteArticleStore()
 
         self.deduplicator = Deduplicator()
         self.categorizer = Categorizer()
@@ -496,9 +510,18 @@ class BackfillPipeline:
         """Run the full backfill and return a structured summary dict.
 
         Stages: build_collectors (if none injected) -> collect_all (with
-        pagination) -> filter_by_date -> process -> export.
+        pagination) -> filter_by_date -> process (within-run dedup +
+        categorize) -> upsert to the DB (authoritative, global cross-run dedup)
+        -> mirror ONLY the newly-inserted rows to the Historical_Backfill tab
+        -> record the run.
+
+        The DB upsert happens BEFORE the Sheets mirror so a Sheets/API failure
+        never loses data; a mirror exception is recorded and the run continues.
         """
         logger.info("=== Content Hub historical backfill starting ===")
+
+        # Ensure the backing tables/indexes exist (idempotent, shared schema).
+        self.store.init_schema()
 
         collectors = self.collectors or self.build_collectors()
 
@@ -508,30 +531,84 @@ class BackfillPipeline:
             reference_date=self.reference_date,
         )
         processed = self.process(filtered)
-        export_result = self.export(processed)
+
+        # Upsert into the SAME articles table as the daily ingest: global dedup
+        # by normalized URL across ingest + backfill is correct and desired.
+        # ``inserted`` is exactly the new rows. Happens BEFORE the Sheets mirror.
+        result = self.store.upsert_articles(processed)
+        inserted = result.get("inserted", [])
+        logger.info(
+            "DB upsert: %d inserted, %d skipped (already stored)",
+            len(inserted), result.get("skipped", 0),
+        )
+
+        # Mirror ONLY the newly-inserted rows to the Historical_Backfill tab.
+        exported = self._mirror_to_sheets(inserted)
 
         summary = {
             "collected": len(collected),
             "after_date_filter": len(filtered),
             "after_dedup": len(processed),
-            "exported": export_result.get("exported", 0),
+            "exported": exported,
+            "db_inserted": len(inserted),
+            "db_total": self.store.count(),
             "months_back": self.months_back,
             "sources_run": [getattr(c, "name", repr(c)) for c in collectors],
             "errors": list(self.errors),
             "limitations": LIMITATIONS_NOTE,
         }
 
+        # Append to the runs ledger for observability (fail-soft in the store).
+        self.store.record_run({**summary, "kind": "backfill"})
+
         logger.info(
             "=== Backfill complete: collected=%d after_date_filter=%d "
-            "after_dedup=%d exported=%s sources=%d errors=%d ===",
+            "after_dedup=%d db_inserted=%d exported=%s db_total=%d "
+            "sources=%d errors=%d ===",
             summary["collected"],
             summary["after_date_filter"],
             summary["after_dedup"],
+            summary["db_inserted"],
             summary["exported"],
+            summary["db_total"],
             len(summary["sources_run"]),
             len(summary["errors"]),
         )
         return summary
+
+    def _mirror_to_sheets(self, inserted: List[Dict]) -> int:
+        """Mirror the newly-inserted rows to the Historical_Backfill tab.
+
+        Guarded and fail-soft: with no exporter the mirror is skipped (the DB
+        still has the data); any exporter exception is caught and recorded so a
+        Sheets outage never crashes the run or loses the durable DB rows.
+        """
+        if self.exporter is None:
+            logger.info("No exporter configured; skipping Sheets mirror "
+                        "(DB still has the data).")
+            return 0
+
+        if not inserted:
+            return 0
+
+        try:
+            result = self.exporter.export_articles(
+                inserted, sheet_name=BACKFILL_SHEET_NAME
+            )
+        except Exception as exc:  # noqa: BLE001 -- a mirror failure must not lose DB data
+            message = f"Sheets mirror failed: {exc}"
+            logger.error(message)
+            self.errors.append(message)
+            return 0
+
+        if isinstance(result, dict) and result.get("error"):
+            self.errors.append(f"Sheets mirror error: {result['error']}")
+        exported = result.get("exported", 0) if isinstance(result, dict) else 0
+        logger.info(
+            "Mirrored %s newly-inserted row(s) to sheet %r",
+            exported, BACKFILL_SHEET_NAME,
+        )
+        return exported
 
 
 # -- logging setup -----------------------------------------------------------

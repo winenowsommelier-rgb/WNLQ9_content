@@ -39,6 +39,7 @@ from collectors.web_scraper import WebScraper
 from exporters.sheets_exporter import SheetsExporter
 from processors.categorizer import Categorizer
 from processors.deduplicator import Deduplicator
+from storage.article_store import SqliteArticleStore
 
 logger = logging.getLogger("pipeline.ingest")
 
@@ -73,6 +74,12 @@ class IngestPipeline:
         ``export_articles(articles, sheet_name) -> dict``). Injected by
         tests so no real Google API access is required. When omitted, a
         :class:`SheetsExporter` is built from ``sheet_id``.
+    store:
+        The :class:`~storage.article_store.ArticleStore` system-of-record.
+        The DB is now the authoritative cross-run dedup index (replacing the
+        old full-Sheet ``existing_urls`` read) AND the durable storage; Sheets
+        is just a mirror. Injected by tests (an in-memory SQLite store);
+        defaults to a file-backed :class:`SqliteArticleStore`.
     """
 
     def __init__(
@@ -80,6 +87,7 @@ class IngestPipeline:
         sources_config_path: str = "config/sources.yaml",
         sheet_id: Optional[str] = None,
         exporter=None,
+        store=None,
     ) -> None:
         self.sources_config_path = sources_config_path
         self.sheet_id = sheet_id
@@ -92,6 +100,11 @@ class IngestPipeline:
             # Defer the failure to export() so the rest of the pipeline
             # (collect/process) can still be exercised without a sheet.
             self.exporter = None
+
+        # The DB is the system-of-record + cross-run dedup index. Lazy: the
+        # default SqliteArticleStore constructor never opens a file, so this is
+        # side-effect free; init_schema() is called in run().
+        self.store = store if store is not None else SqliteArticleStore()
 
         self.deduplicator = Deduplicator()
         self.categorizer = Categorizer()
@@ -315,41 +328,105 @@ class IngestPipeline:
         """Run the full pipeline and return a structured summary dict.
 
         Stages: build_collectors (if none injected) -> collect_all ->
-        process -> filter_already_exported (cross-run dedup) -> export.
+        process (within-run dedup + categorize) -> upsert to the DB (the
+        authoritative cross-run dedup) -> mirror ONLY the newly-inserted rows
+        to Sheets -> record the run.
+
+        Ordering for safety: the DB upsert happens BEFORE the Sheets mirror, so
+        a Sheets/API failure can never lose data -- the rows are already
+        durable in the DB. A mirror exception is recorded in ``errors`` and the
+        run continues (it does not crash).
 
         Returns
         -------
         dict
             ``{"collected": N, "after_dedup": M, "after_cross_run_dedup": P,
-            "exported": K, "sources_run": [...], "errors": [...]}``
+            "exported": K, "db_inserted": P, "db_total": T,
+            "sources_run": [...], "errors": [...]}``
         """
         logger.info("=== Content Hub ingestion run starting ===")
+
+        # Ensure the backing tables/indexes exist (idempotent).
+        self.store.init_schema()
 
         collectors = self.collectors or self.build_collectors()
 
         collected = self.collect_all(collectors)
         processed = self.process(collected)
-        # Cross-run dedup: skip anything already in the sheet from a prior run.
-        new_articles = self.filter_already_exported(processed, sheet_name=sheet_name)
-        export_result = self.export(new_articles, sheet_name=sheet_name)
+
+        # The DB upsert IS the cross-run dedup now (indexed by normalized URL),
+        # replacing the old full-Sheet existing_urls read. Anything already
+        # stored from a prior run is skipped; ``inserted`` is exactly the new
+        # rows. This is authoritative and happens BEFORE the Sheets mirror.
+        result = self.store.upsert_articles(processed)
+        inserted = result.get("inserted", [])
+        logger.info(
+            "DB upsert: %d inserted, %d skipped (already stored)",
+            len(inserted), result.get("skipped", 0),
+        )
+
+        # Mirror ONLY the newly-inserted rows to Sheets so dashboards keep
+        # updating with no duplicates. Fail-soft: a Sheets/API failure is
+        # recorded but never loses the (already-durable) DB data nor crashes
+        # the run. If no exporter is configured, skip the mirror entirely.
+        exported = self._mirror_to_sheets(inserted, sheet_name=sheet_name)
 
         summary = {
             "collected": len(collected),
             "after_dedup": len(processed),
-            "after_cross_run_dedup": len(new_articles),
-            "exported": export_result.get("exported", 0),
+            "after_cross_run_dedup": len(inserted),
+            "exported": exported,
+            "db_inserted": len(inserted),
+            "db_total": self.store.count(),
             "sources_run": [getattr(c, "name", repr(c)) for c in collectors],
             "errors": list(self.errors),
         }
 
+        # Append to the runs ledger for observability (fail-soft in the store).
+        self.store.record_run({**summary, "kind": "ingest"})
+
         logger.info(
-            "=== Run complete: collected=%d after_dedup=%d "
-            "after_cross_run_dedup=%d exported=%s sources=%d errors=%d ===",
+            "=== Run complete: collected=%d after_dedup=%d db_inserted=%d "
+            "exported=%s db_total=%d sources=%d errors=%d ===",
             summary["collected"], summary["after_dedup"],
-            summary["after_cross_run_dedup"], summary["exported"],
+            summary["db_inserted"], summary["exported"], summary["db_total"],
             len(summary["sources_run"]), len(summary["errors"]),
         )
         return summary
+
+    def _mirror_to_sheets(
+        self, inserted: List[Dict], sheet_name: str = "Articles"
+    ) -> int:
+        """Mirror the newly-inserted rows to Sheets; return the mirrored count.
+
+        Guarded and fail-soft: if no exporter is configured the mirror is
+        skipped (the DB still has the data). Any exporter exception is caught
+        and recorded in ``self.errors`` so a Sheets outage never crashes the
+        run or loses the (already-durable) DB rows.
+        """
+        if self.exporter is None:
+            logger.info("No exporter configured; skipping Sheets mirror "
+                        "(DB still has the data).")
+            return 0
+
+        if not inserted:
+            # Nothing new to mirror -> avoid an empty API call.
+            return 0
+
+        try:
+            result = self.exporter.export_articles(inserted, sheet_name=sheet_name)
+        except Exception as exc:  # noqa: BLE001 -- a mirror failure must not lose DB data
+            message = f"Sheets mirror failed: {exc}"
+            logger.error(message)
+            self.errors.append(message)
+            return 0
+
+        if isinstance(result, dict) and result.get("error"):
+            self.errors.append(f"Sheets mirror error: {result['error']}")
+        exported = result.get("exported", 0) if isinstance(result, dict) else 0
+        logger.info("Mirrored %s newly-inserted row(s) to sheet %r",
+                    exported, sheet_name)
+        return exported
 
 
 # -- logging setup -----------------------------------------------------------
