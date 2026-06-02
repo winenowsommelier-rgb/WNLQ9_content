@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  LaunchAgent for the QUARTERLY historical backfill (deep sitemap crawl).
+
+  Runs run_backfill.sh on the 1st of Jan / Apr / Jul / Oct at 03:00, refreshing
+  the Historical_Backfill tab with ~12 months of sitemap-crawled history.
+  Separate from the daily ingest agent (com.wnlq9.datahub.ingest).
+
+  __SHEET_ID__ / __RUN_SCRIPT__ / __LOG_FILE__ are filled in by
+  install_backfill_schedule.sh. Edit the installer config, not this template.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.wnlq9.datahub.backfill</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__RUN_SCRIPT__</string>
+        <string>--months-back</string>
+        <string>12</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>DATA_HUB_SHEET_ID</key>
+        <string>__SHEET_ID__</string>
+    </dict>
+
+    <!-- Quarterly: 1st of Jan, Apr, Jul, Oct at 03:00 local. -->
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict><key>Month</key><integer>1</integer><key>Day</key><integer>1</integer><key>Hour</key><integer>3</integer><key>Minute</key><integer>0</integer></dict>
+        <dict><key>Month</key><integer>4</integer><key>Day</key><integer>1</integer><key>Hour</key><integer>3</integer><key>Minute</key><integer>0</integer></dict>
+        <dict><key>Month</key><integer>7</integer><key>Day</key><integer>1</integer><key>Hour</key><integer>3</integer><key>Minute</key><integer>0</integer></dict>
+        <dict><key>Month</key><integer>10</integer><key>Day</key><integer>1</integer><key>Hour</key><integer>3</integer><key>Minute</key><integer>0</integer></dict>
+    </array>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>__LOG_FILE__</string>
+    <key>StandardErrorPath</key>
+    <string>__LOG_FILE__</string>
+</dict>
+</plist>
