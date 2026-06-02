@@ -45,6 +45,7 @@ import requests
 from dateutil import parser as date_parser
 
 from collectors.base_collector import BaseCollector
+from collectors.retry import retry_call
 
 logger = logging.getLogger("collectors.sitemap")
 
@@ -81,6 +82,10 @@ class SitemapCollector(BaseCollector):
 
     DEFAULT_CONTENT_TYPE = "news"
     REQUEST_TIMEOUT = 20
+    # Fetch retry policy (overridable per instance); injectable sleep keeps
+    # tests fast.
+    RETRY_ATTEMPTS = 3
+    RETRY_BACKOFF_SECONDS = 2.0
     USER_AGENT = (
         "Mozilla/5.0 (compatible; ContentTrendDataHub/1.0; "
         "+https://www.wine-now.com/bot)"
@@ -373,10 +378,10 @@ class SitemapCollector(BaseCollector):
     def _fetch(self, url: str) -> str:
         """GET ``url`` with a sane User-Agent and timeout.
 
-        Returns the response body, or '' on any network/HTTP error so the
-        caller can fail soft.
+        Retries transient failures with backoff, then returns the response
+        body, or '' once retries are exhausted so the caller can fail soft.
         """
-        try:
+        def _do_fetch() -> str:
             response = requests.get(
                 url,
                 headers={"User-Agent": self.USER_AGENT},
@@ -384,9 +389,16 @@ class SitemapCollector(BaseCollector):
             )
             response.raise_for_status()
             return response.text or ""
-        except Exception as exc:  # noqa: BLE001 -- fail soft on any fetch error
-            logger.warning("Failed to fetch sitemap %r: %s", url, exc)
-            return ""
+
+        text = retry_call(
+            _do_fetch,
+            attempts=self.RETRY_ATTEMPTS,
+            backoff_seconds=self.RETRY_BACKOFF_SECONDS,
+            fallback="",
+        )
+        if not text:
+            logger.warning("Failed to fetch sitemap %r after retries", url)
+        return text
 
     @staticmethod
     def _parse(text: str):

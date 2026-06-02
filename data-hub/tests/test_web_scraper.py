@@ -140,10 +140,15 @@ def test_excerpt_truncated_to_500():
 
 
 def test_fetch_html_returns_empty_on_network_error():
-    """Network errors in _fetch_html are caught and return ''."""
+    """Network errors in _fetch_html are retried then return '' (fail-soft)."""
     scraper = _make_scraper()
     with mock.patch(
         "collectors.web_scraper.requests.get",
         side_effect=Exception("network down"),
-    ):
+    ) as get, mock.patch("collectors.retry.time.sleep") as slept:
+        # Mocked sleep -> the retry loop never waits real seconds.
         assert scraper._fetch_html(LISTING_URL) == ""
+    # Retried the configured number of attempts before giving up.
+    assert get.call_count == scraper.RETRY_ATTEMPTS
+    # Backoff was applied between attempts, but via the mocked sleep only.
+    assert slept.call_count == scraper.RETRY_ATTEMPTS - 1

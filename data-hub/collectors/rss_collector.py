@@ -9,6 +9,7 @@ include Decanter (https://www.decanter.com/feed/) and The Spirits Business
 from __future__ import annotations
 
 import datetime
+import logging
 import re
 from typing import Dict, List
 
@@ -16,6 +17,9 @@ import feedparser
 from dateutil import parser as date_parser
 
 from collectors.base_collector import BaseCollector
+from collectors.retry import retry_call
+
+logger = logging.getLogger("collectors.rss")
 
 
 class RSSCollector(BaseCollector):
@@ -29,6 +33,11 @@ class RSSCollector(BaseCollector):
 
     DEFAULT_CONTENT_TYPE = "news"
     EXCERPT_MAX_CHARS = 500
+    # Fetch retry policy (overridable per instance); injectable sleep keeps
+    # tests fast. feedparser itself does not raise on HTTP errors, but a hard
+    # network/DNS failure inside it does -- those are what we retry.
+    RETRY_ATTEMPTS = 3
+    RETRY_BACKOFF_SECONDS = 2.0
 
     def __init__(self, name: str, feed_url: str, vertical=None, geo_focus=None) -> None:
         super().__init__(
@@ -40,14 +49,42 @@ class RSSCollector(BaseCollector):
         self.feed_url = feed_url
 
     def collect(self) -> List[Dict]:
-        """Fetch & parse the feed, returning validated, enriched articles."""
-        try:
-            feed = feedparser.parse(self.feed_url)
-        except Exception:
-            # Network error, malformed response, etc. -- fail soft.
+        """Fetch & parse the feed, returning validated, enriched articles.
+
+        feedparser does NOT raise on a 404/timeout -- it returns a result with
+        ``bozo=1`` and/or an HTTP ``status`` >= 400 and (usually) no entries.
+        We retry hard network failures, then inspect ``bozo``/``status`` and
+        log a clear WARNING so a silently-dead feed is visible instead of
+        looking like an empty-but-healthy source.
+        """
+        feed = retry_call(
+            lambda: feedparser.parse(self.feed_url),
+            attempts=self.RETRY_ATTEMPTS,
+            backoff_seconds=self.RETRY_BACKOFF_SECONDS,
+            fallback=None,
+        )
+        if feed is None:
+            # Hard network/parse failure across all retries -- fail soft.
+            logger.warning("Feed %r failed to fetch after retries", self.feed_url)
             return []
 
         entries = getattr(feed, "entries", None) or []
+
+        # Detect feedparser's silent-failure signals (404/timeout/malformed).
+        status = None
+        if hasattr(feed, "get"):
+            status = feed.get("status")
+        else:
+            status = getattr(feed, "status", None)
+        bozo = getattr(feed, "bozo", 0)
+        if (bozo and not entries) or (isinstance(status, int) and status >= 400):
+            reason = getattr(feed, "bozo_exception", None)
+            logger.warning(
+                "Feed %r looks broken (bozo=%s status=%s entries=%d reason=%s)",
+                self.feed_url, bozo, status, len(entries), reason,
+            )
+            return []
+
         articles: List[Dict] = []
 
         for entry in entries:
