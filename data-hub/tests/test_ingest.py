@@ -77,8 +77,8 @@ def test_build_collectors_creates_rss(pipeline):
     assert len(rss) > 0
     # Every RSS collector should carry a feed_url drawn from the config.
     assert all(getattr(c, "feed_url", None) for c in rss)
-    # Wine Spectator is an rss source in the registry.
-    assert any(c.name == "Wine Spectator" for c in rss)
+    # Decanter is an enabled rss source in the registry (verified live).
+    assert any(c.name == "Decanter" for c in rss)
 
 
 def test_build_collectors_skips_unconfigured(pipeline):

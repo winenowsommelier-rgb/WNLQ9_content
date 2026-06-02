@@ -19,7 +19,8 @@ sources:
       api_type: "rss"
       rss_feed: "https://www.winespectator.com/rss/reviews.xml"
       vertical: "wine"
-      enabled: true
+      enabled: false
+      disabled_reason: "broken RSS 404 — feed returns no entries; needs scrape"
       categories: ["reviews", "news", "ratings"]
       language: "en"
       update_frequency: "daily"
@@ -35,7 +36,8 @@ sources:
       scrape_endpoint: "https://www.robertparkerwineadvocate.com/tasting-notes/"
       scrape_selector: ".wine-review-item"
       vertical: "wine"
-      enabled: true
+      enabled: false
+      disabled_reason: "no full scrape selectors + paywalled — needs scrape impl"
       categories: ["reviews", "ratings"]
       language: "en"
       update_frequency: "weekly"
@@ -65,7 +67,8 @@ sources:
       api_type: "rss"
       rss_feed: "https://www.jamessuckling.com/feed/"
       vertical: "wine"
-      enabled: true
+      enabled: false
+      disabled_reason: "broken RSS — feed returns no usable entries; needs scrape"
       categories: ["reviews", "ratings"]
       language: "en"
       update_frequency: "weekly"
@@ -80,7 +83,8 @@ sources:
       api_type: "rss"
       rss_feed: "https://www.winemag.com/feed/"
       vertical: "wine"
-      enabled: true
+      enabled: false
+      disabled_reason: "broken RSS — winemag.com feed returns no entries; needs scrape"
       categories: ["reviews", "news", "guides"]
       language: "en"
       update_frequency: "daily"
@@ -95,7 +99,8 @@ sources:
       api_type: "api"
       api_endpoint: "https://www.vivino.com/api/users/ratings/"
       vertical: "wine"
-      enabled: true
+      enabled: false
+      disabled_reason: "unimplemented api_type 'api' — no collector built"
       auth_required: false
       categories: ["reviews", "ratings", "social"]
       language: "en"
@@ -128,7 +133,8 @@ sources:
       scrape_endpoint: "https://www.diffordsguide.com/en/spirits/reviews/"
       scrape_selector: ".spirit-review"
       vertical: "spirits"
-      enabled: true
+      enabled: false
+      disabled_reason: "JS-rendered + endpoint 404 — needs Playwright"
       static_scrape_verified: false
       static_scrape_note: "VERIFIED 2026-06-01: this endpoint 404s and the site is JS-rendered. Static requests+BeautifulSoup returns no article structure. Needs a headless (Playwright/Selenium) scraper before it can be activated."
       categories: ["reviews", "spirits_guide"]
@@ -163,7 +169,8 @@ sources:
       scrape_endpoint: "https://www.scotchwhiskyresearch.com/research/"
       scrape_selector: ".research-article"
       vertical: "spirits"
-      enabled: true
+      enabled: false
+      disabled_reason: "defunct domain — site no longer resolves; no full selectors"
       categories: ["research", "market_data"]
       language: "en"
       update_frequency: "monthly"
@@ -385,7 +392,8 @@ sources:
       url: "https://www.tiktok.com"
       api_type: "keyword_monitor"
       vertical: "social"
-      enabled: true
+      enabled: false
+      disabled_reason: "unimplemented api_type 'keyword_monitor' — no collector built"
       keyword_terms: ["#WineLife", "#WhiskyTok", "#WineOfTheDay", "#SpiritsTok", "#WineHaul"]
       categories: ["social_trends", "viral_content"]
       language: "en"
@@ -400,7 +408,8 @@ sources:
       url: "https://www.instagram.com"
       api_type: "keyword_monitor"
       vertical: "social"
-      enabled: true
+      enabled: false
+      disabled_reason: "unimplemented api_type 'keyword_monitor' — no collector built"
       keyword_terms: ["#WineOfTheDay", "#InstaWine", "#WineGeek", "#WhiskyGeek", "#WhiskyLovers"]
       categories: ["social_trends", "influencer_content"]
       language: "en"
@@ -415,7 +424,8 @@ sources:
       url: "https://www.reddit.com"
       api_type: "web_scrape"
       vertical: "social"
-      enabled: true
+      enabled: false
+      disabled_reason: "JS-rendered + no full selectors — needs Playwright/Reddit API"
       scrape_endpoint_list:
         - "https://www.reddit.com/r/wine/"
         - "https://www.reddit.com/r/whisky/"
@@ -437,7 +447,8 @@ sources:
       scrape_endpoint: "https://www.wongnai.com/restaurants/search?q=wine+bar&q=whisky"
       scrape_selector: ".WnRestaurantCard"
       vertical: "thai"
-      enabled: true
+      enabled: false
+      disabled_reason: "JS-rendered SPA + endpoint 404 — needs Playwright/Wongnai API"
       static_scrape_verified: false
       static_scrape_note: "VERIFIED 2026-06-01: this search URL 404s and Wongnai is a JS single-page app; static scraping returns no cards. Needs either a headless scraper or Wongnai's internal JSON API. High strategic value (Thai market) but blocked on tooling."
       categories: ["local_news", "restaurant_reviews", "wine_bars"]
@@ -455,7 +466,8 @@ sources:
       scrape_endpoint: "https://www.pantip.com/forum/topic/search?q=wine"
       scrape_selector: ".topic-item"
       vertical: "thai"
-      enabled: true
+      enabled: false
+      disabled_reason: "JS-rendered forum + no full selectors — needs Playwright"
       categories: ["forum_discussions", "local_trends"]
       language: "th"
       update_frequency: "weekly"
