@@ -79,6 +79,63 @@ def _row(*, title="A Title", url="https://example.com/a", region="France",
     return row
 
 
+# -- date parsing (FIX 3: serials + ISO) -----------------------------------
+
+
+def test_parse_date_serial_number():
+    """A numeric Sheets date serial converts to the correct UTC datetime."""
+    # 46174.5 -> 2026-06-01 12:00 UTC (epoch 1899-12-30 + 46174.5 days).
+    dt = HealthCheck._parse_iso(46174.5)
+    assert dt is not None
+    assert dt.year == 2026
+    assert dt.month == 6
+    assert dt.day == 1
+    assert dt.hour == 12
+    assert dt.tzinfo is not None
+
+
+def test_parse_date_integer_serial():
+    dt = HealthCheck._parse_iso(46174)
+    assert dt is not None
+    assert (dt.year, dt.month, dt.day) == (2026, 6, 1)
+
+
+def test_parse_date_iso_string_still_works():
+    dt = HealthCheck._parse_iso("2026-06-01T12:00:00Z")
+    assert dt is not None
+    assert dt.year == 2026 and dt.hour == 12
+
+
+def test_parse_date_garbage_returns_none():
+    assert HealthCheck._parse_iso("not a date") is None
+    assert HealthCheck._parse_iso("") is None
+    assert HealthCheck._parse_iso(None) is None
+
+
+def test_check_recent_articles_uses_unformatted_value():
+    """The Articles read requests UNFORMATTED_VALUE so serials come through."""
+    rows = [_header()] + [_row() for _ in range(6)]
+    exporter, get = _make_exporter_with_rows(rows)
+    hc = HealthCheck(exporter=exporter)
+    hc.check_recent_articles(reference_time=NOW)
+    _, kwargs = get.call_args
+    assert kwargs.get("valueRenderOption") == "UNFORMATTED_VALUE"
+
+
+def test_check_recent_articles_counts_serial_dated_row():
+    """A row whose Collected Date is a numeric serial counts as recent."""
+    # 46174.5 == NOW (2026-06-01 12:00 UTC); add enough to clear the threshold.
+    serial_now = 46174.5
+    rows = [_header()] + [_row(collected=serial_now) for _ in range(6)]
+    exporter, _ = _make_exporter_with_rows(rows)
+    hc = HealthCheck(exporter=exporter)
+
+    result = hc.check_recent_articles(reference_time=NOW)
+
+    assert result["status"] == "healthy"
+    assert result["recent_count"] == 6
+
+
 # -- construction ----------------------------------------------------------
 
 

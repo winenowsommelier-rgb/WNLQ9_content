@@ -40,7 +40,7 @@ from __future__ import annotations
 import logging
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional
 
 from exporters.sheets_exporter import SheetsExporter
@@ -122,19 +122,46 @@ class HealthCheck:
             return reference_time
         return datetime.now(timezone.utc)
 
-    @staticmethod
-    def _parse_iso(value: str) -> Optional[datetime]:
+    # Sheets stores dates as serial numbers counted from this epoch.
+    _SHEETS_EPOCH = datetime(1899, 12, 30, tzinfo=timezone.utc)
+
+    @classmethod
+    def _parse_iso(cls, value) -> Optional[datetime]:
         """Parse a Collected Date cell into a tz-aware datetime, or None.
 
-        The exporter writes ``YYYY-MM-DDTHH:MM:SSZ``; we also accept plain
-        ISO 8601 with offsets. Anything unparseable yields ``None`` so a
-        single malformed cell never aborts the count.
+        Dates are written with USER_ENTERED, so when the sheet is read with
+        ``valueRenderOption="UNFORMATTED_VALUE"`` the cell comes back as a
+        numeric Sheets serial (days since 1899-12-30). This accepts EITHER:
+
+        * a numeric serial (``int``/``float``) -> converted from the Sheets
+          epoch and treated as UTC, or
+        * an ISO 8601 string (``YYYY-MM-DDTHH:MM:SSZ`` or with an offset) --
+          the original behaviour, kept for older string-formatted cells.
+
+        Anything unparseable yields ``None`` so a single malformed cell never
+        aborts the count (fail-soft).
         """
-        if not value:
+        if value is None:
+            return None
+
+        # Numeric Sheets serial (UNFORMATTED_VALUE path). bool is an int
+        # subclass, so guard against True/False slipping through.
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            try:
+                return cls._SHEETS_EPOCH + timedelta(days=float(value))
+            except (OverflowError, ValueError):
+                return None
+
+        if not isinstance(value, str):
             return None
         text = value.strip()
         if not text:
             return None
+        # A numeric string serial (defensive: some clients stringify numbers).
+        try:
+            return cls._SHEETS_EPOCH + timedelta(days=float(text))
+        except ValueError:
+            pass
         # Normalise a trailing Z to an explicit UTC offset for fromisoformat.
         if text.endswith("Z"):
             text = text[:-1] + "+00:00"
@@ -161,7 +188,14 @@ class HealthCheck:
         response = (
             service.spreadsheets()
             .values()
-            .get(spreadsheetId=sheet_id, range=_ARTICLES_RANGE)
+            .get(
+                spreadsheetId=sheet_id,
+                range=_ARTICLES_RANGE,
+                # Dates are written with USER_ENTERED (real Sheets date serials).
+                # Read them UNFORMATTED so we get the numeric serial rather than
+                # a locale-formatted display string that _parse_iso can't read.
+                valueRenderOption="UNFORMATTED_VALUE",
+            )
             .execute()
         )
         values = response.get("values", []) or []
@@ -169,9 +203,26 @@ class HealthCheck:
         return values[1:] if values else []
 
     @staticmethod
-    def _cell(row: List[str], idx: int) -> str:
-        """Return a row's cell at idx, tolerating short (truncated) rows."""
-        return row[idx].strip() if idx < len(row) and row[idx] else ""
+    def _cell(row: List, idx: int) -> str:
+        """Return a row's cell at idx as a trimmed string (tolerates shorts).
+
+        With UNFORMATTED_VALUE a cell may be a non-string (e.g. a numeric date
+        serial), so coerce to str before stripping.
+        """
+        if idx < len(row) and row[idx] not in (None, ""):
+            return str(row[idx]).strip()
+        return ""
+
+    @staticmethod
+    def _raw_cell(row: List, idx: int):
+        """Return a row's raw cell at idx (no coercion), or None if absent.
+
+        Used for the Collected Date, which under UNFORMATTED_VALUE is a numeric
+        serial that ``_parse_iso`` must see as a number, not a string.
+        """
+        if idx < len(row):
+            return row[idx]
+        return None
 
     # -- checks ---------------------------------------------------------
 
@@ -201,7 +252,7 @@ class HealthCheck:
 
         recent = 0
         for row in rows:
-            collected = self._parse_iso(self._cell(row, _IDX_COLLECTED))
+            collected = self._parse_iso(self._raw_cell(row, _IDX_COLLECTED))
             if collected is None:
                 continue
             age_hours = (now - collected).total_seconds() / 3600.0
