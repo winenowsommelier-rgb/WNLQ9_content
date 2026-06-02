@@ -14,6 +14,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
+import textwrap
+
+from collectors.sitemap_collector import SitemapCollector
 from pipeline.backfill import BackfillPipeline
 
 
@@ -265,3 +268,74 @@ def test_run_exports_to_backfill_sheet():
     assert isinstance(summary["limitations"], str)
     assert "RSS" in summary["limitations"]
     assert summary["errors"] == []
+
+
+# -- build_collectors / backfill_sources -------------------------------------
+
+
+def test_build_collectors_includes_sitemap_sources(tmp_path):
+    """A config with a backfill_sources sitemap entry builds a SitemapCollector."""
+    config = textwrap.dedent(
+        """
+        sources:
+          wine:
+            - name: "Decanter RSS"
+              api_type: "rss"
+              rss_feed: "https://www.decanter.com/feed/"
+        backfill_sources:
+          - name: "The Spirits Business"
+            api_type: "sitemap"
+            sitemap_url: "https://www.thespiritsbusiness.com/sitemap_index.xml"
+            sitemap_child_pattern: "post-sitemap"
+            language: "en"
+        """
+    )
+    config_path = tmp_path / "sources.yaml"
+    config_path.write_text(config, encoding="utf-8")
+
+    pipeline = BackfillPipeline(
+        sources_config_path=str(config_path),
+        exporter=MagicMock(),
+        months_back=12,
+    )
+    pipeline.reference_date = REFERENCE_DATE
+
+    collectors = pipeline.build_collectors()
+
+    sitemap_collectors = [c for c in collectors if isinstance(c, SitemapCollector)]
+    assert len(sitemap_collectors) == 1
+    sc = sitemap_collectors[0]
+    assert sc.name == "The Spirits Business"
+    assert sc.sitemap_url == (
+        "https://www.thespiritsbusiness.com/sitemap_index.xml"
+    )
+    assert sc.child_pattern == "post-sitemap"
+    # Date window / reference flow through from the pipeline.
+    assert sc.months_back == 12
+    assert sc.reference_date == REFERENCE_DATE
+
+
+def test_build_collectors_backward_compatible(tmp_path):
+    """A config WITHOUT backfill_sources still builds (no crash, RSS only)."""
+    config = textwrap.dedent(
+        """
+        sources:
+          wine:
+            - name: "Decanter RSS"
+              api_type: "rss"
+              rss_feed: "https://www.decanter.com/feed/"
+        """
+    )
+    config_path = tmp_path / "sources.yaml"
+    config_path.write_text(config, encoding="utf-8")
+
+    pipeline = BackfillPipeline(
+        sources_config_path=str(config_path),
+        exporter=MagicMock(),
+        months_back=12,
+    )
+
+    collectors = pipeline.build_collectors()
+
+    assert len(collectors) == 1
+    assert not any(isinstance(c, SitemapCollector) for c in collectors)

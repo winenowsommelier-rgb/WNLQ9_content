@@ -158,6 +158,14 @@ class IngestPipeline:
             return WebScraper(name=name, listing_url=listing_url,
                               selectors=selectors)
 
+        if api_type == "sitemap":
+            # Sitemap crawling is deep-history work reserved for the backfill
+            # pipeline; the daily ingest must never crawl sitemaps.
+            logger.info(
+                "Skipping source %r: sitemap sources are backfill-only", name
+            )
+            return None
+
         if api_type in ("api", "keyword_monitor"):
             logger.info("Skipping source %r (api_type=%r): not yet implemented",
                         name, api_type)

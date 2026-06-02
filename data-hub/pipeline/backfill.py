@@ -51,6 +51,7 @@ import yaml
 from dateutil import parser as date_parser
 
 from collectors.rss_collector import RSSCollector
+from collectors.sitemap_collector import SitemapCollector
 from collectors.web_scraper import WebScraper
 from exporters.sheets_exporter import SheetsExporter
 from processors.categorizer import Categorizer
@@ -297,6 +298,14 @@ class BackfillPipeline:
                 if collector is not None:
                     collectors.append(collector)
 
+        # Sitemap sources live in a separate top-level ``backfill_sources``
+        # block so they never affect the daily ingest. Backward-compatible:
+        # if the key is absent, this is simply a no-op.
+        for source in config.get("backfill_sources", []) or []:
+            collector = self._build_one(source)
+            if collector is not None:
+                collectors.append(collector)
+
         logger.info(
             "Built %d collector(s) from %s",
             len(collectors),
@@ -328,6 +337,22 @@ class BackfillPipeline:
                 return None
             listing_url = source.get("scrape_endpoint") or source.get("url")
             return WebScraper(name=name, listing_url=listing_url, selectors=selectors)
+
+        if api_type == "sitemap":
+            sitemap_url = source.get("sitemap_url")
+            if not sitemap_url:
+                logger.warning(
+                    "Skipping sitemap source %r: no sitemap_url configured", name
+                )
+                return None
+            return SitemapCollector(
+                name=name,
+                sitemap_url=sitemap_url,
+                months_back=self.months_back,
+                reference_date=self.reference_date,
+                child_pattern=source.get("sitemap_child_pattern"),
+                max_child_sitemaps=source.get("max_child_sitemaps", 12),
+            )
 
         if api_type in ("api", "keyword_monitor"):
             logger.info(

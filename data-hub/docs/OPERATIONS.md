@@ -205,7 +205,11 @@ Content Hub health check
 ### Quarterly
 - Run a historical backfill to capture newly added sources:
   `./scripts/run_backfill.sh` (writes to the separate **Historical_Backfill**
-  tab — never the daily Articles tab).
+  tab — never the daily Articles tab). For deep history, the backfill also
+  crawls XML sitemaps (`backfill_sources` in `config/sources.yaml`, `api_type:
+  sitemap`) via the `SitemapCollector`, which reaches back YEARS using each
+  article's `<lastmod>` date — far beyond the ~1 month RSS exposes. Sitemaps
+  are backfill-only; the daily ingest deliberately skips them.
 - Audit the full source list against the prioritization matrix in `research/`;
   add high-value sources and prune dead ones.
 
@@ -218,6 +222,8 @@ Content Hub health check
    - `rss` → also set `rss_feed` (the feed URL).
    - `web_scrape` → also set `selectors` with at minimum `article`, `title`,
      and `link` (entries without full selectors are skipped on purpose).
+   - `sitemap` (backfill-only) → add under the top-level `backfill_sources:`
+     block with a `sitemap_url` (and optional `sitemap_child_pattern`).
 2. **Add selectors (scrape only)** — open the listing page in a browser, find
    the CSS selectors for the article container, headline, and link, and fill in
    the `selectors` mapping.

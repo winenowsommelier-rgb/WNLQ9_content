@@ -272,6 +272,34 @@ sources:
       regions: ["Thailand"]
       notes: "Thai community forum; discussions on wine, spirits, and premium beverages; sentiment analysis opportunity."
 
+# Backfill-only sources (deep historical seeding via XML sitemaps).
+#
+# Sitemaps list EVERY article URL a site has published -- often with a
+# <lastmod> date -- so they let the backfill reach YEARS back, far beyond the
+# ~1 month an RSS feed exposes. These are crawled ONLY by pipeline/backfill.py;
+# the daily pipeline/ingest.py deliberately skips api_type "sitemap".
+# Verified live 2026-06-02.
+backfill_sources:
+  - name: "The Spirits Business"
+    api_type: "sitemap"
+    sitemap_url: "https://www.thespiritsbusiness.com/sitemap_index.xml"
+    sitemap_child_pattern: "post-sitemap"
+    language: "en"
+    notes: "sitemap_index -> post-sitemap*.xml (loc + lastmod, back to 2011)."
+
+  - name: "Punch"
+    api_type: "sitemap"
+    sitemap_url: "https://punchdrink.com/sitemap_index.xml"
+    sitemap_child_pattern: "article-sitemap"
+    language: "en"
+    notes: "sitemap_index -> article-sitemap*.xml (loc + lastmod, 2013->2026)."
+
+  - name: "Decanter"
+    api_type: "sitemap"
+    sitemap_url: "https://www.decanter.com/sitemap_index.xml"
+    language: "en"
+    notes: "sitemap_index with 327 child sitemaps; default post/article child heuristic applies."
+
 collection_config:
   default_update_frequency: "daily"
   default_language: "en"
