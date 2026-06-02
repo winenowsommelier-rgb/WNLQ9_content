@@ -16,7 +16,7 @@ It runs itself daily. You mostly just *read the Google Sheet*.
   Decanter (RSS)      ┐                                          ┌ Articles  (raw feed)
   The Spirits Biz     │    collect → dedupe (within-run          │ Dashboard (overview)
   Punch (scraper)     ├──▶          + against the sheet) ──────▶ │ Trends    (signals)
-  Wine Enthusiast     │    → categorize (region, type,           │ Regions
+  Whisky Advocate     │    → categorize (region, type,           │ Regions
   (+ more configured) ┘      trend signals, AEO value)           │ Brands
                                                                  │ AEO Opportunities
                                                                  └ Editorial
@@ -168,6 +168,20 @@ launchctl bootout gui/$(id -u)/com.wnlq9.datahub.ingest
 | Dashboard counts look off | Make sure row 1 of **Articles** is the header (`Source, Title…`) |
 | "403" on a run | Sheet sharing — confirm shared with `data-hub-exporter@content-trend-data-hub.iam.gserviceaccount.com` (Editor) |
 | Auth error | Credentials — re-run `./scripts/verify_sheets_setup.sh` |
+
+**Alerts & reliability**
+
+- **Failure alerts** — set `DATA_HUB_ALERT_WEBHOOK` to a Slack-compatible
+  incoming webhook URL and any failed ingest/backfill or `critical` health
+  check posts a message there (plus a macOS notification). Unset → it just
+  logs. The pipeline also now **exits non-zero** when a run has errors, so the
+  scheduler can tell a real failure from a clean run.
+- **Logs are size-capped** — `logs/ingest.log` / `logs/backfill.log` rotate at
+  5 MB × 5 backups, so they can't fill the disk.
+- **⚠️ The 2 AM run is a single point of failure.** launchd does **not** run
+  while the Mac is **asleep or off** — a missed slot is simply skipped (no
+  catch-up, no alert). For guaranteed runs, host the pipeline in the cloud
+  (e.g. a GitHub Actions scheduled workflow). See `docs/OPERATIONS.md` §3.
 
 Full troubleshooting + maintenance schedule: **`docs/OPERATIONS.md`**.
 Dashboard formula reference: **`docs/DASHBOARD_GUIDE.md`**.

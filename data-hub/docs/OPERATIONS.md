@@ -173,6 +173,62 @@ Content Hub health check
 | warning | 0 | quiet (review manually) |
 | critical | 1 | alert |
 
+### Alerting (webhook + macOS notification)
+
+All three entry points (`pipeline.ingest`, `pipeline.backfill`,
+`monitoring.health_check`) route failures through `monitoring/notifier.py`'s
+`send_alert()`. It is fully **fail-soft** — an alerting error never crashes
+the run — and surfaces a failure through up to three channels:
+
+1. **Logging** (always): ERROR for critical, WARNING otherwise.
+2. **Webhook** (optional): if the environment variable
+   **`DATA_HUB_ALERT_WEBHOOK`** is set to a Slack-compatible incoming webhook
+   URL, it POSTs JSON `{"text": "<message>"}`.
+3. **macOS desktop notification** (best effort, via `osascript`).
+
+To enable Slack/Teams/Discord alerts, export the webhook in the cron/launchd
+environment (alongside `DATA_HUB_SHEET_ID`):
+
+```bash
+export DATA_HUB_ALERT_WEBHOOK="https://hooks.slack.com/services/XXX/YYY/ZZZ"
+```
+
+If the variable is unset, alerting silently falls back to logging only.
+
+### Non-zero exit on failure
+
+The pipelines now make failures **visible to the scheduler**:
+
+| Entry point | Exits non-zero (1) when… | Exits 0 when… |
+|---|---|---|
+| `python -m pipeline.ingest` | the run summary has a non-empty `errors` list (a source or the export failed) | clean run, even a partial one with zero errors |
+| `python -m pipeline.backfill` | same — any collected error | clean run |
+| `python -m monitoring.health_check` | overall verdict is `critical` | `healthy` or `warning` |
+
+A non-zero ingest/backfill exit also fires `send_alert(..., level="critical")`.
+This means launchd (or GitHub Actions — see below) sees the failure instead of
+a silent "success".
+
+### Log rotation
+
+`logs/ingest.log` and `logs/backfill.log` use a `RotatingFileHandler`
+(**5 MB per file, 5 backups**, ~30 MB cap each). Logs no longer grow
+unbounded; old data rolls off automatically as `*.log.1` … `*.log.5`.
+
+### ⚠️ Scheduling is a single point of failure (SPOF)
+
+The daily ingest is scheduled with **launchd** (or cron) on a single Mac.
+**launchd does NOT run while the Mac is asleep, shut down, or offline.** If the
+machine is off at 02:00, that day's run is simply missed — there is no catch-up
+and no alert (the alerting only fires when a run *executes* and fails).
+
+For **guaranteed** daily runs, host the pipeline in the cloud — e.g. a
+**GitHub Actions** scheduled workflow (`on: schedule: cron`) running
+`python -m pipeline.ingest` with `DATA_HUB_SHEET_ID` /
+`DATA_HUB_ALERT_WEBHOOK` / the service-account key supplied as repository
+secrets. That removes the always-on-Mac dependency. *(This is documented as
+the recommended hardening — Track B — and is not yet built.)*
+
 ---
 
 ## 4. Troubleshooting
@@ -321,4 +377,19 @@ collection_config:
 
 The pipeline is fail-soft, so one bad source only loses that source's articles;
 the run still completes. Fix the source per §4 (No new articles / Web scrape),
-or temporarily remove its entry from `config/sources.yaml` until it's repaired.
+or set `enabled: false` on its entry in `config/sources.yaml` (and add a
+one-line `disabled_reason:`) until it's repaired — do not delete the entry, so
+it stays documented. Several sources known not to return data are already
+disabled this way (broken RSS, JS-rendered scrapers, unimplemented APIs).
+
+### Securing the service-account key
+
+`config/google-credentials.json` grants write access to the sheet and must be
+owner-readable only:
+
+```bash
+chmod 600 config/google-credentials.json
+```
+
+`scripts/install_launchd.sh` and `scripts/verify_sheets_setup.py` enforce this
+automatically (fail-soft), but verify it after any restore or re-copy.
