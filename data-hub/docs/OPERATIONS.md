@@ -66,9 +66,17 @@ th.Wine-Now.com and th.LIQ9.com.
 3. **Process** — collected articles are deduplicated (by URL/title hash) then
    categorized (region, spirits type, trend signals, AEO value, etc.) against
    `schema/data-schema.md`.
-4. **Export** — `exporters/sheets_exporter.py` appends the processed rows to
+4. **Cross-run dedup** — before export, `pipeline/ingest.py` reads the URL
+   column already in the **Articles** tab (`SheetsExporter.existing_urls`) and
+   skips any article whose `article_url` is already there, so the daily cron
+   never re-appends the same RSS items it saw on previous runs (the in-run
+   Deduplicator only collapses duplicates *within* a single run). This read is
+   fail-soft: if it errors, the run risks a duplicate rather than dropping new
+   articles. The run summary reports the surviving count as
+   `after_cross_run_dedup`.
+5. **Export** — `exporters/sheets_exporter.py` appends the processed rows to
    the **Articles** tab of the Google Sheet, in the fixed `A:O` column order.
-5. **Observe** — every stage logs to `logs/ingest.log`; `monitoring/health_check.py`
+6. **Observe** — every stage logs to `logs/ingest.log`; `monitoring/health_check.py`
    reads the sheet and the log back to confirm the run worked.
 
 ---

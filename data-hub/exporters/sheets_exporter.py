@@ -283,6 +283,62 @@ class SheetsExporter:
         # 'values' present but [] -> empty; present with rows -> non-empty.
         return len(values) == 0
 
+    # -- cross-run dedup ------------------------------------------------
+
+    def existing_urls(self, sheet_name: str = "Articles") -> set:
+        """Return the set of article URLs already present in ``sheet_name``.
+
+        Reads the URL column (column C, derived from ``COLUMNS.index("URL")``
+        so reordering COLUMNS can't silently misalign it) and returns every
+        non-empty cell value, excluding the header cell (the first value if it
+        equals "URL"). Used by the pipeline to skip articles already exported
+        on a previous run (RSS feeds keep the same recent items for days).
+
+        Fail-soft: on any read error this logs a warning and returns an EMPTY
+        set. That deliberately risks re-appending a duplicate rather than
+        silently treating every article as already-present (which a non-empty
+        fallback could do) and dropping a whole run's worth of new articles --
+        losing data is worse than a recoverable duplicate.
+        """
+        url_index = self.COLUMNS.index("URL")
+        column_letter = chr(ord("A") + url_index)
+        cell_range = f"{sheet_name}!{column_letter}:{column_letter}"
+
+        try:
+            service = self._get_service()
+            result = (
+                service.spreadsheets()
+                .values()
+                .get(spreadsheetId=self.sheet_id, range=cell_range)
+                .execute()
+            )
+        except Exception as exc:  # noqa: BLE001 -- fail soft; never drop new data
+            logger.warning(
+                "Could not read existing URLs from %r; assuming none present "
+                "(may re-append duplicates): %s",
+                sheet_name,
+                exc,
+            )
+            return set()
+
+        # The REAL Sheets API OMITS the 'values' key entirely for an empty
+        # range (same contract as _tab_is_empty), so a missing key => no URLs.
+        rows = result.get("values")
+        if not rows:
+            return set()
+
+        urls: set = set()
+        for row in rows:
+            if not row:
+                continue
+            value = row[0]
+            if not value:
+                continue
+            if value == "URL":  # skip the header cell
+                continue
+            urls.add(value)
+        return urls
+
     # -- service seam (mocked in tests) ---------------------------------
 
     def _get_service(self):

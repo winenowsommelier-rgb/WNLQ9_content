@@ -207,6 +207,39 @@ class IngestPipeline:
         logger.info("Categorized %d article(s)", len(categorized))
         return categorized
 
+    def filter_already_exported(
+        self, articles: List[Dict], sheet_name: str = "Articles"
+    ) -> List[Dict]:
+        """Drop articles whose URL is already present in the target sheet.
+
+        Cross-run deduplication: the in-run Deduplicator only collapses
+        duplicates *within* a single run, but RSS feeds keep the same recent
+        items for days, so a daily cron would otherwise re-append them every
+        run. This reads the URLs already in the sheet (via
+        ``exporter.existing_urls``) and keeps only articles whose
+        ``article_url`` is not among them.
+
+        With no exporter configured the articles pass through unchanged (the
+        missing-exporter failure is surfaced later by ``export``). The read is
+        itself fail-soft (``existing_urls`` returns an empty set on error), so
+        a read failure never drops new articles.
+        """
+        if self.exporter is None:
+            return articles
+
+        existing = self.exporter.existing_urls(sheet_name)
+        new_articles = [
+            article
+            for article in articles
+            if article.get("article_url") not in existing
+        ]
+        skipped = len(articles) - len(new_articles)
+        logger.info(
+            "Cross-run dedup: %d already in sheet, %d new article(s) remain",
+            skipped, len(new_articles),
+        )
+        return new_articles
+
     def export(self, articles: List[Dict], sheet_name: str = "Articles") -> Dict:
         """Export processed articles via the configured exporter."""
         if self.exporter is None:
@@ -228,13 +261,13 @@ class IngestPipeline:
         """Run the full pipeline and return a structured summary dict.
 
         Stages: build_collectors (if none injected) -> collect_all ->
-        process -> export.
+        process -> filter_already_exported (cross-run dedup) -> export.
 
         Returns
         -------
         dict
-            ``{"collected": N, "after_dedup": M, "exported": K,
-            "sources_run": [...], "errors": [...]}``
+            ``{"collected": N, "after_dedup": M, "after_cross_run_dedup": P,
+            "exported": K, "sources_run": [...], "errors": [...]}``
         """
         logger.info("=== Content Hub ingestion run starting ===")
 
@@ -242,20 +275,24 @@ class IngestPipeline:
 
         collected = self.collect_all(collectors)
         processed = self.process(collected)
-        export_result = self.export(processed, sheet_name=sheet_name)
+        # Cross-run dedup: skip anything already in the sheet from a prior run.
+        new_articles = self.filter_already_exported(processed, sheet_name=sheet_name)
+        export_result = self.export(new_articles, sheet_name=sheet_name)
 
         summary = {
             "collected": len(collected),
             "after_dedup": len(processed),
+            "after_cross_run_dedup": len(new_articles),
             "exported": export_result.get("exported", 0),
             "sources_run": [getattr(c, "name", repr(c)) for c in collectors],
             "errors": list(self.errors),
         }
 
         logger.info(
-            "=== Run complete: collected=%d after_dedup=%d exported=%s "
-            "sources=%d errors=%d ===",
-            summary["collected"], summary["after_dedup"], summary["exported"],
+            "=== Run complete: collected=%d after_dedup=%d "
+            "after_cross_run_dedup=%d exported=%s sources=%d errors=%d ===",
+            summary["collected"], summary["after_dedup"],
+            summary["after_cross_run_dedup"], summary["exported"],
             len(summary["sources_run"]), len(summary["errors"]),
         )
         return summary
@@ -348,11 +385,12 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 1
 
     print("Content Hub ingestion summary:")
-    print(f"  collected   : {summary['collected']}")
-    print(f"  after_dedup : {summary['after_dedup']}")
-    print(f"  exported    : {summary['exported']}")
-    print(f"  sources_run : {len(summary['sources_run'])}")
-    print(f"  errors      : {len(summary['errors'])}")
+    print(f"  collected            : {summary['collected']}")
+    print(f"  after_dedup          : {summary['after_dedup']}")
+    print(f"  after_cross_run_dedup: {summary['after_cross_run_dedup']}")
+    print(f"  exported             : {summary['exported']}")
+    print(f"  sources_run          : {len(summary['sources_run'])}")
+    print(f"  errors               : {len(summary['errors'])}")
     for error in summary["errors"]:
         print(f"    - {error}")
 

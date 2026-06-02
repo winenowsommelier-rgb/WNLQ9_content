@@ -362,3 +362,49 @@ def test_export_nonempty_tab_no_header(exporter, full_article):
     rows = kwargs["body"]["values"]
     assert rows[0] == exporter.format_article_row(full_article)
     assert rows[0] != exporter.header_row()
+
+
+# -- existing_urls: cross-run dedup read of column C ------------------------
+
+
+def test_existing_urls_returns_set(exporter):
+    # values().get on the URL column returns header + two URLs; the header
+    # cell ("URL") is excluded and the two URLs come back as a set.
+    service = MagicMock()
+    probe = service.spreadsheets.return_value.values.return_value.get
+    probe.return_value.execute.return_value = {
+        "values": [["URL"], ["https://a"], ["https://b"]]
+    }
+    with patch.object(exporter, "_get_service", return_value=service):
+        urls = exporter.existing_urls("Articles")
+
+    assert urls == {"https://a", "https://b"}
+    # Read the URL column (column C), derived from COLUMNS.index("URL").
+    _, kwargs = probe.call_args
+    assert kwargs["range"] == "Articles!C:C"
+
+
+def test_existing_urls_empty_tab(exporter):
+    # The REAL Sheets API omits the 'values' key entirely for an empty range.
+    service = MagicMock()
+    probe = service.spreadsheets.return_value.values.return_value.get
+    probe.return_value.execute.return_value = {
+        "range": "Articles!C:C",
+        "majorDimension": "COLUMNS",
+    }
+    with patch.object(exporter, "_get_service", return_value=service):
+        urls = exporter.existing_urls("Articles")
+
+    assert urls == set()
+
+
+def test_existing_urls_failsoft(exporter):
+    # A read error must fail soft to an EMPTY set (never silently drop new
+    # articles -- better to risk a duplicate than lose data).
+    service = MagicMock()
+    probe = service.spreadsheets.return_value.values.return_value.get
+    probe.return_value.execute.side_effect = RuntimeError("read boom")
+    with patch.object(exporter, "_get_service", return_value=service):
+        urls = exporter.existing_urls("Articles")
+
+    assert urls == set()

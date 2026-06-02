@@ -193,6 +193,68 @@ def test_run_full_pipeline_with_mocks():
     assert len(exported_articles) == 2
 
 
+def test_filter_already_exported_skips_known():
+    """Articles whose URL is already in the sheet are filtered out."""
+    exporter = MagicMock()
+    exporter.existing_urls.return_value = {"https://a"}
+    pipeline = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH,
+        exporter=exporter,
+    )
+
+    articles = [_article("https://a"), _article("https://b")]
+    remaining = pipeline.filter_already_exported(articles)
+
+    urls = {a["article_url"] for a in remaining}
+    assert urls == {"https://b"}
+    exporter.existing_urls.assert_called_once_with("Articles")
+
+
+def test_filter_already_exported_no_exporter():
+    """With no exporter configured, articles pass through unchanged."""
+    pipeline = IngestPipeline(sources_config_path=SOURCES_CONFIG_PATH)
+    assert pipeline.exporter is None
+
+    articles = [_article("https://a"), _article("https://b")]
+    assert pipeline.filter_already_exported(articles) == articles
+
+
+def test_run_applies_cross_run_dedup():
+    """run() filters articles already present in the sheet before export."""
+    exporter = MagicMock()
+    # The sheet already contains x.com/1; only the new article should export.
+    exporter.existing_urls.return_value = {"https://x.com/1"}
+    exporter.export_articles.return_value = {"exported": 1, "sheet": "Articles"}
+
+    collector = MagicMock()
+    collector.name = "Mock RSS"
+    collector.collect.return_value = [
+        _article("https://x.com/1", title="Barolo wine review"),
+        _article("https://x.com/2", title="Bourbon whiskey news"),
+    ]
+
+    pipeline = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH,
+        exporter=exporter,
+    )
+    pipeline.collectors = [collector]
+
+    summary = pipeline.run()
+
+    # Both collected & survived dedup, but one is already in the sheet.
+    assert summary["collected"] == 2
+    assert summary["after_dedup"] == 2
+    assert summary["after_cross_run_dedup"] == 1
+    assert summary["exported"] == 1
+    # Existing keys remain intact.
+    assert set(summary["sources_run"]) == {"Mock RSS"}
+    assert summary["errors"] == []
+    # The exporter received only the genuinely-new article.
+    exported_articles = exporter.export_articles.call_args[0][0]
+    assert len(exported_articles) == 1
+    assert exported_articles[0]["article_url"] == "https://x.com/2"
+
+
 def test_run_records_collector_errors_in_summary():
     """A failing collector surfaces in the summary's errors list."""
     exporter = MagicMock()
