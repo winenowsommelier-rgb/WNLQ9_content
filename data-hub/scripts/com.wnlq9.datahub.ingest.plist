@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  LaunchAgent for the Content Trend Data Hub daily ingest.
+
+  This is the macOS-native, "set once" scheduler. It runs in your user
+  session (so it inherits your file permissions and does NOT need cron's
+  Full Disk Access grant) and survives reboots.
+
+  __SHEET_ID__ and __RUN_SCRIPT__ are filled in by install_launchd.sh.
+  Do not edit this template directly — edit the installer's config and
+  re-run it.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.wnlq9.datahub.ingest</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__RUN_SCRIPT__</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>DATA_HUB_SHEET_ID</key>
+        <string>__SHEET_ID__</string>
+    </dict>
+
+    <!-- Run every day at 02:00 local time. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>2</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- Do not run immediately on load; wait for the scheduled time. -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>__LOG_FILE__</string>
+    <key>StandardErrorPath</key>
+    <string>__LOG_FILE__</string>
+</dict>
+</plist>
