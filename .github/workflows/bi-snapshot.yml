@@ -1,0 +1,40 @@
+# Pull live BI/Product Engine data and commit a snapshot the content sessions can read.
+# GitHub Actions runners have open egress (unlike the Claude Code web sandbox), so this is how
+# real numbers reach the repo. Requires the WNLQ9_API_KEY repo secret. See docs/wnlq9/09-BI-PRODUCT-ENGINE.md.
+
+name: BI Snapshot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * 1'   # weekly, Monday 01:00 UTC (data refreshes daily; weekly is plenty for planning)
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Pull BI snapshot
+        env:
+          WNLQ9_API_KEY: ${{ secrets.WNLQ9_API_KEY }}
+        run: node scripts/bi-snapshot.mjs
+
+      - name: Commit snapshot if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain docs/wnlq9/bi-snapshot)" ]; then
+            git add docs/wnlq9/bi-snapshot
+            git commit -m "chore(bi): refresh BI snapshot [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          else
+            echo "No BI snapshot changes."
+          fi

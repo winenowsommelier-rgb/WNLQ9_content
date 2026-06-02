@@ -43,18 +43,32 @@ Use BI to make the monthly slate evidence-led (Engine Step 1, live-signal resear
   is for internal planning / LINE replies only.
 - `/marts/sales_monthly` + `/marketing/forecast-vs-actual` → seasonal timing of clusters.
 
-## Access requirements (two switches)
-1. **Secret:** `WNLQ9_API_KEY` set in the runtime (Claude Code web environment vars, or GitHub
-   Actions secret). See `08-SECRETS-AND-ACCESS.md`.
-2. **Network egress:** the runtime must allow outbound to `wnlq9-bi-api.vercel.app`.
-   - In **Claude Code on the web**, the environment's network policy must allowlist that host
-     (a fresh session here returned `403 Host not in allowlist` until it's added).
-   - **GitHub Actions** runners have open egress, so the `monthly-content.yml` workflow can call it
-     once `WNLQ9_API_KEY` is set.
+## Access requirements & the snapshot bridge (important)
+Direct calls need two switches: (1) `WNLQ9_API_KEY`, and (2) network egress to `wnlq9-bi-api.vercel.app`.
 
-## Quick verification (once access is granted)
+**Reality of the Claude Code web sandbox:** its shell has no outbound internet at all - every host
+(Notion, GitHub, the BI API) returns `403 Host not in allowlist`. Notion/GitHub still work because
+they run through MCP connectors (a separate channel); the BI API has no connector, so a web session
+cannot call it directly unless the environment owner changes the network policy to allow that host.
+
+**The bridge (default path):** GitHub Actions runners DO have egress, so we pull BI data in CI and
+commit it to the repo:
+- Script: `scripts/bi-snapshot.mjs` (Node 18+, zero deps; reads `WNLQ9_API_KEY`).
+- Workflow: `.github/workflows/bi-snapshot.yml` (weekly + manual; commits to `docs/wnlq9/bi-snapshot/`).
+- Content sessions then read the committed snapshot in `docs/wnlq9/bi-snapshot/` for real numbers -
+  no network needed: `bestsellers_90d.json`, `must_move.json`, `forecast_vs_actual.json`,
+  `sales_monthly.json`, `rfm_snapshot.json`, `inventory_status.json`, `marts.json`, plus `SUMMARY.md`
+  and `_manifest.json`. Still cite the originating endpoint when using a number.
+
+**Three ways to get live data, easiest first:**
+1. Run the **BI Snapshot** Action (set the `WNLQ9_API_KEY` secret first) -> snapshot lands in the repo.
+2. Run locally: `npm run bi:snapshot` (or `WNLQ9_API_KEY=... node scripts/bi-snapshot.mjs`).
+3. Direct calls from a web session - only if the environment owner allowlists the host.
+
+## Quick verification
 ```bash
+WNLQ9_API_KEY=... node scripts/bi-snapshot.mjs   # writes docs/wnlq9/bi-snapshot/
+# or one endpoint:
 curl -s -H "X-API-Key: $WNLQ9_API_KEY" https://wnlq9-bi-api.vercel.app/marts | jq .
 ```
-Should list the 20 marts. If you get `403 Host not in allowlist`, fix egress (switch 2);
-if `401`, fix/rotate the key (switch 1).
+`403 Host not in allowlist` = egress blocked (use the Action/local path). `401` = rotate the key.
