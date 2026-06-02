@@ -60,6 +60,17 @@ export function createSupabase(config = getConfig()) {
       );
     },
 
+    /**
+     * Delete rows matching a PostgREST filter query string
+     * (e.g. `notion_page_id=not.in.(a,b)`). Returns the deleted rows.
+     */
+    async delete(table, query) {
+      return request(`/rest/v1/${table}?${query}`, {
+        method: "DELETE",
+        headers: { Prefer: "return=representation" },
+      });
+    },
+
     /** Call a Postgres function (RPC). */
     async rpc(fn, args = {}) {
       return request(`/rest/v1/rpc/${fn}`, { method: "POST", body: args });

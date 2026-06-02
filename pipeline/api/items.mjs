@@ -6,10 +6,24 @@
 //   ?status=Review    Status select value
 // No filters -> all rows, sorted by Day ascending.
 
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { createClient } from "../src/notion.mjs";
 import { requireSecret } from "./_auth.mjs";
 
 const num = (v) => (v === undefined || v === "" ? undefined : Number(v));
+
+// pageId -> full-HTML file manifest (same source /api/approve uploads from).
+// Lets the dashboard know a row can be approved straight to Drive even when it
+// has no generated EN/TH drafts.
+async function loadManifest() {
+  try {
+    const raw = await readFile(join(process.cwd(), "data", "articles.json"), "utf8");
+    return JSON.parse(raw)?.articles || {};
+  } catch {
+    return {};
+  }
+}
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
@@ -20,13 +34,19 @@ export default async function handler(req, res) {
 
   try {
     const q = req.query || {};
-    const items = await createClient().listItems({
-      day: num(q.day),
-      dayFrom: num(q.dayFrom),
-      dayTo: num(q.dayTo),
-      site: q.site || undefined,
-      status: q.status || undefined,
-    });
+    const [items, manifest] = await Promise.all([
+      createClient().listItems({
+        day: num(q.day),
+        dayFrom: num(q.dayFrom),
+        dayTo: num(q.dayTo),
+        site: q.site || undefined,
+        status: q.status || undefined,
+      }),
+      loadManifest(),
+    ]);
+    // hasHtml = a self-contained article file exists for this row, so it can be
+    // approved → Drive without generated drafts.
+    for (const it of items) it.hasHtml = Boolean(manifest[it.id]);
     res.status(200).json({ ok: true, count: items.length, items });
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });
