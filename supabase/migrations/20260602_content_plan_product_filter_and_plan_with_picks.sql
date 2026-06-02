@@ -52,5 +52,8 @@ as $$
   order by cp.day nulls last, cp.site;
 $$;
 
-grant execute on function public.plan_with_picks(int, int, text, int)
-  to service_role, authenticated, anon;
+-- Lock down: PostgREST exposes RPCs to anon/authenticated by default. Our
+-- endpoints call this with the service-role key, so restrict it to service_role
+-- and keep the plan + pricing out of any anon-key surface.
+revoke all on function public.plan_with_picks(int, int, text, int) from public;
+grant execute on function public.plan_with_picks(int, int, text, int) to service_role;
