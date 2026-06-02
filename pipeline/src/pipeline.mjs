@@ -28,7 +28,8 @@ export async function generateDrafts(pageId, { notion, draft = draftContent } = 
 }
 
 /**
- * Approve a reviewed row and save it to Google Drive, link it back, mark "Done".
+ * Approve a reviewed row and save it to Google Drive, link it back on the
+ * "Drive file URL" property, and mark "Brief Ready" (HTML draft ready for review).
  *
  * If `resolveHtml(item)` returns a full self-contained article ({ name, html }),
  * it's uploaded as a real .html file (preserving widgets/schema/styling) — this
@@ -63,9 +64,9 @@ export async function approveToDrive(pageId, { notion, drive, resolveHtml } = {}
 
   await notion.updateRow(
     pageId,
-    briefToNotionProperties({ finalUrl: url, url, status: "Done" }),
+    briefToNotionProperties({ url, status: "Brief Ready" }),
   );
-  await notion.addLog(pageId, `Approved — saved to Google Drive (${format}): ${url}`);
+  await notion.addLog(pageId, `Saved to Google Drive (${format}) — marked Brief Ready: ${url}`);
 
   return { status: "approved", url, format };
 }

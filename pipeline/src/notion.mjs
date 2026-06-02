@@ -44,7 +44,7 @@ export function pageToItem(page) {
     briefId: readText(p["Brief ID"]),
     key: readText(p["KEY"]),
     finalUrl: p["Final URL"]?.url || null,
-    driveUrl: p["URL"]?.url || null,
+    driveUrl: p["Drive file URL"]?.url || null,
     gaViews: p["GA Views"]?.number ?? null,
     // Editorial/SEO metadata (also mirrored into Supabase content_plan).
     funnel: p["Funnel"]?.select?.name || null,

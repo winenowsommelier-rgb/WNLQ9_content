@@ -41,7 +41,7 @@ test("maps every field to the correct Notion property shape", () => {
   assert.equal(props["Target Keyword"].rich_text[0].text.content, "terroir meaning");
   assert.equal(props["STORY"].rich_text[0].text.content, "Dirt has flavor.");
   assert.equal(props["Final URL"].url, "https://wine-now.com/blog/terroir");
-  assert.equal(props["URL"].url, "https://wine-now.com/blog/terroir");
+  assert.equal(props["Drive file URL"].url, "https://wine-now.com/blog/terroir");
 });
 
 test("omits properties for absent fields (partial brief)", () => {

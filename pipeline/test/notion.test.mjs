@@ -20,7 +20,7 @@ test("pageToItem normalizes a raw Notion page", () => {
       "Content TH": { rich_text: [{ plain_text: "ไทย" }] },
       "Brief ID": { rich_text: [{ plain_text: "WN-D03-terroir" }] },
       "Final URL": { url: "https://docs.google.com/document/d/abc/edit" },
-      URL: { url: "https://docs.google.com/document/d/abc/edit" },
+      "Drive file URL": { url: "https://docs.google.com/document/d/abc/edit" },
     },
   };
   const it = pageToItem(page);

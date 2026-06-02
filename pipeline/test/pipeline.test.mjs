@@ -41,7 +41,7 @@ test("generateDrafts drafts content, writes it back, and moves to Review", async
   assert.equal(notion.calls.logs.length, 1);
 });
 
-test("approveToDrive creates a Doc, links it back, and marks Done", async () => {
+test("approveToDrive creates a Doc, links it back, and marks Brief Ready", async () => {
   const notion = fakeNotion(rawPage({ title: "Terroir", contentEN: "EN", contentTH: "TH" }));
   const drive = {
     created: [],
@@ -58,9 +58,9 @@ test("approveToDrive creates a Doc, links it back, and marks Done", async () => 
   assert.equal(drive.created.length, 1);
   assert.match(drive.created[0].html, /<h1>Terroir<\/h1>/);
   const props = notion.calls.updated[0].props;
-  assert.equal(props["Final URL"].url, "https://docs.google.com/document/d/doc1/edit");
-  assert.equal(props["URL"].url, "https://docs.google.com/document/d/doc1/edit");
-  assert.deepEqual(props["Status"], { select: { name: "Done" } });
+  assert.ok(!("Final URL" in props)); // approve writes only the Drive file URL now
+  assert.equal(props["Drive file URL"].url, "https://docs.google.com/document/d/doc1/edit");
+  assert.deepEqual(props["Status"], { select: { name: "Brief Ready" } });
 });
 
 test("approveToDrive refuses when drafts are missing", async () => {
@@ -88,6 +88,6 @@ test("approveToDrive uploads full HTML when a resolver provides it", async () =>
   assert.equal(drive.uploaded.length, 1);
   assert.match(drive.uploaded[0].name, /\.html$/);
   const props = notion.calls.updated[0].props;
-  assert.equal(props["URL"].url, "https://drive.google.com/file/d/f1/view");
-  assert.deepEqual(props["Status"], { select: { name: "Done" } });
+  assert.equal(props["Drive file URL"].url, "https://drive.google.com/file/d/f1/view");
+  assert.deepEqual(props["Status"], { select: { name: "Brief Ready" } });
 });

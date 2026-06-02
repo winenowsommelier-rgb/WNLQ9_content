@@ -1,7 +1,8 @@
 // Map a normalized brief -> Notion page `properties` payload.
 //
 // Property names below MUST match the live Notion column names exactly
-// (note: the column whose schema key is "userDefined:URL" is named "URL").
+// (note: the Drive-file link column's schema key is "userDefined:URL"; its
+// display name in Notion is "Drive file URL").
 // Only defined fields are emitted, so partial briefs produce partial rows.
 
 // Notion rejects any single text item whose content exceeds 2000 characters,
@@ -77,7 +78,7 @@ export function briefToNotionProperties(brief) {
 
   // URLs
   if (brief.finalUrl) props["Final URL"] = url(brief.finalUrl);
-  if (brief.url) props["URL"] = url(brief.url);
+  if (brief.url) props["Drive file URL"] = url(brief.url);
 
   return props;
 }
