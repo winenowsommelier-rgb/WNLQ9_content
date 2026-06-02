@@ -17,6 +17,7 @@
 | `06-NOTION-MAP.md` | All database / page / view / Hero IDs | When touching Notion |
 | `07-SESSION-PROMPT.md` | **Paste-ready prompt to resume** | Start of a new session |
 | `08-SECRETS-AND-ACCESS.md` | Keys, MCP config, GitHub secrets, automation | One-time setup / CI |
+| `09-BI-PRODUCT-ENGINE.md` | **Live BI/Product API** (sales, customers, products, forecasts, THB) | When a task needs real numbers |
 | `01-WORKFLOW-MEMORY.md`, `02-SKILL-…`, `03-FULL-BRIEFS.md` | **Historical** (early-June "premium replacement" cycle) | Context only — superseded |
 
 ## Current state (2026-06-02)

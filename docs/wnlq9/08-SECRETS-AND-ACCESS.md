@@ -11,6 +11,7 @@
 |---|---|---|
 | **Notion** (the content DBs — core) | `NOTION_TOKEN` | **Required** |
 | Run Claude Code headless (Action/CLI) | `ANTHROPIC_API_KEY` | Required for automation |
+| **BI & Product Engine** (live sales/products/forecasts) | `WNLQ9_API_KEY` **+ egress allowlist to `wnlq9-bi-api.vercel.app`** | Required for real numbers — see `09-BI-PRODUCT-ENGINE.md` |
 | Web search / trend research | built into Claude — none | — |
 | Live keyword/SERP data (DataForSEO) | `DATAFORSEO_LOGIN`, `DATAFORSEO_PASSWORD` | Optional |
 | GA4 / Search Console (data-driven refresh) | `GA4_PROPERTY_ID`, `GSC_SITE_URL`, `GOOGLE_APPLICATION_CREDENTIALS` | Optional |
@@ -40,10 +41,17 @@ Add repo secrets (you need the values):
 ```bash
 gh secret set NOTION_TOKEN
 gh secret set ANTHROPIC_API_KEY
+gh secret set WNLQ9_API_KEY          # BI & Product Engine
 # optional:
 gh secret set DATAFORSEO_LOGIN
 gh secret set DATAFORSEO_PASSWORD
 ```
+
+### BI & Product Engine — two switches (see `09-BI-PRODUCT-ENGINE.md`)
+1. **Key:** set `WNLQ9_API_KEY` (web environment var, or the `gh secret set` above).
+2. **Egress:** allow outbound to `wnlq9-bi-api.vercel.app`. In Claude Code on the web this is the
+   environment's **network policy / allowlist** — without it, calls return `403 Host not in
+   allowlist` even with a valid key. GitHub Actions runners already have open egress.
 Or: GitHub -> repo **Settings -> Secrets and variables -> Actions -> New repository secret**.
 A starter workflow that runs the content engine on demand lives at
 `.github/workflows/monthly-content.yml` (uses `anthropics/claude-code-action`; reads the secrets
@@ -55,6 +63,9 @@ above). Trigger it from the **Actions** tab (workflow_dispatch).
   (`SUPABASE_ANON_KEY`) and reference `${{ secrets.SUPABASE_ANON_KEY }}`. Rotate it if it was ever
   a service-role key.
 - `.gitignore` already excludes `.env.local` / `.env.production.local` — keep real values there or in secrets, never committed.
+- **`WNLQ9_API_KEY` was shared in a chat session** during setup, so it now sits in conversation logs.
+  Treat it as exposed and **rotate it** (then update the `WNLQ9_API_KEY` secret). The repo never
+  stores the value — only the `${WNLQ9_API_KEY}` reference.
 
 ## Quick verification
 In a new session, ask Claude: *"List the data sources under the 2026 Content Calendar Hub."*

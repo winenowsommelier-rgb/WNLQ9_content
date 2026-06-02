@@ -15,6 +15,7 @@ READ FIRST (in this repo):
 - docs/wnlq9/04-MONTHLY-CONTENT-ENGINE.md   (the 8-step build workflow)
 - docs/wnlq9/05-BRAND-DIRECTION.md   (Wine-Now + LIQ9 voice)
 - docs/wnlq9/06-NOTION-MAP.md   (all database/page/view IDs)
+- docs/wnlq9/09-BI-PRODUCT-ENGINE.md   (live data API: sales/customers/products/forecasts, THB)
 Then in Notion, skim: "Editorial Production Standard, Monthly Content Engine & Brand Direction
 — WN × LIQ9 (v2)" (page 3729d75a-e4b5-81a8-83dd-c176804fdbdd).
 
@@ -28,6 +29,9 @@ HARD RULES (do not break):
 4. Magento renders no emoji: Title / Content TH / Content EN are PLAIN TEXT ONLY.
 5. No fabricated facts: mark factual specifics [VERIFY] and resolve them with live research before
    publish. TH and EN are both native voices, not translations.
+6. For real figures (sales, bestsellers, products, forecasts) call the BI API
+   (docs/wnlq9/09-BI-PRODUCT-ENGINE.md) and cite the endpoint - never invent numbers. BI price is
+   internal only; never show on-page price in published content.
 
 PROCESS: Follow the Monthly Content Engine end to end (Step 0 lock parameters -> 1 live-signal
 research -> 2 hub-and-spoke clusters -> 3 council pre-flight on the PLAN + my sign-off -> 4 build

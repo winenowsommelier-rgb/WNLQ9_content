@@ -37,6 +37,15 @@ Each month = ~80 pieces/brand-pair, organised as **hub-and-spoke clusters**, dra
 5. **No fabricated facts:** every score/price/brand/tasting note is sourced or marked `[VERIFY]`
    and resolved (live research) before publish.
 
+## Live BI & Product Engine (use real numbers)
+WNLQ9's live data — sales, customers, products, inventory, forecasts (THB) — is a REST API at
+`https://wnlq9-bi-api.vercel.app` (header `X-API-Key: ${WNLQ9_API_KEY}`). **When a task needs real
+figures, call it instead of guessing, and cite the endpoint.** Full reference + usage rules:
+`docs/wnlq9/09-BI-PRODUCT-ENGINE.md`. Use it for evidence-led topic selection and to resolve
+`[VERIFY]` facts (brand/ABV/price) against the real catalogue. Needs two things: the `WNLQ9_API_KEY`
+secret **and** runtime egress allowlisted to that host (a web session returned `403 Host not in
+allowlist` until added). Never put on-page price in published content (§9).
+
 ## How to build / continue a month
 Follow the **Monthly Content Engine** (`docs/wnlq9/04-MONTHLY-CONTENT-ENGINE.md`, mirrors Notion §15):
 Step 0 lock parameters → 1 live-signal research → 2 cluster architecture → 3 council pre-flight →

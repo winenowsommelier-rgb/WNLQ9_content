@@ -1,6 +1,7 @@
 # On-demand / scheduled runner for the WNLQ9 Monthly Content Engine via Claude Code.
 # TEMPLATE — requires repo secrets before it will work (see docs/wnlq9/08-SECRETS-AND-ACCESS.md):
 #   ANTHROPIC_API_KEY  (required)   NOTION_TOKEN (required)
+#   WNLQ9_API_KEY (BI & Product Engine — live data)
 #   DATAFORSEO_LOGIN / DATAFORSEO_PASSWORD (optional)
 # Trigger manually from the Actions tab (workflow_dispatch) with a task string.
 
@@ -27,6 +28,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          WNLQ9_API_KEY: ${{ secrets.WNLQ9_API_KEY }}
           DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
           DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
         with:
