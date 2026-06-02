@@ -33,6 +33,7 @@ from typing import Dict, List, Optional
 import yaml
 
 from collectors.rss_collector import RSSCollector
+from collectors.url_utils import normalize_url
 from collectors.web_scraper import WebScraper
 from exporters.sheets_exporter import SheetsExporter
 from processors.categorizer import Categorizer
@@ -275,11 +276,15 @@ class IngestPipeline:
         if self.exporter is None:
             return articles
 
-        existing = self.exporter.existing_urls(sheet_name)
+        # Normalize both sides so a trailing slash / utm param doesn't make an
+        # already-exported article look new (and get re-appended every run).
+        existing = {
+            normalize_url(u) for u in self.exporter.existing_urls(sheet_name)
+        }
         new_articles = [
             article
             for article in articles
-            if article.get("article_url") not in existing
+            if normalize_url(article.get("article_url")) not in existing
         ]
         skipped = len(articles) - len(new_articles)
         logger.info(

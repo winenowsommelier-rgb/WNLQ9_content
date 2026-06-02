@@ -59,6 +59,48 @@ def test_handles_missing_url():
     assert len(result) == 3
 
 
+def test_trailing_slash_collapses():
+    """https://x/ and https://x are the same article."""
+    dedup = Deduplicator()
+    result = dedup.deduplicate([
+        _article("https://example.com/a/", title="First"),
+        _article("https://example.com/a", title="Dup"),
+    ])
+    assert len(result) == 1
+    # Original URL of the first occurrence is preserved untouched.
+    assert result[0]["article_url"] == "https://example.com/a/"
+
+
+def test_utm_variants_collapse():
+    """Two articles differing only by a utm param collapse to one."""
+    dedup = Deduplicator()
+    result = dedup.deduplicate([
+        _article("https://example.com/a?utm_source=rss", title="First"),
+        _article("https://example.com/a", title="Dup"),
+    ])
+    assert len(result) == 1
+    assert result[0]["article_url"] == "https://example.com/a?utm_source=rss"
+
+
+def test_non_tracking_params_kept_distinct():
+    """URLs differing by a meaningful param are NOT collapsed."""
+    dedup = Deduplicator()
+    result = dedup.deduplicate([
+        _article("https://example.com/a?page=1"),
+        _article("https://example.com/a?page=2"),
+    ])
+    assert len(result) == 2
+
+
+def test_malformed_url_does_not_crash_dedup():
+    dedup = Deduplicator()
+    result = dedup.deduplicate([
+        _article("not a url"),
+        _article("https://example.com/a"),
+    ])
+    assert len(result) == 2
+
+
 def test_deduplicate_by_title():
     """Same normalized title with different URLs collapses to the first."""
     dedup = Deduplicator()

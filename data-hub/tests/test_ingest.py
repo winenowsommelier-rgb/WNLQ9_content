@@ -335,6 +335,25 @@ def test_filter_already_exported_skips_known():
     exporter.existing_urls.assert_called_once_with("Articles")
 
 
+def test_filter_already_exported_normalizes_urls():
+    """A trailing-slash / utm variant of an exported URL is still filtered."""
+    exporter = MagicMock()
+    # Sheet stored the canonical form; incoming has slash + utm noise.
+    exporter.existing_urls.return_value = {"https://a.com/x"}
+    pipeline = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH,
+        exporter=exporter,
+    )
+
+    articles = [
+        _article("https://a.com/x/?utm_source=rss"),  # same article, decorated
+        _article("https://a.com/y"),                   # genuinely new
+    ]
+    remaining = pipeline.filter_already_exported(articles)
+    urls = {a["article_url"] for a in remaining}
+    assert urls == {"https://a.com/y"}
+
+
 def test_filter_already_exported_no_exporter():
     """With no exporter configured, articles pass through unchanged."""
     pipeline = IngestPipeline(sources_config_path=SOURCES_CONFIG_PATH)

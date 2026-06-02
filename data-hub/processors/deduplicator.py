@@ -14,6 +14,8 @@ from __future__ import annotations
 import re
 from typing import Dict, List
 
+from collectors.url_utils import normalize_url
+
 
 class Deduplicator:
     """Remove duplicate articles by URL or by normalized title."""
@@ -21,11 +23,17 @@ class Deduplicator:
     def deduplicate(self, articles: List[Dict]) -> List[Dict]:
         """Remove articles sharing an ``article_url``, keeping the first.
 
-        Order is preserved. Articles missing (or with an empty)
-        ``article_url`` are left untouched and never collapsed together,
-        since the URL is the only reliable identity signal here.
+        URLs are compared on a NORMALIZED key (trailing slash, scheme/host
+        case, and tracking params like ``utm_*`` collapsed -- see
+        :func:`collectors.url_utils.normalize_url`), so cosmetically-different
+        URLs for the same article dedup correctly. The ORIGINAL ``article_url``
+        is preserved on the kept article; only the comparison key is normalized.
+
+        Order is preserved. Articles missing (or with an empty) ``article_url``
+        are left untouched and never collapsed together, since the URL is the
+        only reliable identity signal here.
         """
-        seen_urls = set()
+        seen_keys = set()
         result: List[Dict] = []
 
         for article in articles:
@@ -34,9 +42,10 @@ class Deduplicator:
                 # No usable key -> cannot judge duplication; keep it.
                 result.append(article)
                 continue
-            if url in seen_urls:
+            key = normalize_url(url)
+            if key in seen_keys:
                 continue
-            seen_urls.add(url)
+            seen_keys.add(key)
             result.append(article)
 
         return result
