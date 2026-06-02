@@ -247,7 +247,19 @@ class Categorizer:
         return signals
 
     def _detect_primary_category(self, article: Dict) -> str:
-        """Classify the major subject: wine / spirits / food_beverage / cultural."""
+        """Classify the major subject.
+
+        A source-stamped vertical takes precedence: if the article already
+        carries a non-empty ``primary_category`` that is a valid taxonomy
+        value, it is authoritative and kept as-is. Only un-stamped (or
+        invalid/empty) articles fall through to keyword detection, which now
+        also infers the new verticals (food / lifestyle / travel /
+        hospitality) as a fallback.
+        """
+        preset = article.get("primary_category")
+        if isinstance(preset, str) and preset.strip() in self._valid_categories:
+            return preset.strip()
+
         text = self._text(article)
 
         spirits_kw = ("whisky", "whiskey", "scotch", "bourbon", "rye", "gin",
@@ -256,7 +268,16 @@ class Categorizer:
         wine_kw = ("wine", "vineyard", "vintage", "cabernet", "merlot",
                    "pinot", "chardonnay", "champagne", "bordeaux", "burgundy",
                    "riesling", "rose", "winery", "winemaker")
-        cultural_kw = ("culture", "history", "lifestyle", "tradition",
+        food_kw = ("recipe", "restaurant", "chef", "dish", "cooking",
+                   "cuisine", "menu", "dining", "food", "eatery")
+        hospitality_kw = ("hotel", "resort", "hospitality", "lodging",
+                          "guest experience", "concierge", "restaurant chain",
+                          "foodservice")
+        travel_kw = ("travel", "destination", "vacation", "flight", "airline",
+                     "tourism", "getaway", "itinerary", "hotel stay")
+        lifestyle_kw = ("luxury", "lifestyle", "fashion", "watches", "yacht",
+                        "design", "estate", "couture", "high society")
+        cultural_kw = ("culture", "history", "tradition",
                        "celebration", "festival")
 
         has_spirits = any(k in text for k in spirits_kw)
@@ -267,8 +288,16 @@ class Categorizer:
         elif has_wine and not has_spirits:
             cat = "wine"
         elif has_wine and has_spirits:
-            # Both present -> broader beverage coverage.
-            cat = "food_beverage"
+            # Both present -> broader food/beverage coverage.
+            cat = "food"
+        elif any(k in text for k in hospitality_kw):
+            cat = "hospitality"
+        elif any(k in text for k in travel_kw):
+            cat = "travel"
+        elif any(k in text for k in food_kw):
+            cat = "food"
+        elif any(k in text for k in lifestyle_kw):
+            cat = "lifestyle"
         elif any(k in text for k in cultural_kw):
             cat = "cultural"
         else:

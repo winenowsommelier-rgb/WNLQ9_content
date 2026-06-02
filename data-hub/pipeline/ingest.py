@@ -45,6 +45,11 @@ logger = logging.getLogger("pipeline.ingest")
 # article container), so most entries cannot yet be scraped and are skipped.
 _REQUIRED_SCRAPER_SELECTORS = ("article", "title", "link")
 
+# The six selectable content verticals. Used as the default when
+# ``collection_config.enabled_verticals`` is absent (backward compatible:
+# nothing is filtered out by vertical when the key is missing).
+ALL_VERTICALS = ("wine", "spirits", "food", "lifestyle", "travel", "hospitality")
+
 # Default location for run logs.
 _DEFAULT_LOG_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"
@@ -119,10 +124,13 @@ class IngestPipeline:
         """
         config = self.load_sources()
         categories = config.get("sources", {}) or {}
+        enabled_verticals = self._enabled_verticals(config)
 
         collectors: List = []
         for category, sources in categories.items():
             for source in sources or []:
+                if not self._source_selected(source, enabled_verticals):
+                    continue
                 collector = self._build_one(category, source)
                 if collector is not None:
                     collectors.append(collector)
@@ -132,10 +140,39 @@ class IngestPipeline:
         self.collectors = collectors
         return collectors
 
+    @staticmethod
+    def _enabled_verticals(config: Dict) -> set:
+        """Return the set of enabled verticals from config (default: all six)."""
+        cc = config.get("collection_config") or {}
+        configured = cc.get("enabled_verticals")
+        if not configured:
+            # Absent / empty -> no vertical filtering (backward compatible).
+            return set(ALL_VERTICALS)
+        return set(configured)
+
+    @staticmethod
+    def _source_selected(source: Dict, enabled_verticals: set) -> bool:
+        """True if a source should be built (enabled + vertical selected)."""
+        name = source.get("name", "<unnamed>")
+        if source.get("enabled") is False:
+            logger.info("Skipping source %r: enabled is false", name)
+            return False
+        vertical = source.get("vertical")
+        # Untagged sources (no vertical) are not filtered out by vertical --
+        # they pass through so legacy/social/thai sources still build.
+        if vertical is not None and vertical not in enabled_verticals:
+            logger.info(
+                "Skipping source %r: vertical %r not in enabled_verticals %s",
+                name, vertical, sorted(enabled_verticals),
+            )
+            return False
+        return True
+
     def _build_one(self, category: str, source: Dict):
         """Build a single collector from one source config entry (or None)."""
         name = source.get("name", "<unnamed>")
         api_type = source.get("api_type")
+        vertical = source.get("vertical")
 
         if api_type == "rss":
             feed = source.get("rss_feed")
@@ -143,7 +180,7 @@ class IngestPipeline:
                 logger.warning("Skipping RSS source %r: no rss_feed configured",
                                name)
                 return None
-            return RSSCollector(name=name, feed_url=feed)
+            return RSSCollector(name=name, feed_url=feed, vertical=vertical)
 
         if api_type == "web_scrape":
             selectors = source.get("selectors")
@@ -156,7 +193,7 @@ class IngestPipeline:
                 return None
             listing_url = source.get("scrape_endpoint") or source.get("url")
             return WebScraper(name=name, listing_url=listing_url,
-                              selectors=selectors)
+                              selectors=selectors, vertical=vertical)
 
         if api_type == "sitemap":
             # Sitemap crawling is deep-history work reserved for the backfill

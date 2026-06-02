@@ -81,6 +81,10 @@ LIMITATIONS_NOTE = (
 # Selectors the WebScraper needs at minimum (mirrors pipeline.ingest).
 _REQUIRED_SCRAPER_SELECTORS = ("article", "title", "link")
 
+# The six selectable content verticals (mirrors pipeline.ingest). Used as the
+# default when ``collection_config.enabled_verticals`` is absent.
+ALL_VERTICALS = ("wine", "spirits", "food", "lifestyle", "travel", "hospitality")
+
 _DEFAULT_LOG_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"
 )
@@ -290,18 +294,24 @@ class BackfillPipeline:
         """
         config = self.load_sources()
         categories = config.get("sources", {}) or {}
+        enabled_verticals = self._enabled_verticals(config)
 
         collectors: List = []
         for sources in categories.values():
             for source in sources or []:
+                if not self._source_selected(source, enabled_verticals):
+                    continue
                 collector = self._build_one(source)
                 if collector is not None:
                     collectors.append(collector)
 
         # Sitemap sources live in a separate top-level ``backfill_sources``
         # block so they never affect the daily ingest. Backward-compatible:
-        # if the key is absent, this is simply a no-op.
+        # if the key is absent, this is simply a no-op. The same
+        # vertical/enabled filtering applies here too.
         for source in config.get("backfill_sources", []) or []:
+            if not self._source_selected(source, enabled_verticals):
+                continue
             collector = self._build_one(source)
             if collector is not None:
                 collectors.append(collector)
@@ -314,10 +324,36 @@ class BackfillPipeline:
         self.collectors = collectors
         return collectors
 
+    @staticmethod
+    def _enabled_verticals(config: Dict) -> set:
+        """Return the set of enabled verticals from config (default: all six)."""
+        cc = config.get("collection_config") or {}
+        configured = cc.get("enabled_verticals")
+        if not configured:
+            return set(ALL_VERTICALS)
+        return set(configured)
+
+    @staticmethod
+    def _source_selected(source: Dict, enabled_verticals: set) -> bool:
+        """True if a source should be built (enabled + vertical selected)."""
+        name = source.get("name", "<unnamed>")
+        if source.get("enabled") is False:
+            logger.info("Skipping source %r: enabled is false", name)
+            return False
+        vertical = source.get("vertical")
+        if vertical is not None and vertical not in enabled_verticals:
+            logger.info(
+                "Skipping source %r: vertical %r not in enabled_verticals %s",
+                name, vertical, sorted(enabled_verticals),
+            )
+            return False
+        return True
+
     def _build_one(self, source: Dict):
         """Build a single collector from one source config entry (or None)."""
         name = source.get("name", "<unnamed>")
         api_type = source.get("api_type")
+        vertical = source.get("vertical")
 
         if api_type == "rss":
             feed = source.get("rss_feed")
@@ -326,7 +362,7 @@ class BackfillPipeline:
                     "Skipping RSS source %r: no rss_feed configured", name
                 )
                 return None
-            return RSSCollector(name=name, feed_url=feed)
+            return RSSCollector(name=name, feed_url=feed, vertical=vertical)
 
         if api_type == "web_scrape":
             selectors = source.get("selectors")
@@ -336,7 +372,10 @@ class BackfillPipeline:
                 )
                 return None
             listing_url = source.get("scrape_endpoint") or source.get("url")
-            return WebScraper(name=name, listing_url=listing_url, selectors=selectors)
+            return WebScraper(
+                name=name, listing_url=listing_url, selectors=selectors,
+                vertical=vertical,
+            )
 
         if api_type == "sitemap":
             sitemap_url = source.get("sitemap_url")
@@ -352,6 +391,7 @@ class BackfillPipeline:
                 reference_date=self.reference_date,
                 child_pattern=source.get("sitemap_child_pattern"),
                 max_child_sitemaps=source.get("max_child_sitemaps", 12),
+                vertical=vertical,
             )
 
         if api_type in ("api", "keyword_monitor"):
@@ -387,9 +427,14 @@ class BackfillPipeline:
             feed_url = getattr(collector, "feed_url", None)
 
             if isinstance(collector, RSSCollector) and feed_url:
-                # Paginate this RSS feed; rebuild a fresh collector per page.
+                # Paginate this RSS feed; rebuild a fresh collector per page,
+                # preserving the source's vertical so paginated articles are
+                # stamped the same way.
+                _vertical = getattr(collector, "vertical", None)
                 collected = self.collect_with_pagination(
-                    lambda url, _name=name: RSSCollector(name=_name, feed_url=url),
+                    lambda url, _name=name, _v=_vertical: RSSCollector(
+                        name=_name, feed_url=url, vertical=_v
+                    ),
                     feed_url,
                     max_pages,
                 )

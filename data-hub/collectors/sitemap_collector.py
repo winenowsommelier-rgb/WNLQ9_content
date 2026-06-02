@@ -94,10 +94,12 @@ class SitemapCollector(BaseCollector):
         reference_date: Optional[datetime.datetime] = None,
         child_pattern: Optional[str] = None,
         max_child_sitemaps: int = 12,
+        vertical: Optional[str] = None,
     ) -> None:
         super().__init__(
             name=name,
             source_config={"sitemap_url": sitemap_url},
+            vertical=vertical,
         )
         self.sitemap_url = sitemap_url
         self.months_back = months_back

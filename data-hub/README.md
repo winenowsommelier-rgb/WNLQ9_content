@@ -99,13 +99,37 @@ export DATA_HUB_SHEET_ID="1c5X9wcgBivLKVarNl0md0XgpnzE-zpPHhpsFiFmqJuM"
 
 ## 6. Common tasks
 
+**Content verticals (wine, spirits, food, lifestyle, travel, hospitality)**
+
+Every source is tagged with a `vertical:` and an `enabled:` flag. The pipeline
+only collects sources whose vertical is switched on. The switch lives in
+`config/sources.yaml` under `collection_config:`:
+
+```yaml
+collection_config:
+  enabled_verticals: [wine, spirits, food, lifestyle, travel, hospitality]
+```
+
+- **Turn a vertical off** — delete it from `enabled_verticals` (e.g. drop
+  `travel` to stop collecting all travel sources). Add it back to re-enable.
+- **Disable one source** — set `enabled: false` on that source in `sources.yaml`
+  (it's skipped even if its vertical is on).
+- **Backward compatible** — if you remove the `enabled_verticals` line
+  entirely, no vertical filtering is applied and every source builds.
+
+Each article is tagged with its source's vertical in the `primary_category`
+column (column K), so the Dashboard's "by category" breakdown shows the
+six-vertical split automatically — no new column needed. (For un-tagged or
+manually-entered articles, the categorizer falls back to keyword detection.)
+
 **Add a new source**
 1. Edit `config/sources.yaml` (copy an existing entry).
-2. RSS source → set `api_type: rss` + `rss_feed:`.
+2. Set `vertical:` (one of the six) and `enabled: true`.
+3. RSS source → set `api_type: rss` + `rss_feed:`.
    Scrape source → set `api_type: web_scrape` + a `selectors:` block
    (`article` / `title` / `link`). Note: JS-heavy sites (Wongnai, Difford's)
    need a headless scraper — not yet built.
-3. Test: `./scripts/run_ingest.sh` and check it appears.
+4. Test: `./scripts/run_ingest.sh` and check it appears.
 
 **Track a new brand** — type the brand name into column A of the **Brands** tab. The formulas fill down automatically.
 

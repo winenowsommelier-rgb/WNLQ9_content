@@ -215,10 +215,37 @@ Content Hub health check
 
 ---
 
-## 6. Adding a New Source
+## 6. Content Verticals & Adding a New Source
 
-1. **Edit `config/sources.yaml`** — add an entry under the right category with
-   a unique `name`, a `source_url`, and an `api_type`:
+### Content verticals (the on/off switch)
+
+The hub collects six selectable content verticals: **wine, spirits, food,
+lifestyle, travel, hospitality**. Which ones are collected is controlled in
+`config/sources.yaml` under `collection_config:`:
+
+```yaml
+collection_config:
+  enabled_verticals: [wine, spirits, food, lifestyle, travel, hospitality]
+```
+
+- Every source carries a `vertical:` tag and an `enabled:` flag. Both
+  `pipeline/ingest.py` and `pipeline/backfill.py` skip a source when
+  `enabled: false`, or when its `vertical` is **not** in `enabled_verticals`.
+- **Toggle a vertical** — remove/add it in `enabled_verticals` (e.g. drop
+  `travel` to stop all travel sources). The skip is logged.
+- **Disable a single source** — set `enabled: false` on that source.
+- **Default-safe / backward compatible** — if `enabled_verticals` is absent,
+  no vertical filtering is applied (every source builds).
+- Each article is stamped with its source's vertical in `primary_category`
+  (column K) — no new column. The categorizer keeps a valid preset and only
+  runs keyword detection for un-stamped articles. The Dashboard's "by category"
+  query therefore shows the six-vertical breakdown automatically.
+
+### Adding a new source
+
+1. **Edit `config/sources.yaml`** — add an entry under the right vertical group
+   with a unique `name`, a `vertical:` (one of the six), `enabled: true`, a
+   `url`, and an `api_type`:
    - `rss` → also set `rss_feed` (the feed URL).
    - `web_scrape` → also set `selectors` with at minimum `article`, `title`,
      and `link` (entries without full selectors are skipped on purpose).

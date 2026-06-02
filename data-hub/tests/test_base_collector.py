@@ -69,3 +69,23 @@ def test_enrich_article_adds_metadata():
     # Should be parseable as an ISO timestamp.
     parsed = datetime.datetime.fromisoformat(iso.replace("Z", "+00:00"))
     assert isinstance(parsed, datetime.datetime)
+
+
+# -- vertical stamping -------------------------------------------------------
+
+
+def test_enrich_stamps_vertical_as_primary_category():
+    """A collector configured with a vertical stamps it onto primary_category."""
+    collector = DummyCollector(name="Robb Report", vertical="lifestyle")
+    article = _complete_article()
+    enriched = collector.enrich_article(article)
+    assert enriched["primary_category"] == "lifestyle"
+
+
+def test_enrich_no_vertical_leaves_primary_category():
+    """With no vertical, enrich_article does not force primary_category."""
+    collector = DummyCollector(name="Decanter")  # vertical defaults to None
+    article = _complete_article()
+    assert "primary_category" not in article
+    enriched = collector.enrich_article(article)
+    assert "primary_category" not in enriched

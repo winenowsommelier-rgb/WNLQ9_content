@@ -33,9 +33,19 @@ class BaseCollector(ABC):
         "content_excerpt",
     ]
 
-    def __init__(self, name: str, source_config: Optional[dict] = None) -> None:
+    def __init__(
+        self,
+        name: str,
+        source_config: Optional[dict] = None,
+        vertical: Optional[str] = None,
+    ) -> None:
         self.name = name
         self.source_config = source_config or {}
+        # The content vertical this source belongs to (wine, spirits, food,
+        # lifestyle, travel, hospitality, ...). When set, enrich_article stamps
+        # it onto each article's primary_category so the source's vertical is
+        # authoritative (the categorizer keeps a valid preset).
+        self.vertical = vertical
 
     def validate_article(self, article: Dict) -> bool:
         """Return True only if all REQUIRED_FIELDS are present and non-empty.
@@ -64,6 +74,11 @@ class BaseCollector(ABC):
         """
         article["source_name"] = self.name
         article["collected_date"] = self._utc_now_iso()
+        # Stamp the source's vertical onto primary_category (no new column).
+        # The categorizer treats a valid preset as authoritative and won't
+        # overwrite it; keyword detection is the fallback for un-stamped items.
+        if self.vertical:
+            article["primary_category"] = self.vertical
         return article
 
     @staticmethod

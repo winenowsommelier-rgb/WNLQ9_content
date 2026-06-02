@@ -47,10 +47,13 @@ class WebScraper(BaseCollector):
         "+https://www.wine-now.com/bot)"
     )
 
-    def __init__(self, name: str, listing_url: str, selectors: Dict) -> None:
+    def __init__(
+        self, name: str, listing_url: str, selectors: Dict, vertical=None
+    ) -> None:
         super().__init__(
             name=name,
             source_config={"listing_url": listing_url, "selectors": selectors},
+            vertical=vertical,
         )
         self.listing_url = listing_url
         self.selectors = selectors

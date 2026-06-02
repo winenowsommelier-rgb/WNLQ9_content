@@ -221,3 +221,51 @@ def test_enum_values_match_taxonomy(categorizer, taxonomy):
             assert result["spirits_type"] in valid_spirits
         for signal in result["trend_signals"]:
             assert signal in valid_signals
+
+
+# -- vertical / preset primary_category (6-vertical expansion) ---------------
+
+
+def test_categorize_respects_preset_primary_category(categorizer):
+    """A valid preset primary_category (e.g. a stamped vertical) is kept."""
+    article = _article(
+        title="A Weekend in the Maldives",
+        excerpt="The best overwater villas for a luxury escape.",
+    )
+    article["primary_category"] = "travel"  # stamped by the collector's vertical
+    result = categorizer.categorize([article])[0]
+    assert result["primary_category"] == "travel"
+
+
+def test_categorize_detects_when_missing(categorizer):
+    """With no preset primary_category, keyword detection runs as before."""
+    article = _article(
+        title="Islay Single Malt Scotch Whisky Tasting",
+        excerpt="A peaty whisky from Scotland.",
+    )
+    assert "primary_category" not in article
+    result = categorizer.categorize([article])[0]
+    assert result["primary_category"] == "spirits"
+
+
+def test_categorize_ignores_empty_preset_primary_category(categorizer):
+    """An empty/invalid preset does not block detection."""
+    article = _article(
+        title="Napa Valley Cabernet vineyard report",
+        excerpt="A vintage from the winery.",
+    )
+    article["primary_category"] = ""  # empty -> should be ignored
+    result = categorizer.categorize([article])[0]
+    assert result["primary_category"] == "wine"
+
+
+def test_taxonomy_has_new_verticals(taxonomy):
+    """taxonomy primary_categories includes the new verticals."""
+    values = {c["value"] for c in taxonomy["primary_categories"]}
+    for v in ("lifestyle", "travel", "hospitality", "food"):
+        assert v in values
+    # The 6-vertical reference list is present.
+    assert "verticals" in taxonomy
+    assert set(taxonomy["verticals"]) == {
+        "wine", "spirits", "food", "lifestyle", "travel", "hospitality"
+    }

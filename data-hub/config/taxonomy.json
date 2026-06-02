@@ -39,6 +39,7 @@
       "description": "Video content (YouTube, social media); requires media_url"
     }
   ],
+  "verticals": ["wine", "spirits", "food", "lifestyle", "travel", "hospitality"],
   "primary_categories": [
     {
       "value": "wine",
@@ -49,8 +50,24 @@
       "description": "Content focused on spirits (whisky, gin, rum, tequila, etc.)"
     },
     {
+      "value": "food",
+      "description": "Food, dining, restaurants, recipes, and culinary culture (vertical)"
+    },
+    {
+      "value": "lifestyle",
+      "description": "Luxury lifestyle content: fashion, design, watches, estates, high society (vertical)"
+    },
+    {
+      "value": "travel",
+      "description": "Travel and tourism: destinations, hotels-as-stays, airlines, getaways (vertical)"
+    },
+    {
+      "value": "hospitality",
+      "description": "Hospitality industry: hotels, resorts, foodservice, restaurant operations (vertical)"
+    },
+    {
       "value": "food_beverage",
-      "description": "Broader beverage or food content with wine/spirits context"
+      "description": "Legacy/alias: broader beverage or food content with wine/spirits context (kept so existing data validates)"
     },
     {
       "value": "cultural",

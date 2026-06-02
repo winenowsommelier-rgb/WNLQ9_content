@@ -1,9 +1,16 @@
 # Content Hub Sources Registry
 # Defines all publication and data sources integrated into the collection pipeline
 # Each source is configured with collection method, endpoints, authentication, and metadata
-
-# Last Updated: 2024-05-16
-# Version: 1.0
+#
+# Every source carries:
+#   * vertical  -- one of: wine, spirits, food, lifestyle, travel, hospitality
+#                  (plus legacy tags: social, thai). The pipeline only builds a
+#                  collector when the source's vertical is in
+#                  collection_config.enabled_verticals (see bottom of file).
+#   * enabled   -- true/false. A source with enabled:false is always skipped.
+#
+# Last Updated: 2026-06-02
+# Version: 2.0 (6 selectable content verticals)
 
 sources:
   wine:
@@ -11,6 +18,8 @@ sources:
       url: "https://www.winespectator.com"
       api_type: "rss"
       rss_feed: "https://www.winespectator.com/rss/reviews.xml"
+      vertical: "wine"
+      enabled: true
       categories: ["reviews", "news", "ratings"]
       language: "en"
       update_frequency: "daily"
@@ -25,6 +34,8 @@ sources:
       api_type: "web_scrape"
       scrape_endpoint: "https://www.robertparkerwineadvocate.com/tasting-notes/"
       scrape_selector: ".wine-review-item"
+      vertical: "wine"
+      enabled: true
       categories: ["reviews", "ratings"]
       language: "en"
       update_frequency: "weekly"
@@ -38,6 +49,8 @@ sources:
       url: "https://www.decanter.com"
       api_type: "rss"
       rss_feed: "https://www.decanter.com/feed/"
+      vertical: "wine"
+      enabled: true
       categories: ["reviews", "news", "features"]
       language: "en"
       update_frequency: "daily"
@@ -51,6 +64,8 @@ sources:
       url: "https://www.jamessuckling.com"
       api_type: "rss"
       rss_feed: "https://www.jamessuckling.com/feed/"
+      vertical: "wine"
+      enabled: true
       categories: ["reviews", "ratings"]
       language: "en"
       update_frequency: "weekly"
@@ -64,6 +79,8 @@ sources:
       url: "https://www.winemag.com"
       api_type: "rss"
       rss_feed: "https://www.winemag.com/feed/"
+      vertical: "wine"
+      enabled: true
       categories: ["reviews", "news", "guides"]
       language: "en"
       update_frequency: "daily"
@@ -77,6 +94,8 @@ sources:
       url: "https://www.vivino.com"
       api_type: "api"
       api_endpoint: "https://www.vivino.com/api/users/ratings/"
+      vertical: "wine"
+      enabled: true
       auth_required: false
       categories: ["reviews", "ratings", "social"]
       language: "en"
@@ -91,6 +110,8 @@ sources:
       url: "https://www.whiskyadvocate.com"
       api_type: "rss"
       rss_feed: "https://www.whiskyadvocate.com/feed/"
+      vertical: "spirits"
+      enabled: true
       categories: ["reviews", "news", "ratings"]
       language: "en"
       update_frequency: "daily"
@@ -106,6 +127,8 @@ sources:
       api_type: "web_scrape"
       scrape_endpoint: "https://www.diffordsguide.com/en/spirits/reviews/"
       scrape_selector: ".spirit-review"
+      vertical: "spirits"
+      enabled: true
       static_scrape_verified: false
       static_scrape_note: "VERIFIED 2026-06-01: this endpoint 404s and the site is JS-rendered. Static requests+BeautifulSoup returns no article structure. Needs a headless (Playwright/Selenium) scraper before it can be activated."
       categories: ["reviews", "spirits_guide"]
@@ -122,6 +145,8 @@ sources:
       url: "https://www.thespiritsbusiness.com"
       api_type: "rss"
       rss_feed: "https://www.thespiritsbusiness.com/feed/"
+      vertical: "spirits"
+      enabled: true
       categories: ["news", "market_analysis", "trends"]
       language: "en"
       update_frequency: "daily"
@@ -137,6 +162,8 @@ sources:
       api_type: "web_scrape"
       scrape_endpoint: "https://www.scotchwhiskyresearch.com/research/"
       scrape_selector: ".research-article"
+      vertical: "spirits"
+      enabled: true
       categories: ["research", "market_data"]
       language: "en"
       update_frequency: "monthly"
@@ -152,6 +179,8 @@ sources:
       api_type: "web_scrape"
       scrape_endpoint: "https://punchdrink.com/articles/"
       scrape_selector: "article.tease"
+      vertical: "spirits"
+      enabled: true
       selectors:
         article: "article.tease"
         title: "h3"
@@ -167,11 +196,13 @@ sources:
       regions: ["Global"]
       notes: "Long-form drinks journalism (cocktails, spirits, wine). VERIFIED 2026-06-01: domain is punchdrink.com (singular); the /articles/ listing is server-rendered static HTML and scrapes cleanly with the selectors above (12 article.tease cards). The old punchdrinks.com RSS in the audit was the wrong domain. Cards carry no date element, so published_date falls back to collected time."
 
-  food_beverage:
+  food:
     - name: "Bon Appétit"
       url: "https://www.bonappetit.com"
       api_type: "rss"
-      rss_feed: "https://www.bonappetit.com/rss"
+      rss_feed: "https://www.bonappetit.com/feed/rss"
+      vertical: "food"
+      enabled: true
       categories: ["food", "drinks", "wine_pairing"]
       language: "en"
       update_frequency: "daily"
@@ -179,15 +210,14 @@ sources:
       content_types: ["guide", "opinion", "news"]
       coverage: ["wine", "food_beverage"]
       regions: ["Global"]
-      notes: "Premium food and drinks magazine; wine pairing guides and spirits features."
+      notes: "Premium food and drinks magazine; wine pairing guides and spirits features. RSS feed verified live 2026-06-02 (https://www.bonappetit.com/feed/rss)."
 
     - name: "Eater"
       url: "https://www.eater.com"
-      api_type: "web_scrape"
-      scrape_endpoint: "https://www.eater.com/drinks"
-      scrape_selector: ".c-entry-box"
-      static_scrape_verified: false
-      static_scrape_note: "VERIFIED 2026-06-01: /drinks returns HTTP 200 but the article cards are JS-hydrated (no <article> elements in static HTML). Needs a headless scraper. The old /search?q= endpoint is unreliable."
+      api_type: "rss"
+      rss_feed: "https://www.eater.com/rss/index.xml"
+      vertical: "food"
+      enabled: true
       categories: ["food", "drinks", "news"]
       language: "en"
       update_frequency: "daily"
@@ -195,12 +225,167 @@ sources:
       content_types: ["news", "blog"]
       coverage: ["wine", "spirits", "food_beverage"]
       regions: ["Global"]
-      notes: "Regional and national food/drinks news; web scraping for wine and spirits content."
+      notes: "Regional and national food/drinks news. Switched from web_scrape (JS-blocked /drinks page) to RSS; feed verified live 2026-06-02 (https://www.eater.com/rss/index.xml)."
+
+    - name: "Tasting Table"
+      url: "https://www.tastingtable.com"
+      api_type: "rss"
+      rss_feed: "https://www.tastingtable.com/feed/"
+      vertical: "food"
+      enabled: true
+      categories: ["food", "drinks", "recipes"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "guide", "blog"]
+      coverage: ["food_beverage", "wine", "spirits"]
+      regions: ["Global"]
+      notes: "Food, drink and restaurant coverage; daily RSS. Verified live 2026-06-02."
+
+  lifestyle:
+    - name: "Robb Report"
+      url: "https://robbreport.com"
+      api_type: "rss"
+      rss_feed: "https://robbreport.com/feed/"
+      vertical: "lifestyle"
+      enabled: true
+      categories: ["luxury", "lifestyle", "spirits", "wine"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "guide", "blog"]
+      coverage: ["lifestyle", "wine", "spirits"]
+      regions: ["Global"]
+      notes: "Luxury lifestyle authority; strong fine-wine, spirits and collectible coverage. Verified live 2026-06-02."
+
+    - name: "Town & Country"
+      url: "https://www.townandcountrymag.com"
+      api_type: "rss"
+      rss_feed: "https://www.townandcountrymag.com/rss/all.xml/"
+      vertical: "lifestyle"
+      enabled: true
+      categories: ["luxury", "lifestyle", "society"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "blog", "guide"]
+      coverage: ["lifestyle"]
+      regions: ["Global"]
+      notes: "Upscale lifestyle and society publication. Verified live 2026-06-02."
+
+    - name: "Luxury London"
+      url: "https://luxurylondon.co.uk"
+      api_type: "rss"
+      rss_feed: "https://luxurylondon.co.uk/feed/"
+      vertical: "lifestyle"
+      enabled: true
+      categories: ["luxury", "lifestyle", "dining"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "guide", "blog"]
+      coverage: ["lifestyle", "wine", "spirits"]
+      regions: ["UK", "Global"]
+      notes: "London luxury lifestyle, dining and fine-drink coverage. Verified live 2026-06-02."
+
+  travel:
+    - name: "Condé Nast Traveler"
+      url: "https://www.cntraveler.com"
+      api_type: "rss"
+      rss_feed: "https://www.cntraveler.com/feed/rss"
+      vertical: "travel"
+      enabled: true
+      categories: ["travel", "destinations", "hotels"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "guide", "blog"]
+      coverage: ["travel", "lifestyle"]
+      regions: ["Global"]
+      notes: "Premium travel publication; destinations, hotels, food-and-wine travel. Verified live 2026-06-02."
+
+    - name: "Skift"
+      url: "https://skift.com"
+      api_type: "rss"
+      rss_feed: "https://skift.com/feed/"
+      vertical: "travel"
+      enabled: true
+      categories: ["travel", "industry_news", "hospitality"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "research", "opinion"]
+      coverage: ["travel", "hospitality"]
+      regions: ["Global"]
+      notes: "Travel-industry intelligence and news. Verified live 2026-06-02."
+
+    - name: "The Points Guy"
+      url: "https://thepointsguy.com"
+      api_type: "rss"
+      rss_feed: "https://thepointsguy.com/feed/"
+      vertical: "travel"
+      enabled: true
+      categories: ["travel", "loyalty", "guides"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "guide", "blog"]
+      coverage: ["travel"]
+      regions: ["Global"]
+      notes: "Travel rewards, airlines, hotels and trip-planning guides. Verified live 2026-06-02."
+
+  hospitality:
+    - name: "Nation's Restaurant News"
+      url: "https://www.nrn.com"
+      api_type: "rss"
+      rss_feed: "https://www.nrn.com/rss.xml"
+      vertical: "hospitality"
+      enabled: true
+      categories: ["foodservice", "restaurant_industry", "news"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "research", "opinion"]
+      coverage: ["hospitality", "food"]
+      regions: ["USA", "Global"]
+      notes: "Leading restaurant-industry news and operations coverage. Verified live 2026-06-02."
+
+    - name: "Restaurant Dive"
+      url: "https://www.restaurantdive.com"
+      api_type: "rss"
+      rss_feed: "https://www.restaurantdive.com/feeds/news/"
+      vertical: "hospitality"
+      enabled: true
+      categories: ["foodservice", "restaurant_industry", "news"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "research"]
+      coverage: ["hospitality", "food"]
+      regions: ["USA", "Global"]
+      notes: "Restaurant industry news, trends and operations. Verified live 2026-06-02."
+
+    - name: "Hotel Management"
+      url: "https://www.hotelmanagement.net"
+      api_type: "rss"
+      rss_feed: "https://www.hotelmanagement.net/rss.xml"
+      vertical: "hospitality"
+      enabled: true
+      categories: ["hotels", "hospitality", "news"]
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "research", "opinion"]
+      coverage: ["hospitality", "travel"]
+      regions: ["USA", "Global"]
+      notes: "Hotel industry news, operations and F&B coverage. Verified live 2026-06-02."
 
   social_trends:
     - name: "TikTok Wine & Spirits Trends"
       url: "https://www.tiktok.com"
       api_type: "keyword_monitor"
+      vertical: "social"
+      enabled: true
       keyword_terms: ["#WineLife", "#WhiskyTok", "#WineOfTheDay", "#SpiritsTok", "#WineHaul"]
       categories: ["social_trends", "viral_content"]
       language: "en"
@@ -214,6 +399,8 @@ sources:
     - name: "Instagram Wine Community"
       url: "https://www.instagram.com"
       api_type: "keyword_monitor"
+      vertical: "social"
+      enabled: true
       keyword_terms: ["#WineOfTheDay", "#InstaWine", "#WineGeek", "#WhiskyGeek", "#WhiskyLovers"]
       categories: ["social_trends", "influencer_content"]
       language: "en"
@@ -227,6 +414,8 @@ sources:
     - name: "Reddit Wine & Spirits Communities"
       url: "https://www.reddit.com"
       api_type: "web_scrape"
+      vertical: "social"
+      enabled: true
       scrape_endpoint_list:
         - "https://www.reddit.com/r/wine/"
         - "https://www.reddit.com/r/whisky/"
@@ -247,6 +436,8 @@ sources:
       api_type: "web_scrape"
       scrape_endpoint: "https://www.wongnai.com/restaurants/search?q=wine+bar&q=whisky"
       scrape_selector: ".WnRestaurantCard"
+      vertical: "thai"
+      enabled: true
       static_scrape_verified: false
       static_scrape_note: "VERIFIED 2026-06-01: this search URL 404s and Wongnai is a JS single-page app; static scraping returns no cards. Needs either a headless scraper or Wongnai's internal JSON API. High strategic value (Thai market) but blocked on tooling."
       categories: ["local_news", "restaurant_reviews", "wine_bars"]
@@ -263,6 +454,8 @@ sources:
       api_type: "web_scrape"
       scrape_endpoint: "https://www.pantip.com/forum/topic/search?q=wine"
       scrape_selector: ".topic-item"
+      vertical: "thai"
+      enabled: true
       categories: ["forum_discussions", "local_trends"]
       language: "th"
       update_frequency: "weekly"
@@ -284,6 +477,8 @@ backfill_sources:
     api_type: "sitemap"
     sitemap_url: "https://www.thespiritsbusiness.com/sitemap_index.xml"
     sitemap_child_pattern: "post-sitemap"
+    vertical: "spirits"
+    enabled: true
     language: "en"
     notes: "sitemap_index -> post-sitemap*.xml (loc + lastmod, back to 2011)."
 
@@ -291,16 +486,25 @@ backfill_sources:
     api_type: "sitemap"
     sitemap_url: "https://punchdrink.com/sitemap_index.xml"
     sitemap_child_pattern: "article-sitemap"
+    vertical: "spirits"
+    enabled: true
     language: "en"
     notes: "sitemap_index -> article-sitemap*.xml (loc + lastmod, 2013->2026)."
 
   - name: "Decanter"
     api_type: "sitemap"
     sitemap_url: "https://www.decanter.com/sitemap_index.xml"
+    vertical: "wine"
+    enabled: true
     language: "en"
     notes: "sitemap_index with 327 child sitemaps; default post/article child heuristic applies."
 
 collection_config:
+  # Which of the six content verticals to collect. Remove a vertical from this
+  # list to stop collecting all of its sources; add one back to re-enable.
+  # If this key is absent entirely, NO vertical filtering is applied (every
+  # source builds) -- backward compatible.
+  enabled_verticals: [wine, spirits, food, lifestyle, travel, hospitality]
   default_update_frequency: "daily"
   default_language: "en"
   scraper_timeout_seconds: 30

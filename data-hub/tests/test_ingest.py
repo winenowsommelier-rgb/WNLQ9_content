@@ -9,6 +9,7 @@ testable in complete isolation.
 
 from __future__ import annotations
 
+import textwrap
 from unittest.mock import MagicMock
 
 import pytest
@@ -89,6 +90,109 @@ def test_build_collectors_skips_unconfigured(pipeline):
     # web_scrape sources in sources.yaml lack a full selectors dict
     # (only scrape_selector), so they are skipped gracefully too.
     assert "Robert Parker Wine Advocate" not in built_names
+
+
+# -- vertical filtering & stamping (6-vertical expansion) --------------------
+
+
+def _write_config(tmp_path, body: str) -> str:
+    """Write a minimal sources.yaml to a temp file and return its path."""
+    path = tmp_path / "sources.yaml"
+    path.write_text(textwrap.dedent(body))
+    return str(path)
+
+
+def test_build_collectors_filters_by_enabled_verticals(tmp_path):
+    """Only sources whose vertical is in enabled_verticals are built."""
+    config = _write_config(tmp_path, """
+        sources:
+          wine:
+            - name: "Wine One"
+              api_type: "rss"
+              rss_feed: "https://wine.example/feed"
+              vertical: "wine"
+              enabled: true
+          lifestyle:
+            - name: "Lifestyle One"
+              api_type: "rss"
+              rss_feed: "https://life.example/feed"
+              vertical: "lifestyle"
+              enabled: true
+        collection_config:
+          enabled_verticals: [wine]
+    """)
+    pipeline = IngestPipeline(sources_config_path=config)
+    collectors = pipeline.build_collectors()
+    names = {c.name for c in collectors}
+    assert "Wine One" in names
+    assert "Lifestyle One" not in names
+
+
+def test_build_collectors_skips_disabled_source(tmp_path):
+    """A source with enabled: false is skipped even if its vertical is on."""
+    config = _write_config(tmp_path, """
+        sources:
+          wine:
+            - name: "Enabled Wine"
+              api_type: "rss"
+              rss_feed: "https://a.example/feed"
+              vertical: "wine"
+              enabled: true
+            - name: "Disabled Wine"
+              api_type: "rss"
+              rss_feed: "https://b.example/feed"
+              vertical: "wine"
+              enabled: false
+        collection_config:
+          enabled_verticals: [wine]
+    """)
+    pipeline = IngestPipeline(sources_config_path=config)
+    names = {c.name for c in pipeline.build_collectors()}
+    assert "Enabled Wine" in names
+    assert "Disabled Wine" not in names
+
+
+def test_build_collectors_passes_vertical(tmp_path):
+    """A built collector carries the vertical from its source config."""
+    config = _write_config(tmp_path, """
+        sources:
+          travel:
+            - name: "Travel One"
+              api_type: "rss"
+              rss_feed: "https://travel.example/feed"
+              vertical: "travel"
+              enabled: true
+        collection_config:
+          enabled_verticals: [travel]
+    """)
+    pipeline = IngestPipeline(sources_config_path=config)
+    collectors = pipeline.build_collectors()
+    assert len(collectors) == 1
+    assert collectors[0].vertical == "travel"
+
+
+def test_enabled_verticals_defaults_to_all(tmp_path):
+    """Absent enabled_verticals -> no vertical filtering (backward compatible)."""
+    config = _write_config(tmp_path, """
+        sources:
+          wine:
+            - name: "Wine One"
+              api_type: "rss"
+              rss_feed: "https://wine.example/feed"
+              vertical: "wine"
+              enabled: true
+          hospitality:
+            - name: "Hosp One"
+              api_type: "rss"
+              rss_feed: "https://hosp.example/feed"
+              vertical: "hospitality"
+              enabled: true
+        collection_config:
+          default_language: "en"
+    """)
+    pipeline = IngestPipeline(sources_config_path=config)
+    names = {c.name for c in pipeline.build_collectors()}
+    assert names == {"Wine One", "Hosp One"}
 
 
 # -- collect_all -------------------------------------------------------------
