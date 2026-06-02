@@ -144,7 +144,9 @@
         if (!it) return;
 
         const canGenerate = ["Not started", "Brief Ready", "In progress"].includes(it.status);
-        const canApprove = it.contentEN && it.contentTH && it.status !== "Done" && it.status !== "Published";
+        // Approve uploads a full HTML file (manifest-backed) when present, else
+        // falls back to the EN/TH drafts — so enable for either path.
+        const canApprove = (it.hasHtml || (it.contentEN && it.contentTH)) && it.status !== "Done" && it.status !== "Published";
 
         $("detail").innerHTML = `
           <h2>${escapeHtml(it.title)}</h2>

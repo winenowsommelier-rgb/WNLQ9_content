@@ -2,8 +2,10 @@
 // Pull the live Notion content plan and mirror it into Supabase content_plan
 // (upsert by notion_page_id), deriving a default product_filter per row.
 //
-// The Notion database query returns only current (non-archived) rows, so
-// deleted plan rows drop out automatically — no stale data.
+// The Notion query returns only current (non-archived) rows. To keep the mirror
+// faithful we also prune content_plan rows whose notion_page_id is absent from
+// the latest sync (page archived/deleted in Notion) — guarded so an empty/failed
+// fetch can never wipe the table. content_plan is wholly owned by this sync.
 //
 // Runs daily via Vercel Cron (see vercel.json). Auth accepts EITHER the Vercel
 // cron header (Authorization: Bearer $CRON_SECRET) OR the dashboard INGEST_SECRET
@@ -47,11 +49,23 @@ export default async function handler(req, res) {
   try {
     const items = await createClient(cfg).listItems({}); // full live plan
     const rows = items.map((it) => itemToPlanRow(it));
-    const saved = await createSupabase(cfg).upsert("content_plan", rows, "notion_page_id");
+    const sb = createSupabase(cfg);
+    const saved = await sb.upsert("content_plan", rows, "notion_page_id");
+
+    // Prune rows whose Notion page is gone. Guard: only when the sync actually
+    // returned rows, so an empty result (transient fetch issue) never wipes all.
+    let removed = 0;
+    if (rows.length > 0) {
+      const inList = rows.map((r) => encodeURIComponent(r.notion_page_id)).join(",");
+      const deleted = await sb.delete("content_plan", `notion_page_id=not.in.(${inList})`);
+      removed = Array.isArray(deleted) ? deleted.length : 0;
+    }
+
     res.status(200).json({
       ok: true,
       synced: rows.length,
       upserted: Array.isArray(saved) ? saved.length : null,
+      removed,
       at: new Date().toISOString(),
     });
   } catch (err) {
