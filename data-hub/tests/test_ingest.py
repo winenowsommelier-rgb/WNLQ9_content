@@ -10,10 +10,11 @@ testable in complete isolation.
 from __future__ import annotations
 
 import textwrap
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 import pytest
 
+import pipeline.ingest as ingest_module
 from pipeline.ingest import IngestPipeline
 
 
@@ -404,3 +405,47 @@ def test_run_records_collector_errors_in_summary():
     assert summary["after_dedup"] == 1
     assert len(summary["errors"]) == 1
     assert "Exploding Source" in summary["errors"][0]
+
+
+# -- main() exit-code behaviour (FIX 1) --------------------------------------
+
+
+def _fake_pipeline_returning(summary):
+    """A stand-in IngestPipeline whose run() returns a canned summary."""
+    pipe = MagicMock()
+    pipe.run.return_value = summary
+    return pipe
+
+
+def test_main_returns_nonzero_when_errors(monkeypatch):
+    """main() exits 1 and alerts when the run summary has errors."""
+    summary = {
+        "collected": 1, "after_dedup": 1, "after_cross_run_dedup": 1,
+        "exported": 0, "sources_run": ["S"], "errors": ["Collector 'S' failed: boom"],
+    }
+    monkeypatch.setattr(
+        ingest_module, "IngestPipeline",
+        lambda *a, **k: _fake_pipeline_returning(summary),
+    )
+    monkeypatch.setattr(ingest_module, "configure_logging", lambda *a, **k: None)
+    with patch("monitoring.notifier.send_alert") as alert:
+        rc = ingest_module.main(["--sheet-id", "abc"])
+    assert rc == 1
+    alert.assert_called_once()
+
+
+def test_main_returns_zero_when_clean(monkeypatch):
+    """main() exits 0 and does not alert when there are no errors."""
+    summary = {
+        "collected": 3, "after_dedup": 3, "after_cross_run_dedup": 3,
+        "exported": 3, "sources_run": ["S"], "errors": [],
+    }
+    monkeypatch.setattr(
+        ingest_module, "IngestPipeline",
+        lambda *a, **k: _fake_pipeline_returning(summary),
+    )
+    monkeypatch.setattr(ingest_module, "configure_logging", lambda *a, **k: None)
+    with patch("monitoring.notifier.send_alert") as alert:
+        rc = ingest_module.main(["--sheet-id", "abc"])
+    assert rc == 0
+    alert.assert_not_called()

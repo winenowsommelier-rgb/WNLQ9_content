@@ -436,7 +436,21 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     print(format_report(result))
 
-    return 1 if result["overall"] == "critical" else 0
+    # Surface a bad verdict via the notifier (best-effort). Critical pages;
+    # a warning is sent too but stays exit 0 so a cron wrapper doesn't alarm.
+    overall = result.get("overall")
+    if overall in ("critical", "warning"):
+        try:
+            from monitoring.notifier import send_alert
+
+            send_alert(
+                "Content Hub health check verdict: %s" % overall.upper(),
+                level="critical" if overall == "critical" else "warning",
+            )
+        except Exception:  # noqa: BLE001 -- alerting must never block the exit
+            logger.debug("health check alert failed (ignored)", exc_info=True)
+
+    return 1 if overall == "critical" else 0
 
 
 if __name__ == "__main__":

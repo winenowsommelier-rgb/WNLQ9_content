@@ -642,6 +642,20 @@ def main(argv: Optional[List[str]] = None) -> int:
     print("  LIMITATIONS:")
     print(f"    {summary['limitations']}")
 
+    # Surface failures: a non-empty errors list means at least one source/page
+    # or the export failed. Alert (best-effort) and exit non-zero so a
+    # scheduler sees the failure instead of a silent "success".
+    errors = summary.get("errors") or []
+    if errors:
+        from monitoring.notifier import send_alert
+
+        send_alert(
+            "Content Hub backfill finished with %d error(s): %s"
+            % (len(errors), "; ".join(errors)),
+            level="critical",
+        )
+        return 1
+
     return 0
 
 

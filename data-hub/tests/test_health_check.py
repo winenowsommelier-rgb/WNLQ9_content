@@ -23,6 +23,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
+import monitoring.health_check as health_module
 from exporters.sheets_exporter import SheetsExporter
 from monitoring.health_check import HealthCheck
 
@@ -296,3 +297,35 @@ def test_run_all_checks_error_makes_overall_critical(tmp_path):
         result = hc.run_all_checks(reference_time=NOW)
 
     assert result["overall"] == "critical"
+
+
+# -- main() alerting (FIX 1) -------------------------------------------------
+
+
+def test_main_alerts_on_critical(monkeypatch):
+    """main() sends a critical alert and exits 1 when overall is critical."""
+    checker = MagicMock()
+    checker.run_all_checks.return_value = {
+        "overall": "critical", "checks": {}, "timestamp": _iso(NOW),
+    }
+    monkeypatch.setattr(health_module, "HealthCheck", lambda *a, **k: checker)
+    monkeypatch.setenv("DATA_HUB_SHEET_ID", "abc")
+    with patch("monitoring.notifier.send_alert") as alert:
+        rc = health_module.main([])
+    assert rc == 1
+    alert.assert_called_once()
+    assert alert.call_args.kwargs.get("level") == "critical"
+
+
+def test_main_no_alert_when_healthy(monkeypatch):
+    """main() does not alert and exits 0 when overall is healthy."""
+    checker = MagicMock()
+    checker.run_all_checks.return_value = {
+        "overall": "healthy", "checks": {}, "timestamp": _iso(NOW),
+    }
+    monkeypatch.setattr(health_module, "HealthCheck", lambda *a, **k: checker)
+    monkeypatch.setenv("DATA_HUB_SHEET_ID", "abc")
+    with patch("monitoring.notifier.send_alert") as alert:
+        rc = health_module.main([])
+    assert rc == 0
+    alert.assert_not_called()

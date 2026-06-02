@@ -442,8 +442,20 @@ def main(argv: Optional[List[str]] = None) -> int:
     for error in summary["errors"]:
         print(f"    - {error}")
 
-    # Treat collector/export errors as a non-fatal partial success (exit 0);
-    # only a hard crash (caught above) is a failure exit.
+    # Surface failures: a non-empty errors list means at least one source or
+    # the export failed. Alert (best-effort) and exit non-zero so launchd /
+    # cloud schedulers see the failure instead of a silent "success".
+    errors = summary.get("errors") or []
+    if errors:
+        from monitoring.notifier import send_alert
+
+        send_alert(
+            "Content Hub ingest finished with %d error(s): %s"
+            % (len(errors), "; ".join(errors)),
+            level="critical",
+        )
+        return 1
+
     return 0
 
 
