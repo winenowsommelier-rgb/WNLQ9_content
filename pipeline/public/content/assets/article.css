@@ -109,6 +109,9 @@ figure figcaption{font-size:13px; color:var(--muted); margin-top:8px; text-align
 .product-card .nm{font-weight:700; line-height:1.35; font-size:15.5px}
 .product-card .mt{font-size:13px; color:var(--muted)}
 .product-card .pr{font-weight:700; color:var(--wine); font-size:15px; margin-top:2px}
+.product-card .sku{font-size:11px; letter-spacing:.02em; color:#8a8079;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.product-card .sku b{color:#3a3531; font-weight:700}
 .product-card .badges{display:flex; flex-wrap:wrap; gap:6px}
 .product-card .badge{font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px;
   background:var(--wine-soft); color:var(--wine)}
