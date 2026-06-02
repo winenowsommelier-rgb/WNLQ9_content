@@ -9,13 +9,15 @@ testable in complete isolation.
 
 from __future__ import annotations
 
+import logging
+import logging.handlers
 import textwrap
 from unittest.mock import MagicMock, patch
 
 import pytest
 
 import pipeline.ingest as ingest_module
-from pipeline.ingest import IngestPipeline
+from pipeline.ingest import IngestPipeline, configure_logging
 
 
 SOURCES_CONFIG_PATH = "config/sources.yaml"
@@ -424,6 +426,32 @@ def test_run_records_collector_errors_in_summary():
     assert summary["after_dedup"] == 1
     assert len(summary["errors"]) == 1
     assert "Exploding Source" in summary["errors"][0]
+
+
+# -- logging setup (FIX 5: log rotation) -------------------------------------
+
+
+def test_configure_logging_uses_rotating_file_handler(tmp_path, monkeypatch):
+    """The file handler must be a RotatingFileHandler (bounded log growth)."""
+    root = logging.getLogger()
+    saved = list(root.handlers)
+    root.handlers = []
+    # Reset the idempotency flag so configure_logging actually re-runs.
+    monkeypatch.setattr(configure_logging, "_configured", False, raising=False)
+    try:
+        configure_logging(log_dir=str(tmp_path))
+        rotating = [
+            h for h in root.handlers
+            if isinstance(h, logging.handlers.RotatingFileHandler)
+        ]
+        assert rotating, "expected a RotatingFileHandler on the root logger"
+        assert rotating[0].maxBytes > 0
+        assert rotating[0].backupCount > 0
+    finally:
+        root.handlers = saved
+        monkeypatch.setattr(
+            configure_logging, "_configured", True, raising=False
+        )
 
 
 # -- main() exit-code behaviour (FIX 1) --------------------------------------

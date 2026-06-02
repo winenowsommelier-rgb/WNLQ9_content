@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import logging.handlers
 import os
 import sys
 from typing import Dict, List, Optional
@@ -377,7 +378,13 @@ def configure_logging(log_dir: str = _DEFAULT_LOG_DIR,
 
     try:
         os.makedirs(log_dir, exist_ok=True)
-        file_handler = logging.FileHandler(os.path.join(log_dir, "ingest.log"))
+        # RotatingFileHandler caps disk use: 5 MB per file, 5 backups kept
+        # (~30 MB max) so an unattended daily cron can't grow logs unbounded.
+        file_handler = logging.handlers.RotatingFileHandler(
+            os.path.join(log_dir, "ingest.log"),
+            maxBytes=5_000_000,
+            backupCount=5,
+        )
         file_handler.setFormatter(formatter)
         root.addHandler(file_handler)
     except OSError as exc:  # noqa: BLE001 -- logging must never crash the run

@@ -43,6 +43,7 @@ from __future__ import annotations
 import argparse
 import datetime
 import logging
+import logging.handlers
 import os
 import sys
 from typing import Callable, Dict, List, Optional
@@ -557,7 +558,13 @@ def configure_logging(
 
     try:
         os.makedirs(log_dir, exist_ok=True)
-        file_handler = logging.FileHandler(os.path.join(log_dir, "backfill.log"))
+        # RotatingFileHandler caps disk use (5 MB x 5 backups) so the backfill
+        # log can't grow unbounded across repeated runs.
+        file_handler = logging.handlers.RotatingFileHandler(
+            os.path.join(log_dir, "backfill.log"),
+            maxBytes=5_000_000,
+            backupCount=5,
+        )
         file_handler.setFormatter(formatter)
         root.addHandler(file_handler)
     except OSError as exc:  # noqa: BLE001 -- logging must never crash the run

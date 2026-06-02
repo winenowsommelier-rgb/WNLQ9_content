@@ -31,6 +31,16 @@ DEST="$AGENTS_DIR/$LABEL.plist"
 
 mkdir -p "$AGENTS_DIR"
 
+# --- 0: lock down the service-account credentials ---------------------
+# The Google service-account key must not be world/group readable. Enforce
+# 0600 if it exists (fail-soft: never abort the install over this).
+CREDS_FILE="$PROJECT_DIR/config/google-credentials.json"
+if [ -f "$CREDS_FILE" ]; then
+    chmod 600 "$CREDS_FILE" 2>/dev/null \
+        && echo "Secured credentials file perms (chmod 600 config/google-credentials.json)." \
+        || echo "WARNING: could not chmod 600 the credentials file (continuing)."
+fi
+
 # --- 1 & 2: render template -> install --------------------------------
 sed -e "s|__RUN_SCRIPT__|$RUN_SCRIPT|g" \
     -e "s|__SHEET_ID__|$SHEET_ID|g" \

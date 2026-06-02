@@ -88,6 +88,21 @@ def check_credentials(credentials_path: str):
     ok(f"Valid service-account key for project {data.get('project_id')!r}")
     info(f"client_email: {_bold(client_email)}")
     info("The sheet MUST be shared with this address (Editor). See Step 5.")
+
+    # Secret hygiene: the key grants write access, so it must not be readable
+    # by group/other. Enforce 0600 (fail-soft; never abort verification).
+    try:
+        mode = os.stat(credentials_path).st_mode & 0o777
+        if mode & 0o077:
+            os.chmod(credentials_path, 0o600)
+            info("Tightened credentials file permissions to 600 "
+                 "(was group/other-readable).")
+        else:
+            info("Credentials file permissions are 600 (owner-only). Good.")
+    except OSError:
+        info("Could not check/adjust credentials file permissions "
+             "(recommend: chmod 600 config/google-credentials.json).")
+
     return client_email
 
 
