@@ -31,13 +31,14 @@ The operation matured well past the early-June "premium replacement" notes in fi
   all published fields emoji-free.
 
 ## OPEN ITEMS (the to-do list)
-1. **July Hero expansion — 2 of 8 done.** Expanded: A1 *Choose the Right Wine* (WN), A2 *Complete
-   Home-Bar Guide* (LIQ9). **Remaining 6:** Home-Bar Tools 101, Rum Cocktail Guide, Wine Tasting
-   101, French Wine 101, Tequila 101, Scotch 101. (Page IDs in `06-NOTION-MAP.md`.) Expand each v1
-   skeleton to full Word Target depth, TH+EN, plain text, compliant.
+1. ~~July Hero expansion~~ **DONE** — all 8 Hero pillars expanded to full depth (TH+EN, plain text,
+   compliant): Choose the Right Wine, Complete Home-Bar Guide, Home-Bar Tools 101, Rum Cocktail
+   Guide, Wine Tasting 101, French Wine 101, Tequila 101, Scotch 101. (IDs in `06-NOTION-MAP.md`.)
 2. **July filtered views** — build WN / LIQ9 / All-by-week (June has them; July doesn't yet).
 3. **Internal-link wiring** — fill `Final URL` and resolve the "see our X guide" hub-spoke refs at publish.
-4. **Trash cleanup** — any rows cut during build sit in Notion Trash (no API delete); empty manually.
+4. **Standard-tier / Filler expansion (optional)** — blogs/socials are solid v1 drafts; expand the
+   ~46 Standard blogs toward their Word Targets if/when desired (Heroes are done).
+5. **Trash cleanup** — any rows cut during build sit in Notion Trash (no API delete); empty manually.
 
 ## Compliance reminders (full detail: Notion Standard §9 + §15.6 / `CLAUDE.md`)
 No on-page price (LINE CTA) · no sale-naming · secular + non-commercial on Buddhist sales-ban days ·

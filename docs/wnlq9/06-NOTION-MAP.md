@@ -26,18 +26,17 @@
 - All-by-week `36e9d75a-e4b5-8136-a58d-000c4e975764`
 - (July views: not built yet — open item.)
 
-## July 2026 Hero pillars (for the open expansion task)
-v1 skeletons expanded to full depth where noted. Remaining = expand to ~1,600–1,800w/lang per Step 6.
+## July 2026 Hero pillars — ALL EXPANDED to full depth (TH+EN), at Review
 | Brief | Title | Site | Page ID | Expanded? |
 |---|---|---|---|---|
 | JUL-A1 | How to Choose the Right Wine | WN | `3739d75a-e4b5-81a6-afc7-cc59cd842b4e` | DONE |
 | JUL-A2 | The Complete Home-Bar Guide | LIQ9 | `3739d75a-e4b5-819d-bd82-d533ae835c52` | DONE |
-| JUL-G11 | Home-Bar Tools 101 | LIQ9 | `3739d75a-e4b5-81cf-bafd-ff9a4b866a9f` | todo |
-| JUL-B1 | The Ultimate Rum Cocktail Guide | LIQ9 | `3739d75a-e4b5-8155-be5c-f006fc067e3b` | todo |
-| JUL-G1 | Wine Tasting for Beginners | WN | `3739d75a-e4b5-8163-83ec-c9ce19e19dc1` | todo |
-| JUL-C1 | French Wine 101 | WN | `3739d75a-e4b5-8106-a1c3-ed82e2e6444e` | todo |
-| JUL-D1 | Tequila 101 | LIQ9 | `3739d75a-e4b5-8136-961f-f69f57e9e977` | todo |
-| JUL-E1 | Scotch Whisky 101 | LIQ9 | `3739d75a-e4b5-8176-b9d3-c0c9d0dbc978` | todo |
+| JUL-G11 | Home-Bar Tools 101 | LIQ9 | `3739d75a-e4b5-81cf-bafd-ff9a4b866a9f` | DONE |
+| JUL-B1 | The Ultimate Rum Cocktail Guide | LIQ9 | `3739d75a-e4b5-8155-be5c-f006fc067e3b` | DONE |
+| JUL-G1 | Wine Tasting for Beginners | WN | `3739d75a-e4b5-8163-83ec-c9ce19e19dc1` | DONE |
+| JUL-C1 | French Wine 101 | WN | `3739d75a-e4b5-8106-a1c3-ed82e2e6444e` | DONE |
+| JUL-D1 | Tequila 101 | LIQ9 | `3739d75a-e4b5-8136-961f-f69f57e9e977` | DONE |
+| JUL-E1 | Scotch Whisky 101 | LIQ9 | `3739d75a-e4b5-8176-b9d3-c0c9d0dbc978` | DONE |
 
 ## Notion access for a new session
 Use the Notion MCP server (this session's connector id is `bad99fe0-…`; in repo/CLI it's the
