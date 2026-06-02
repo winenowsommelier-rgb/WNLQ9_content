@@ -29,6 +29,16 @@ export function getConfig(env = process.env) {
     // ({client_email, private_key}) + the destination Drive folder id.
     googleServiceAccount: env.GOOGLE_SERVICE_ACCOUNT_JSON || "",
     driveFolderId: env.DRIVE_FOLDER_ID || "",
+
+    // Supabase (content_plan mirror + product picks). Service-role key is used
+    // server-side only (it bypasses RLS); never expose it to the browser.
+    supabaseUrl: env.SUPABASE_URL || "",
+    supabaseServiceKey:
+      env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SERVICE_KEY || "",
+
+    // Vercel Cron secret. When CRON_SECRET is set, Vercel sends
+    // `Authorization: Bearer <CRON_SECRET>` to scheduled invocations.
+    cronSecret: env.CRON_SECRET || "",
   };
 }
 

@@ -46,6 +46,14 @@ export function pageToItem(page) {
     finalUrl: p["Final URL"]?.url || null,
     driveUrl: p["URL"]?.url || null,
     gaViews: p["GA Views"]?.number ?? null,
+    // Editorial/SEO metadata (also mirrored into Supabase content_plan).
+    funnel: p["Funnel"]?.select?.name || null,
+    intent: p["Intent"]?.select?.name || null,
+    schema: readText(p["Schema"]),
+    wordTarget: p["Word Target"]?.number ?? null,
+    evergreen: p["Evergreen"]?.select?.name || null,
+    author: p["Author"]?.select?.name || null,
+    priority: p["Priority"]?.select?.name || null,
   };
 }
 
