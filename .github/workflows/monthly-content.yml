@@ -1,0 +1,39 @@
+# On-demand / scheduled runner for the WNLQ9 Monthly Content Engine via Claude Code.
+# TEMPLATE — requires repo secrets before it will work (see docs/wnlq9/08-SECRETS-AND-ACCESS.md):
+#   ANTHROPIC_API_KEY  (required)   NOTION_TOKEN (required)
+#   DATAFORSEO_LOGIN / DATAFORSEO_PASSWORD (optional)
+# Trigger manually from the Actions tab (workflow_dispatch) with a task string.
+
+name: WNLQ9 Monthly Content
+
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: "Task for Claude (e.g. 'Finish July Hero expansion' or 'Build August 2026 with the engine')"
+        required: true
+        default: "Read CLAUDE.md and docs/wnlq9/07-SESSION-PROMPT.md, then report status and the open items."
+  # Uncomment to run on a schedule (e.g. 1st of each month, 02:00 UTC):
+  # schedule:
+  #   - cron: '0 2 1 * *'
+
+jobs:
+  run-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Claude Code
+        uses: anthropics/claude-code-action@v1
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          DATAFORSEO_LOGIN: ${{ secrets.DATAFORSEO_LOGIN }}
+          DATAFORSEO_PASSWORD: ${{ secrets.DATAFORSEO_PASSWORD }}
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # .mcp.json in the repo wires the Notion MCP server from NOTION_TOKEN.
+          prompt: |
+            Follow docs/wnlq9/07-SESSION-PROMPT.md and CLAUDE.md.
+            Obey all hard rules (Thai alcohol compliance, no sale-naming, secular non-commercial on
+            sales-ban days, NO emoji in published fields, resolve every [VERIFY]).
+            Task: ${{ inputs.task }}

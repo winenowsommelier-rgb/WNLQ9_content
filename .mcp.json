@@ -1,0 +1,12 @@
+{
+  "$comment": "MCP servers for the WNLQ9 content operation. Values come from environment variables / secrets — never hardcode tokens. In Claude Code on the web, MCP connectors may also be configured via the environment UI; this file makes the repo portable to Claude Code CLI / Actions. See docs/wnlq9/08-SECRETS-AND-ACCESS.md.",
+  "mcpServers": {
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/notion-mcp-server"],
+      "env": {
+        "NOTION_TOKEN": "${NOTION_TOKEN}"
+      }
+    }
+  }
+}

@@ -1,80 +1,48 @@
-# 🧭 WNLQ9 CONTENT — START HERE (Session Memory & Log)
+# WNLQ9 CONTENT — START HERE (Session Memory & Live Status)
 
-> **Read this first every session.** It's the table of contents + live status log for the
-> WNLQ9 (Wine-Now + LIQ9) June 2026 content production work. Goal: pick up instantly without
-> re-discovering context.
+> **Read this first every session**, then `../../CLAUDE.md`. This is the live status log + index for
+> the WNLQ9 (Wine-Now + LIQ9) monthly content operation. To actually resume, paste
+> `07-SESSION-PROMPT.md`.
 
-- **Last updated:** 2026-06-01
-- **Notion DB:** [2026 JUN - WNLQ9 - Content Production](https://www.notion.so/786d080f8da24a1eb84e161f4e19d56d)
-- **Data source ID:** `collection://6be4a7bb-d42c-4286-be1b-fa73e3635b45`
+- **Last updated:** 2026-06-02
 - **Working branch:** `claude/magical-keller-AroZC`
+- **Governing doc (Notion):** Editorial Production Standard v2 — `3729d75a-e4b5-81a8-83dd-c176804fdbdd`
 
----
-
-## 📁 Documents in this folder
+## Documents in this folder
 | File | What it is | When to read |
 |---|---|---|
-| `00-START-HERE.md` | This file — index, live status, open items | **First, every session** |
-| `01-WORKFLOW-MEMORY.md` | Full process memory (7 phases, 10 topics, metrics, lessons) | For context recovery |
-| `02-SKILL-premium-content-replacement.md` | Reusable skill definition + how to make it a real `/skill` | When repeating the process |
-| `03-FULL-BRIEFS.md` | The 10 complete content briefs (for writers) | When writing/producing articles |
+| `00-START-HERE.md` | This file — index + live status | First, every session |
+| `04-MONTHLY-CONTENT-ENGINE.md` | The 8-step repeatable build workflow (= Notion §15) | Building/continuing a month |
+| `05-BRAND-DIRECTION.md` | Wine-Now + LIQ9 voice & direction (= Notion §16–17) | Before writing |
+| `06-NOTION-MAP.md` | All database / page / view / Hero IDs | When touching Notion |
+| `07-SESSION-PROMPT.md` | **Paste-ready prompt to resume** | Start of a new session |
+| `08-SECRETS-AND-ACCESS.md` | Keys, MCP config, GitHub secrets, automation | One-time setup / CI |
+| `01-WORKFLOW-MEMORY.md`, `02-SKILL-…`, `03-FULL-BRIEFS.md` | **Historical** (early-June "premium replacement" cycle) | Context only — superseded |
 
----
+## Current state (2026-06-02)
+The operation matured well past the early-June "premium replacement" notes in files 01–03.
 
-## ✅ What's DONE — GA4+GSC data-driven refresh (2026-06-01)
-**Major pivot:** the 10 premium *investment/collector* topics were found to have **zero search
-demand** (GSC) and wrong audience. Ran a full GA4 (90-day landing pages) + GSC (queries) pull
-for both sites, then executed a **~50% swap**:
-- **29 weak rows → trashed** (no demand / not GA performers / gimmick / luxury-niche). Parked in
-  Notion page **"🗑️ Cut from June Plan — 2026-06-01"** (`3729d75a-e4b5-81b7-b50f-db779ad9f5e5`),
-  recoverable. Includes all 10 premium topics + En Primeur, Pauillac, Wine Journal, Body, Wine
-  Faults, Brunch, Pizza/Lambrusco, Cheese Board, Beachfront (WN) and Ocean-Aged, Tasmanian,
-  Distillery Tourism, Vodka, Organic-spirits, Savory Cocktails, Post-Massage, Cigar, Infinity
-  Bottle, Japanese Gin/Yuzu (LIQ9).
-- **29 new demand-driven rows created** (14 WN + 15 LIQ9), each fully populated (Title, Site,
-  Type, Category, Week, Status=Not started, Target Keyword, KEY/TENSION/STORY, CTA, Content
-  Brief + body outline). Themes: most-expensive-wine (~60K imp), champagne/sparkling (~60K),
-  mainstream brands (Mondavi/Mouton Cadet/Penfolds), beginner TH education, grape guides (WN);
-  VSOP cognac, whisky 101, whisky/gin/tequila buying guides, Thai spirits, cocktails (LIQ9).
-- **25 keep rows completed:** parsed `Content Brief` → filled KEY/TENSION/STORY/CTA columns,
-  fixed Category mismatches (e.g. Tannin Pairing→Education, Why-Every-Gin Travel→Education),
-  set Status → **Brief Ready**.
+- **Process formalised:** the **Monthly Content Engine** (8 steps) + per-brand **Brand Direction**
+  are now the standing standard — in Notion (Standard v2) and mirrored here (`04`, `05`).
+- **June 2026 DB** (`786d080f…`): fully drafted (TH+EN) at `Review`.
+- **July 2026 DB** (`93ac15a8…`, data source `d342f9b8-3725-4068-9ccb-03b09821b0c8`): **80 rows
+  built** — 7 hub-and-spoke clusters, ~40 WN / 40 LIQ9, full metadata + bilingual v1 at `Review`.
+  Live-data validated, council pre-flight + QA done, all `[VERIFY]` facts researched & resolved,
+  all published fields emoji-free.
 
-➡️ **Net active plan = 54 rows (25 keep + 29 new), ALL columns complete.** Mapping in `01` §5 is
-now superseded by this GA/GSC swap.
+## OPEN ITEMS (the to-do list)
+1. **July Hero expansion — 2 of 8 done.** Expanded: A1 *Choose the Right Wine* (WN), A2 *Complete
+   Home-Bar Guide* (LIQ9). **Remaining 6:** Home-Bar Tools 101, Rum Cocktail Guide, Wine Tasting
+   101, French Wine 101, Tequila 101, Scotch 101. (Page IDs in `06-NOTION-MAP.md`.) Expand each v1
+   skeleton to full Word Target depth, TH+EN, plain text, compliant.
+2. **July filtered views** — build WN / LIQ9 / All-by-week (June has them; July doesn't yet).
+3. **Internal-link wiring** — fill `Final URL` and resolve the "see our X guide" hub-spoke refs at publish.
+4. **Trash cleanup** — any rows cut during build sit in Notion Trash (no API delete); empty manually.
 
-## ⚠️ OPEN ITEMS (the actual to-do list)
-1. **Production not started** — briefs are now complete; next is writing 1200-1500 word articles
-   (EN + TH) into page bodies / `Content EN`·`Content TH`, images, SEO, scheduling. Two rows
-   already have full Thai copy (*Rosé Myths*, partial others) as the style reference.
-2. **Body outlines** exist on the 29 new rows; the 25 keep rows have complete briefs in columns
-   but blank bodies — add production outlines (H2/FAQ/meta) if desired before writing.
-3. **Trash bin cleanup** — the connector can't reach system Trash, so cut rows live in the
-   "🗑️ Cut from June Plan" page. Empty it manually in Notion when confident.
+## Compliance reminders (full detail: Notion Standard §9 + §15.6 / `CLAUDE.md`)
+No on-page price (LINE CTA) · no sale-naming · secular + non-commercial on Buddhist sales-ban days ·
+**no emoji in Title/Content fields** (Magento) · resolve every `[VERIFY]` before publish.
 
----
-
-## 🎯 The Process (one-liner)
-**Premium Content Replacement Workflow** — a 7-phase, research-first method to replace 5-10
-"Review" CMS items with premium, collector-targeted topics and production-ready briefs:
-`Discovery → Market Research → Ideation → Brief Creation → Research Integration → DB Update → Handoff`.
-Full detail in `02-SKILL-…md`. Time: ~4.5h / 1 session.
-
----
-
-## 🗂️ Notion schema cheat-sheet (data source `6be4a7bb…`)
-Key columns: `Title` (title), `Status` (Not started / Brief Ready / In progress / Review / Done /
-Published), `Site` (Wine-Now / LIQ9), `Type` (Pillar / Blog / Social), `Category` (Education /
-Pairing / Travel / Tips / Spotlights), `Week Theme` (W1-W5), `Day` (number), `Publish Date` (date),
-`Target Keyword`, `Content Brief`, `KEY`, `TENSION`, `STORY`, `CTA`, `Content EN`, `Content TH`,
-`Final URL`, `userDefined:URL`, `Brief ID`, `GA Views`, `Month` (June 2026).
-
-> When updating: `notion-fetch` the data source for the live schema first; analysis columns to
-> populate are `KEY`, `TENSION`, `STORY`, `CTA` (parseable from `Content Brief`).
-
----
-
-## ▶️ Suggested next action when resuming
-Ask the owner to confirm **Open Item #1** (delete old Review rows or keep), then knock out
-**Open Item #2** (fill KEY/TENSION/STORY/CTA on every June row) since that directly answers the
-"analyse the month plan" request. Everything needed is already in this folder.
+## Suggested next action when resuming
+Confirm Open Item #1 (finish the 6 Hero pillars) or start the next month with the engine
+(`04`, Step 0). Everything needed to orient is in this folder + the Notion Standard v2.
