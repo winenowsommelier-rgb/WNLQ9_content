@@ -1,10 +1,18 @@
 {
-  "_comment": "Maps a Notion page id -> the self-contained article HTML file in public/content. Used by /api/approve to upload the full .html to Google Drive. You can also override per-request with { pageId, file }.",
+  "_comment": "Maps a Notion page id -> the self-contained article HTML file in public/content. Used by /api/approve to upload the full .html to Google Drive. You can also override per-request with { pageId, file }. Week 1 (Days 1-7, June 2026) for both Wine-Now and LIQ9, matched to the finalised Notion plan.",
   "articles": {
-    "36e9d75a-e4b5-8177-a04d-d113068d4c51": "day1-wine-label-old-world-vs-new-world.html",
-    "36e9d75a-e4b5-8196-abed-e8f051a44b31": "day2-tannin.html",
-    "36e9d75a-e4b5-811f-a3f2-dee30fc82ee4": "day3-wine-storage-condo.html",
-    "36e9d75a-e4b5-81df-ada0-fb190dd204c8": "day5-natural-organic-biodynamic.html",
-    "36e9d75a-e4b5-81e4-9c9b-c3ebfb7c5971": "day5-proof-vs-abv.html"
+    "3729d75a-e4b5-8157-80c7-c200e03292d7": "day1-most-expensive-wines-2026.html",
+    "36e9d75a-e4b5-816e-87be-ce9c206e770c": "day2-wine-acidity.html",
+    "36f9d75a-e4b5-8168-a44d-cbac08ff6b51": "day3-white-wines-summer.html",
+    "3739d75a-e4b5-81ef-aa99-fe45f589b5e9": "day4-wine-excise-tax-2026.html",
+    "3739d75a-e4b5-81bd-b527-c35237d34766": "day5-pinot-noir-101.html",
+    "36e9d75a-e4b5-81f7-998e-c03ff25db360": "day6-wine-tourism-khao-yai.html",
+    "3729d75a-e4b5-8131-ab7b-f070b1401cbb": "day7-cabernet-sauvignon-101.html",
+    "3729d75a-e4b5-8185-a837-c8e50133117b": "liq9-day1-whisky-101.html",
+    "3729d75a-e4b5-818a-8748-f595089711e1": "liq9-day3-macallan-guide.html",
+    "36e9d75a-e4b5-8162-9c6d-c6139d4b7a2f": "liq9-day4-spicy-thai-cocktails.html",
+    "3729d75a-e4b5-811b-925b-d320fa814821": "liq9-day5-buy-gin-online.html",
+    "3729d75a-e4b5-8185-9f46-e0194c1ea413": "liq9-day7-bourbon-recommend.html",
+    "36e9d75a-e4b5-8177-a04d-d113068d4c51": "day1-wine-label-old-world-vs-new-world.html"
   }
 }
