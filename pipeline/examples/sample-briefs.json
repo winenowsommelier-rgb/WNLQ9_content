@@ -1,0 +1,40 @@
+[
+  {
+    "title": "Terroir in One Minute: Why Dirt Actually Tastes Like Something",
+    "site": "Wine-Now",
+    "category": "Education",
+    "type": "Blog",
+    "day": 3,
+    "publishDate": "2026-06-03",
+    "targetKeyword": "what is terroir",
+    "contentBrief": "60-second explainer on terroir for newcomers. Plain language, one vivid example.",
+    "story": "Soil, climate and slope leave a fingerprint you can taste.",
+    "tension": "Skeptics dismiss terroir as marketing.",
+    "cta": "Explore terroir-driven wines on Wine-Now",
+    "key": "WN-W1-03"
+  },
+  {
+    "title": "Tannin: Why Some Wines Dry Your Mouth and Others Don't",
+    "site": "Wine-Now",
+    "category": "Education",
+    "type": "Blog",
+    "day": 5,
+    "publishDate": "2026-06-05",
+    "targetKeyword": "what is tannin in wine",
+    "contentBrief": "Explain tannin, where it comes from, and how to taste it.",
+    "story": "Tannin is structure you can feel.",
+    "tension": "Beginners confuse 'dry' with 'bitter'.",
+    "cta": "Find your tannin comfort zone"
+  },
+  {
+    "title": "Proof vs ABV: The 200-Year-Old Measurement Still Confusing Drinkers",
+    "site": "LIQ9",
+    "category": "Education",
+    "type": "Blog",
+    "day": 6,
+    "publishDate": "2026-06-06",
+    "targetKeyword": "proof vs abv",
+    "contentBrief": "Clarify proof vs ABV with a quick conversion rule.",
+    "cta": "Shop spirits by ABV on LIQ9"
+  }
+]

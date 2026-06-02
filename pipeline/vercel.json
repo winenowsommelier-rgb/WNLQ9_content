@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "public",
+  "functions": {
+    "api/*.mjs": { "maxDuration": 60, "includeFiles": "{public/content/**,data/**}" }
+  },
+  "crons": [
+    { "path": "/api/sync-plan", "schedule": "0 6 * * *" }
+  ]
+}
