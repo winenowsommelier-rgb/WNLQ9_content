@@ -118,6 +118,10 @@ for (const p of perf) {
 // ---- GSC opportunities ---------------------------------------------------
 const imprArr = gsc.map((r) => r.impressions).sort((a, b) => a - b);
 const imprMed = pct(imprArr, 0.5);
+// Striking-distance / low-CTR gate on solid volume (median) — those are queries
+// you already rank for. New-topic DISCOVERY wants breadth, so use a lower floor
+// (P25, min 50) or real emerging topics hide behind the median.
+const newTopicFloor = Math.max(pct(imprArr, 0.25), 50);
 const strikingDistance = gsc.filter((r) => r.position >= 4 && r.position <= 20 && r.impressions >= imprMed)
   .sort((a, b) => b.impressions - a.impressions);
 const lowCtr = gsc.filter((r) => r.impressions >= imprMed && r.ctr < 2 && r.position <= 10)
@@ -127,7 +131,7 @@ const titleBlob = index.map((a) => a.title.toLowerCase()).join("  ");
 const newTopics = gsc.filter((r) => {
   const toks = r.query.toLowerCase().split(/\s+/).filter((t) => t.length > 3);
   const covered = toks.filter((t) => titleBlob.includes(t)).length;
-  return r.impressions >= imprMed && covered / Math.max(1, toks.length) < 0.34;
+  return r.impressions >= newTopicFloor && covered / Math.max(1, toks.length) < 0.34;
 }).sort((a, b) => b.impressions - a.impressions);
 
 // ---- output --------------------------------------------------------------
