@@ -1,6 +1,7 @@
 // Supabase Edge Function: Sync Google Search Console + GA4 metrics (Wine-Now + LIQ9).
 // Service-account JWT (key from Vault via get_gcp_sa_key) -> GSC Search Analytics + GA4 runReport.
-// Sites + property IDs read from seo_config table. Scheduled 6 AM UTC daily.
+// Sites + property IDs from seo_config table. Backfill: POST {"startDate","endDate"} for any range.
+// Scheduled 6 AM UTC daily via GitHub Actions cron.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -39,6 +40,11 @@ async function getAccessToken(sa: any, scope: string): Promise<string> {
 }
 
 function ymd(d: Date): string { return d.toISOString().split("T")[0]; }
+function daysAgo(n: number): string { const d = new Date(); d.setDate(d.getDate() - n); return ymd(d); }
+
+// Default trailing windows. GSC lags ~3 days (Google finalization); GA4 -> yesterday.
+function gscWindow(): [string, string] { return [daysAgo(30), daysAgo(3)]; }
+function ga4Window(): [string, string] { return [daysAgo(28), daysAgo(1)]; }
 
 // GA4 returns the date dimension as "YYYYMMDD"; normalize to "YYYY-MM-DD".
 function ga4Date(v: string): string {
@@ -74,10 +80,7 @@ async function gscFetchAll(token: string, siteUrl: string, startDate: string, en
   return all;
 }
 
-async function syncGSC(token: string, siteUrl: string, site: string) {
-  const end = new Date(); end.setDate(end.getDate() - 3);
-  const start = new Date(); start.setDate(start.getDate() - 30);
-  const startDate = ymd(start), endDate = ymd(end);
+async function syncGSC(token: string, siteUrl: string, site: string, startDate: string, endDate: string) {
   // dimensions ["date","query"] -> keys[0]=date (YYYY-MM-DD), keys[1]=query.
   const apiRows = await gscFetchAll(token, siteUrl, startDate, endDate, ["date", "query"]);
   const rows = apiRows.map((r: any) => ({ product_id: null, site, metric_date: r.keys?.[0] ?? "", keyword: r.keys?.[1] ?? "", impressions: Math.round(r.impressions || 0), clicks: Math.round(r.clicks || 0), ctr: r.ctr || 0, rank_position: r.position || 0, avg_rank_position: r.position || 0, synced_at: new Date().toISOString() })).filter((r: any) => r.keyword && r.metric_date);
@@ -88,10 +91,7 @@ async function syncGSC(token: string, siteUrl: string, site: string) {
   return rows.length;
 }
 
-async function syncGSCPages(token: string, siteUrl: string, site: string) {
-  const end = new Date(); end.setDate(end.getDate() - 3);
-  const start = new Date(); start.setDate(start.getDate() - 30);
-  const startDate = ymd(start), endDate = ymd(end);
+async function syncGSCPages(token: string, siteUrl: string, site: string, startDate: string, endDate: string) {
   // dimensions ["date","page"] -> keys[0]=date, keys[1]=page.
   const apiRows = await gscFetchAll(token, siteUrl, startDate, endDate, ["date", "page"]);
   const rows = apiRows.map((r: any) => ({ site, metric_date: r.keys?.[0] ?? "", page_path: r.keys?.[1] ?? "", impressions: Math.round(r.impressions || 0), clicks: Math.round(r.clicks || 0), ctr: r.ctr || 0, avg_rank_position: r.position || 0, synced_at: new Date().toISOString() })).filter((r: any) => r.page_path && r.metric_date);
@@ -101,10 +101,7 @@ async function syncGSCPages(token: string, siteUrl: string, site: string) {
   return rows.length;
 }
 
-async function syncGA4(token: string, propertyId: string, site: string) {
-  const end = new Date(); end.setDate(end.getDate() - 1);   // yesterday
-  const start = new Date(); start.setDate(start.getDate() - 28);
-  const startDate = ymd(start), endDate = ymd(end);
+async function syncGA4(token: string, propertyId: string, site: string, startDate: string, endDate: string) {
   const limit = 100000;
   let offset = 0;
   const apiRows: any[] = [];
@@ -147,28 +144,35 @@ async function getConfig(): Promise<Record<string, string>> {
   return cfg;
 }
 
-async function main() {
+const isYmd = (s: unknown): s is string => typeof s === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s);
+
+async function main(opts: { startDate?: string; endDate?: string } = {}) {
   const cfg = await getConfig();
   const { data: keyJson, error: keyErr } = await supabase.rpc("get_gcp_sa_key");
   if (keyErr || !keyJson) throw new Error("Cannot read service account key from Vault: " + (keyErr?.message || "empty"));
   const sa = JSON.parse(keyJson as string);
   const token = await getAccessToken(sa, "https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/analytics.readonly");
 
-  const results: Record<string, unknown> = {};
+  // Backfill override: explicit range applies to BOTH GSC and GA4; else defaults.
+  const backfill = isYmd(opts.startDate) && isYmd(opts.endDate);
+  const [gscStart, gscEnd] = backfill ? [opts.startDate!, opts.endDate!] : gscWindow();
+  const [ga4Start, ga4End] = backfill ? [opts.startDate!, opts.endDate!] : ga4Window();
+
+  const results: Record<string, unknown> = { mode: backfill ? "backfill" : "daily", gscRange: [gscStart, gscEnd], ga4Range: [ga4Start, ga4End] };
 
   const gscSites: [string, string][] = [];
   if (cfg.GSC_SITE_URL) gscSites.push([cfg.GSC_SITE_URL, "wine-now"]);
   if (cfg.GSC_SITE_URL_LIQ9) gscSites.push([cfg.GSC_SITE_URL_LIQ9, "liq9"]);
   let gscTotal = 0;
   for (const [url, site] of gscSites) {
-    try { const n = await syncGSC(token, url, site); gscTotal += n; results[`gsc_${site}`] = n; }
+    try { const n = await syncGSC(token, url, site, gscStart, gscEnd); gscTotal += n; results[`gsc_${site}`] = n; }
     catch (e) { results[`gsc_${site}_error`] = String(e); await logSync(`gsc_${site}`, 0, "failed", String(e)); }
   }
   if (gscTotal > 0) await logSync("gsc", gscTotal, "completed");
 
   let gscPagesTotal = 0;
   for (const [url, site] of gscSites) {
-    try { const n = await syncGSCPages(token, url, site); gscPagesTotal += n; results[`gsc_pages_${site}`] = n; }
+    try { const n = await syncGSCPages(token, url, site, gscStart, gscEnd); gscPagesTotal += n; results[`gsc_pages_${site}`] = n; }
     catch (e) { results[`gsc_pages_${site}_error`] = String(e); await logSync(`gsc_pages_${site}`, 0, "failed", String(e)); }
   }
   if (gscPagesTotal > 0) await logSync("gsc_pages", gscPagesTotal, "completed");
@@ -178,21 +182,26 @@ async function main() {
   if (cfg.GA4_PROPERTY_ID_LIQ9) ga4Props.push([cfg.GA4_PROPERTY_ID_LIQ9, "liq9"]);
   let ga4Total = 0;
   for (const [pid, site] of ga4Props) {
-    try { const n = await syncGA4(token, pid, site); ga4Total += n; results[`ga4_${site}`] = n; }
+    try { const n = await syncGA4(token, pid, site, ga4Start, ga4End); ga4Total += n; results[`ga4_${site}`] = n; }
     catch (e) { results[`ga4_${site}_error`] = String(e); await logSync(`ga4_${site}`, 0, "failed", String(e)); }
   }
   if (ga4Total > 0) await logSync("ga4", ga4Total, "completed");
 
-  try { await supabase.rpc("detect_seo_opportunities", { impression_threshold: 500, ctr_threshold: 0.02 }); } catch (_) {}
-  try { await supabase.rpc("detect_seo_regressions", { days: 7, position_drop_threshold: 3, ctr_drop_threshold: 0.2 }); } catch (_) {}
+  // Detectors run on the daily sync only (skip during a backfill chunk loop).
+  if (!backfill) {
+    try { await supabase.rpc("detect_seo_opportunities", { impression_threshold: 500, ctr_threshold: 0.02 }); } catch (_) {}
+    try { await supabase.rpc("detect_seo_regressions", { days: 7, position_drop_threshold: 3, ctr_drop_threshold: 0.2 }); } catch (_) {}
+  }
 
   return { status: "success", ...results };
 }
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
+  let opts: { startDate?: string; endDate?: string } = {};
+  try { opts = await req.json(); } catch { opts = {}; }
   try {
-    const result = await main();
+    const result = await main(opts);
     return new Response(JSON.stringify(result), { status: 200, headers: { "Content-Type": "application/json" } });
   } catch (error) {
     await logSync("sync", 0, "failed", String(error));
