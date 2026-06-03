@@ -28,6 +28,10 @@ yarn-error.log*
 # Logs
 *.log
 
+# Generated GA4/GSC exports (reproduce via pipeline/scripts/ga-gsc-from-supabase.mjs)
+pipeline/data/ga4.csv
+pipeline/data/gsc.csv
+
 # Editor
 .vscode/
 .idea/
