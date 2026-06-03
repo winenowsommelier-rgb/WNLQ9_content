@@ -6,12 +6,14 @@ import { Card, SectionTitle } from "./ui";
 interface Status {
   notion: boolean;
   slack: boolean;
+  seo: boolean; // GA4 + GSC, served from Supabase
 }
 
 export function Settings() {
   const [status, setStatus] = useState<Status>({
     notion: false,
     slack: false,
+    seo: false,
   });
   const [loading, setLoading] = useState(true);
 
@@ -19,10 +21,12 @@ export function Settings() {
     Promise.all([
       fetch("/api/notion").then((r) => r.json()).catch(() => ({})),
       fetch("/api/slack").then((r) => r.json()).catch(() => ({})),
-    ]).then(([n, s]) => {
+      fetch("/api/data").then((r) => r.json()).catch(() => ({})),
+    ]).then(([n, s, d]) => {
       setStatus({
         notion: Boolean(n.configured),
         slack: Boolean(s.configured),
+        seo: d.source === "supabase",
       });
       setLoading(false);
     });
@@ -53,19 +57,25 @@ export function Settings() {
           />
           <Row
             label="Google Analytics 4"
-            desc="Topic trends (currently from sample CSV)"
-            ok={false}
-            loading={false}
-            env="GOOGLE_SERVICE_ACCOUNT_KEY (Week 3)"
-            pending
+            desc={
+              status.seo
+                ? "Live page metrics from Supabase (synced daily)"
+                : "Falling back to sample CSV — set Supabase env to go live"
+            }
+            ok={status.seo}
+            loading={loading}
+            env="SUPABASE_URL, SUPABASE_ANON_KEY"
           />
           <Row
             label="Google Search Console"
-            desc="Keyword data (currently from sample CSV)"
-            ok={false}
-            loading={false}
-            env="GOOGLE_SERVICE_ACCOUNT_KEY (Week 3)"
-            pending
+            desc={
+              status.seo
+                ? "Live keyword metrics from Supabase (synced daily)"
+                : "Falling back to sample CSV — set Supabase env to go live"
+            }
+            ok={status.seo}
+            loading={loading}
+            env="SUPABASE_URL, SUPABASE_ANON_KEY"
           />
         </div>
       </Card>

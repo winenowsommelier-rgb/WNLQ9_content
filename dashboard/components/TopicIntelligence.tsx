@@ -17,7 +17,7 @@ export function TopicIntelligence({
 
   const rows = useMemo(() => {
     return ga4
-      .map((r) => ({ ...r, brand: guessBrand(`${r.pageTitle} ${r.pagePath}`) }))
+      .map((r) => ({ ...r, brand: r.brand ?? guessBrand(`${r.pageTitle} ${r.pagePath}`) }))
       .filter((r) => (filter === "all" ? true : r.brand === filter))
       .filter((r) =>
         q ? r.pageTitle.toLowerCase().includes(q.toLowerCase()) : true,

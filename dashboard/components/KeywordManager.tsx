@@ -22,7 +22,7 @@ export function KeywordManager({
     const withBrand = gsc
       .map((r) => ({
         ...r,
-        brand: guessBrand(r.query),
+        brand: r.brand ?? guessBrand(r.query),
         opportunity: Math.round(r.impressions * (1 - r.ctr / 100)),
       }))
       .filter((r) => (filter === "all" ? true : r.brand === filter))
