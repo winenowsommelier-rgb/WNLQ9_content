@@ -1,0 +1,1143 @@
+{
+  "generatedAt": "2026-06-03",
+  "source": "pipeline/public/content/*.html",
+  "count": 52,
+  "articles": [
+    {
+      "fileSlug": "day1-most-expensive-wines-2026",
+      "urlKey": "most-expensive-wines-2026",
+      "site": "Wine-Now",
+      "day": 1,
+      "title": "ไวน์แพงที่สุดในโลก 2026: 20 อันดับ และขวดที่ดื่มแล้วใกล้เคียงในงบจริง",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/most-expensive-wines-2026.html",
+      "cards": [
+        "WRW4683AD",
+        "WRW6217FS",
+        "WRW4559CB",
+        "WSP9005BN",
+        "WRW5408BN"
+      ],
+      "cardCount": 5,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day7-cabernet-sauvignon-101",
+        "day5-pinot-noir-101"
+      ],
+      "inboundLinks": 6
+    },
+    {
+      "fileSlug": "day1-wine-label-old-world-vs-new-world",
+      "urlKey": "old-world-vs-new-world-wine",
+      "site": "Wine-Now",
+      "day": 1,
+      "title": "อ่านฉลากไวน์: Old World vs New World ต่างกันยังไง",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/old-world-vs-new-world-wine.html",
+      "cards": [
+        "WRW6188WN",
+        "WRW3191AD",
+        "WRS0035AB",
+        "WRW4979FS",
+        "WRW2358BN",
+        "WRW4313AC",
+        "WWW1197AD",
+        "WRW3893AH"
+      ],
+      "cardCount": 8,
+      "faqCount": 3,
+      "internalLinks": [
+        "index",
+        "day2-tannin",
+        "day3-wine-storage-condo",
+        "day5-natural-organic-biodynamic"
+      ],
+      "inboundLinks": 5
+    },
+    {
+      "fileSlug": "day10-rose-myths-debunked",
+      "urlKey": "day10-rose-myths-debunked",
+      "site": "Wine-Now",
+      "day": 10,
+      "title": "Rosé ไม่ได้หวานเสมอไป: อุณหภูมิและการจับคู่ที่ใช่",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day10-rose-myths-debunked.html",
+      "cards": [
+        "WRS0035AB",
+        "WSP0005FO"
+      ],
+      "cardCount": 2,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day3-white-wines-summer",
+        "day2-wine-acidity",
+        "day8-champagne-vs-prosecco-vs-cava"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "day11-vintage-year",
+      "urlKey": "day11-vintage-year",
+      "site": "Wine-Now",
+      "day": 11,
+      "title": "Vintage Year: ตัวเลขที่สำคัญ และตัวเลขที่ไม่สำคัญ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day11-vintage-year.html",
+      "cards": [
+        "WRW4683AD",
+        "WRW0282AD"
+      ],
+      "cardCount": 2,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day1-wine-label-old-world-vs-new-world",
+        "day7-cabernet-sauvignon-101",
+        "day1-most-expensive-wines-2026"
+      ],
+      "inboundLinks": 1
+    },
+    {
+      "fileSlug": "day12-champagne-price-2026",
+      "urlKey": "day12-champagne-price-2026",
+      "site": "Wine-Now",
+      "day": 12,
+      "title": "แชมเปญ ราคา 2026: คู่มือเลือกซื้อ Moët, Veuve Clicquot, Dom Pérignon",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day12-champagne-price-2026.html",
+      "cards": [
+        "WSP1104BU",
+        "WSP1096AD",
+        "WSP9005BN",
+        "WSP5780AD"
+      ],
+      "cardCount": 4,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day8-champagne-vs-prosecco-vs-cava",
+        "day1-most-expensive-wines-2026",
+        "day3-white-wines-summer"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day14-wine-cheese-pairing",
+      "urlKey": "day14-wine-cheese-pairing",
+      "site": "Wine-Now",
+      "day": 14,
+      "title": "ไวน์กับชีส: คู่มือจับคู่ให้อร่อยทุกคำ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day14-wine-cheese-pairing.html",
+      "cards": [
+        "WSP1140AE",
+        "WRW5853CB",
+        "WWW5371AB",
+        "WWW1106AD"
+      ],
+      "cardCount": 4,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day2-wine-acidity",
+        "day8-champagne-vs-prosecco-vs-cava",
+        "day3-white-wines-summer"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "day16-wine-for-beginners",
+      "urlKey": "day16-wine-for-beginners",
+      "site": "Wine-Now",
+      "day": 16,
+      "title": "ไวน์สำหรับมือใหม่: คู่มือเริ่มต้นฉบับสมบูรณ์",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day16-wine-for-beginners.html",
+      "cards": [
+        "WWW5371AB",
+        "WWW1106AD",
+        "WRW4559CB",
+        "WRW0282AD"
+      ],
+      "cardCount": 4,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "day2-wine-acidity",
+        "day2-tannin",
+        "day1-wine-label-old-world-vs-new-world",
+        "day5-pinot-noir-101"
+      ],
+      "inboundLinks": 1
+    },
+    {
+      "fileSlug": "day19-aperitif-hour",
+      "urlKey": "day19-aperitif-hour",
+      "site": "Wine-Now",
+      "day": 19,
+      "title": "Aperitif Hour: ไวน์เรียกน้ำย่อยก่อนมื้อค่ำ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day19-aperitif-hour.html",
+      "cards": [
+        "WSP1140AE",
+        "WSP5728FR",
+        "WWW1106AD"
+      ],
+      "cardCount": 3,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day8-champagne-vs-prosecco-vs-cava",
+        "day2-wine-acidity",
+        "day3-white-wines-summer"
+      ],
+      "inboundLinks": 1
+    },
+    {
+      "fileSlug": "day2-tannin",
+      "urlKey": "tannin-explained",
+      "site": "Wine-Now",
+      "day": 2,
+      "title": "Tannin คืออะไร และทำไมบางขวดทำให้ฝาดในปาก",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/tannin-explained.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 3,
+      "internalLinks": [
+        "index",
+        "day1-wine-label-old-world-vs-new-world",
+        "day3-wine-storage-condo"
+      ],
+      "inboundLinks": 6
+    },
+    {
+      "fileSlug": "day2-wine-acidity",
+      "urlKey": "wine-acidity",
+      "site": "Wine-Now",
+      "day": 2,
+      "title": "Acidity ในไวน์: ทำไมบางขวดทำให้น้ำลายไหล และนั่นคือสัญญาณที่ดี",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/wine-acidity.html",
+      "cards": [
+        "WWW1106AD",
+        "WWW5371AB",
+        "WWW6233FJ",
+        "WSP1140AE"
+      ],
+      "cardCount": 4,
+      "faqCount": 4,
+      "internalLinks": [
+        "index",
+        "day3-white-wines-summer",
+        "day7-cabernet-sauvignon-101"
+      ],
+      "inboundLinks": 8
+    },
+    {
+      "fileSlug": "day20-rare-collectible-wine",
+      "urlKey": "day20-rare-collectible-wine",
+      "site": "Wine-Now",
+      "day": 20,
+      "title": "ไวน์สะสม: อะไรทำให้ขวดหนึ่งมีค่าน่าเก็บ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day20-rare-collectible-wine.html",
+      "cards": [
+        "WRW6539FS",
+        "WRW1054AD",
+        "WRW2348BN",
+        "WSP5782BN"
+      ],
+      "cardCount": 4,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day1-most-expensive-wines-2026",
+        "day7-cabernet-sauvignon-101",
+        "day3-wine-storage-condo"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "day22-wine-thai-food-5-dishes",
+      "urlKey": "day22-wine-thai-food-5-dishes",
+      "site": "Wine-Now",
+      "day": 22,
+      "title": "ไวน์กับอาหารไทย: จับคู่ 5 จานยอดนิยมให้ลงตัว",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day22-wine-thai-food-5-dishes.html",
+      "cards": [
+        "WWW5371AB",
+        "WWW1106AD",
+        "WRW4559CB",
+        "WRW3191AD",
+        "WRS0035AB"
+      ],
+      "cardCount": 5,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day2-wine-acidity",
+        "day10-rose-myths-debunked",
+        "day14-wine-cheese-pairing"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day24-vegetarian-thai-wine",
+      "urlKey": "day24-vegetarian-thai-wine",
+      "site": "Wine-Now",
+      "day": 24,
+      "title": "อาหารเจ & มังสวิรัติไทยกับไวน์: จับคู่ให้อร่อยครบรส",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day24-vegetarian-thai-wine.html",
+      "cards": [
+        "WRW4559CB",
+        "WWW1106AD",
+        "WSP1140AE",
+        "WWW5371AB"
+      ],
+      "cardCount": 4,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "day3-white-wines-summer",
+        "day14-wine-cheese-pairing",
+        "day16-wine-for-beginners"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day26-rainy-season-drinks",
+      "urlKey": "day26-rainy-season-drinks",
+      "site": "Wine-Now",
+      "day": 26,
+      "title": "ไวน์หน้าฝน: แดงนุ่มอุ่นใจรับสายฝนกรุงเทพ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day26-rainy-season-drinks.html",
+      "cards": [
+        "WRW0066AC",
+        "WRW4354CB",
+        "WRW3305DD"
+      ],
+      "cardCount": 3,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day5-pinot-noir-101",
+        "day2-tannin",
+        "day3-white-wines-summer"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day27-bangkok-hidden-wine-bars",
+      "urlKey": "day27-bangkok-hidden-wine-bars",
+      "site": "Wine-Now",
+      "day": 27,
+      "title": "ไวน์บาร์กรุงเทพ: คู่มือค้นหาบาร์ที่ใช่สำหรับคุณ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day27-bangkok-hidden-wine-bars.html",
+      "cards": [
+        "WWW6233FJ",
+        "WRW3000AA",
+        "WRS0035AB"
+      ],
+      "cardCount": 3,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day19-aperitif-hour",
+        "day10-rose-myths-debunked",
+        "day3-white-wines-summer"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day28-decanting-guide",
+      "urlKey": "day28-decanting-guide",
+      "site": "Wine-Now",
+      "day": 28,
+      "title": "Decanting ไวน์: เมื่อไหร่ควรเท และทำยังไงไม่มี Decanter",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day28-decanting-guide.html",
+      "cards": [
+        "WRW4683AD",
+        "WRW2348BN",
+        "WRW1621BS"
+      ],
+      "cardCount": 3,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day2-tannin",
+        "day7-cabernet-sauvignon-101",
+        "day20-rare-collectible-wine"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day29-napa-2023-vintage",
+      "urlKey": "day29-napa-2023-vintage",
+      "site": "Wine-Now",
+      "day": 29,
+      "title": "Napa Valley วินเทจ 2023: สิ่งที่ควรรู้ก่อนซื้อ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/day29-napa-2023-vintage.html",
+      "cards": [
+        "WRW0211AH",
+        "WRW2348BN",
+        "WRW6539FS"
+      ],
+      "cardCount": 3,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day7-cabernet-sauvignon-101",
+        "day11-vintage-year",
+        "day20-rare-collectible-wine"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day3-white-wines-summer",
+      "urlKey": "white-wines-summer",
+      "site": "Wine-Now",
+      "day": 3,
+      "title": "ไวน์ขาวสำหรับงานเลี้ยงฤดูร้อน: เลือกสไตล์ไหน เสิร์ฟกี่องศา จัดปาร์ตี้ยังไง",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/white-wines-summer.html",
+      "cards": [
+        "WWW1106AD",
+        "WWW2244BN",
+        "WWW5371AB",
+        "WWW0106AH"
+      ],
+      "cardCount": 4,
+      "faqCount": 4,
+      "internalLinks": [
+        "index",
+        "day2-wine-acidity",
+        "day5-pinot-noir-101"
+      ],
+      "inboundLinks": 10
+    },
+    {
+      "fileSlug": "day3-wine-storage-condo",
+      "urlKey": "wine-storage-condo",
+      "site": "Wine-Now",
+      "day": 3,
+      "title": "เก็บไวน์ในคอนโด: วิธีให้ไวน์อยู่รอดในเมืองร้อน",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/wine-storage-condo.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 3,
+      "internalLinks": [
+        "index",
+        "day1-wine-label-old-world-vs-new-world",
+        "day2-tannin"
+      ],
+      "inboundLinks": 4
+    },
+    {
+      "fileSlug": "day4-wine-excise-tax-2026",
+      "urlKey": "wine-excise-tax-2026",
+      "site": "Wine-Now",
+      "day": 4,
+      "title": "ทำไมไวน์/เหล้าขึ้นราคาปี 2026: เข้าใจภาษีสรรพสามิตใหม่ และขวดที่ยังคุ้ม",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/wine-excise-tax-2026.html",
+      "cards": [
+        "WRW0282AD",
+        "WRW3122CH",
+        "WRW3305DD",
+        "WWW5371AB"
+      ],
+      "cardCount": 4,
+      "faqCount": 4,
+      "internalLinks": [
+        "index",
+        "day7-cabernet-sauvignon-101",
+        "day1-most-expensive-wines-2026"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day5-natural-organic-biodynamic",
+      "urlKey": "natural-organic-biodynamic-wine",
+      "site": "Wine-Now",
+      "day": 5,
+      "title": "Natural / Organic / Biodynamic: 3 คำที่คนสับสนที่สุดในร้านไวน์",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/natural-organic-biodynamic-wine.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 3,
+      "internalLinks": [
+        "index",
+        "day1-wine-label-old-world-vs-new-world",
+        "day2-tannin"
+      ],
+      "inboundLinks": 1
+    },
+    {
+      "fileSlug": "day5-pinot-noir-101",
+      "urlKey": "pinot-noir-101",
+      "site": "Wine-Now",
+      "day": 5,
+      "title": "Pinot Noir 101: ไวน์แดงเบาที่ใครๆ ก็รัก",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/pinot-noir-101.html",
+      "cards": [
+        "WRW4559CB",
+        "WRW5836AA"
+      ],
+      "cardCount": 2,
+      "faqCount": 4,
+      "internalLinks": [
+        "index",
+        "day7-cabernet-sauvignon-101",
+        "day2-wine-acidity"
+      ],
+      "inboundLinks": 5
+    },
+    {
+      "fileSlug": "day5-proof-vs-abv",
+      "urlKey": "proof-vs-abv",
+      "site": "LIQ9",
+      "day": 5,
+      "title": "Proof vs ABV: ระบบวัดแอลกอฮอล์ที่สร้างความสับสนมา 200 ปี",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/proof-vs-abv.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 3,
+      "internalLinks": [
+        "index"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day6-wine-tourism-khao-yai",
+      "urlKey": "wine-tourism-khao-yai",
+      "site": "Wine-Now",
+      "day": 6,
+      "title": "Wine Tourism เขาใหญ่: สิ่งที่นักท่องเที่ยวส่วนใหญ่ยังไม่รู้",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/wine-tourism-khao-yai.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 4,
+      "internalLinks": [
+        "index",
+        "day3-white-wines-summer",
+        "day2-wine-acidity"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "day7-cabernet-sauvignon-101",
+      "urlKey": "cabernet-sauvignon-101",
+      "site": "Wine-Now",
+      "day": 7,
+      "title": "Cabernet Sauvignon 101: รสชาติ แหล่งผลิต และขวดที่ดีที่สุดในแต่ละงบ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/cabernet-sauvignon-101.html",
+      "cards": [
+        "WRW0282AD",
+        "WRW4693AD",
+        "WRW5853CB",
+        "WRW0211AH"
+      ],
+      "cardCount": 4,
+      "faqCount": 4,
+      "internalLinks": [
+        "index",
+        "day5-pinot-noir-101",
+        "day1-most-expensive-wines-2026"
+      ],
+      "inboundLinks": 8
+    },
+    {
+      "fileSlug": "day8-champagne-vs-prosecco-vs-cava",
+      "urlKey": "champagne-vs-prosecco-vs-cava",
+      "site": "Wine-Now",
+      "day": 8,
+      "title": "Champagne vs Prosecco vs Cava: เลือกสปาร์คกลิงให้ถูกงานและงบ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.wine-now.com/blog/champagne-vs-prosecco-vs-cava.html",
+      "cards": [
+        "WSP1140AE",
+        "WSP1104BU",
+        "WSP1096AD",
+        "WSP9005BN"
+      ],
+      "cardCount": 4,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "day3-white-wines-summer",
+        "day1-most-expensive-wines-2026"
+      ],
+      "inboundLinks": 4
+    },
+    {
+      "fileSlug": "day8-scotch-double-cask-vs-sherry",
+      "urlKey": "scotch-double-cask-vs-sherry",
+      "site": "LIQ9",
+      "day": 8,
+      "title": "Scotch: Double Cask vs Sherry Finish ต่างกันยังไง",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/scotch-double-cask-vs-sherry.html",
+      "cards": [
+        "LWH0001AA",
+        "LWH0318CN",
+        "LWH0544AD"
+      ],
+      "cardCount": 3,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day3-macallan-guide"
+      ],
+      "inboundLinks": 5
+    },
+    {
+      "fileSlug": "liq9-day1-whisky-101",
+      "urlKey": "whisky-101",
+      "site": "LIQ9",
+      "day": 1,
+      "title": "Whisky 101: Scotch vs Bourbon vs Japanese ต่างกันยังไง",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/whisky-101.html",
+      "cards": [
+        "LWH0001AA",
+        "LWH0305BU",
+        "LWH0161BU"
+      ],
+      "cardCount": 3,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day3-macallan-guide",
+        "liq9-day7-bourbon-recommend"
+      ],
+      "inboundLinks": 21
+    },
+    {
+      "fileSlug": "liq9-day11-hibiki-suntory",
+      "urlKey": "liq9-day11-hibiki-suntory",
+      "site": "LIQ9",
+      "day": 11,
+      "title": "Hibiki & Suntory: คู่มือวิสกี้ญี่ปุ่น ซื้อรุ่นไหนก่อนดี",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day11-hibiki-suntory.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day3-macallan-guide"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "liq9-day11-vsop-vs-xo-cognac",
+      "urlKey": "liq9-day11-vsop-vs-xo-cognac",
+      "site": "LIQ9",
+      "day": 11,
+      "title": "VSOP vs XO Cognac: คู่มือเลือกซื้อฉบับเข้าใจง่าย",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day11-vsop-vs-xo-cognac.html",
+      "cards": [
+        "LBD0224BU",
+        "LBD0221BU"
+      ],
+      "cardCount": 2,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "day8-scotch-double-cask-vs-sherry"
+      ],
+      "inboundLinks": 1
+    },
+    {
+      "fileSlug": "liq9-day13-world-gin-day-2026",
+      "urlKey": "liq9-day13-world-gin-day-2026",
+      "site": "LIQ9",
+      "day": 13,
+      "title": "World Gin Day 2026: คู่มือจินสำหรับมือใหม่ ฉบับฉลองวันจินโลก",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day13-world-gin-day-2026.html",
+      "cards": [
+        "LGN0106AA"
+      ],
+      "cardCount": 1,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "liq9-day5-buy-gin-online",
+        "liq9-day4-spicy-thai-cocktails"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "liq9-day14-capsule-bar-8-bottles",
+      "urlKey": "liq9-day14-capsule-bar-8-bottles",
+      "site": "LIQ9",
+      "day": 14,
+      "title": "Capsule Bar: 8 ขวดที่ทำค็อกเทลคลาสสิกได้เกือบทั้งโลก",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day14-capsule-bar-8-bottles.html",
+      "cards": [
+        "LGN0106AA",
+        "LVK0181AE",
+        "LRM0116DR",
+        "LTQ0034CN",
+        "LWH0305BU",
+        "LLQ0062CN"
+      ],
+      "cardCount": 6,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day4-spicy-thai-cocktails",
+        "liq9-day5-buy-gin-online"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day16-mezcal-101",
+      "urlKey": "liq9-day16-mezcal-101",
+      "site": "LIQ9",
+      "day": 16,
+      "title": "Mezcal 101: รู้จักเมสคาล สุราอากาเวรมควันจากเม็กซิโก",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day16-mezcal-101.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day4-spicy-thai-cocktails"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "liq9-day17-jigger-vs-free-pour",
+      "urlKey": "liq9-day17-jigger-vs-free-pour",
+      "site": "LIQ9",
+      "day": 17,
+      "title": "Jigger vs Free Pour: ตวงหรือริน แบบไหนเหมาะกับคุณ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day17-jigger-vs-free-pour.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day4-spicy-thai-cocktails",
+        "liq9-day1-whisky-101"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "liq9-day18-honey-whisky-cocktails",
+      "urlKey": "liq9-day18-honey-whisky-cocktails",
+      "site": "LIQ9",
+      "day": 18,
+      "title": "ค็อกเทลวิสกี้กับน้ำผึ้ง: 3 สูตรง่ายๆ ที่บ้าน",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day18-honey-whisky-cocktails.html",
+      "cards": [
+        "LWH0305BU",
+        "LWH0001AA",
+        "LWH0161BU"
+      ],
+      "cardCount": 3,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day4-spicy-thai-cocktails",
+        "liq9-day7-bourbon-recommend"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day19-fathers-day-gift-guide",
+      "urlKey": "liq9-day19-fathers-day-gift-guide",
+      "site": "LIQ9",
+      "day": 19,
+      "title": "คู่มือเลือกเหล้าเป็นของขวัญวันพ่อ (สากล) ตามคาแรกเตอร์พ่อ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day19-fathers-day-gift-guide.html",
+      "cards": [
+        "LWH0318CN",
+        "LWH0305BU",
+        "LBD0224BU",
+        "LWH0161BU"
+      ],
+      "cardCount": 4,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day3-macallan-guide",
+        "liq9-day11-vsop-vs-xo-cognac",
+        "liq9-day1-whisky-101"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day20-beyond-highball",
+      "urlKey": "liq9-day20-beyond-highball",
+      "site": "LIQ9",
+      "day": 20,
+      "title": "Beyond Highball: ยกระดับวิสกี้โซดาให้อร่อยขึ้น",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day20-beyond-highball.html",
+      "cards": [
+        "LWH0145BU",
+        "LWH0001AA"
+      ],
+      "cardCount": 2,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day17-jigger-vs-free-pour",
+        "liq9-day4-spicy-thai-cocktails",
+        "liq9-day1-whisky-101"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "liq9-day21-low-no-abv-cocktails",
+      "urlKey": "liq9-day21-low-no-abv-cocktails",
+      "site": "LIQ9",
+      "day": 21,
+      "title": "ค็อกเทลแอลกอฮอล์ต่ำ: ดื่มเบาๆ แต่รสไม่จืด",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day21-low-no-abv-cocktails.html",
+      "cards": [
+        "LLQ0426CN",
+        "LLQ0062CN"
+      ],
+      "cardCount": 2,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day4-spicy-thai-cocktails",
+        "liq9-day17-jigger-vs-free-pour"
+      ],
+      "inboundLinks": 2
+    },
+    {
+      "fileSlug": "liq9-day22-congeners",
+      "urlKey": "liq9-day22-congeners",
+      "site": "LIQ9",
+      "day": 22,
+      "title": "Congeners คืออะไร: ทำไมเหล้าเข้มถึงแฮงหนักกว่า",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day22-congeners.html",
+      "cards": [
+        "LVK0181AE",
+        "LWH0001AA"
+      ],
+      "cardCount": 2,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day21-low-no-abv-cocktails"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day24-spirit-tasting-notes",
+      "urlKey": "liq9-day24-spirit-tasting-notes",
+      "site": "LIQ9",
+      "day": 24,
+      "title": "จดโน้ตชิมสุรา: วิธีชิมและบรรยายรสชาติแบบมือโปร",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day24-spirit-tasting-notes.html",
+      "cards": [
+        "LWH0001AA",
+        "LWH0161BU",
+        "LWH0305BU"
+      ],
+      "cardCount": 3,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day9-single-malt-blended-grain",
+        "day8-scotch-double-cask-vs-sherry"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day25-bangkok-cocktail-renaissance",
+      "urlKey": "liq9-day25-bangkok-cocktail-renaissance",
+      "site": "LIQ9",
+      "day": 25,
+      "title": "Bangkok Cocktail Renaissance: เทรนด์ค็อกเทลกรุงเทพยุคใหม่",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day25-bangkok-cocktail-renaissance.html",
+      "cards": [
+        "LGN0106AA",
+        "LLQ0062CN",
+        "LVK0181AE"
+      ],
+      "cardCount": 3,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day4-spicy-thai-cocktails",
+        "liq9-day13-world-gin-day-2026",
+        "liq9-day20-beyond-highball"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day26-buy-whisky-online",
+      "urlKey": "liq9-day26-buy-whisky-online",
+      "site": "LIQ9",
+      "day": 26,
+      "title": "ซื้อวิสกี้ออนไลน์ในไทย: คู่มือสั่งให้ได้ของแท้ ราคาคุ้ม",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day26-buy-whisky-online.html",
+      "cards": [
+        "LWH0001AA",
+        "LWH0318CN",
+        "LWH0668CN"
+      ],
+      "cardCount": 3,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day3-macallan-guide",
+        "day8-scotch-double-cask-vs-sherry"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day27-japanese-whisky-guide",
+      "urlKey": "liq9-day27-japanese-whisky-guide",
+      "site": "LIQ9",
+      "day": 27,
+      "title": "วิสกี้ญี่ปุ่น: คู่มือเข้าใจสไตล์และวิธีเลือกซื้อ",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day27-japanese-whisky-guide.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day11-hibiki-suntory",
+        "liq9-day1-whisky-101",
+        "liq9-day20-beyond-highball"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day28-nas-whisky",
+      "urlKey": "liq9-day28-nas-whisky",
+      "site": "LIQ9",
+      "day": 28,
+      "title": "NAS Whisky คืออะไร: วิสกี้ไม่มีอายุ ด้อยกว่าจริงไหม",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day28-nas-whisky.html",
+      "cards": [
+        "LWH0305BU",
+        "LWH0001AA"
+      ],
+      "cardCount": 2,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day9-single-malt-blended-grain",
+        "day8-scotch-double-cask-vs-sherry"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day29-sake-101",
+      "urlKey": "liq9-day29-sake-101",
+      "site": "LIQ9",
+      "day": 29,
+      "title": "Sake 101: รู้จักสาเก เหล้าหมักจากข้าวของญี่ปุ่น",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day29-sake-101.html",
+      "cards": [],
+      "cardCount": 0,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day16-mezcal-101"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day3-macallan-guide",
+      "urlKey": "macallan-guide",
+      "site": "LIQ9",
+      "day": 3,
+      "title": "Macallan คู่มือ: รุ่นไหนน่าดื่ม รุ่นไหนน่าสะสม",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/macallan-guide.html",
+      "cards": [
+        "LWH0318CN",
+        "LWH0364CN",
+        "LWH0668CN"
+      ],
+      "cardCount": 3,
+      "faqCount": 4,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day7-bourbon-recommend"
+      ],
+      "inboundLinks": 7
+    },
+    {
+      "fileSlug": "liq9-day30-indigenous-asian-spirits",
+      "urlKey": "liq9-day30-indigenous-asian-spirits",
+      "site": "LIQ9",
+      "day": 30,
+      "title": "สุราพื้นเมืองเอเชีย: คู่มือรู้จักสุราท้องถิ่นที่น่าลอง",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day30-indigenous-asian-spirits.html",
+      "cards": [
+        "LGN0106AA"
+      ],
+      "cardCount": 1,
+      "faqCount": 6,
+      "internalLinks": [
+        "index",
+        "liq9-day16-mezcal-101",
+        "liq9-day13-world-gin-day-2026",
+        "liq9-day11-hibiki-suntory"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day30-storing-spirits-wrong",
+      "urlKey": "liq9-day30-storing-spirits-wrong",
+      "site": "LIQ9",
+      "day": 30,
+      "title": "5 วิธีเก็บสุราที่คนส่วนใหญ่ทำผิด (และวิธีที่ถูก)",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day30-storing-spirits-wrong.html",
+      "cards": [
+        "LLQ0062CN",
+        "LLQ0426CN"
+      ],
+      "cardCount": 2,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day21-low-no-abv-cocktails",
+        "day3-wine-storage-condo"
+      ],
+      "inboundLinks": 0
+    },
+    {
+      "fileSlug": "liq9-day4-spicy-thai-cocktails",
+      "urlKey": "spicy-thai-cocktails",
+      "site": "LIQ9",
+      "day": 4,
+      "title": "อาหารไทยเผ็ด x Cocktail: Spirit ไหนรับความเผ็ดได้ดีที่สุด",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/spicy-thai-cocktails.html",
+      "cards": [
+        "LTQ0034CN",
+        "LGN0106AA",
+        "LRM0116DR",
+        "LLQ0426CN"
+      ],
+      "cardCount": 4,
+      "faqCount": 3,
+      "internalLinks": [
+        "index",
+        "liq9-day5-buy-gin-online",
+        "liq9-day1-whisky-101"
+      ],
+      "inboundLinks": 9
+    },
+    {
+      "fileSlug": "liq9-day5-buy-gin-online",
+      "urlKey": "buy-gin-online-thailand",
+      "site": "LIQ9",
+      "day": 5,
+      "title": "Buy Gin Online Thailand: คู่มือสไตล์จินและวิธีเลือก",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/buy-gin-online-thailand.html",
+      "cards": [
+        "LGN0106AA"
+      ],
+      "cardCount": 1,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "liq9-day4-spicy-thai-cocktails",
+        "liq9-day1-whisky-101"
+      ],
+      "inboundLinks": 3
+    },
+    {
+      "fileSlug": "liq9-day7-bourbon-recommend",
+      "urlKey": "bourbon-recommend",
+      "site": "LIQ9",
+      "day": 7,
+      "title": "Bourbon แนะนำ: เข้าใจกฎ เลือกตามงบ และทำ Old Fashioned",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/bourbon-recommend.html",
+      "cards": [
+        "LWH0305BU"
+      ],
+      "cardCount": 1,
+      "faqCount": 4,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "liq9-day3-macallan-guide"
+      ],
+      "inboundLinks": 3
+    },
+    {
+      "fileSlug": "liq9-day9-single-malt-blended-grain",
+      "urlKey": "liq9-day9-single-malt-blended-grain",
+      "site": "LIQ9",
+      "day": 9,
+      "title": "Single Malt, Blended, Grain: คู่มือ 5 นาทีเข้าใจประเภทสกอตช์",
+      "headlineMatchesH1": true,
+      "canonical": "https://th.liq9.com/blog/liq9-day9-single-malt-blended-grain.html",
+      "cards": [
+        "LWH0001AA",
+        "LWH0145BU",
+        "LWH0318CN"
+      ],
+      "cardCount": 3,
+      "faqCount": 5,
+      "internalLinks": [
+        "index",
+        "liq9-day1-whisky-101",
+        "day8-scotch-double-cask-vs-sherry",
+        "liq9-day3-macallan-guide"
+      ],
+      "inboundLinks": 2
+    }
+  ]
+}
