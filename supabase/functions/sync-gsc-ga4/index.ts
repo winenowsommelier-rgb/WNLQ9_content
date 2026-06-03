@@ -54,6 +54,21 @@ async function syncGSC(token: string, siteUrl: string, site: string) {
   return rows.length;
 }
 
+async function syncGSCPages(token: string, siteUrl: string, site: string) {
+  const end = new Date(); end.setDate(end.getDate() - 3);
+  const start = new Date(); start.setDate(start.getDate() - 30);
+  const endDate = ymd(end);
+  const res = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/searchAnalytics/query`, { method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }, body: JSON.stringify({ startDate: ymd(start), endDate, dimensions: ["page"], rowLimit: 5000 }) });
+  const body = await res.json();
+  if (!res.ok) throw new Error(`GSC pages ${site} ${res.status}: ${JSON.stringify(body).slice(0, 400)}`);
+  const rows = (body.rows || []).map((r: any) => ({ site, page_path: r.keys?.[0] ?? "", impressions: Math.round(r.impressions || 0), clicks: Math.round(r.clicks || 0), ctr: r.ctr || 0, avg_rank_position: r.position || 0, metric_date: endDate, synced_at: new Date().toISOString() })).filter((r: any) => r.page_path);
+  // Guard: never delete existing data for a 0-row API response, or an empty run would wipe a good day.
+  if (!rows.length) return 0;
+  await supabase.from("seo_gsc_pages_daily").delete().eq("metric_date", endDate).eq("site", site);
+  const { error } = await supabase.from("seo_gsc_pages_daily").insert(rows); if (error) throw new Error(`GSC pages insert ${site}: ${error.message}`);
+  return rows.length;
+}
+
 async function syncGA4(token: string, propertyId: string, site: string) {
   const y = new Date(); y.setDate(y.getDate() - 1);
   const metricDate = ymd(y);
@@ -97,6 +112,13 @@ async function main() {
     catch (e) { results[`gsc_${site}_error`] = String(e); await logSync(`gsc_${site}`, 0, "failed", String(e)); }
   }
   if (gscTotal > 0) await logSync("gsc", gscTotal, "completed");
+
+  let gscPagesTotal = 0;
+  for (const [url, site] of gscSites) {
+    try { const n = await syncGSCPages(token, url, site); gscPagesTotal += n; results[`gsc_pages_${site}`] = n; }
+    catch (e) { results[`gsc_pages_${site}_error`] = String(e); await logSync(`gsc_pages_${site}`, 0, "failed", String(e)); }
+  }
+  if (gscPagesTotal > 0) await logSync("gsc_pages", gscPagesTotal, "completed");
 
   const ga4Props: [string, string][] = [];
   if (cfg.GA4_PROPERTY_ID) ga4Props.push([cfg.GA4_PROPERTY_ID, "wine-now"]);
