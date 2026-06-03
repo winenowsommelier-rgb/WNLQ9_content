@@ -14,7 +14,7 @@ dict shaped like what the collectors/categorizer produce and the store stores.
 from __future__ import annotations
 
 from exporters.sheets_exporter import SheetsExporter
-from scripts.migrate_sheet_to_db import row_to_article
+from scripts.migrate_sheet_to_db import row_to_article, sheets_date_to_iso
 
 
 def _full_row():
@@ -143,6 +143,58 @@ def test_row_to_article_aeo_value_is_level_string():
     for level in ("high", "medium", "low"):
         row[12] = level
         assert row_to_article(row)["aeo_citation_opportunity"] == level
+
+
+# -- sheets_date_to_iso (Sheets serial -> ISO) -------------------------------
+
+
+def test_sheets_date_to_iso_serial_float():
+    """A Sheets serial float converts to the correct ISO-8601 UTC string.
+
+    46172.375 days after the 1899-12-30 epoch == 2026-05-30 09:00:00 UTC
+    (.375 of a day == 9 hours).
+    """
+    assert sheets_date_to_iso(46172.375) == "2026-05-30T09:00:00Z"
+
+
+def test_sheets_date_to_iso_numeric_string():
+    """A numeric STRING (e.g. "46172") is treated as a serial and converted."""
+    assert sheets_date_to_iso("46172") == "2026-05-30T00:00:00Z"
+
+
+def test_sheets_date_to_iso_integer_serial():
+    """A bare integer serial (midnight) converts to a date at 00:00:00Z."""
+    assert sheets_date_to_iso(46172) == "2026-05-30T00:00:00Z"
+
+
+def test_sheets_date_to_iso_already_iso_passes_through():
+    """An already-ISO/parseable string is returned unchanged (not re-encoded)."""
+    assert sheets_date_to_iso("2026-05-30T09:00:00Z") == "2026-05-30T09:00:00Z"
+    assert sheets_date_to_iso("2026-05-30 09:00:00") == "2026-05-30 09:00:00"
+
+
+def test_sheets_date_to_iso_empty_stays_empty():
+    """An empty / None value stays empty."""
+    assert sheets_date_to_iso("") == ""
+    assert sheets_date_to_iso(None) == ""
+
+
+def test_sheets_date_to_iso_junk_passes_through():
+    """A non-numeric, non-date junk string is left unchanged."""
+    assert sheets_date_to_iso("not a date") == "not a date"
+
+
+def test_row_to_article_serial_date_becomes_iso():
+    """A Published Date stored as a Sheets serial float maps to an ISO string,
+    NOT the raw "46172..." serial."""
+    row = _full_row()
+    row[3] = 46172.375          # Published Date as serial float
+    row[13] = 46172.0           # Collected Date as serial float
+    article = row_to_article(row)
+    assert article["published_date"] == "2026-05-30T09:00:00Z"
+    assert article["collected_date"] == "2026-05-30T00:00:00Z"
+    # Must never store the bare serial.
+    assert not article["published_date"].startswith("46172")
 
 
 def test_mapping_is_inverse_of_format_article_row():

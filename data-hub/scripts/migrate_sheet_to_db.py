@@ -29,6 +29,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from datetime import datetime, timedelta
 from typing import Dict, List
 
 # Make the data-hub package importable when run as `python scripts/...`.
@@ -45,6 +46,51 @@ TABS = ("Articles", "Historical_Backfill")
 
 
 # -- PURE mapping (no network; unit-tested) ----------------------------------
+
+# COLUMNS-ordered fields that hold datetimes. When the Sheet was read with
+# valueRenderOption="UNFORMATTED_VALUE", these come back as Sheets SERIAL
+# NUMBERS (floats), not ISO strings -- so they need conversion before storage.
+_DATE_FIELDS = ("published_date", "collected_date")
+
+# Google Sheets' serial-date epoch: serial 0 == 1899-12-30 00:00:00.
+_SHEETS_EPOCH = datetime(1899, 12, 30)
+
+
+def sheets_date_to_iso(value) -> str:
+    """Convert a date cell value to an ISO-8601 UTC string -- PURE, no network.
+
+    The exporter writes Published/Collected Date with ``USER_ENTERED`` so Sheets
+    stores them as real datetimes; an ``UNFORMATTED_VALUE`` readback returns them
+    as floats (serial numbers, e.g. ``46172.375``), NOT ISO strings.
+
+    Rules:
+    * Numeric value (int/float, or a purely-numeric string) -> treated as a
+      Sheets serial and converted to ``YYYY-MM-DDTHH:MM:SSZ``. The serial epoch
+      is 1899-12-30, so ``iso = epoch + timedelta(days=serial)``.
+    * An already-ISO / parseable date string -> returned unchanged.
+    * Empty / None -> ``""``.
+    * Any other (junk) string -> returned unchanged.
+    """
+    if value is None:
+        return ""
+
+    # Real numeric (Sheets serial) -> convert.
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return (_SHEETS_EPOCH + timedelta(days=float(value))).strftime(
+            "%Y-%m-%dT%H:%M:%SZ"
+        )
+
+    text = str(value).strip()
+    if not text:
+        return ""
+
+    # Numeric STRING (e.g. "46172" or "46172.375") -> serial -> convert.
+    try:
+        serial = float(text)
+    except ValueError:
+        # Not numeric: already an ISO/date string (or junk) -> pass through.
+        return text
+    return (_SHEETS_EPOCH + timedelta(days=serial)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def row_to_article(row: List) -> Dict:
@@ -83,6 +129,12 @@ def row_to_article(row: List) -> Dict:
                     part.strip() for part in value.split(separator.strip())
                     if part.strip()
                 ]
+        elif field in _DATE_FIELDS:
+            # UNFORMATTED_VALUE returns datetimes as Sheets serial numbers
+            # (floats). Convert them to ISO so filters/sorts work and a
+            # Sheet->DB->Sheet round-trip can't corrupt the date. Pass the raw
+            # cell (not str(raw)) so a numeric serial is detected.
+            article[field] = sheets_date_to_iso(raw)
         elif field == "thailand_focus":
             # thailand_focus is a 3-LEVEL string ("high"/"medium"/""), NOT a
             # boolean. Pass the cell straight through, normalized: keep only
