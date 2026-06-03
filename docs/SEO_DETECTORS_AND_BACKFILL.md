@@ -28,18 +28,24 @@ They go live only via explicit `supabase functions deploy` / `supabase db push`.
    where site='wine-now' group by 1 order by 1 desc limit 10;
    ```
 
-2. **Re-backfill history as true-daily.** Old rows (>~30d) are still
-   rolling-aggregates. Rewrite them in chunks via the new backfill body. GSC
-   retains ~16 months; GA4 ~14 months. Example (anon JWT as the cron uses):
+2. **Re-backfill history as true-daily.** Old rows are still rolling-aggregates.
+   Rewrite them in **7-day chunks** via the new backfill body. GSC retains
+   ~16 months; GA4 ~14 months.
+
+   > ⚠️ **Chunk size matters.** The per-day fix produces ~30x more rows than the
+   > old version. A 27-day window hit `WORKER_RESOURCE_LIMIT` (HTTP 546) at ~80s.
+   > Keep each backfill chunk to ~7 days so it stays well under the worker's
+   > compute budget. The default daily window was likewise shrunk to ~5 days.
+
    ```bash
-   ANON="<SUPABASE_ANON_KEY>"
-   for m in 0 1 2 3 4 5; do
-     start=$(date -u -d "$(( (m+1)*30 )) days ago" +%F)
-     end=$(date -u -d "$(( m*30 + 3 )) days ago" +%F)
+   # ~26 chunks of 7 days = ~6 months. verify_jwt is OFF, so no auth header needed.
+   for w in $(seq 0 25); do
+     start=$(date -u -d "$(( (w+1)*7 + 3 )) days ago" +%F)
+     end=$(date   -u -d "$(( w*7 + 3 )) days ago" +%F)
      curl -s -X POST https://asnarjokyedupsjipzkl.supabase.co/functions/v1/sync-gsc-ga4 \
-       -H "Authorization: Bearer $ANON" -H "Content-Type: application/json" \
+       -H "Content-Type: application/json" \
        -d "{\"startDate\":\"$start\",\"endDate\":\"$end\"}"
-     echo "  <- backfilled $start..$end"; sleep 2
+     echo "  <- backfilled $start..$end"; sleep 3
    done
    ```
    The function deletes each (site, date-range) before insert, so re-runs are

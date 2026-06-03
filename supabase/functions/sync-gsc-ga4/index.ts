@@ -42,9 +42,15 @@ async function getAccessToken(sa: any, scope: string): Promise<string> {
 function ymd(d: Date): string { return d.toISOString().split("T")[0]; }
 function daysAgo(n: number): string { const d = new Date(); d.setDate(d.getDate() - n); return ymd(d); }
 
-// Default trailing windows. GSC lags ~3 days (Google finalization); GA4 -> yesterday.
-function gscWindow(): [string, string] { return [daysAgo(30), daysAgo(3)]; }
-function ga4Window(): [string, string] { return [daysAgo(28), daysAgo(1)]; }
+// Default trailing windows — kept SMALL on purpose. The per-day fix multiplies
+// row volume ~30x vs the old rolling-aggregate version, so a wide daily window
+// (e.g. 30 days x keywords x pages x 2 sites) blows the edge-function compute
+// budget (WORKER_RESOURCE_LIMIT / 546). The daily cron only needs to refresh
+// the recently-finalized days: GSC finalizes ~3 days out, so re-fetching the
+// last ~5 days keeps every nightly run light and idempotent. Older history is
+// repaired via the explicit backfill body (run in small chunks).
+function gscWindow(): [string, string] { return [daysAgo(7), daysAgo(3)]; }
+function ga4Window(): [string, string] { return [daysAgo(4), daysAgo(1)]; }
 
 // GA4 returns the date dimension as "YYYYMMDD"; normalize to "YYYY-MM-DD".
 function ga4Date(v: string): string {
