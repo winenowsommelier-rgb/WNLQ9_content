@@ -207,6 +207,72 @@ def test_collect_with_pagination_fail_soft(pipeline):
     assert articles[0]["article_url"] == "https://p.com/2"
 
 
+# -- per-source cap ----------------------------------------------------------
+
+
+def test_cap_per_source_truncates_to_cap_keeping_newest(pipeline):
+    """A source returning more than the cap is truncated, newest kept."""
+    # 1000 articles, oldest first (ascending published_date by index).
+    articles = [
+        _article(
+            f"https://big.com/{i}",
+            published_date=f"2026-{(i % 12) + 1:02d}-01T00:00:00Z",
+        )
+        for i in range(1000)
+    ]
+    # Give a clearly newest item and a clearly oldest item to assert ordering.
+    articles[0]["published_date"] = "2020-01-01T00:00:00Z"   # oldest
+    articles[0]["article_url"] = "https://big.com/oldest"
+    articles[-1]["published_date"] = "2027-01-01T00:00:00Z"  # newest
+    articles[-1]["article_url"] = "https://big.com/newest"
+
+    capped = pipeline.cap_per_source(articles, max_articles=800)
+
+    assert len(capped) == 800
+    urls = {a["article_url"] for a in capped}
+    # The newest survives the cap; the oldest is dropped.
+    assert "https://big.com/newest" in urls
+    assert "https://big.com/oldest" not in urls
+
+
+def test_cap_per_source_no_truncation_under_cap(pipeline):
+    """Fewer articles than the cap pass through unchanged."""
+    articles = [_article(f"https://s.com/{i}") for i in range(10)]
+    capped = pipeline.cap_per_source(articles, max_articles=800)
+    assert len(capped) == 10
+
+
+def test_max_backfill_per_source_read_from_config():
+    """The cap is read from collection_config.max_backfill_per_source."""
+    config = {"collection_config": {"max_backfill_per_source": 250}}
+    assert BackfillPipeline._max_per_source(config) == 250
+
+
+def test_max_backfill_per_source_defaults_when_absent():
+    """Absent config falls back to the default cap (800)."""
+    assert BackfillPipeline._max_per_source({}) == 800
+    assert BackfillPipeline._max_per_source(
+        {"collection_config": {}}
+    ) == 800
+
+
+def test_collect_all_caps_each_source(pipeline):
+    """collect_all truncates each source's contribution to the cap."""
+    # One source dumps 1000 rows; cap it to a small number to keep balance.
+    big = MagicMock()
+    big.name = "Dumpy Sitemap"
+    big.collect.return_value = [
+        _article(f"https://dump.com/{i}",
+                 published_date=f"2026-01-{(i % 28) + 1:02d}T00:00:00Z")
+        for i in range(1000)
+    ]
+    pipeline.max_articles_per_source = 50
+
+    collected = pipeline.collect_all([big], max_pages=1)
+
+    assert len(collected) == 50
+
+
 # -- process -----------------------------------------------------------------
 
 

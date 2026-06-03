@@ -83,6 +83,12 @@ LIMITATIONS_NOTE = (
 # Selectors the WebScraper needs at minimum (mirrors pipeline.ingest).
 _REQUIRED_SCRAPER_SELECTORS = ("article", "title", "link")
 
+# Default per-source backfill volume cap. A single sitemap source once dumped
+# 4,000+ rows and drowned every other source; capping each source's
+# contribution keeps the corpus balanced. Overridable via
+# collection_config.max_backfill_per_source.
+_DEFAULT_MAX_PER_SOURCE = 800
+
 # The six selectable content verticals (mirrors pipeline.ingest). Used as the
 # default when ``collection_config.enabled_verticals`` is absent.
 ALL_VERTICALS = ("wine", "spirits", "food", "lifestyle", "travel", "hospitality")
@@ -125,10 +131,15 @@ class BackfillPipeline:
         exporter=None,
         months_back: int = 12,
         store=None,
+        max_articles_per_source: Optional[int] = None,
     ) -> None:
         self.sources_config_path = sources_config_path
         self.sheet_id = sheet_id
         self.months_back = months_back
+        # Per-source volume cap so one prolific source (e.g. a 4,000-row
+        # sitemap) can't dominate the corpus. None here means "read it from
+        # config (or the default) when the run starts".
+        self.max_articles_per_source = max_articles_per_source
 
         if exporter is not None:
             self.exporter = exporter
@@ -349,6 +360,54 @@ class BackfillPipeline:
         return set(configured)
 
     @staticmethod
+    def _max_per_source(config: Dict) -> int:
+        """Return the per-source backfill cap from config (default: 800).
+
+        Read from ``collection_config.max_backfill_per_source``; falls back to
+        :data:`_DEFAULT_MAX_PER_SOURCE` when the key is absent or unusable.
+        """
+        cc = (config or {}).get("collection_config") or {}
+        configured = cc.get("max_backfill_per_source")
+        try:
+            value = int(configured)
+        except (TypeError, ValueError):
+            return _DEFAULT_MAX_PER_SOURCE
+        return value if value > 0 else _DEFAULT_MAX_PER_SOURCE
+
+    def _resolve_max_per_source(self) -> int:
+        """The effective per-source cap: explicit override, else config/default."""
+        if self.max_articles_per_source is not None:
+            return int(self.max_articles_per_source)
+        try:
+            config = self.load_sources()
+        except Exception:  # noqa: BLE001 -- fall back to default, never crash
+            return _DEFAULT_MAX_PER_SOURCE
+        return self._max_per_source(config)
+
+    def cap_per_source(self, articles: List[Dict], max_articles: int) -> List[Dict]:
+        """Truncate one source's articles to ``max_articles``, newest first.
+
+        Articles are sorted by ``published_date`` descending (undated/unparseable
+        dates sort last so genuinely-dated recent items are preferred) and the
+        top ``max_articles`` are kept. A non-positive cap disables truncation.
+        """
+        if max_articles is None or max_articles <= 0:
+            return list(articles)
+        if len(articles) <= max_articles:
+            return list(articles)
+
+        def _sort_key(article):
+            raw = article.get("published_date") if isinstance(article, dict) else None
+            parsed = self._parse_iso(raw)
+            # Undated -> sort to the very bottom (oldest) so dated items win.
+            return parsed or datetime.datetime.min.replace(
+                tzinfo=datetime.timezone.utc
+            )
+
+        ordered = sorted(articles, key=_sort_key, reverse=True)
+        return ordered[:max_articles]
+
+    @staticmethod
     def _source_selected(source: Dict, enabled_verticals: set) -> bool:
         """True if a source should be built (enabled + vertical selected)."""
         name = source.get("name", "<unnamed>")
@@ -437,8 +496,13 @@ class BackfillPipeline:
         RSS collectors expose a ``feed_url`` we can paginate over; for those
         we walk ``?paged=`` pages. Any other collector (or one without a
         ``feed_url``) is collected once. All collection is fail-soft.
+
+        Each source's contribution is then capped (newest kept) so one prolific
+        source -- a sitemap that exposes thousands of URLs -- can't dominate the
+        corpus the way a single source once accounted for 85% of all rows.
         """
         articles: List[Dict] = []
+        cap = self._resolve_max_per_source()
 
         for collector in collectors:
             name = getattr(collector, "name", repr(collector))
@@ -467,6 +531,17 @@ class BackfillPipeline:
                     continue
 
             logger.info("Collected %d article(s) from %r", len(collected), name)
+
+            # Cap this source's contribution (newest kept) to keep the corpus
+            # balanced. Log when a source is actually capped.
+            before = len(collected)
+            collected = self.cap_per_source(collected, cap)
+            if len(collected) < before:
+                logger.info(
+                    "Capped source %r: %d -> %d article(s) (max_per_source=%d)",
+                    name, before, len(collected), cap,
+                )
+
             articles.extend(collected)
 
         logger.info(

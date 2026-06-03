@@ -584,6 +584,10 @@ collection_config:
   # If this key is absent entirely, NO vertical filtering is applied (every
   # source builds) -- backward compatible.
   enabled_verticals: [wine, spirits, food, lifestyle, travel, hospitality]
+  # Cap how many articles ANY single source may contribute to a backfill run
+  # (newest kept). Prevents one prolific source -- e.g. a sitemap exposing
+  # thousands of URLs -- from dominating the corpus. Default 800 if absent.
+  max_backfill_per_source: 800
   default_update_frequency: "daily"
   default_language: "en"
   scraper_timeout_seconds: 30
