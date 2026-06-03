@@ -66,8 +66,8 @@ node pipeline/scripts/ga-gsc-pull.mjs
 | `queries.json` | aggregated keyword opportunities (demand with weak position) |
 | `scored.json` | merged ⨝ board, every URL bucketed + ranked by opportunity score |
 
-Commit `merged.json` + `scored.json` with the refresh so the next session is
-reproducible.
+Commit the whole `data/ga-gsc/` directory (raw + summaries) with each refresh so
+the next session is fully reproducible from git.
 
 ---
 

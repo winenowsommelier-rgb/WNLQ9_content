@@ -8,9 +8,15 @@ clean Drive re-delivery**.
 Audit snapshot (2026-06, from `pipeline/public/content/*.html`): 33 internal
 edges already exist, but with two structural defects.
 
+> **Status (2026-06): Defects 1 & 2 are DONE** (committed on
+> `claude/gallant-gates-Qvj1J`). All in-body internal links now use canonical
+> URLs and there are **zero orphans** (every article ≥ 1 inbound; the 3 former
+> orphans are at ≥ 2). Still open: the Champagne pillar, the data-driven
+> refreshes, and bumping the 3 `in=1` articles to ≥ 2 (optional, see end).
+
 ---
 
-## Defect 1 — link format will 404 on the live blog ⚠️ (fix first)
+## Defect 1 — link format will 404 on the live blog ⚠️ (fix first) — ✅ DONE
 
 Every in-body internal link uses a **relative filename**, e.g.
 
@@ -34,7 +40,7 @@ article-to-article body links.
 
 ---
 
-## Defect 2 — orphans (zero inbound links)
+## Defect 2 — orphans (zero inbound links) — ✅ DONE
 
 | Article | Canonical | In | Out | Fix |
 |---|---|---:|---:|---|
@@ -96,8 +102,10 @@ to ranking fastest.
 
 ## Execution checklist (one re-delivery)
 
-- [ ] Rewrite all in-body internal links → canonical URLs (Defect 1).
-- [ ] Resolve the 3 orphans → each ≥ 2 inbound (Defect 2).
+- [x] Rewrite all in-body internal links → canonical URLs (Defect 1).
+- [x] Resolve the 3 orphans → each ≥ 2 inbound (Defect 2).
+- [ ] (Optional) Bump `buy-gin-online`, `spicy-thai-cocktails`,
+      `natural-organic-biodynamic` from 1 → 2 inbound.
 - [ ] Author + wire the Champagne pillar (5 spokes ↔ pillar).
 - [ ] Apply data-driven refreshes from `scored.json` in the same pass.
 - [ ] Re-validate canonical/JSON-LD/SKU rules (CLAUDE.md golden rules) per file.
