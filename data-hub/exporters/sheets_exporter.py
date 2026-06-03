@@ -64,6 +64,7 @@ class SheetsExporter:
         "Collected Date",
         "Source Language",
         "Thailand Focus",
+        "Beverage Relevance",
     ]
 
     # Maps each column header to the article dict field that feeds it.
@@ -84,6 +85,7 @@ class SheetsExporter:
         "Collected Date": "collected_date",
         "Source Language": "source_language",
         "Thailand Focus": "thailand_focus",
+        "Beverage Relevance": "beverage_relevance",
     }
 
     TREND_SIGNAL_SEPARATOR = " | "

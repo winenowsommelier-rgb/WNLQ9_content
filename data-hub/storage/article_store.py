@@ -34,7 +34,7 @@ from collectors.url_utils import normalize_url
 
 logger = logging.getLogger(__name__)
 
-# The 16 schema fields (snake_case), confirmed against
+# The 17 schema fields (snake_case), confirmed against
 # SheetsExporter._FIELD_BY_COLUMN. Order here defines the articles-table
 # column order. ``trend_signals`` is the only list-valued field; it is stored
 # as JSON text and round-tripped back to a list on read.
@@ -55,6 +55,7 @@ ARTICLE_FIELDS: List[str] = [
     "collected_date",
     "source_language",
     "thailand_focus",
+    "beverage_relevance",
 ]
 
 # ``thailand_focus`` is a 3-level string set by the categorizer, NOT a boolean:
@@ -119,6 +120,7 @@ class ArticleStore(ABC):
         until: Optional[str] = None,
         limit: Optional[int] = None,
         kind: Optional[str] = None,
+        beverage_relevance: Optional[str] = None,
     ) -> List[Dict]:
         """Filtered fetch of stored articles as dicts."""
 
@@ -240,6 +242,23 @@ class SqliteArticleStore(ArticleStore):
             except sqlite3.OperationalError:
                 # Column already exists (fresh schema or prior migration).
                 pass
+            # Same guarded migration for ``beverage_relevance``: a cross-vertical
+            # topical flag (TEXT level "high"/"medium"/"low", default ""). An
+            # older DB created before this feature gains the column in place,
+            # no rebuild. Idempotent: a duplicate-column error is swallowed.
+            try:
+                conn.execute(
+                    "ALTER TABLE articles ADD COLUMN beverage_relevance TEXT DEFAULT ''"
+                )
+            except sqlite3.OperationalError:
+                # Column already exists (fresh schema or prior migration).
+                pass
+            # Index the new column AFTER the guarded ALTER so it exists even on
+            # an old on-disk DB that just gained the column above.
+            conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_articles_beverage_relevance "
+                "ON articles (beverage_relevance)"
+            )
             conn.commit()
 
     # -- serialization --------------------------------------------------
@@ -393,7 +412,10 @@ class SqliteArticleStore(ArticleStore):
 
     # -- query / count --------------------------------------------------
 
-    def _build_where(self, vertical, thailand_focus, since, until, kind=None):
+    def _build_where(
+        self, vertical, thailand_focus, since, until, kind=None,
+        beverage_relevance=None,
+    ):
         """Build a WHERE clause + params from filter kwargs."""
         clauses: List[str] = []
         params: List = []
@@ -404,6 +426,10 @@ class SqliteArticleStore(ArticleStore):
             # Filter on the level string (e.g. 'high' / 'medium' / '').
             clauses.append("thailand_focus = ?")
             params.append(str(thailand_focus))
+        if beverage_relevance is not None:
+            # Cross-vertical topical filter ('high' / 'medium' / 'low' / '').
+            clauses.append("beverage_relevance = ?")
+            params.append(str(beverage_relevance))
         if kind is not None:
             # Segment the corpus by provenance ('live' vs 'backfill').
             clauses.append("kind = ?")
@@ -426,11 +452,12 @@ class SqliteArticleStore(ArticleStore):
         until: Optional[str] = None,
         limit: Optional[int] = None,
         kind: Optional[str] = None,
+        beverage_relevance: Optional[str] = None,
     ) -> List[Dict]:
         """Filtered fetch of stored articles, newest published first."""
         conn = self._connect()
         where, params = self._build_where(
-            vertical, thailand_focus, since, until, kind
+            vertical, thailand_focus, since, until, kind, beverage_relevance
         )
         sql = f"SELECT * FROM articles{where} ORDER BY published_date DESC, id DESC"
         if limit is not None:
@@ -448,6 +475,7 @@ class SqliteArticleStore(ArticleStore):
             filters.get("since"),
             filters.get("until"),
             filters.get("kind"),
+            filters.get("beverage_relevance"),
         )
         row = conn.execute(
             f"SELECT COUNT(*) FROM articles{where}", params

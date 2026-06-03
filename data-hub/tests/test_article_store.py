@@ -227,6 +227,54 @@ def test_count_by_thailand_focus_level():
     assert store.count(thailand_focus="medium") == 1
 
 
+# -- beverage_relevance column (cross-vertical topical filter) ---------------
+
+
+def test_beverage_relevance_round_trips_as_level_string():
+    """beverage_relevance stores/returns the LEVEL string ('high'/'medium'/'low')."""
+    store = _store()
+    store.upsert_articles([
+        _article("https://b.com/1", beverage_relevance="high"),
+        _article("https://b.com/2", beverage_relevance="medium"),
+        _article("https://b.com/3", beverage_relevance="low"),
+        _article("https://b.com/4"),  # absent -> defaults to ""
+    ])
+
+    by_url = {a["article_url"]: a["beverage_relevance"] for a in store.query()}
+    assert by_url["https://b.com/1"] == "high"
+    assert by_url["https://b.com/2"] == "medium"
+    assert by_url["https://b.com/3"] == "low"
+    assert by_url["https://b.com/4"] == ""
+
+
+def test_query_filters_by_beverage_relevance_level():
+    """query(beverage_relevance='low') filters by the LEVEL string."""
+    store = _store()
+    store.upsert_articles([
+        _article("https://b.com/1", beverage_relevance="high"),
+        _article("https://b.com/2", beverage_relevance="low"),
+        _article("https://b.com/3", beverage_relevance="low"),
+    ])
+
+    low = store.query(beverage_relevance="low")
+    assert {a["article_url"] for a in low} == {
+        "https://b.com/2", "https://b.com/3"
+    }
+    assert store.count(beverage_relevance="low") == 2
+    assert store.count(beverage_relevance="high") == 1
+
+
+def test_update_article_sets_beverage_relevance():
+    """update_article writes beverage_relevance in place (the backfill path)."""
+    store = _store()
+    store.upsert_articles([_article("https://b.com/1")])
+    key = normalize_url("https://b.com/1")
+
+    assert store.update_article(key, {"beverage_relevance": "low"}) is True
+    got = {a["article_url"]: a["beverage_relevance"] for a in store.query()}
+    assert got["https://b.com/1"] == "low"
+
+
 def test_query_filters_by_date_range():
     """query(since/until) filters on published_date."""
     store = _store()

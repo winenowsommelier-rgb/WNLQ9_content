@@ -44,6 +44,7 @@ def full_article():
         "collected_date": "2024-05-16T14:22:00Z",
         "source_language": "en",
         "thailand_focus": "high",
+        "beverage_relevance": "high",
     }
 
 
@@ -127,6 +128,7 @@ def test_format_article_row_orders_fields(exporter, full_article):
         "2024-05-16 14:22:00",  # Gap C: ISO datetime -> Sheets-native
         "en",
         "high",  # Thailand Focus
+        "high",  # Beverage Relevance
     ]
     assert len(row) == len(SheetsExporter.COLUMNS)
 
@@ -169,8 +171,8 @@ def test_export_articles_calls_api(exporter, full_article):
     assert kwargs["body"]["values"] == [exporter.format_article_row(full_article)]
     assert kwargs["valueInputOption"] == "USER_ENTERED"
     assert kwargs["spreadsheetId"] == SHEET_ID
-    # Range is computed from len(COLUMNS); with 16 columns the last is P.
-    assert "Articles!A:P" in kwargs["range"]
+    # Range is computed from len(COLUMNS); with 17 columns the last is Q.
+    assert "Articles!A:Q" in kwargs["range"]
 
 
 def test_export_articles_with_header(exporter, full_article):
@@ -417,10 +419,9 @@ def test_existing_urls_failsoft(exporter):
 
 
 def test_columns_includes_thailand_focus():
-    # The new geo-relevance column is the last column (column P with 16 cols).
+    # Thailand Focus is column P (16th); Beverage Relevance follows it at Q.
     assert "Thailand Focus" in SheetsExporter.COLUMNS
-    assert SheetsExporter.COLUMNS[-1] == "Thailand Focus"
-    assert len(SheetsExporter.COLUMNS) == 16
+    assert SheetsExporter.COLUMNS.index("Thailand Focus") == 15  # column P
 
 
 def test_format_row_includes_thailand_focus(exporter):
@@ -440,10 +441,30 @@ def test_export_range_uses_computed_last_column(exporter, full_article):
         exporter.export_articles([full_article])
 
     _, kwargs = append.call_args
-    # 16 columns -> last column letter is P.
-    assert kwargs["range"] == "Articles!A:P"
+    # 17 columns -> last column letter is Q.
+    assert kwargs["range"] == "Articles!A:Q"
 
 
 def test_row_length_matches_columns(exporter, full_article):
     row = exporter.format_article_row(full_article)
-    assert len(row) == len(SheetsExporter.COLUMNS) == 16
+    assert len(row) == len(SheetsExporter.COLUMNS) == 17
+
+
+# -- Beverage Relevance column (cross-vertical topical filter) --------------
+
+
+def test_columns_includes_beverage_relevance():
+    # The new topical-relevance column is the LAST column (column Q with 17 cols).
+    assert "Beverage Relevance" in SheetsExporter.COLUMNS
+    assert SheetsExporter.COLUMNS[-1] == "Beverage Relevance"
+    assert len(SheetsExporter.COLUMNS) == 17
+
+
+def test_format_row_includes_beverage_relevance(exporter):
+    idx = SheetsExporter.COLUMNS.index("Beverage Relevance")
+    assert idx == 16  # column Q
+    row = exporter.format_article_row({"beverage_relevance": "low"})
+    assert row[idx] == "low"
+    # Missing -> empty string (no crash).
+    row_missing = exporter.format_article_row({"title": "x"})
+    assert row_missing[idx] == ""
