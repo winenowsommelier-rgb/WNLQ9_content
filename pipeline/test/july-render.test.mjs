@@ -238,6 +238,39 @@ test("a full render from an authored expansion is deeper than the seed", async (
   assert.ok(!model.verifyList.some((v) => /SEED RENDER/.test(v)));
 });
 
+test("HowTo JSON-LD is emitted when the Schema field asks for it", () => {
+  const blocks = buildJsonLd({
+    brand: brandFor("LIQ9"),
+    h1: "G&T",
+    lang: "th",
+    datePublished: "2026-07-16",
+    faq: [],
+    products: [],
+    howto: { name: "ทำ G&T", steps: ["ใส่น้ำแข็ง", "รินจิน", "เติมโทนิก"] },
+    schemaField: "Article + HowTo + FAQPage",
+    blogUrl: "https://th.liq9.com/blog",
+  });
+  const howto = blocks.find((b) => b["@type"] === "HowTo");
+  assert.ok(howto, "expected a HowTo block");
+  assert.equal(howto.step.length, 3);
+  assert.equal(howto.step[0]["@type"], "HowToStep");
+});
+
+test("HowTo is NOT emitted when the Schema field doesn't ask for it", () => {
+  const blocks = buildJsonLd({
+    brand: brandFor("LIQ9"),
+    h1: "x",
+    lang: "th",
+    datePublished: "2026-07-16",
+    faq: [],
+    products: [],
+    howto: { name: "x", steps: ["a"] },
+    schemaField: "Article + FAQPage",
+    blogUrl: "https://th.liq9.com/blog",
+  });
+  assert.ok(!blocks.some((b) => b["@type"] === "HowTo"));
+});
+
 test("ban-day render is secular + non-commercial (no CTA, no product cards)", () => {
   const expansion = seedExpansion(ROW, { lang: "th" });
   const { cards } = pickProducts(ROW, FEED);

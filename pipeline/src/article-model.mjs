@@ -125,7 +125,7 @@ function collectQa(block, faq) {
  * when the row's Schema field asks for it (or products exist). The Article
  * headline is ALWAYS the on-page H1 — no overpromising.
  */
-export function buildJsonLd({ brand, h1, lang, datePublished, keywords, category, faq, products, schemaField, blogUrl }) {
+export function buildJsonLd({ brand, h1, lang, datePublished, keywords, category, faq, products, howto, schemaField, blogUrl }) {
   const wants = (token) => new RegExp(token, "i").test(String(schemaField || ""));
   const blocks = [];
 
@@ -159,6 +159,19 @@ export function buildJsonLd({ brand, h1, lang, datePublished, keywords, category
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+  }
+
+  if (howto && howto.steps && howto.steps.length && wants("howto")) {
+    blocks.push({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: howto.name || h1,
+      step: howto.steps.map((s, i) => ({
+        "@type": "HowToStep",
+        position: i + 1,
+        text: typeof s === "string" ? s : s.text || "",
       })),
     });
   }
@@ -214,6 +227,16 @@ export function buildArticleModel(item, { brand, expansion, products = [], lang 
     q: stripEmoji(f.q),
     a: stripEmoji(f.a),
   }));
+
+  // Optional HowTo (for cocktail/recipe rows whose Schema asks for it).
+  const howtoModel = expansion?.howto
+    ? {
+        name: stripEmoji(expansion.howto.name || ""),
+        steps: (expansion.howto.steps || [])
+          .map((s) => stripEmoji(typeof s === "string" ? s : s.text || ""))
+          .filter(Boolean),
+      }
+    : null;
 
   const sections = (expansion?.sections || []).map((s) => ({
     h2: stripEmoji(s.h2 || ""),
@@ -275,6 +298,7 @@ export function buildArticleModel(item, { brand, expansion, products = [], lang 
       category: item.category,
       faq,
       products: cards,
+      howto: howtoModel,
       schemaField: item.schema,
       blogUrl,
     }),

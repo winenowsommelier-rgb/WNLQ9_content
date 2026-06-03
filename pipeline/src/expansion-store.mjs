@@ -31,6 +31,10 @@ export function normalizeExpansion(p = {}) {
     faq: Array.isArray(p.faq)
       ? p.faq.map((f) => ({ q: String(f.q || ""), a: String(f.a || "") })).filter((f) => f.q && f.a)
       : [],
+    howto:
+      p.howto && Array.isArray(p.howto.steps)
+        ? { name: String(p.howto.name || ""), steps: p.howto.steps.map((s) => (typeof s === "string" ? s : String(s.text || ""))) }
+        : null,
     productIntro: String(p.productIntro || ""),
     verifyNotes: Array.isArray(p.verifyNotes) ? p.verifyNotes.map(String) : [],
   };
