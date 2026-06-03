@@ -447,6 +447,46 @@ def test_run_mirror_skipped_when_no_exporter():
     assert summary["exported"] == 0
 
 
+def test_run_mirrors_promoted_rows_to_articles_tab():
+    """A URL first seen in backfill, then surfacing in the daily LIVE ingest, is
+    promoted to live AND mirrored to the Articles tab (so it appears live)."""
+    exporter = MagicMock()
+    exporter.export_articles.return_value = {"exported": 2, "sheet": "Articles"}
+
+    store = _store()
+    # Pre-seed the shared store: one URL stored as backfill (invisible in live).
+    store.upsert_articles([_article("https://x.com/old")], kind="backfill")
+
+    pipeline = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH, exporter=exporter, store=store,
+    )
+    c = MagicMock()
+    c.name = "Mock RSS"
+    # The daily ingest surfaces the old URL again PLUS a genuinely-new one.
+    c.collect.return_value = [
+        _article("https://x.com/old", title="Barolo wine review"),
+        _article("https://x.com/new", title="Bourbon whiskey news"),
+    ]
+    pipeline.collectors = [c]
+
+    summary = pipeline.run()
+
+    # One fresh insert, one promotion.
+    assert summary["db_inserted"] == 1
+    assert summary["db_promoted"] == 1
+    # Both rows are now live in the DB.
+    assert store.count(kind="live") == 2
+    assert store.count(kind="backfill") == 0
+    # exported == rows actually mirrored (inserted + promoted).
+    assert summary["exported"] == 2
+    # The exporter received BOTH the inserted and the promoted row.
+    exporter.export_articles.assert_called_once()
+    mirrored_urls = {
+        a["article_url"] for a in exporter.export_articles.call_args[0][0]
+    }
+    assert mirrored_urls == {"https://x.com/old", "https://x.com/new"}
+
+
 def test_filter_already_exported_skips_known():
     """Articles whose URL is already in the sheet are filtered out."""
     exporter = MagicMock()

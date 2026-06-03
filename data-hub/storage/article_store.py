@@ -88,10 +88,17 @@ class ArticleStore(ABC):
     def upsert_articles(self, articles: List[Dict], kind: str = "live") -> Dict:
         """Insert each article keyed by normalized URL.
 
-        Returns ``{"inserted": [<new article dicts>], "skipped": <int>}``.
-        Articles already present (by normalized URL) are skipped. The returned
-        ``inserted`` list lets the caller mirror ONLY the new rows to Sheets.
-        ``kind`` tags provenance ("live" / "backfill") to segment the corpus.
+        Returns ``{"inserted": [<new article dicts>], "skipped": <int>,
+        "promoted": [<article dicts>]}``. Articles already present (by
+        normalized URL) are skipped. The returned ``inserted`` list lets the
+        caller mirror ONLY the new rows to Sheets. ``kind`` tags provenance
+        ("live" / "backfill") to segment the corpus.
+
+        Promotion: when an existing row stored as ``kind="backfill"`` is
+        re-upserted with the incoming ``kind="live"``, its stored kind is
+        UPDATED to "live" and it is collected into ``promoted`` (so a
+        re-surfacing article becomes visible in the live view). A backfill
+        upsert never demotes an existing live row.
         """
 
     @abstractmethod
@@ -285,9 +292,15 @@ class SqliteArticleStore(ArticleStore):
         ``kind`` tags the provenance of this batch ("live" for the daily ingest,
         "backfill" for the historical seed) so dashboards/queries can segment
         the corpus and the 4,000-row backfill never drowns the daily signal.
+
+        Promotion: a row first stored as ``kind="backfill"`` that re-surfaces in
+        a ``kind="live"`` upsert is PROMOTED to "live" (its stored kind is
+        updated) and returned under ``promoted`` so the caller can mirror it to
+        the live tab. A backfill upsert never demotes an existing live row.
         """
         conn = self._connect()
         inserted: List[Dict] = []
+        promoted: List[Dict] = []
         skipped = 0
         kind = str(kind or "live")
 
@@ -338,11 +351,26 @@ class SqliteArticleStore(ArticleStore):
                     inserted.append(article)
                 else:
                     # rowcount 0 -> the unique key already existed (ignored).
-                    skipped += 1
+                    # Promote backfill->live when this is a live upsert: a
+                    # re-surfacing article must become visible in the live tab.
+                    # Never demote live->backfill (the UPDATE only fires when
+                    # the stored kind is exactly 'backfill' and incoming='live').
+                    if kind == "live":
+                        promo = conn.execute(
+                            "UPDATE articles SET kind = 'live' "
+                            "WHERE url_normalized = ? AND kind = 'backfill'",
+                            (key,),
+                        )
+                        if promo.rowcount == 1:
+                            promoted.append(article)
+                        else:
+                            skipped += 1
+                    else:
+                        skipped += 1
 
             conn.commit()
 
-        return {"inserted": inserted, "skipped": skipped}
+        return {"inserted": inserted, "skipped": skipped, "promoted": promoted}
 
     # -- lookups --------------------------------------------------------
 

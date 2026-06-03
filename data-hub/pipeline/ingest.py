@@ -341,8 +341,9 @@ class IngestPipeline:
         -------
         dict
             ``{"collected": N, "after_dedup": M, "after_cross_run_dedup": P,
-            "exported": K, "db_inserted": P, "db_total": T,
-            "sources_run": [...], "errors": [...]}``
+            "exported": K, "db_inserted": P, "db_promoted": Q, "db_total": T,
+            "sources_run": [...], "errors": [...]}``. ``exported`` is the rows
+            actually mirrored (inserted + promoted backfill->live rows).
         """
         logger.info("=== Content Hub ingestion run starting ===")
 
@@ -360,16 +361,21 @@ class IngestPipeline:
         # rows. This is authoritative and happens BEFORE the Sheets mirror.
         result = self.store.upsert_articles(processed, kind="live")
         inserted = result.get("inserted", [])
+        promoted = result.get("promoted", [])
         logger.info(
-            "DB upsert: %d inserted, %d skipped (already stored)",
-            len(inserted), result.get("skipped", 0),
+            "DB upsert: %d inserted, %d promoted (backfill->live), "
+            "%d skipped (already stored)",
+            len(inserted), len(promoted), result.get("skipped", 0),
         )
 
-        # Mirror ONLY the newly-inserted rows to Sheets so dashboards keep
-        # updating with no duplicates. Fail-soft: a Sheets/API failure is
-        # recorded but never loses the (already-durable) DB data nor crashes
-        # the run. If no exporter is configured, skip the mirror entirely.
-        exported = self._mirror_to_sheets(inserted, sheet_name=sheet_name)
+        # Mirror the newly-inserted AND promoted rows to Sheets so dashboards
+        # keep updating with no duplicates -- a promoted (re-surfacing) row was
+        # previously only in the backfill tab, so it must now appear live.
+        # Fail-soft: a Sheets/API failure is recorded but never loses the
+        # (already-durable) DB data nor crashes the run. If no exporter is
+        # configured, skip the mirror entirely.
+        to_mirror = inserted + promoted
+        exported = self._mirror_to_sheets(to_mirror, sheet_name=sheet_name)
 
         summary = {
             "collected": len(collected),
@@ -377,6 +383,7 @@ class IngestPipeline:
             "after_cross_run_dedup": len(inserted),
             "exported": exported,
             "db_inserted": len(inserted),
+            "db_promoted": len(promoted),
             "db_total": self.store.count(),
             "sources_run": [getattr(c, "name", repr(c)) for c in collectors],
             "errors": list(self.errors),
@@ -387,9 +394,10 @@ class IngestPipeline:
 
         logger.info(
             "=== Run complete: collected=%d after_dedup=%d db_inserted=%d "
-            "exported=%s db_total=%d sources=%d errors=%d ===",
+            "db_promoted=%d exported=%s db_total=%d sources=%d errors=%d ===",
             summary["collected"], summary["after_dedup"],
-            summary["db_inserted"], summary["exported"], summary["db_total"],
+            summary["db_inserted"], summary["db_promoted"],
+            summary["exported"], summary["db_total"],
             len(summary["sources_run"]), len(summary["errors"]),
         )
         return summary

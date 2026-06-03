@@ -311,6 +311,62 @@ def test_upsert_kind_backfill_is_segmented():
     assert store.count(kind="live") == 0
 
 
+def test_upsert_promotes_backfill_to_live_on_relive_ingest():
+    """A URL first stored as backfill, then re-upserted as live, is PROMOTED:
+    its stored kind becomes 'live', it appears under result['promoted'], and it
+    is NOT counted as a fresh insert."""
+    store = _store()
+    store.upsert_articles([_article("https://a.com/1")], kind="backfill")
+    assert store.count(kind="backfill") == 1
+    assert store.count(kind="live") == 0
+
+    result = store.upsert_articles([_article("https://a.com/1")], kind="live")
+
+    # Not a fresh insert (row already existed), but promoted.
+    assert result["inserted"] == []
+    promoted_urls = {a["article_url"] for a in result["promoted"]}
+    assert promoted_urls == {"https://a.com/1"}
+    # The stored row is now live (and no longer backfill).
+    assert store.count(kind="live") == 1
+    assert store.count(kind="backfill") == 0
+
+
+def test_upsert_backfill_does_not_demote_existing_live():
+    """A live row re-upserted as backfill is NEVER demoted: it stays live and
+    is not reported as promoted (and not re-inserted)."""
+    store = _store()
+    store.upsert_articles([_article("https://a.com/1")], kind="live")
+
+    result = store.upsert_articles([_article("https://a.com/1")], kind="backfill")
+
+    assert result["inserted"] == []
+    assert result["promoted"] == []
+    assert result["skipped"] == 1
+    # Still live, not demoted to backfill.
+    assert store.count(kind="live") == 1
+    assert store.count(kind="backfill") == 0
+
+
+def test_upsert_result_always_has_promoted_key():
+    """The promoted key is always present (empty when nothing was promoted),
+    so callers reading only inserted/skipped still work."""
+    store = _store()
+    result = store.upsert_articles([_article("https://a.com/1")])
+    assert result["inserted"]
+    assert result["skipped"] == 0
+    assert result["promoted"] == []
+
+
+def test_upsert_live_then_live_is_skip_not_promote():
+    """Re-upserting a live URL as live is a plain skip, never a promotion."""
+    store = _store()
+    store.upsert_articles([_article("https://a.com/1")], kind="live")
+    result = store.upsert_articles([_article("https://a.com/1")], kind="live")
+    assert result["inserted"] == []
+    assert result["promoted"] == []
+    assert result["skipped"] == 1
+
+
 def test_count_and_query_mix_live_and_backfill():
     """A corpus with both kinds counts/queries each independently."""
     store = _store()
