@@ -208,3 +208,26 @@ Thai-only ships now. To also publish English, set **`PUBLISH_LANGS=th,en`**
 `TH / EN` title and reads `Content EN`; EN files are written as
 `<slug>.en.html`. **Before enabling**, confirm the EN locale/URL pattern (the
 canonical currently mirrors the TH domain) — that's the one open item.
+
+### Go-live preflight (run `--publish` only after these are true)
+
+The render path is fully tested offline. The live `--publish` step depends on
+real credentials + Drive permissions that only exist in Vercel — verify these
+first or the upload/writeback will fail at runtime (not a code bug):
+
+1. **`NOTION_TOKEN`** set, and the integration is shared with the **July**
+   database (Notion → database → ••• → Connections).
+2. **`NOTION_DATABASE_ID=93ac15a8-bb65-40f7-b357-b8cabd336214`** (else it targets
+   June). Setting this also points the dashboard's `/api/items` at July.
+3. **`GOOGLE_SERVICE_ACCOUNT_JSON`** set, **and the Drive folder is shared with
+   the service-account `client_email` as Editor.** The folder is owned by
+   winenowsommelier@gmail.com; the service account is a *different* identity, so
+   it must be explicitly granted access or the upload 404s/403s.
+4. **`DRIVE_FOLDER_ID=1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm`** ("WNLQ9 Blog Html
+   center"). If unset, files land in the service account's own Drive, not the
+   handoff folder.
+5. Smoke it with **`--publish --limit 1`** and confirm the file appears in Drive
+   and the row flips to `Brief Ready` before running the full batch.
+
+> Drive MCP / the service account **cannot delete** — a re-run makes a same-name
+> duplicate. Run once; to refresh, clear the folder first.
