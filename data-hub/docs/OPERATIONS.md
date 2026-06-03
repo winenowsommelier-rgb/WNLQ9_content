@@ -108,6 +108,38 @@ the new backend and inject it; the pipelines don't change.
 > fail-soft per row. It prints read/inserted/skipped counts per tab plus a
 > total.
 
+### Supabase backend (optional)
+
+The system-of-record defaults to **local SQLite** (`data/content_hub.db`) and
+needs no configuration. A drop-in **Supabase/Postgres** backend
+(`storage/supabase_store.py`) is available for teams that want a managed,
+network-accessible store. Because it implements the same `ArticleStore`
+interface (`storage/article_store.py`) with **identical return shapes**
+(including the `upsert_articles` `{inserted, skipped, promoted}` contract),
+switching backends is an environment change only — the pipelines are unchanged.
+
+Enable it by setting three environment variables (template:
+`config/.env.example`):
+
+| Variable | Value |
+|----------|-------|
+| `DATA_HUB_DB_BACKEND` | `supabase` |
+| `SUPABASE_URL` | `https://asnarjokyedupsjipzkl.supabase.co` |
+| `SUPABASE_SERVICE_KEY` | the `service_role` secret (Supabase dashboard → Settings → API) |
+
+`storage.get_store()` resolves the backend at startup: when the backend is
+`supabase` **and** both creds are present it returns `SupabaseArticleStore`;
+otherwise it falls back to SQLite (so a half-configured environment still runs
+locally). The schema (`content_hub_articles` / `content_hub_runs`) already
+exists in the **WNLQ9 SEO Automation** Supabase project (created via
+migration), so `init_schema()` is a no-op against it. The client is lazy —
+constructed only on first DB call — and the `supabase` package import is lazy
+too, so the codebase and test suite run fine even without it installed.
+
+> ⚠️ The `service_role` key bypasses row-level security and is a **secret**.
+> Never commit it: keep it in a `.env` (gitignored — only `.env.example` is
+> committed) or the scheduler's environment.
+
 ---
 
 ## 2. Daily Operations

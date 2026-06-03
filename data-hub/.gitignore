@@ -6,6 +6,15 @@ __pycache__/
 # Google service-account credentials (secret -- never commit)
 config/google-credentials.json
 
+# Environment files with secrets (Supabase service_role key, etc.) -- never
+# commit. The committed template is config/.env.example.
+.env
+.env.*
+!.env.example
+config/.env
+config/.env.*
+!config/.env.example
+
 # Runtime logs (keep the directory via logs/.gitkeep, ignore log files)
 logs/*
 !logs/.gitkeep

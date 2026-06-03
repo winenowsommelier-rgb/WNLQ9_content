@@ -51,6 +51,33 @@ spirits/wine type, trend signals, primary category, buyer persona, AEO value.**
 
 **You don't need to re-do any of this.** It survives reboots and runs unattended.
 
+### Supabase backend (optional)
+
+The hub defaults to the **local SQLite** system-of-record (`data/content_hub.db`)
+and needs no configuration. If you'd rather store the corpus in managed
+Postgres, there is a drop-in **Supabase** backend
+(`storage/supabase_store.py`): because it implements the same `ArticleStore`
+interface (`storage/article_store.py`) with identical return shapes, switching
+is purely an environment change — no code edits.
+
+To enable it, set three environment variables (see `config/.env.example`):
+
+```bash
+DATA_HUB_DB_BACKEND=supabase
+SUPABASE_URL=https://asnarjokyedupsjipzkl.supabase.co
+SUPABASE_SERVICE_KEY=<service_role secret>   # Supabase → Settings → API
+```
+
+`storage.get_store()` reads these at startup: with the backend set to
+`supabase` **and** both creds present it returns `SupabaseArticleStore`;
+otherwise it falls back to SQLite. The schema (`content_hub_articles` /
+`content_hub_runs`) already exists in the **WNLQ9 SEO Automation** Supabase
+project (created via migration), so `init_schema()` is a no-op there.
+
+> ⚠️ The `service_role` key bypasses row-level security — it is a **secret**.
+> Keep it out of git: put it in a `.env` (gitignored; only `.env.example` is
+> committed) or your scheduler's environment.
+
 ---
 
 ## 3. The daily process (automatic)
