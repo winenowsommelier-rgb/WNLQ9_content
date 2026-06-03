@@ -85,12 +85,13 @@ class ArticleStore(ABC):
         """Create the backing tables/indexes if absent. Idempotent."""
 
     @abstractmethod
-    def upsert_articles(self, articles: List[Dict]) -> Dict:
+    def upsert_articles(self, articles: List[Dict], kind: str = "live") -> Dict:
         """Insert each article keyed by normalized URL.
 
         Returns ``{"inserted": [<new article dicts>], "skipped": <int>}``.
         Articles already present (by normalized URL) are skipped. The returned
         ``inserted`` list lets the caller mirror ONLY the new rows to Sheets.
+        ``kind`` tags provenance ("live" / "backfill") to segment the corpus.
         """
 
     @abstractmethod
@@ -110,6 +111,7 @@ class ArticleStore(ABC):
         since: Optional[str] = None,
         until: Optional[str] = None,
         limit: Optional[int] = None,
+        kind: Optional[str] = None,
     ) -> List[Dict]:
         """Filtered fetch of stored articles as dicts."""
 
@@ -174,11 +176,14 @@ class SqliteArticleStore(ArticleStore):
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     url_normalized TEXT UNIQUE NOT NULL,
                     {columns_sql},
+                    kind TEXT DEFAULT 'live',
                     ingested_at TEXT
                 );
 
                 CREATE UNIQUE INDEX IF NOT EXISTS idx_articles_url_normalized
                     ON articles (url_normalized);
+                CREATE INDEX IF NOT EXISTS idx_articles_kind
+                    ON articles (kind);
                 CREATE INDEX IF NOT EXISTS idx_articles_published_date
                     ON articles (published_date);
                 CREATE INDEX IF NOT EXISTS idx_articles_primary_category
@@ -242,19 +247,26 @@ class SqliteArticleStore(ArticleStore):
 
     # -- upsert ---------------------------------------------------------
 
-    def upsert_articles(self, articles: List[Dict]) -> Dict:
+    def upsert_articles(self, articles: List[Dict], kind: str = "live") -> Dict:
         """Insert new articles (keyed by normalized URL); skip known ones.
 
         Uses ``INSERT OR IGNORE`` on the unique ``url_normalized`` column
         within a single transaction. Whether a row was actually inserted is
         detected from ``cursor.rowcount`` (1 = inserted, 0 = ignored as a
         duplicate), so the returned ``inserted`` list is exactly the new rows.
+
+        ``kind`` tags the provenance of this batch ("live" for the daily ingest,
+        "backfill" for the historical seed) so dashboards/queries can segment
+        the corpus and the 4,000-row backfill never drowns the daily signal.
         """
         conn = self._connect()
         inserted: List[Dict] = []
         skipped = 0
+        kind = str(kind or "live")
 
-        insert_columns = ["url_normalized"] + ARTICLE_FIELDS + ["ingested_at"]
+        insert_columns = (
+            ["url_normalized"] + ARTICLE_FIELDS + ["kind", "ingested_at"]
+        )
         placeholders = ", ".join(["?"] * len(insert_columns))
         sql = (
             f"INSERT OR IGNORE INTO articles ({', '.join(insert_columns)}) "
@@ -283,6 +295,7 @@ class SqliteArticleStore(ArticleStore):
                     values = [key]
                     for field in ARTICLE_FIELDS:
                         values.append(self._serialize(field, article.get(field)))
+                    values.append(kind)
                     values.append(datetime.now(timezone.utc).isoformat())
                     cursor.execute(sql, values)
                 except Exception as exc:  # noqa: BLE001 -- never crash a batch
@@ -325,7 +338,7 @@ class SqliteArticleStore(ArticleStore):
 
     # -- query / count --------------------------------------------------
 
-    def _build_where(self, vertical, thailand_focus, since, until):
+    def _build_where(self, vertical, thailand_focus, since, until, kind=None):
         """Build a WHERE clause + params from filter kwargs."""
         clauses: List[str] = []
         params: List = []
@@ -336,6 +349,10 @@ class SqliteArticleStore(ArticleStore):
             # Filter on the level string (e.g. 'high' / 'medium' / '').
             clauses.append("thailand_focus = ?")
             params.append(str(thailand_focus))
+        if kind is not None:
+            # Segment the corpus by provenance ('live' vs 'backfill').
+            clauses.append("kind = ?")
+            params.append(str(kind))
         if since is not None:
             clauses.append("published_date >= ?")
             params.append(str(since))
@@ -353,10 +370,13 @@ class SqliteArticleStore(ArticleStore):
         since: Optional[str] = None,
         until: Optional[str] = None,
         limit: Optional[int] = None,
+        kind: Optional[str] = None,
     ) -> List[Dict]:
         """Filtered fetch of stored articles, newest published first."""
         conn = self._connect()
-        where, params = self._build_where(vertical, thailand_focus, since, until)
+        where, params = self._build_where(
+            vertical, thailand_focus, since, until, kind
+        )
         sql = f"SELECT * FROM articles{where} ORDER BY published_date DESC, id DESC"
         if limit is not None:
             sql += " LIMIT ?"
@@ -372,6 +392,7 @@ class SqliteArticleStore(ArticleStore):
             filters.get("thailand_focus"),
             filters.get("since"),
             filters.get("until"),
+            filters.get("kind"),
         )
         row = conn.execute(
             f"SELECT COUNT(*) FROM articles{where}", params

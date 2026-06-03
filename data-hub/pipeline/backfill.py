@@ -535,7 +535,7 @@ class BackfillPipeline:
         # Upsert into the SAME articles table as the daily ingest: global dedup
         # by normalized URL across ingest + backfill is correct and desired.
         # ``inserted`` is exactly the new rows. Happens BEFORE the Sheets mirror.
-        result = self.store.upsert_articles(processed)
+        result = self.store.upsert_articles(processed, kind="backfill")
         inserted = result.get("inserted", [])
         logger.info(
             "DB upsert: %d inserted, %d skipped (already stored)",

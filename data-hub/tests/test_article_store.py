@@ -281,6 +281,46 @@ def test_trend_signals_empty_round_trip():
     assert row["trend_signals"] == []
 
 
+# -- kind (live vs backfill) -------------------------------------------------
+
+
+def test_upsert_default_kind_is_live():
+    """Without a kind, upserted articles default to kind='live'."""
+    store = _store()
+    store.upsert_articles([_article("https://a.com/1")])
+
+    assert store.count(kind="live") == 1
+    assert store.count(kind="backfill") == 0
+
+
+def test_upsert_kind_backfill_is_segmented():
+    """upsert(kind='backfill') tags rows so live/backfill queries separate them."""
+    store = _store()
+    store.upsert_articles([_article("https://b.com/1")], kind="backfill")
+
+    backfill = store.query(kind="backfill")
+    assert {a["article_url"] for a in backfill} == {"https://b.com/1"}
+    # The same rows must NOT show up under kind='live'.
+    assert store.query(kind="live") == []
+    assert store.count(kind="backfill") == 1
+    assert store.count(kind="live") == 0
+
+
+def test_count_and_query_mix_live_and_backfill():
+    """A corpus with both kinds counts/queries each independently."""
+    store = _store()
+    store.upsert_articles([_article("https://live.com/1")], kind="live")
+    store.upsert_articles([
+        _article("https://bf.com/1"),
+        _article("https://bf.com/2"),
+    ], kind="backfill")
+
+    assert store.count() == 3
+    assert store.count(kind="live") == 1
+    assert store.count(kind="backfill") == 2
+    assert {a["article_url"] for a in store.query(kind="live")} == {"https://live.com/1"}
+
+
 # -- runs ledger -------------------------------------------------------------
 
 

@@ -337,6 +337,26 @@ def test_run_full_pipeline_with_mocks():
     assert len(exported_articles) == 2
 
 
+def test_run_tags_articles_kind_live():
+    """The daily ingest stores its rows with kind='live'."""
+    exporter = MagicMock()
+    exporter.export_articles.return_value = {"exported": 1, "sheet": "Articles"}
+
+    c = MagicMock()
+    c.name = "Mock RSS"
+    c.collect.return_value = [_article("https://x.com/1", title="Barolo wine review")]
+
+    store = _store()
+    pipeline = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH, exporter=exporter, store=store,
+    )
+    pipeline.collectors = [c]
+    pipeline.run()
+
+    assert store.count(kind="live") == 1
+    assert store.count(kind="backfill") == 0
+
+
 def test_run_second_identical_run_is_a_noop():
     """A second identical run inserts nothing new and mirrors nothing."""
     exporter = MagicMock()

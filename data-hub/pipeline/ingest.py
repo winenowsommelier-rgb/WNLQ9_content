@@ -358,7 +358,7 @@ class IngestPipeline:
         # replacing the old full-Sheet existing_urls read. Anything already
         # stored from a prior run is skipped; ``inserted`` is exactly the new
         # rows. This is authoritative and happens BEFORE the Sheets mirror.
-        result = self.store.upsert_articles(processed)
+        result = self.store.upsert_articles(processed, kind="live")
         inserted = result.get("inserted", [])
         logger.info(
             "DB upsert: %d inserted, %d skipped (already stored)",

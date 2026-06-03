@@ -290,6 +290,35 @@ def test_run_exports_to_backfill_sheet():
     assert summary["errors"] == []
 
 
+def test_run_tags_articles_kind_backfill():
+    """The historical backfill stores its rows with kind='backfill'."""
+    exporter = MagicMock()
+    exporter.export_articles.return_value = {
+        "exported": 1, "sheet": "Historical_Backfill",
+    }
+
+    recent = _article("https://x.com/1", published_date="2026-05-15T00:00:00Z",
+                      title="Barolo wine review")
+    collector = MagicMock()
+    collector.name = "Mock RSS"
+    collector.collect.return_value = [recent]
+
+    store = _store()
+    pipeline = BackfillPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH,
+        exporter=exporter,
+        months_back=12,
+        store=store,
+    )
+    pipeline.collectors = [collector]
+    pipeline.reference_date = REFERENCE_DATE
+
+    pipeline.run(max_pages=1)
+
+    assert store.count(kind="backfill") == 1
+    assert store.count(kind="live") == 0
+
+
 def test_run_dedups_against_db_and_survives_sheets_failure():
     """A backfill row already in the DB (e.g. from ingest) is skipped, and a
     Sheets mirror failure never loses the DB data."""
