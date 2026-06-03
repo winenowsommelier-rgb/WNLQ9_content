@@ -6,6 +6,8 @@ on:
     - cron: '0 6 * * *'
     # Slack alerts at 7 AM UTC daily
     - cron: '0 7 * * *'
+    # Sync health check at 9 AM UTC daily (1h after alerts, 3h after sync)
+    - cron: '0 9 * * *'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -38,3 +40,17 @@ jobs:
 
       - name: Log alert completion
         run: echo "✅ Slack alerts sent at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+
+  check-sync-health:
+    name: SEO Sync Health Check
+    runs-on: ubuntu-latest
+    if: github.event.schedule == '0 9 * * *' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Run Sync Health Check
+        run: |
+          curl -X GET https://asnarjokyedupsjipzkl.supabase.co/functions/v1/check-sync-health \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzbmFyam9reWVkdXBzamlwemtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMTgzNjMsImV4cCI6MjA5NTc5NDM2M30.sST_AGx6Vax-zEdTm_igXqcrrv_gm4ZMsxUHOi1tx1I" \
+            -w "\nStatus: %{http_code}\n"
+
+      - name: Log health check completion
+        run: echo "✅ Sync health check completed at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
