@@ -1,0 +1,92 @@
+# robots.txt  —  https://th.liq9.com/
+# Updated: 2026-06-03
+# วางไฟล์นี้ที่ web root ให้เข้าถึงได้ที่ https://th.liq9.com/robots.txt
+# (Magento Admin: Stores > Configuration > General > Design > Search Engine Robots > Edit custom instruction)
+
+# ============================================================
+# 1) ค่าเริ่มต้น — search crawler ทุกตัว (Google, Bing ฯลฯ)
+# ============================================================
+User-agent: *
+Allow: /
+
+# --- Magento system paths (ไม่มีค่า SEO / กัน duplicate) ---
+Disallow: /index.php/
+Disallow: /checkout/
+Disallow: /customer/
+Disallow: /customer/account/
+Disallow: /wishlist/
+Disallow: /cart/
+Disallow: /sales/
+Disallow: /catalog/product_compare/
+Disallow: /catalogsearch/
+Disallow: /sendfriend/
+Disallow: /review/product/post/
+Disallow: /*?SID=
+Disallow: /*?___store=
+Disallow: /*?___from_store=
+
+# --- Faceted nav / sort / paginate params (กัน URL ซ้ำ) ---
+Disallow: /*?p=
+Disallow: /*?price=
+Disallow: /*?product_list_order=
+Disallow: /*?product_list_dir=
+Disallow: /*?product_list_limit=
+Disallow: /*?product_list_mode=
+
+# --- Internal blog search (thin/duplicate) ---
+Disallow: /blog/search/
+
+# ============================================================
+# 2) AEO — เปิดให้ AI / answer-engine crawler (เพื่อให้ถูกอ้างอิงใน AI chat)
+#    ** ต้อง allowlist ตัวเดียวกันนี้ใน StackPath/WAF ด้วย ไม่งั้นโดน 503 **
+# ============================================================
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+
+# Google AI (Gemini / AI Overviews grounding & training)
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+
+# Microsoft Copilot / Bing
+User-agent: Bingbot
+Allow: /
+
+# Others
+User-agent: Amazonbot
+Allow: /
+User-agent: meta-externalagent
+Allow: /
+User-agent: cohere-ai
+Allow: /
+
+# ============================================================
+# 3) Sitemap
+# ============================================================
+Sitemap: https://th.liq9.com/sitemap.xml
