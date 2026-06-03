@@ -1,0 +1,24 @@
+{
+  "name": "winenow/magento2-seo-module",
+  "description": "SEO & AEO optimization module for Wine Now Thailand Magento 2 stores",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Wine Now Thailand SEO Team",
+      "email": "seo@wine-now.com"
+    }
+  ],
+  "require": {
+    "magento/framework": ">=103.0.0"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "WineNow\\SEO\\": ""
+    }
+  }
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <block class="WineNow\SEO\Block\ProductSchema" name="product.schema.markup" template="WineNow_SEO::product_schema.phtml"/>
+    </head>
+</page>

@@ -1,0 +1,16 @@
+<?php
+/**
+ * Product Schema Markup Template
+ * Outputs JSON-LD structured data for product pages
+ * Used by: SearchEngines, AI crawlers (ChatGPT, Perplexity, Bing Copilot)
+ * @var $block \WineNow\SEO\Block\ProductSchema
+ */
+
+$schema = $block->getSchema();
+if (!$schema) {
+    return;
+}
+?>
+<script type="application/ld+json">
+<?php echo $schema; ?>
+</script>

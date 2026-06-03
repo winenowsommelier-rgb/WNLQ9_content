@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Product Title Optimizer Observer -->
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="winenow_seo_title_optimizer" type="WineNow\SEO\Plugin\ProductTitlePlugin" sortOrder="10"/>
+    </type>
+
+    <!-- Meta Description Optimizer Observer -->
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="winenow_seo_description" type="WineNow\SEO\Plugin\MetaDescriptionPlugin" sortOrder="10"/>
+    </type>
+
+    <!-- Schema Markup Block -->
+    <type name="Magento\Framework\View\Element\Template">
+        <arguments>
+            <argument name="seoHelper" xsi:type="object">WineNow\SEO\Helper\SchemaMarkup</argument>
+        </arguments>
+    </type>
+</config>
