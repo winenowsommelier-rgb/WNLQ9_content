@@ -1,0 +1,61 @@
+name: Data Hub — Quarterly Backfill
+
+# Cloud-hosted replacement for the local quarterly launchd backfill. Crawls
+# source sitemaps for ~12 months of history into Supabase (kind=backfill) and
+# mirrors to the Historical_Backfill sheet tab. Free on GitHub Actions.
+
+on:
+  schedule:
+    # 20:00 UTC on the 1st of Jan/Apr/Jul/Oct (= 03:00 Asia/Bangkok).
+    - cron: "0 20 1 1,4,7,10 *"
+  workflow_dispatch:
+    inputs:
+      months_back:
+        description: "Months of history to backfill"
+        default: "12"
+        required: false
+
+concurrency:
+  group: datahub-backfill
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: data-hub
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: data-hub/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write Google service-account credentials
+        env:
+          GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+        run: |
+          mkdir -p config
+          printf '%s' "$GOOGLE_CREDENTIALS_JSON" > config/google-credentials.json
+
+      - name: Run backfill (Supabase backend)
+        env:
+          DATA_HUB_DB_BACKEND: supabase
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          DATA_HUB_SHEET_ID: ${{ secrets.DATA_HUB_SHEET_ID }}
+        run: python -m pipeline.backfill --months-back "${{ github.event.inputs.months_back || '12' }}"
+
+      - name: Clean up credentials
+        if: always()
+        run: rm -f config/google-credentials.json

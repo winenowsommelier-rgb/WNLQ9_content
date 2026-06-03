@@ -1,0 +1,56 @@
+name: Data Hub — Daily Ingest
+
+# Cloud-hosted replacement for the local launchd job. Runs the Content Trend
+# Data Hub ingest against Supabase (system of record) and mirrors new rows to
+# Google Sheets. No laptop dependency. Free on GitHub Actions (public repo).
+
+on:
+  schedule:
+    # 19:00 UTC = 02:00 Asia/Bangkok (UTC+7). GitHub cron is always UTC.
+    - cron: "0 19 * * *"
+  workflow_dispatch: {}   # allow manual runs from the Actions tab
+
+concurrency:
+  group: datahub-ingest
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: data-hub
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"   # modern runtime (local venv is EOL 3.9)
+          cache: pip
+          cache-dependency-path: data-hub/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write Google service-account credentials
+        env:
+          GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+        run: |
+          mkdir -p config
+          printf '%s' "$GOOGLE_CREDENTIALS_JSON" > config/google-credentials.json
+
+      - name: Run ingest (Supabase backend → mirror to Sheets)
+        env:
+          DATA_HUB_DB_BACKEND: supabase
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          DATA_HUB_SHEET_ID: ${{ secrets.DATA_HUB_SHEET_ID }}
+        run: python -m pipeline.ingest
+
+      - name: Clean up credentials
+        if: always()
+        run: rm -f config/google-credentials.json
