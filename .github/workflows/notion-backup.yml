@@ -22,6 +22,19 @@ jobs:
         with:
           node-version: "20"
 
+      # Fail loudly and early if the secret is missing, so a missing NOTION_TOKEN
+      # surfaces as a red workflow run instead of a silent empty backup.
+      - name: Verify NOTION_TOKEN is configured
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: |
+          if [ -z "${NOTION_TOKEN}" ]; then
+            echo "::error::NOTION_TOKEN repository secret is not set. The Notion backup cannot run."
+            echo "::error::Add it under Settings -> Secrets and variables -> Actions, then re-run this workflow."
+            exit 1
+          fi
+          echo "NOTION_TOKEN is present."
+
       - name: Run Notion backup
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
