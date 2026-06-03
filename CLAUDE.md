@@ -4,9 +4,11 @@ This repo produces blog content for two Thai beverage e-commerce brands:
 **Wine-Now** (wine) and **LIQ9** (spirits).
 
 ## Read this first
-**The full process is in [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md).
-Follow it on every content session.** Below are the rules that must never be
-skipped.
+- **How to write content →** [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md)
+- **Where things live, keys, sync, deploy, get-up-and-running →** [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+
+Follow the playbook on every content session. Below are the rules that must never
+be skipped.
 
 ## Golden rules
 1. **Thai-first / Thai-only** articles. Full, ready-to-use posts at "Whisky 101
@@ -42,6 +44,20 @@ skipped.
 - Don't open PRs unless asked. Production DB writes (Supabase migration/INSERT)
   need explicit user authorization.
 
+## Workflow = Option B (no paid API)
+Claude Code authors the Thai HTML and **uploads it to Drive via MCP**; it sets the
+Notion row to **Brief Ready** + `Drive file URL`. The dashboard's server-side
+Generate/Approve are intentionally left unconfigured (so it shows "Drafts authored
+in Claude Code" / "Drive upload not configured" — that's expected, not an error).
+
 ## Infra
-- Live Vercel project: **`seodashboard`** (Root Directory `pipeline/`). The
-  projects `seo-dashboard` and `wnlq-9-content-seo` are dead duplicates — ignore.
+- Live Vercel project: **`seodashboard`** (Root Directory `pipeline/`, Production
+  Branch **`main`**; push to `main` → auto-deploys). `seo-dashboard` and
+  `wnlq-9-content-seo` are dead duplicates — ignore.
+- `main` has an **unrelated git history** to the `claude/*` content branches; ship
+  to prod by branching from `main`, copying deliverables in (additive), PR + merge.
+- Env vars (set in Vercel; template `pipeline/.env.example`): dashboard needs
+  `INGEST_SECRET` (= the passphrase) + `NOTION_TOKEN`. `ANTHROPIC_API_KEY`,
+  `GOOGLE_SERVICE_ACCOUNT_JSON`/`DRIVE_FOLDER_ID`, `SUPABASE_*`, `CRON_SECRET` are
+  optional and unused under Option B. Deployment Protection is ON (internal tool);
+  the public blog is Magento, not this Vercel URL.
