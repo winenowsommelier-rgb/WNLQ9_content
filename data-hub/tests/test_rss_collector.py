@@ -147,11 +147,13 @@ def test_collect_retries_then_returns_empty_on_persistent_failure():
     slept.assert_not_called()  # backoff_seconds=0 -> no sleep
 
 
-def test_geo_focus_thailand_stamps_high_on_collected_articles():
-    """geo_focus threads through to enrich, stamping thailand_focus='high'."""
+def test_geo_focus_thailand_stamps_medium_baseline_on_collected_articles():
+    """geo_focus threads through to enrich, stamping a thailand_focus='medium'
+    baseline (the categorizer later upgrades to 'high' on a keyword match)."""
     collector = RSSCollector(
         name="Bangkok Post", feed_url=FEED_URL, geo_focus="thailand"
     )
+    # A non-Thailand-keyword title -> stays at the medium baseline.
     fake_feed = SimpleNamespace(entries=[_make_entry()], bozo=0)
     with mock.patch(
         "collectors.rss_collector.feedparser.parse", return_value=fake_feed
@@ -159,4 +161,4 @@ def test_geo_focus_thailand_stamps_high_on_collected_articles():
         articles = collector.collect()
 
     assert len(articles) == 1
-    assert articles[0]["thailand_focus"] == "high"
+    assert articles[0]["thailand_focus"] == "medium"

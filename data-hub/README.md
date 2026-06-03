@@ -151,12 +151,31 @@ Geo-relevance cuts ACROSS the six verticals — it is **not** a vertical. Every
 article gets a **Thailand Focus** value (column P: `high`, `medium`, or blank)
 via two paths:
 
-- **Source flag** — a source with `geo_focus: thailand` in `sources.yaml`
-  (e.g. the Bangkok Post and Coconuts Bangkok feeds) auto-tags all its articles
-  `high`, no matter which vertical it feeds.
-- **Keyword / Thai-script detection** — any article from any vertical is tagged
-  `high` when a Thailand/Bangkok/Phuket/etc. signal (or Thai script) is in the
-  title or URL, `medium` when it's only in the body.
+- **Source flag (baseline = `medium`)** — a source with `geo_focus: thailand`
+  in `sources.yaml` (e.g. the Bangkok Post and Coconuts Bangkok feeds) tags all
+  its articles `medium`, no matter which vertical it feeds. `medium` means
+  "from a Thai outlet / locally relevant, but not explicitly about Thailand" —
+  a Thai source carries plenty of off-topic content (e.g. national politics),
+  so source membership alone is **not** treated as `high`.
+- **Keyword / Thai-script detection (upgrade to `high`)** — any article from
+  any source is tagged `high` when a Thailand/Bangkok/Phuket/etc. signal (or
+  Thai script) appears in the title or URL, and `medium` when it's only in the
+  body or a weaker regional cue (`southeast asia` / `baht`) appears. A keyword
+  match **upgrades** a Thai-source `medium` baseline to `high`; the detector
+  never downgrades an existing `medium`/`high`.
+
+Net semantics:
+
+| Source | Thailand keyword? | Thailand Focus |
+| --- | --- | --- |
+| `geo_focus: thailand` | yes | `high` |
+| `geo_focus: thailand` | no  | `medium` |
+| any other source | yes (title/URL) | `high` |
+| any other source | no  | blank |
+
+This keeps `high` precise — it means an article genuinely *about* Thailand —
+so the Thailand dashboard isn't polluted by off-topic articles that merely came
+from a Thai outlet.
 
 A dedicated **Thailand** dashboard tab lists every Thailand-focused article
 across all verticals. To make a non-Thai source Thailand-focused, add

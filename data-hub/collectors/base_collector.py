@@ -49,9 +49,12 @@ class BaseCollector(ABC):
         self.vertical = vertical
         # Optional geographic focus of the SOURCE itself (cross-vertical, NOT a
         # vertical). When set to "thailand", enrich_article stamps every article
-        # with thailand_focus="high" -- a Thai-market source is Thailand-focused
-        # regardless of which vertical it feeds. The categorizer keeps this
-        # preset and won't downgrade it.
+        # with a thailand_focus="medium" BASELINE -- a Thai-market source is
+        # locally relevant, but source-membership alone is not enough to call an
+        # article genuinely about Thailand (Thai outlets carry plenty of
+        # off-topic content). The categorizer UPGRADES this to "high" when an
+        # actual Thailand keyword/Thai-script signal matches, and never
+        # downgrades it.
         self.geo_focus = geo_focus
 
     def validate_article(self, article: Dict) -> bool:
@@ -86,11 +89,13 @@ class BaseCollector(ABC):
         # overwrite it; keyword detection is the fallback for un-stamped items.
         if self.vertical:
             article["primary_category"] = self.vertical
-        # Stamp source-level Thailand focus (cross-vertical). A Thai-market
-        # source is authoritative: thailand_focus="high". The categorizer's
-        # keyword detection keeps a valid preset and won't downgrade it.
+        # Stamp source-level Thailand focus (cross-vertical) as a MEDIUM
+        # baseline: a Thai-market source is locally relevant, but not
+        # necessarily Thailand-topical (off-topic Bangkok Post politics should
+        # not be "high"). The categorizer upgrades this to "high" on an actual
+        # Thailand keyword/Thai-script match and never downgrades it.
         if self.geo_focus == "thailand":
-            article["thailand_focus"] = "high"
+            article["thailand_focus"] = "medium"
         return article
 
     @staticmethod

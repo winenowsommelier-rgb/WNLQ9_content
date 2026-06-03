@@ -308,6 +308,33 @@ def test_detect_thailand_respects_preset(categorizer):
     assert categorizer._detect_thailand_focus(article) == "high"
 
 
+def test_detect_thailand_medium_upgraded_to_high_on_keyword(categorizer):
+    # A geo_focus source baseline is 'medium'; an actual Thailand keyword in the
+    # title upgrades it to 'high'.
+    article = _article(title="Best rooftop bars in Bangkok")
+    article["thailand_focus"] = "medium"
+    assert categorizer._detect_thailand_focus(article) == "high"
+
+
+def test_detect_thailand_medium_not_downgraded_without_keyword(categorizer):
+    # A 'medium' baseline (Thai-source stamp) with no Thailand keyword stays
+    # 'medium' -- it must never be downgraded to "". (Title avoids any
+    # \bthai\b match so we exercise the no-keyword path.)
+    article = _article(
+        title="Cabinet reshuffle and the new budget",
+        excerpt="A political story with no Thailand place keyword.",
+    )
+    article["thailand_focus"] = "medium"
+    assert categorizer._detect_thailand_focus(article) == "medium"
+
+
+def test_detect_thailand_high_preset_never_downgraded(categorizer):
+    # An existing 'high' is authoritative and is never downgraded.
+    article = _article(title="A generic story with no geo signal")
+    article["thailand_focus"] = "high"
+    assert categorizer._detect_thailand_focus(article) == "high"
+
+
 def test_detect_thailand_no_false_positive(categorizer):
     # "thatched"/"Thanksgiving" must NOT match \bthai\b / \bthailand\b.
     article = _article(

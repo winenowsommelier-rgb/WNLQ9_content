@@ -378,17 +378,22 @@ class Categorizer:
     def _detect_thailand_focus(self, article: Dict) -> str:
         """Classify cross-vertical Thailand relevance as high / medium / "".
 
-        Two paths feed this field; this is the keyword/Thai-script path:
+        Two paths feed this field. A ``geo_focus: thailand`` source stamps a
+        ``"medium"`` BASELINE (locally relevant); this keyword/Thai-script path
+        then refines it:
 
-        * If the article already carries a non-empty VALID ``thailand_focus``
-          (e.g. a source-level stamp of "high" from ``geo_focus: thailand``),
-          KEEP it -- never downgrade an authoritative source stamp.
-        * HIGH when a strong, word-boundaried signal (thailand/thai/bangkok/
-          phuket/chiang mai/pattaya/koh samui/krabi/isaan, or any Thai-script
-          char) appears in the TITLE or the article URL.
-        * MEDIUM when a strong signal appears only in the excerpt/body, or a
-          weaker signal (southeast asia / baht) appears anywhere.
-        * "" otherwise (not Thailand-focused).
+        * A preset of ``"high"`` is authoritative -- KEEP it (never downgrade).
+        * A preset of ``"medium"`` (the Thai-source baseline) is UPGRADED to
+          ``"high"`` when an actual Thailand keyword/Thai-script signal matches,
+          but is otherwise kept at ``"medium"`` (never downgraded to "").
+        * With no preset: HIGH when a strong, word-boundaried signal
+          (thailand/thai/bangkok/phuket/chiang mai/pattaya/koh samui/krabi/
+          isaan, or any Thai-script char) appears in the TITLE or URL; MEDIUM
+          when a strong signal appears only in the excerpt/body or a weaker
+          signal (southeast asia / baht) appears anywhere; "" otherwise.
+
+        Net effect: Thai-source + keyword -> high; Thai-source, no keyword ->
+        medium; non-Thai source + keyword -> high; nothing -> "".
 
         Word-boundaried matching means "Thatcher", "thatched" and
         "Thanksgiving" never trigger a false positive on ``\\bthai\\b``.
@@ -396,10 +401,11 @@ class Categorizer:
         if not isinstance(article, dict):
             return ""
 
-        # Respect an authoritative preset (source-level stamp); don't downgrade.
+        # An authoritative HIGH preset is never downgraded and short-circuits.
         preset = article.get("thailand_focus")
-        if isinstance(preset, str) and preset.strip() in _VALID_THAILAND_FOCUS:
-            return preset.strip()
+        preset = preset.strip() if isinstance(preset, str) else ""
+        if preset == "high":
+            return "high"
 
         title = article.get("title") or ""
         excerpt = article.get("content_excerpt") or ""
@@ -426,6 +432,11 @@ class Categorizer:
         ):
             return "medium"
 
+        # No keyword match. Preserve an existing MEDIUM baseline (the Thai-source
+        # stamp) -- it is locally relevant even without an explicit keyword and
+        # must never be downgraded. Otherwise: not Thailand-focused.
+        if preset == "medium":
+            return "medium"
         return ""
 
     # -- helpers --------------------------------------------------------

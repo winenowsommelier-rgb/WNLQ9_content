@@ -94,12 +94,17 @@ def test_enrich_no_vertical_leaves_primary_category():
 # -- geo_focus stamping (cross-vertical Thailand tagging) --------------------
 
 
-def test_geo_focus_thailand_stamps_high():
-    """A collector with geo_focus='thailand' stamps thailand_focus='high'."""
+def test_geo_focus_thailand_stamps_medium_baseline():
+    """A geo_focus='thailand' source stamps a MEDIUM baseline, not high.
+
+    Thai outlets carry plenty of off-topic content (e.g. Bangkok Post
+    politics), so source-membership alone is only 'medium' (locally relevant);
+    the categorizer upgrades to 'high' when an actual Thailand keyword matches.
+    """
     collector = DummyCollector(name="Bangkok Post", geo_focus="thailand")
     article = _complete_article()
     enriched = collector.enrich_article(article)
-    assert enriched["thailand_focus"] == "high"
+    assert enriched["thailand_focus"] == "medium"
 
 
 def test_no_geo_focus_no_stamp():
