@@ -1,0 +1,44 @@
+{
+  "backed_up_at": "2026-06-03T13:52:12Z",
+  "tool": "notion-fetch + notion-search (Notion MCP)",
+  "working_directory": "/home/user/WNLQ9_content",
+  "targets": [
+    {
+      "name": "Master Topic Ledger — WNLQ9",
+      "file": "master-topic-ledger.json",
+      "id": "43240f1120df437391017e67a64723a7",
+      "data_source_url": "collection://f4cb9278-4ae6-4b1d-a94a-2279a5a103c1",
+      "item_count": 61,
+      "item_kind": "rows",
+      "status": "partial",
+      "notes": "Schema (15 props, full select options) captured. Rows enumerated via notion-search (semantic, capped 25/query, non-deterministic) scoped by data_source_url; capture is best-effort and likely partial vs the full DB. Schema captured in full. Per-row property values not expanded. Row titles carry Brief IDs (JUL-*/JUN-*). Doc states ledger spans June/July/Aug 2026 slates."
+    },
+    {
+      "name": "2026 JUL - WNLQ9 - Content Production",
+      "file": "july-2026.json",
+      "id": "collection://d342f9b8-3725-4068-9ccb-03b09821b0c8",
+      "item_count": 55,
+      "item_kind": "rows",
+      "status": "partial",
+      "notes": "Schema (26 props) captured. Rows enumerated via notion-search (semantic, capped 25/query, non-deterministic) scoped by data_source_url; capture is best-effort and likely partial vs the full DB. Schema captured in full. Per-row property values not expanded. Editorial standard states July slate ~80 rows; captured subset of bilingual content pages."
+    },
+    {
+      "name": "2026 JUN - WNLQ9 - Content Production",
+      "file": "june-2026.json",
+      "id": "collection://6be4a7bb-d42c-4286-be1b-fa73e3635b45",
+      "item_count": 55,
+      "item_kind": "rows",
+      "status": "partial",
+      "notes": "Schema (27 props incl. Drive file URL) captured. Rows enumerated via notion-search (semantic, capped 25/query, non-deterministic) scoped by data_source_url; capture is best-effort and likely partial vs the full DB. Schema captured in full. Per-row property values not expanded. Editorial standard states June slate ~86 rows (74 pieces note); captured subset."
+    },
+    {
+      "name": "Editorial Production Standard (v2, standing)",
+      "file": "editorial-standard.json",
+      "id": "3729d75a-e4b5-81a8-83dd-c176804fdbdd",
+      "item_count": 218,
+      "item_kind": "content_lines",
+      "status": "ok",
+      "notes": "Full page content captured as markdown (sections 1-18 + June process additions 18.1-18.4). ~20.6k chars."
+    }
+  ]
+}

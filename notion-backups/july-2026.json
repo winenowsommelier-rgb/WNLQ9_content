@@ -1,0 +1,371 @@
+{
+  "backed_up_at": "2026-06-03T13:50:10Z",
+  "source_id": "collection://d342f9b8-3725-4068-9ccb-03b09821b0c8",
+  "data": {
+    "schema": {
+      "name": "2026 JUL - WNLQ9 - Content Production",
+      "data_source_url": "collection://d342f9b8-3725-4068-9ccb-03b09821b0c8",
+      "properties": [
+        "Title (title)",
+        "Brief ID",
+        "KEY",
+        "STORY",
+        "TENSION",
+        "Content Brief",
+        "Content EN",
+        "Content TH",
+        "Author",
+        "Category",
+        "CTA",
+        "Day",
+        "Evergreen",
+        "Final URL",
+        "Funnel",
+        "GA Views",
+        "Intent",
+        "Month",
+        "Priority",
+        "Publish Date",
+        "Schema",
+        "Site",
+        "Status",
+        "Target Keyword",
+        "Type",
+        "Word Target"
+      ],
+      "select_options": {
+        "Author": [
+          "Wine-Now Sommelier Desk",
+          "LIQ9 Bartender Desk",
+          "Guest Expert"
+        ],
+        "Category": [
+          "Education",
+          "Pairing",
+          "Travel",
+          "Tips",
+          "Spotlights"
+        ],
+        "Intent": [
+          "Informational",
+          "Commercial",
+          "Transactional",
+          "Navigational"
+        ],
+        "Funnel": [
+          "TOFU",
+          "MOFU",
+          "BOFU"
+        ],
+        "Priority": [
+          "Hero",
+          "Standard",
+          "Filler"
+        ],
+        "Site": [
+          "Wine-Now",
+          "LIQ9"
+        ],
+        "Status": [
+          "Not started",
+          "Brief Ready",
+          "In progress",
+          "Review",
+          "Done",
+          "Published"
+        ],
+        "Type": [
+          "Pillar",
+          "Blog",
+          "Social"
+        ],
+        "Evergreen": [
+          "Evergreen",
+          "Timely"
+        ],
+        "Month": [
+          "July 2026"
+        ]
+      }
+    },
+    "rows": [
+      {
+        "id": "3739d75a-e4b5-81fb-8b61-c19431d094de",
+        "title": "3 ขวดที่ทำให้โฮมบาร์ครบเครื่องขึ้น / 3 Bottles That Round Out Any Home Bar",
+        "url": "https://app.notion.com/p/3739d75ae4b581fb8b61c19431d094de"
+      },
+      {
+        "id": "3739d75a-e4b5-8142-8353-fadc8035ff0f",
+        "title": "3 ค็อกเทล 2 ส่วนผสม / 3 Two-Ingredient Cocktails Anyone Can Make",
+        "url": "https://app.notion.com/p/3739d75ae4b581428353fadc8035ff0f"
+      },
+      {
+        "id": "3739d75a-e4b5-81a7-97c4-c78de4dc215d",
+        "title": "5 ขวดสปิริตคุ้มสุดสำหรับโฮมบาร์ / 5 Best-Value Bottles for the Home Bar",
+        "url": "https://app.notion.com/p/3739d75ae4b581a797c4c78de4dc215d"
+      },
+      {
+        "id": "3739d75a-e4b5-8102-9301-e9af182067e9",
+        "title": "5 ภูมิภาคสกอตช์ที่ควรรู้ / The 5 Scotch Regions and How They Taste",
+        "url": "https://app.notion.com/p/3739d75ae4b581029301e9af182067e9"
+      },
+      {
+        "id": "3739d75a-e4b5-8116-92e7-d63f9710a096",
+        "title": "6 ขวดที่บ่งบอกคอลเลกชันตัวจริง / 6 Bottles That Mark a Serious Collection",
+        "url": "https://app.notion.com/p/3739d75ae4b5811692e7d63f9710a096"
+      },
+      {
+        "id": "3739d75a-e4b5-8125-9b4f-c1921df38570",
+        "title": "Bastille Day: 3 ไวน์ฝรั่งเศส / Bastille Day: 3 French Wines to Celebrate With",
+        "url": "https://app.notion.com/p/3739d75ae4b581259b4fc1921df38570"
+      },
+      {
+        "id": "3739d75a-e4b5-81f8-8911-f1dca5e01ac0",
+        "title": "Blended Scotch คุ้มราคา / Best-Value Blended Scotch — Buying Guide",
+        "url": "https://app.notion.com/p/3739d75ae4b581f88911f1dca5e01ac0"
+      },
+      {
+        "id": "3739d75a-e4b5-8162-a2d2-c4f9d22f4b9b",
+        "title": "Bordeaux vs Burgundy / Bordeaux vs Burgundy: France's Two Great Reds",
+        "url": "https://app.notion.com/p/3739d75ae4b58162a2d2c4f9d22f4b9b"
+      },
+      {
+        "id": "3739d75a-e4b5-8195-bb42-f164b0cb4884",
+        "title": "Champagne 101 / Champagne 101: Understanding Sparkling Wine",
+        "url": "https://app.notion.com/p/3739d75ae4b58195bb42f164b0cb4884"
+      },
+      {
+        "id": "3739d75a-e4b5-8166-af14-d7fea6c39ff2",
+        "title": "Daiquiri 101 / Daiquiri 101: The Perfectly Balanced Classic",
+        "url": "https://app.notion.com/p/3739d75ae4b58166af14d7fea6c39ff2"
+      },
+      {
+        "id": "3739d75a-e4b5-816a-b47c-cabc012c105e",
+        "title": "Espresso Martini 101 / Espresso Martini 101: The Modern Classic",
+        "url": "https://app.notion.com/p/3739d75ae4b5816ab47ccabc012c105e"
+      },
+      {
+        "id": "3739d75a-e4b5-8169-aef8-e92dc36daaf1",
+        "title": "Grand Cru & First Growths / A Thai Collector's Primer to Grand Cru & First Growths",
+        "url": "https://app.notion.com/p/3739d75ae4b58169aef8e92dc36daaf1"
+      },
+      {
+        "id": "3739d75a-e4b5-8152-82f1-db30247afb78",
+        "title": "Margarita ต้นตำรับ + เวอร์ชันไทย / Margarita: The Classic + a Thai Twist",
+        "url": "https://app.notion.com/p/3739d75ae4b5815282f1db30247afb78"
+      },
+      {
+        "id": "3739d75a-e4b5-8151-bcf9-fb8789a00b8d",
+        "title": "Mojito 101 + เวอร์ชันไทย / Mojito 101 + a Thai Twist",
+        "url": "https://app.notion.com/p/3739d75ae4b58151bcf9fb8789a00b8d"
+      },
+      {
+        "id": "3739d75a-e4b5-819a-a7c9-d801c46875d1",
+        "title": "Negroni เวอร์ชันไทย / The Thai-Twist Negroni at Home",
+        "url": "https://app.notion.com/p/3739d75ae4b5819aa7c9d801c46875d1"
+      },
+      {
+        "id": "3739d75a-e4b5-811c-9391-d97ed40a400a",
+        "title": "Old Fashioned ขั้นกว่า / The Elevated Old Fashioned",
+        "url": "https://app.notion.com/p/3739d75ae4b5811c9391d97ed40a400a"
+      },
+      {
+        "id": "3739d75a-e4b5-8176-a1f7-d2b0e3e038b0",
+        "title": "Paloma 101 / Paloma 101: Tequila's Refreshing Sleeper Hit",
+        "url": "https://app.notion.com/p/3739d75ae4b58176a1f7d2b0e3e038b0"
+      },
+      {
+        "id": "3739d75a-e4b5-8140-b65b-e2b3072ca793",
+        "title": "Piña Colada ต้นตำรับ / Piña Colada: The Original Recipe, Made at Home",
+        "url": "https://app.notion.com/p/3739d75ae4b58140b65be2b3072ca793"
+      },
+      {
+        "id": "3739d75a-e4b5-8199-95e5-dc4a6074f743",
+        "title": "Scotch Day: จิบสกอตช์ให้อร่อยขึ้น / Scotch Day: How to Enjoy a Dram",
+        "url": "https://app.notion.com/p/3739d75ae4b5819995e5dc4a6074f743"
+      },
+      {
+        "id": "3739d75a-e4b5-8176-b9d3-c0c9d0dbc978",
+        "title": "Scotch Whisky 101 / Scotch Whisky 101: Before Your First Dram",
+        "url": "https://app.notion.com/p/3739d75ae4b58176b9d3c0c9d0dbc978"
+      },
+      {
+        "id": "3739d75a-e4b5-8136-961f-f69f57e9e977",
+        "title": "Tequila 101 / Tequila 101: Everything Before Your First Sip",
+        "url": "https://app.notion.com/p/3739d75ae4b58136961ff69f57e9e977"
+      },
+      {
+        "id": "3739d75a-e4b5-8149-babc-cdc9222d91ab",
+        "title": "Tequila Day: 3 วิธีดื่มเตกีล่าให้อร่อยขึ้น / Tequila Day: 3 Better Ways to Enjoy Tequila",
+        "url": "https://app.notion.com/p/3739d75ae4b58149babccdc9222d91ab"
+      },
+      {
+        "id": "3739d75a-e4b5-8120-a097-d9be46fd6bfc",
+        "title": "Tequila ต่างจาก Mezcal / Tequila vs Mezcal: Two Agave Spirits",
+        "url": "https://app.notion.com/p/3739d75ae4b58120a097d9be46fd6bfc"
+      },
+      {
+        "id": "3739d75a-e4b5-81f2-a081-d0be1bbb0a83",
+        "title": "Vodka 101 / Vodka 101: The Most Flexible Spirit",
+        "url": "https://app.notion.com/p/3739d75ae4b581f2a081d0be1bbb0a83"
+      },
+      {
+        "id": "3739d75a-e4b5-8126-bf4b-d615f000fe65",
+        "title": "Whisky Sour 101 / Whisky Sour 101: The Balanced Classic",
+        "url": "https://app.notion.com/p/3739d75ae4b58126bf4bd615f000fe65"
+      },
+      {
+        "id": "3739d75a-e4b5-81ca-8b0b-f4b045041fdf",
+        "title": "World Rum Day: 3 ค็อกเทลรัมหน้าฝน / World Rum Day: 3 Easy Rainy-Season Rum Cocktails",
+        "url": "https://app.notion.com/p/3739d75ae4b581ca8b0bf4b045041fdf"
+      },
+      {
+        "id": "3739d75a-e4b5-8155-be5c-f006fc067e3b",
+        "title": "คู่มือค็อกเทลรัมฉบับสมบูรณ์ / The Ultimate Rum Cocktail Guide",
+        "url": "https://app.notion.com/p/3739d75ae4b58155be5cf006fc067e3b"
+      },
+      {
+        "id": "3739d75a-e4b5-8106-a1c3-ed82e2e6444e",
+        "title": "คู่มือไวน์ฝรั่งเศสฉบับเริ่มต้น / French Wine 101: 6 Regions to Know",
+        "url": "https://app.notion.com/p/3739d75ae4b58106a1c3ed82e2e6444e"
+      },
+      {
+        "id": "3739d75a-e4b5-81ee-8ec4-cb4725422392",
+        "title": "จับคู่ไวน์กับช็อกโกแลต / Pairing Wine with Chocolate",
+        "url": "https://app.notion.com/p/3739d75ae4b581ee8ec4cb4725422392"
+      },
+      {
+        "id": "3739d75a-e4b5-81da-a07a-c47700f4e835",
+        "title": "จับคู่ไวน์กับสตรีตฟู้ดไทย / Pairing Wine with Thai Street Food",
+        "url": "https://app.notion.com/p/3739d75ae4b581daa07ac47700f4e835"
+      },
+      {
+        "id": "3739d75a-e4b5-81e1-997e-c14db8ee817f",
+        "title": "จับคู่ไวน์กับอาหารทะเลไทย / Wine with Thai Seafood: A Pairing Guide",
+        "url": "https://app.notion.com/p/3739d75ae4b581e1997ec14db8ee817f"
+      },
+      {
+        "id": "3739d75a-e4b5-810f-b61c-f60a5b758c92",
+        "title": "จับคู่ไวน์ฝรั่งเศสกับอาหารไทย / Pairing French Wine with Thai Food",
+        "url": "https://app.notion.com/p/3739d75ae4b5810fb61cf60a5b758c92"
+      },
+      {
+        "id": "3739d75a-e4b5-81b5-a13f-ce09f15f4072",
+        "title": "ฉลอง Bastille Day ด้วยค็อกเทลฝรั่งเศสคลาสสิก / French Classic Cocktails for Bastille Day",
+        "url": "https://app.notion.com/p/3739d75ae4b581b5a13fce09f15f4072"
+      },
+      {
+        "id": "3739d75a-e4b5-8163-83ec-c9ce19e19dc1",
+        "title": "ชิมไวน์สำหรับมือใหม่ / Wine Tasting for Beginners: Look, Smell, Taste",
+        "url": "https://app.notion.com/p/3739d75ae4b5816383ecc9ce19e19dc1"
+      },
+      {
+        "id": "3739d75a-e4b5-8133-9992-e6ec60badc07",
+        "title": "ซัลไฟต์ทำให้ปวดหัวจริงไหม? / Do Sulfites Cause Wine Headaches?",
+        "url": "https://app.notion.com/p/3739d75ae4b581339992e6ec60badc07"
+      },
+      {
+        "id": "3739d75a-e4b5-81df-91c7-db1cf65ea624",
+        "title": "ดื่มน้อยลงแต่ดีขึ้น / Drink Less, Drink Better: Choosing Quality Over Quantity",
+        "url": "https://app.notion.com/p/3739d75ae4b581df91c7db1cf65ea624"
+      },
+      {
+        "id": "3739d75a-e4b5-814c-9c8e-fcb85352bba7",
+        "title": "ดื่มไวน์กับส้มตำได้ไหม? / Wine with Som Tam? Pairing Wine with Bold Thai Flavours",
+        "url": "https://app.notion.com/p/3739d75ae4b5814c9c8efcb85352bba7"
+      },
+      {
+        "id": "3739d75a-e4b5-810e-ac19-e930c4594ba5",
+        "title": "น้ำแข็งสำคัญกว่าที่คิด / Ice Matters More Than You Think",
+        "url": "https://app.notion.com/p/3739d75ae4b5810eac19e930c4594ba5"
+      },
+      {
+        "id": "3739d75a-e4b5-811e-b6a1-caafdffeb387",
+        "title": "บาร์ค็อกเทลกรุงเทพสำหรับมือใหม่: เริ่มที่ไหนดี 2026 / Bangkok Cocktail Bars for First-Timers (2026)",
+        "url": "https://app.notion.com/p/3739d75ae4b5811eb6a1caafdffeb387"
+      },
+      {
+        "id": "3739d75a-e4b5-819d-bd82-d533ae835c52",
+        "title": "บาร์ระดับนักสะสม / The Collector's Bar: Building a Premium Spirits Collection",
+        "url": "https://app.notion.com/p/3739d75ae4b5819dbd82d533ae835c52"
+      },
+      {
+        "id": "3739d75a-e4b5-81b2-a244-fe106817a5ea",
+        "title": "มายาคติเรื่องแฮงก์ / Hangover Myths, Cleared Up",
+        "url": "https://app.notion.com/p/3739d75ae4b581b2a244fe106817a5ea"
+      },
+      {
+        "id": "3739d75a-e4b5-81dc-b124-dc5f6a21ba87",
+        "title": "ม็อกเทล & ค็อกเทลแอลกอฮอลต่ำ / Mocktails & Low-ABV Cocktails That Actually Taste Great",
+        "url": "https://app.notion.com/p/3739d75ae4b581dcb124dc5f6a21ba87"
+      },
+      {
+        "id": "3739d75a-e4b5-813b-99d5-cdd12dd00f14",
+        "title": "รัมไทยและรัมเอเชียน่าลอง / Thai & Asian Rums Worth Knowing",
+        "url": "https://app.notion.com/p/3739d75ae4b5813b99d5cdd12dd00f14"
+      },
+      {
+        "id": "3739d75a-e4b5-81b0-bded-dffabe88970d",
+        "title": "ศัพท์บาร์เทนเดอร์ที่ควรรู้ / Bartender Lingo, Decoded",
+        "url": "https://app.notion.com/p/3739d75ae4b581b0bdeddffabe88970d"
+      },
+      {
+        "id": "3739d75a-e4b5-81a6-afc7-cc59cd842b4e",
+        "title": "สร้างเซลลาร์ไวน์ระดับสะสมในไทย / Building a Fine-Wine Cellar in Thailand",
+        "url": "https://app.notion.com/p/3739d75ae4b581a6afc7cc59cd842b4e"
+      },
+      {
+        "id": "3739d75a-e4b5-81a5-b4ec-fc78f253053b",
+        "title": "อุณหภูมิเสิร์ฟไวน์ที่ถูกต้อง / Wine Serving Temperatures: A Simple Chart",
+        "url": "https://app.notion.com/p/3739d75ae4b581a5b4ecfc78f253053b"
+      },
+      {
+        "id": "3739d75a-e4b5-817e-91c2-d1f7356b1552",
+        "title": "อ่านฉลากสปิริตให้เป็นใน 1 นาที / How to Read a Spirits Label",
+        "url": "https://app.notion.com/p/3739d75ae4b5817e91c2d1f7356b1552"
+      },
+      {
+        "id": "3739d75a-e4b5-81cf-bafd-ff9a4b866a9f",
+        "title": "เครื่องมือบาร์ที่บ้าน 101 / Home-Bar Tools 101: From Empty Counter to Confident Pour",
+        "url": "https://app.notion.com/p/3739d75ae4b581cfbafdff9a4b866a9f"
+      },
+      {
+        "id": "3739d75a-e4b5-81c7-bc1d-e25877d6fe50",
+        "title": "เชก vs คน / Shake vs Stir, Explained Simply",
+        "url": "https://app.notion.com/p/3739d75ae4b581c7bc1de25877d6fe50"
+      },
+      {
+        "id": "3739d75a-e4b5-8152-b441-d9400f80fa14",
+        "title": "เตกีล่ากับอาหารไทยรสจัด / Tequila with Spicy Thai Food",
+        "url": "https://app.notion.com/p/3739d75ae4b58152b441d9400f80fa14"
+      },
+      {
+        "id": "3739d75a-e4b5-81c2-87a5-d8b5201086ab",
+        "title": "เทคนิคทำม็อกเทล / How to Build a Mocktail with Cocktail-Level Complexity",
+        "url": "https://app.notion.com/p/3739d75ae4b581c287a5d8b5201086ab"
+      },
+      {
+        "id": "3739d75a-e4b5-81bc-9094-e511df97ba39",
+        "title": "เทคนิคบาร์เทนเดอร์ขั้นสูง / Advanced Home Bartending Techniques",
+        "url": "https://app.notion.com/p/3739d75ae4b581bc9094e511df97ba39"
+      },
+      {
+        "id": "3739d75a-e4b5-81e8-940b-dfb2dfc439fe",
+        "title": "ไซรับทำเองที่บ้าน / Make Your Own Syrups: The Secret to Better Cocktails",
+        "url": "https://app.notion.com/p/3739d75ae4b581e8940bdfb2dfc439fe"
+      },
+      {
+        "id": "3739d75a-e4b5-81a6-9a6f-efec757d8522",
+        "title": "ไวน์บาร์เปิดใหม่ในกรุงเทพ 2026 / Bangkok's New Wine Bars to Try in 2026",
+        "url": "https://app.notion.com/p/3739d75ae4b581a69a6fefec757d8522"
+      },
+      {
+        "id": "3739d75a-e4b5-813b-99b7-dd7ff54b5197",
+        "title": "ไวน์หน้าฝน: ขาวและโรเซ่เย็น ๆ / Rainy-Season Wines: Chillable Whites & Rosés",
+        "url": "https://app.notion.com/p/3739d75ae4b5813b99b7dd7ff54b5197"
+      }
+    ],
+    "row_count": 55,
+    "enumeration_note": "Schema captured in full via notion-fetch. Rows enumerated via notion-search scoped by data_source_url across multiple thematic queries (semantic search caps at 25/query and is non-deterministic, so row capture is best-effort / likely partial). Each row: page id, title, canonical URL. Full per-row property values (Content TH/EN, briefs) not expanded in this snapshot."
+  }
+}

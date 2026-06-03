@@ -1,0 +1,372 @@
+{
+  "backed_up_at": "2026-06-03T13:50:10Z",
+  "source_id": "collection://6be4a7bb-d42c-4286-be1b-fa73e3635b45",
+  "data": {
+    "schema": {
+      "name": "2026 JUN - WNLQ9 - Content Production",
+      "data_source_url": "collection://6be4a7bb-d42c-4286-be1b-fa73e3635b45",
+      "properties": [
+        "Title (title)",
+        "Brief ID",
+        "KEY",
+        "STORY",
+        "TENSION",
+        "Content Brief",
+        "Content EN",
+        "Content TH",
+        "Author",
+        "Category",
+        "CTA",
+        "Day",
+        "Evergreen",
+        "Final URL",
+        "Funnel",
+        "GA Views",
+        "Intent",
+        "Month",
+        "Priority",
+        "Publish Date",
+        "Schema",
+        "Site",
+        "Status",
+        "Target Keyword",
+        "Type",
+        "Word Target",
+        "Drive file URL"
+      ],
+      "select_options": {
+        "Author": [
+          "Wine-Now Sommelier Desk",
+          "LIQ9 Bartender Desk",
+          "Guest Expert"
+        ],
+        "Category": [
+          "Education",
+          "Pairing",
+          "Travel",
+          "Tips",
+          "Spotlights"
+        ],
+        "Intent": [
+          "Informational",
+          "Commercial",
+          "Transactional",
+          "Navigational"
+        ],
+        "Funnel": [
+          "TOFU",
+          "MOFU",
+          "BOFU"
+        ],
+        "Priority": [
+          "Hero",
+          "Standard",
+          "Filler"
+        ],
+        "Site": [
+          "Wine-Now",
+          "LIQ9"
+        ],
+        "Status": [
+          "Not started",
+          "Brief Ready",
+          "In progress",
+          "Review",
+          "Done",
+          "Published"
+        ],
+        "Type": [
+          "Pillar",
+          "Blog",
+          "Social"
+        ],
+        "Evergreen": [
+          "Evergreen",
+          "Timely"
+        ],
+        "Month": [
+          "June 2026"
+        ]
+      }
+    },
+    "rows": [
+      {
+        "id": "3729d75a-e4b5-8179-bcfe-e968756fe8ce",
+        "title": "10 ไวน์ Bordeaux คุ้มราคา ต่ำกว่า ฿1,500",
+        "url": "https://app.notion.com/p/3729d75ae4b58179bcfee968756fe8ce"
+      },
+      {
+        "id": "3729d75a-e4b5-8143-abee-d2cf708e268c",
+        "title": "5 สุราที่คุณเก็บผิดวิธี (และวิธีเก็บที่ถูกต้อง)",
+        "url": "https://app.notion.com/p/3729d75ae4b58143abeed2cf708e268c"
+      },
+      {
+        "id": "36e9d75a-e4b5-816e-87be-ce9c206e770c",
+        "title": "Acidity ในไวน์ / Acidity in Wine: Why That Mouth-Watering Feeling Is Exactly What You Want",
+        "url": "https://app.notion.com/p/36e9d75ae4b5816e87bece9c206e770c"
+      },
+      {
+        "id": "36e9d75a-e4b5-8193-9ad0-e02be8810aaf",
+        "title": "Age Statement ไม่ใช่ Guarantee / Age Is Not a Promise: Why Some NAS Whiskies Outperform 15-Year Bottles",
+        "url": "https://app.notion.com/p/36e9d75ae4b581939ad0e02be8810aaf"
+      },
+      {
+        "id": "36e9d75a-e4b5-817b-9da2-e46df81912b0",
+        "title": "Aperitif Hour / The Aperitif Hour: Drinks That Actually Make Your Meal Taste Better",
+        "url": "https://app.notion.com/p/36e9d75ae4b5817b9da2e46df81912b0"
+      },
+      {
+        "id": "36e9d75a-e4b5-81d2-9458-e10d77f5b850",
+        "title": "Bangkok's Cocktail Renaissance 2026 / Bangkok Nightlife Renaissance 2026",
+        "url": "https://app.notion.com/p/36e9d75ae4b581d29458e10d77f5b850"
+      },
+      {
+        "id": "36f9d75a-e4b5-8176-b1aa-e6e0b7f64e42",
+        "title": "Beyond Highball: Japanese Whisky Summer Cocktails — เหนือกว่า Highball",
+        "url": "https://app.notion.com/p/36f9d75ae4b58176b1aae6e0b7f64e42"
+      },
+      {
+        "id": "3729d75a-e4b5-8185-9f46-e0194c1ea413",
+        "title": "Bourbon แนะนำ: 5 ขวดที่ควรลองในทุกงบ",
+        "url": "https://app.notion.com/p/3729d75ae4b581859f46e0194c1ea413"
+      },
+      {
+        "id": "36e9d75a-e4b5-816e-8615-dcee98625c0e",
+        "title": "Build a Capsule Bar / The Capsule Bar: 8 Bottles That Cover Every Occasion for the Entire Year",
+        "url": "https://app.notion.com/p/36e9d75ae4b5816e8615dcee98625c0e"
+      },
+      {
+        "id": "3729d75a-e4b5-811b-925b-d320fa814821",
+        "title": "Buy Gin Online Thailand: คู่มือสไตล์จินและวิธีเลือก",
+        "url": "https://app.notion.com/p/3729d75ae4b5811b925bd320fa814821"
+      },
+      {
+        "id": "3729d75a-e4b5-8131-ab7b-f070b1401cbb",
+        "title": "Cabernet Sauvignon 101: รสชาติ แหล่งผลิต และขวดที่ดีที่สุดในแต่ละงบ",
+        "url": "https://app.notion.com/p/3729d75ae4b58131ab7bf070b1401cbb"
+      },
+      {
+        "id": "3729d75a-e4b5-81c5-98ff-e8a13ad1e856",
+        "title": "Champagne vs Prosecco vs Cava: Which Sparkling to Buy (Thai Price Guide)",
+        "url": "https://app.notion.com/p/3729d75ae4b581c598ffe8a13ad1e856"
+      },
+      {
+        "id": "36e9d75a-e4b5-817a-b899-f3771a1ed4a1",
+        "title": "Congeners คืออะไร / Congeners: The Real Science Behind Why Some Spirits Give You Worse Hangovers",
+        "url": "https://app.notion.com/p/36e9d75ae4b5817ab899f3771a1ed4a1"
+      },
+      {
+        "id": "36e9d75a-e4b5-8191-9d5d-e1eb0b8da850",
+        "title": "Decanting / Decanting Guide: Who Needs It When to Do It and Why 30 Minutes Is Usually Wrong",
+        "url": "https://app.notion.com/p/36e9d75ae4b581919d5de1eb0b8da850"
+      },
+      {
+        "id": "3729d75a-e4b5-815c-af72-e4b1e90ccbaa",
+        "title": "Father's Day Gift Guide 2026: Whisky & Cognac He'll Actually Remember",
+        "url": "https://app.notion.com/p/3729d75ae4b5815caf72e4b1e90ccbaa"
+      },
+      {
+        "id": "3729d75a-e4b5-817b-8d0c-cdbb35c3a1d6",
+        "title": "Hibiki & Suntory: คู่มือวิสกี้ญี่ปุ่น ซื้อรุ่นไหนก่อนดี",
+        "url": "https://app.notion.com/p/3729d75ae4b5817b8d0ccdbb35c3a1d6"
+      },
+      {
+        "id": "36e9d75a-e4b5-81e3-bbff-fa3980af00d6",
+        "title": "Honey & Whisky / Honey & Whisky: Three Late-Night Cocktails That Actually Work",
+        "url": "https://app.notion.com/p/36e9d75ae4b581e3bbfffa3980af00d6"
+      },
+      {
+        "id": "36e9d75a-e4b5-8196-b71d-f4d6bbde95c2",
+        "title": "Indigenous Asian Spirits / Indigenous Asian Spirits: What Global Bartenders Are Finding",
+        "url": "https://app.notion.com/p/36e9d75ae4b58196b71df4d6bbde95c2"
+      },
+      {
+        "id": "3729d75a-e4b5-8128-840b-c5e3a5c1aa95",
+        "title": "Jacob's Creek & Penfolds: คู่มือแบรนด์ไวน์ออสเตรเลีย (ถอดรหัส Bin)",
+        "url": "https://app.notion.com/p/3729d75ae4b58128840bc5e3a5c1aa95"
+      },
+      {
+        "id": "3729d75a-e4b5-816b-a158-fa9d86a7f7d0",
+        "title": "Japanese Whisky as an Investment (and Premium Sake): A Collector's Guide for Thailand",
+        "url": "https://app.notion.com/p/3729d75ae4b5816ba158fa9d86a7f7d0"
+      },
+      {
+        "id": "36e9d75a-e4b5-8107-a579-fe05e2cf528d",
+        "title": "Jigger vs Free Pour / Jigger vs Free Pour: Why Professionals Still Measure Every Single Time",
+        "url": "https://app.notion.com/p/36e9d75ae4b58107a579fe05e2cf528d"
+      },
+      {
+        "id": "3739d75a-e4b5-81f0-99dd-ccb7394c99ef",
+        "title": "Low & No-ABV: ค็อกเทลแอลกอฮอล์ต่ำ/ไร้แอลฯ ที่บาร์กรุงเทพเสิร์ฟจริง",
+        "url": "https://app.notion.com/p/3739d75ae4b581f099ddccb7394c99ef"
+      },
+      {
+        "id": "3729d75a-e4b5-818a-8748-f595089711e1",
+        "title": "Macallan คู่มือ: รุ่นไหนน่าดื่ม รุ่นไหนน่าสะสม",
+        "url": "https://app.notion.com/p/3729d75ae4b5818a8748f595089711e1"
+      },
+      {
+        "id": "3739d75a-e4b5-816a-9163-f900c196e173",
+        "title": "Mezcal 101: ควันแห่งเม็กซิโกที่กำลังมาแรงในกรุงเทพ",
+        "url": "https://app.notion.com/p/3739d75ae4b5816a9163f900c196e173"
+      },
+      {
+        "id": "36e9d75a-e4b5-81e3-8490-f408b1197b62",
+        "title": "Napa 2023 / Napa 2023 Vintage of a Lifetime: The Estates Worth Watching Now",
+        "url": "https://app.notion.com/p/36e9d75ae4b581e38490f408b1197b62"
+      },
+      {
+        "id": "36e9d75a-e4b5-81ff-bf92-d11c8d820041",
+        "title": "Negroni: สูตร 3 ส่วนเท่าสุดคลาสสิก และ 3 เวอร์ชันที่ควรลอง",
+        "url": "https://app.notion.com/p/36e9d75ae4b581ffbf92d11c8d820041"
+      },
+      {
+        "id": "3729d75a-e4b5-812e-84b5-fc767b0d2494",
+        "title": "Nerello Mascalese: ไวน์ภูเขาไฟ Etna ที่คุณซื้อได้เลยตอนนี้",
+        "url": "https://app.notion.com/p/3729d75ae4b5812e84b5fc767b0d2494"
+      },
+      {
+        "id": "3739d75a-e4b5-81bd-b527-c35237d34766",
+        "title": "Pinot Noir 101: ไวน์แดงเบาที่ใครๆ ก็รัก (รสชาติ–แหล่ง–คู่อาหาร)",
+        "url": "https://app.notion.com/p/3739d75ae4b581bdb527c35237d34766"
+      },
+      {
+        "id": "3729d75a-e4b5-8191-8b70-f1dd3f9220d4",
+        "title": "Rare & Collectible Wine in Thailand: A Critics'-Choice Collection",
+        "url": "https://app.notion.com/p/3729d75ae4b581918b70f1dd3f9220d4"
+      },
+      {
+        "id": "3729d75a-e4b5-81b9-a798-f99d714f9e5d",
+        "title": "Robert Mondavi คู่มือฉบับสมบูรณ์: รุ่นไหนน่าซื้อและราคาเท่าไหร่",
+        "url": "https://app.notion.com/p/3729d75ae4b581b9a798f99d714f9e5d"
+      },
+      {
+        "id": "3739d75a-e4b5-8173-8832-c45273a02b6d",
+        "title": "Rum 101: White / Gold / Dark / Aged ต่างกันยังไง",
+        "url": "https://app.notion.com/p/3739d75ae4b581738832c45273a02b6d"
+      },
+      {
+        "id": "3739d75a-e4b5-8175-bf24-f3d5e79e6542",
+        "title": "Sake 101 สำหรับมือใหม่: เลือก ดื่ม และจับคู่ยังไง",
+        "url": "https://app.notion.com/p/3739d75ae4b58175bf24f3d5e79e6542"
+      },
+      {
+        "id": "36e9d75a-e4b5-81e2-b63b-f0a876d38f0a",
+        "title": "Sangria และ Summer Cooler: ไวน์เย็นๆ รับหน้าฝนกรุงเทพ",
+        "url": "https://app.notion.com/p/36e9d75ae4b581e2b63bf0a876d38f0a"
+      },
+      {
+        "id": "3729d75a-e4b5-812e-8f37-e71c9cd3c251",
+        "title": "Scotch: Double Cask vs Sherry Finish ต่างกันยังไง",
+        "url": "https://app.notion.com/p/3729d75ae4b5812e8f37e71c9cd3c251"
+      },
+      {
+        "id": "36e9d75a-e4b5-81a5-a3c9-ff9df72d9b0f",
+        "title": "Single Malt Blended Grain / Single Malt Blended Grain: The 5-Minute Guide to Scotch Categories",
+        "url": "https://app.notion.com/p/36e9d75ae4b581a5a3c9ff9df72d9b0f"
+      },
+      {
+        "id": "36e9d75a-e4b5-816b-b101-f8b41d3ba00b",
+        "title": "Spirit Tasting Notes / Writing Spirit Tasting Notes: How to Describe What You're Tasting",
+        "url": "https://app.notion.com/p/36e9d75ae4b5816bb101f8b41d3ba00b"
+      },
+      {
+        "id": "3729d75a-e4b5-813f-a741-c6ecb3fd4649",
+        "title": "Tequila 101: Blanco / Reposado / Añejo ต่างกันยังไง",
+        "url": "https://app.notion.com/p/3729d75ae4b5813fa741c6ecb3fd4649"
+      },
+      {
+        "id": "3729d75a-e4b5-8157-80c7-c200e03292d7",
+        "title": "Top 20 Most Expensive Wines in the World 2026 (and 5 Affordable Bottles With a Similar Character)",
+        "url": "https://app.notion.com/p/3729d75ae4b5815780c7c200e03292d7"
+      },
+      {
+        "id": "3729d75a-e4b5-81d8-95e6-f7d955634827",
+        "title": "VSOP vs XO Cognac: คู่มือเลือกซื้อฉบับสมบูรณ์",
+        "url": "https://app.notion.com/p/3729d75ae4b581d895e6f7d955634827"
+      },
+      {
+        "id": "36e9d75a-e4b5-8117-8b8e-caaeb83e2f5a",
+        "title": "Vintage Year / Vintage Year: When the Number Matters and When to Ignore It",
+        "url": "https://app.notion.com/p/36e9d75ae4b581178b8ecaaeb83e2f5a"
+      },
+      {
+        "id": "3729d75a-e4b5-8185-a837-c8e50133117b",
+        "title": "Whisky 101: Scotch vs Bourbon vs Japanese ต่างกันยังไง",
+        "url": "https://app.notion.com/p/3729d75ae4b58185a837c8e50133117b"
+      },
+      {
+        "id": "36f9d75a-e4b5-8168-a44d-cbac08ff6b51",
+        "title": "White Wines for Summer Entertaining — ไวน์ขาวสำหรับบุคคลร่วมฤดูร้อน",
+        "url": "https://app.notion.com/p/36f9d75ae4b58168a44dcbac08ff6b51"
+      },
+      {
+        "id": "3739d75a-e4b5-817c-b95d-d6d5fc3bab1a",
+        "title": "World Gin Day 2026: 6 จินและสูตรพิเศษฉลองวันจินโลก (13 มิ.ย.)",
+        "url": "https://app.notion.com/p/3739d75ae4b5817cb95dd6d5fc3bab1a"
+      },
+      {
+        "id": "3729d75a-e4b5-8136-b124-e7d417a576b4",
+        "title": "ซื้อวิสกี้ออนไลน์: คู่มือ Whisky Thailand ฉบับครบจบ",
+        "url": "https://app.notion.com/p/3729d75ae4b58136b124e7d417a576b4"
+      },
+      {
+        "id": "3739d75a-e4b5-81ef-aa99-fe45f589b5e9",
+        "title": "ภาษีเหล้าไวน์ 2026: โครงสร้างใหม่เปลี่ยนอะไร และขวดไหนคุ้มขึ้น",
+        "url": "https://app.notion.com/p/3739d75ae4b581efaa99fe45f589b5e9"
+      },
+      {
+        "id": "3739d75a-e4b5-81c4-90f6-f2adcdadc930",
+        "title": "วิธีสั่งที่บาร์ค็อกเทลให้ได้แก้วที่ชอบ (ฉบับไม่ต้องเขิน)",
+        "url": "https://app.notion.com/p/3739d75ae4b581c490f6f2adcdadc930"
+      },
+      {
+        "id": "3729d75a-e4b5-81f1-951e-f050130f786f",
+        "title": "สปาร์คกลิงสำหรับงานแต่งในงบจำกัด: ซื้อเท่าไหร่และเลือกขวดไหน",
+        "url": "https://app.notion.com/p/3729d75ae4b581f1951ef050130f786f"
+      },
+      {
+        "id": "36e9d75a-e4b5-81b2-87e4-c80590e02903",
+        "title": "อาหารเจไทย x ไวน์ / Vegetarian Thai Food x Wine: The Complexity Everyone Overlooks",
+        "url": "https://app.notion.com/p/36e9d75ae4b581b287e4c80590e02903"
+      },
+      {
+        "id": "36e9d75a-e4b5-8162-9c6d-c6139d4b7a2f",
+        "title": "อาหารไทยเผ็ด x Cocktail / Spicy Thai Food x Cocktails — Which Spirits Handle the Heat Best",
+        "url": "https://app.notion.com/p/36e9d75ae4b581629c6dc6139d4b7a2f"
+      },
+      {
+        "id": "36e9d75a-e4b5-8177-a04d-d113068d4c51",
+        "title": "อ่านฉลากไวน์ให้ออก / Wine Label Decoded: Old World vs New World",
+        "url": "https://app.notion.com/p/36e9d75ae4b58177a04dd113068d4c51"
+      },
+      {
+        "id": "3739d75a-e4b5-814b-afac-feb4c1e24117",
+        "title": "เริ่มเซลลาร์แรกในงบ ฿10,000: 12 ขวดที่ควรมี",
+        "url": "https://app.notion.com/p/3739d75ae4b5814bafacfeb4c1e24117"
+      },
+      {
+        "id": "3729d75a-e4b5-814c-96eb-c18238f3dc9d",
+        "title": "แชมเปญ ราคา 2026: คู่มือราคาและการเลือกซื้อ (Moët, Veuve Clicquot, Dom Pérignon)",
+        "url": "https://app.notion.com/p/3729d75ae4b5814c96ebc18238f3dc9d"
+      },
+      {
+        "id": "3739d75a-e4b5-8138-8860-c00704660866",
+        "title": "ไวน์ & ค็อกเทลหน้าฝน: ดื่มอะไรดีช่วงมรสุมกรุงเทพ",
+        "url": "https://app.notion.com/p/3739d75ae4b581388860c00704660866"
+      },
+      {
+        "id": "3739d75a-e4b5-81b3-adf3-f6b54220f675",
+        "title": "ไวน์กับชีส: คู่มือจับคู่ที่ไม่มีวันพลาด",
+        "url": "https://app.notion.com/p/3739d75ae4b581b3adf3f6b54220f675"
+      },
+      {
+        "id": "3729d75a-e4b5-8108-ab15-f2587d47725c",
+        "title": "ไวน์สำหรับมือใหม่: ไวน์แดง vs ไวน์ขาว เริ่มต้นตรงไหนดี",
+        "url": "https://app.notion.com/p/3729d75ae4b58108ab15f2587d47725c"
+      }
+    ],
+    "row_count": 55,
+    "enumeration_note": "Schema captured in full via notion-fetch. Rows enumerated via notion-search scoped by data_source_url across multiple thematic queries (semantic search caps at 25/query and is non-deterministic, so row capture is best-effort / likely partial). Each row: page id, title, canonical URL. Full per-row property values (Content TH/EN, briefs) not expanded in this snapshot."
+  }
+}

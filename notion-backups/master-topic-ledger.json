@@ -1,0 +1,405 @@
+{
+  "backed_up_at": "2026-06-03T13:50:10Z",
+  "source_id": "collection://f4cb9278-4ae6-4b1d-a94a-2279a5a103c1 (container 43240f1120df437391017e67a64723a7)",
+  "data": {
+    "schema": {
+      "name": "Master Topic Ledger — WNLQ9",
+      "data_source_url": "collection://f4cb9278-4ae6-4b1d-a94a-2279a5a103c1",
+      "container_id": "43240f1120df437391017e67a64723a7",
+      "properties": [
+        "Title (title)",
+        "Title TH",
+        "Brief ID",
+        "Cluster",
+        "Day",
+        "Funnel",
+        "Hub Ref",
+        "Hub or Spoke",
+        "Month",
+        "Notes",
+        "Owning URL",
+        "Priority",
+        "Site",
+        "Status",
+        "Type"
+      ],
+      "select_options": {
+        "Funnel": [
+          "TOFU",
+          "MOFU",
+          "BOFU"
+        ],
+        "Site": [
+          "Wine-Now",
+          "LIQ9"
+        ],
+        "Month": [
+          "June 2026",
+          "July 2026",
+          "August 2026"
+        ],
+        "Status": [
+          "Brief Ready",
+          "Review",
+          "Approved",
+          "Published"
+        ],
+        "Hub or Spoke": [
+          "Hub",
+          "Spoke"
+        ],
+        "Priority": [
+          "Hero",
+          "Standard",
+          "Filler"
+        ],
+        "Type": [
+          "Pillar",
+          "Blog",
+          "Social"
+        ],
+        "Cluster": [
+          "Champagne/Sparkling",
+          "French Wine",
+          "Beginners/Wine101",
+          "Thai Pairing",
+          "Bangkok Local",
+          "Collectors/BOFU",
+          "Rosé",
+          "Grape Varieties",
+          "Decanting/Serving",
+          "Organic/Biodynamic",
+          "Wine Tourism",
+          "Rainy Season",
+          "Whisky/Scotch",
+          "Bourbon/American",
+          "Japanese Whisky",
+          "Rum",
+          "Tequila/Agave",
+          "Gin",
+          "Cognac/Brandy",
+          "Sake",
+          "Cocktail Classics",
+          "Home Bar",
+          "Bartending Technique",
+          "Low-No ABV",
+          "Spirit Education",
+          "Thailand/Local Scene",
+          "Excise/Tax/Law",
+          "Seasonal/Events",
+          "Wine Storage",
+          "Wine Fundamentals"
+        ]
+      }
+    },
+    "rows": [
+      {
+        "id": "3749d75a-e4b5-813a-ba68-c3a7bda63329",
+        "title": "JUL-A1 | How to Choose the Right Wine — by Taste, Budget & Occasion",
+        "url": "https://app.notion.com/p/3749d75ae4b5813aba68c3a7bda63329"
+      },
+      {
+        "id": "3749d75a-e4b5-81bc-9e15-cad602decc02",
+        "title": "JUL-A10 | 3 Bottles That Round Out Any Home Bar",
+        "url": "https://app.notion.com/p/3749d75ae4b581bc9e15cad602decc02"
+      },
+      {
+        "id": "3749d75a-e4b5-81d7-97dd-ed7ed3a30e6d",
+        "title": "JUL-A2 | The Complete Home-Bar Guide: What Every Home Bar Needs",
+        "url": "https://app.notion.com/p/3749d75ae4b581d797dded7ed3a30e6d"
+      },
+      {
+        "id": "3749d75a-e4b5-81bc-bd39-d8c93f7c8ee3",
+        "title": "JUL-A4 | 5 Best-Value Bottles for the Home Bar",
+        "url": "https://app.notion.com/p/3749d75ae4b581bcbd39d8c93f7c8ee3"
+      },
+      {
+        "id": "3749d75a-e4b5-8154-afac-d83938f6db4d",
+        "title": "JUL-A7 | The Home Wine Rack: 6 Bottles Worth Keeping",
+        "url": "https://app.notion.com/p/3749d75ae4b58154afacd83938f6db4d"
+      },
+      {
+        "id": "3749d75a-e4b5-816d-a4f8-e51c3871c47b",
+        "title": "JUL-A8 | 6 Essential Bottles for a Beginner Home Bar",
+        "url": "https://app.notion.com/p/3749d75ae4b5816da4f8e51c3871c47b"
+      },
+      {
+        "id": "3749d75a-e4b5-8172-86a7-f256cc2472e6",
+        "title": "JUL-A9 | 3 Wine Styles to Know Before You Choose",
+        "url": "https://app.notion.com/p/3749d75ae4b5817286a7f256cc2472e6"
+      },
+      {
+        "id": "3749d75a-e4b5-816b-9d9e-d74030e8a9d3",
+        "title": "JUL-B1 | The Ultimate Rum Cocktail Guide",
+        "url": "https://app.notion.com/p/3749d75ae4b5816b9d9ed74030e8a9d3"
+      },
+      {
+        "id": "3749d75a-e4b5-81b8-9e5f-ce2fc0b8c959",
+        "title": "JUL-B2 | Piña Colada: The Original Recipe, Made at Home",
+        "url": "https://app.notion.com/p/3749d75ae4b581b89e5fce2fc0b8c959"
+      },
+      {
+        "id": "3749d75a-e4b5-81c0-be34-da81c91379f9",
+        "title": "JUL-B6 | World Rum Day: 3 Easy Rainy-Season Rum Cocktails",
+        "url": "https://app.notion.com/p/3749d75ae4b581c0be34da81c91379f9"
+      },
+      {
+        "id": "3749d75a-e4b5-81b3-b30e-c5fd8702a6d7",
+        "title": "JUL-B8 | Rainy-Season Wines: Chillable Whites & Rosés",
+        "url": "https://app.notion.com/p/3749d75ae4b581b3b30ec5fd8702a6d7"
+      },
+      {
+        "id": "3749d75a-e4b5-8160-97e2-c8d0ed49157e",
+        "title": "JUL-C1 | French Wine 101: 6 Regions to Know",
+        "url": "https://app.notion.com/p/3749d75ae4b5816097e2c8d0ed49157e"
+      },
+      {
+        "id": "3749d75a-e4b5-81c3-a534-ef2d385eb98e",
+        "title": "JUL-C3 | Champagne 101: Understanding Sparkling Wine",
+        "url": "https://app.notion.com/p/3749d75ae4b581c3a534ef2d385eb98e"
+      },
+      {
+        "id": "3749d75a-e4b5-81c3-ab60-cfc44ca8271f",
+        "title": "JUL-C4 | Loire & Rhône: Two French Regions Worth Exploring",
+        "url": "https://app.notion.com/p/3749d75ae4b581c3ab60cfc44ca8271f"
+      },
+      {
+        "id": "3749d75a-e4b5-8107-ac38-f85fcb67218e",
+        "title": "JUL-C5 | Pairing French Wine with Thai Food",
+        "url": "https://app.notion.com/p/3749d75ae4b58107ac38f85fcb67218e"
+      },
+      {
+        "id": "3749d75a-e4b5-81bf-b02e-f4e9c9df0247",
+        "title": "JUL-D1 | Tequila 101: Everything Before Your First Sip",
+        "url": "https://app.notion.com/p/3749d75ae4b581bfb02ef4e9c9df0247"
+      },
+      {
+        "id": "3749d75a-e4b5-818d-81c6-e7d36aef08c5",
+        "title": "JUL-D3 | Paloma 101: Tequila's Refreshing Sleeper Hit",
+        "url": "https://app.notion.com/p/3749d75ae4b5818d81c6e7d36aef08c5"
+      },
+      {
+        "id": "3749d75a-e4b5-81d5-8d01-dd1a7b5ce715",
+        "title": "JUL-D4 | Tequila vs Mezcal: Two Agave Spirits",
+        "url": "https://app.notion.com/p/3749d75ae4b581d58d01dd1a7b5ce715"
+      },
+      {
+        "id": "3749d75a-e4b5-8115-a085-dd1f1e6e5ac6",
+        "title": "JUL-D5 | Tequila with Spicy Thai Food",
+        "url": "https://app.notion.com/p/3749d75ae4b58115a085dd1f1e6e5ac6"
+      },
+      {
+        "id": "3749d75a-e4b5-8108-a8d7-cebb12b34e83",
+        "title": "JUL-D6 | Tequila Day: 3 Better Ways to Enjoy Tequila",
+        "url": "https://app.notion.com/p/3749d75ae4b58108a8d7cebb12b34e83"
+      },
+      {
+        "id": "3749d75a-e4b5-8126-bd7f-c5adfd885c27",
+        "title": "JUL-E2 | The 5 Scotch Regions and How They Taste",
+        "url": "https://app.notion.com/p/3749d75ae4b58126bd7fc5adfd885c27"
+      },
+      {
+        "id": "3749d75a-e4b5-814a-a222-d21db00fdae4",
+        "title": "JUL-F3 | Mocktails & Low-ABV Cocktails That Actually Taste Great",
+        "url": "https://app.notion.com/p/3749d75ae4b5814aa222d21db00fdae4"
+      },
+      {
+        "id": "3749d75a-e4b5-8152-8266-e6107a3d7407",
+        "title": "JUL-G1 | Wine Tasting for Beginners: Look, Smell, Taste",
+        "url": "https://app.notion.com/p/3749d75ae4b581528266e6107a3d7407"
+      },
+      {
+        "id": "3749d75a-e4b5-816f-875a-d00c1faae664",
+        "title": "JUL-G11 | Home-Bar Tools 101: From Empty Counter to Confident Pour",
+        "url": "https://app.notion.com/p/3749d75ae4b5816f875ad00c1faae664"
+      },
+      {
+        "id": "3749d75a-e4b5-81ad-b1b9-e37cd6f6f5d4",
+        "title": "JUL-G16 | The Complete Gin & Tonic Guide",
+        "url": "https://app.notion.com/p/3749d75ae4b581adb1b9e37cd6f6f5d4"
+      },
+      {
+        "id": "3749d75a-e4b5-819b-bef3-e208fcb09b0d",
+        "title": "JUL-G2 | Read a Wine Label in 5 Minutes",
+        "url": "https://app.notion.com/p/3749d75ae4b5819bbef3e208fcb09b0d"
+      },
+      {
+        "id": "3749d75a-e4b5-81cb-992c-dd52fdcd0380",
+        "title": "JUL-G3 | Wine Serving Temperatures: A Simple Chart",
+        "url": "https://app.notion.com/p/3749d75ae4b581cb992cdd52fdcd0380"
+      },
+      {
+        "id": "3749d75a-e4b5-81f2-9339-eaab8f1d7fb5",
+        "title": "JUL-G4 | How to Store an Opened Bottle of Wine",
+        "url": "https://app.notion.com/p/3749d75ae4b581f29339eaab8f1d7fb5"
+      },
+      {
+        "id": "3749d75a-e4b5-8119-88d8-f8a58fc93be9",
+        "title": "JUL-G5 | Choosing Wine Glasses: Just 3 Shapes",
+        "url": "https://app.notion.com/p/3749d75ae4b5811988d8f8a58fc93be9"
+      },
+      {
+        "id": "3749d75a-e4b5-81e1-a4c8-f5db937f5763",
+        "title": "JUL-G6 | Do You Really Need to Decant? When & Why",
+        "url": "https://app.notion.com/p/3749d75ae4b581e1a4c8f5db937f5763"
+      },
+      {
+        "id": "3749d75a-e4b5-810a-9f43-ce53048e515a",
+        "title": "JUL-G7 | Organic & Biodynamic Wine, Explained",
+        "url": "https://app.notion.com/p/3749d75ae4b5810a9f43ce53048e515a"
+      },
+      {
+        "id": "3749d75a-e4b5-817e-9e25-cd3823767260",
+        "title": "JUL-G8 | Wine with Thai Seafood: A Pairing Guide",
+        "url": "https://app.notion.com/p/3749d75ae4b5817e9e25cd3823767260"
+      },
+      {
+        "id": "3749d75a-e4b5-819e-8477-d97a7b963b37",
+        "title": "JUL-G9 | 5 Wine Terms You'll Hear, Explained",
+        "url": "https://app.notion.com/p/3749d75ae4b5819e8477d97a7b963b37"
+      },
+      {
+        "id": "3749d75a-e4b5-81fd-8dac-d51a69e7d1da",
+        "title": "JUL-GC | Wine & Cheese Pairing Basics",
+        "url": "https://app.notion.com/p/3749d75ae4b581fd8dacd51a69e7d1da"
+      },
+      {
+        "id": "3749d75a-e4b5-81e5-b60a-f6323b60c62e",
+        "title": "JUL-LS10 | Hangover Myths, Cleared Up",
+        "url": "https://app.notion.com/p/3749d75ae4b581e5b60af6323b60c62e"
+      },
+      {
+        "id": "3749d75a-e4b5-81fa-aa9c-c3081a615154",
+        "title": "JUL-LS6 | How to Read a Spirits Label",
+        "url": "https://app.notion.com/p/3749d75ae4b581faaa9cc3081a615154"
+      },
+      {
+        "id": "3749d75a-e4b5-8138-bc40-e0c36c5e675b",
+        "title": "JUL-T2 | Bangkok Wine Bars Worth Visiting",
+        "url": "https://app.notion.com/p/3749d75ae4b58138bc40e0c36c5e675b"
+      },
+      {
+        "id": "3749d75a-e4b5-819f-af71-f65c3247b1c6",
+        "title": "JUL-WS1 | 5 Wine Myths, Busted",
+        "url": "https://app.notion.com/p/3749d75ae4b5819faf71f65c3247b1c6"
+      },
+      {
+        "id": "3749d75a-e4b5-8172-b734-fe8a8c4e503b",
+        "title": "JUL-WS10 | Pairing Wine with Thai Street Food",
+        "url": "https://app.notion.com/p/3749d75ae4b58172b734fe8a8c4e503b"
+      },
+      {
+        "id": "3749d75a-e4b5-8144-9c65-d3d7d1df068b",
+        "title": "JUL-WS3 | Rosé 101: Not as Sweet as You Think",
+        "url": "https://app.notion.com/p/3749d75ae4b581449c65d3d7d1df068b"
+      },
+      {
+        "id": "3749d75a-e4b5-8136-8bb3-fa3c4eef5455",
+        "title": "JUL-WS4 | How to Hold a Wine Glass (and Why)",
+        "url": "https://app.notion.com/p/3749d75ae4b581368bb3fa3c4eef5455"
+      },
+      {
+        "id": "3749d75a-e4b5-8188-b501-f07647f1a668",
+        "title": "JUL-WS5 | Do Sulfites Cause Wine Headaches?",
+        "url": "https://app.notion.com/p/3749d75ae4b58188b501f07647f1a668"
+      },
+      {
+        "id": "3749d75a-e4b5-812b-9656-d133be3df374",
+        "title": "JUL-WS7 | Pairing Wine with Chocolate",
+        "url": "https://app.notion.com/p/3749d75ae4b5812b9656d133be3df374"
+      },
+      {
+        "id": "3749d75a-e4b5-81d5-b352-f480c0998388",
+        "title": "JUL-WS8 | Dessert Wine 101",
+        "url": "https://app.notion.com/p/3749d75ae4b581d5b352f480c0998388"
+      },
+      {
+        "id": "3749d75a-e4b5-8161-9cc7-d1807e677377",
+        "title": "JUL-WS9 | How Many Calories Are in a Glass of Wine?",
+        "url": "https://app.notion.com/p/3749d75ae4b581619cc7d1807e677377"
+      },
+      {
+        "id": "3749d75a-e4b5-8144-9712-deaf24060422",
+        "title": "JUN-A18 | Rare & Collectible Wine in Thailand",
+        "url": "https://app.notion.com/p/3749d75ae4b581449712deaf24060422"
+      },
+      {
+        "id": "3749d75a-e4b5-8185-a9fc-dd5ab1a92c72",
+        "title": "JUN-A2 | Acidity in Wine: Why That Mouth-Watering Feeling",
+        "url": "https://app.notion.com/p/3749d75ae4b58185a9fcdd5ab1a92c72"
+      },
+      {
+        "id": "3749d75a-e4b5-810b-8e5d-f475a80fc3b7",
+        "title": "JUN-A25 | Decanting: ใครต้องการ ใครไม่ต้องการ",
+        "url": "https://app.notion.com/p/3749d75ae4b5810b8e5df475a80fc3b7"
+      },
+      {
+        "id": "3749d75a-e4b5-81bc-9f1b-fd21b0bfec4e",
+        "title": "JUN-A6 | Wine Tourism ไทย: Khao Yai",
+        "url": "https://app.notion.com/p/3749d75ae4b581bc9f1bfd21b0bfec4e"
+      },
+      {
+        "id": "3749d75a-e4b5-81c6-a25a-f36f148c166c",
+        "title": "JUN-A9 | Rosé Myths Debunked: Temperature & Pairing",
+        "url": "https://app.notion.com/p/3749d75ae4b581c6a25af36f148c166c"
+      },
+      {
+        "id": "3749d75a-e4b5-812f-b620-c6ba72083183",
+        "title": "JUN-B1 | Whisky 101: Scotch vs Bourbon vs Japanese",
+        "url": "https://app.notion.com/p/3749d75ae4b5812fb620c6ba72083183"
+      },
+      {
+        "id": "3749d75a-e4b5-81e2-973e-dcbab490ba05",
+        "title": "JUN-C11 | Indigenous Asian Spirits",
+        "url": "https://app.notion.com/p/3749d75ae4b581e2973edcbab490ba05"
+      },
+      {
+        "id": "3749d75a-e4b5-81c4-8f75-c490f1ec4a23",
+        "title": "JUN-C2 | Rum 101: White / Gold / Dark / Aged",
+        "url": "https://app.notion.com/p/3749d75ae4b581c48f75c490f1ec4a23"
+      },
+      {
+        "id": "3749d75a-e4b5-81e4-8bf9-cb4d42f7dcd8",
+        "title": "JUN-C4 | Build a Capsule Bar: 8 ขวดที่ Cover ทุก Occasion",
+        "url": "https://app.notion.com/p/3749d75ae4b581e48bf9cb4d42f7dcd8"
+      },
+      {
+        "id": "3749d75a-e4b5-8109-bd7b-ee60b1a6263b",
+        "title": "JUN-D1 | Buy Gin Online Thailand: คู่มือสไตล์จิน",
+        "url": "https://app.notion.com/p/3749d75ae4b58109bd7bee60b1a6263b"
+      },
+      {
+        "id": "3749d75a-e4b5-816c-bb01-ffbb43fa47df",
+        "title": "JUN-D2 | World Gin Day 2026: 6 จินและสูตรพิเศษ",
+        "url": "https://app.notion.com/p/3749d75ae4b5816cbb01ffbb43fa47df"
+      },
+      {
+        "id": "3749d75a-e4b5-8101-b586-e159b450f295",
+        "title": "JUN-E1 | Bourbon แนะนำ: 5 ขวดที่ควรลอง",
+        "url": "https://app.notion.com/p/3749d75ae4b58101b586e159b450f295"
+      },
+      {
+        "id": "3749d75a-e4b5-8160-8fb4-f7f743057927",
+        "title": "JUN-H1 | Tequila 101: Blanco / Reposado / Añejo",
+        "url": "https://app.notion.com/p/3749d75ae4b581608fb4f7f743057927"
+      },
+      {
+        "id": "3749d75a-e4b5-81e3-8f76-dee534e229a7",
+        "title": "JUN-I1 | Low & No-ABV: Bangkok",
+        "url": "https://app.notion.com/p/3749d75ae4b581e38f76dee534e229a7"
+      },
+      {
+        "id": "3749d75a-e4b5-81d7-8fce-f1953328aacb",
+        "title": "JUN-J1 | Sake 101 สำหรับมือใหม่",
+        "url": "https://app.notion.com/p/3749d75ae4b581d78fcef1953328aacb"
+      },
+      {
+        "id": "3749d75a-e4b5-81a2-a839-c462225b7cb9",
+        "title": "Veuve Clicquot vs Moet vs Dom Perignon: เลือกแชมเปญแบรนด์ไหนให้เหมาะโอกาส",
+        "url": "https://app.notion.com/p/3749d75ae4b581a2a839c462225b7cb9"
+      }
+    ],
+    "row_count": 61,
+    "enumeration_note": "Schema captured in full via notion-fetch. Rows enumerated via notion-search scoped by data_source_url across multiple thematic queries (semantic search caps at 25/query and is non-deterministic, so row capture is best-effort / likely partial). Each row: page id, title, canonical URL. Full per-row property values (Content TH/EN, briefs) not expanded in this snapshot."
+  }
+}
