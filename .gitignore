@@ -6,3 +6,5 @@ dist/
 build/
 next-env.d.ts
 *.log
+# Allow .vercel/project.json (org/project IDs are not secrets)
+!.vercel/project.json
