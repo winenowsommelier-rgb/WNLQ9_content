@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { deriveBriefId, normalizeBrief, slugify } from "../src/validate.mjs";
+import { DATABASES } from "../src/config.mjs";
+
+// Week Theme is retired by default; the historical June board still has it.
+const june = { profile: DATABASES.june };
 
 test("requires title and site", () => {
   const { ok, errors } = normalizeBrief({});
@@ -9,29 +13,34 @@ test("requires title and site", () => {
   assert.ok(errors.some((e) => e.includes("site")));
 });
 
-test("derives weekTheme from category", () => {
+test("derives weekTheme from category on the June profile", () => {
+  const { ok, value } = normalizeBrief(
+    { title: "Terroir in One Minute", site: "Wine-Now", category: "Education" },
+    june,
+  );
+  assert.equal(ok, true);
+  assert.equal(value.weekTheme, "W1 Education");
+});
+
+test("does NOT derive weekTheme by default (retired going forward)", () => {
   const { ok, value } = normalizeBrief({
     title: "Terroir in One Minute",
     site: "Wine-Now",
     category: "Education",
   });
   assert.equal(ok, true);
-  assert.equal(value.weekTheme, "W1 Education");
+  assert.equal(value.weekTheme, undefined);
 });
 
-test("derives category from weekTheme", () => {
-  const { value } = normalizeBrief({
-    title: "X",
-    site: "LIQ9",
-    weekTheme: "W3 Travel",
-  });
+test("derives category from weekTheme on the June profile", () => {
+  const { value } = normalizeBrief({ title: "X", site: "LIQ9", weekTheme: "W3 Travel" }, june);
   assert.equal(value.category, "Travel");
 });
 
 test("applies defaults for status and month", () => {
   const { value } = normalizeBrief({ title: "X", site: "Wine-Now" });
   assert.equal(value.status, "Brief Ready");
-  assert.equal(value.month, "June 2026");
+  assert.equal(value.month, "July 2026");
 });
 
 test("rejects invalid enum values", () => {

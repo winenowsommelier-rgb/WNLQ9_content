@@ -2,11 +2,15 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { briefToNotionProperties } from "../src/mapping.mjs";
 import { normalizeBrief } from "../src/validate.mjs";
+import { DATABASES } from "../src/config.mjs";
+
+// These tests exercise the June board (the one that still carries Week Theme).
+const june = DATABASES.june;
 
 function mapped(raw) {
-  const { ok, value, errors } = normalizeBrief(raw);
+  const { ok, value, errors } = normalizeBrief(raw, { profile: june });
   assert.equal(ok, true, `expected valid brief, got: ${errors.join(", ")}`);
-  return briefToNotionProperties(value);
+  return briefToNotionProperties(value, { hasWeekTheme: june.hasWeekTheme });
 }
 
 test("maps every field to the correct Notion property shape", () => {

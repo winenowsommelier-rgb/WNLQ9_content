@@ -6,10 +6,16 @@
 // clean object ready for mapping. It never throws — collect errors and decide.
 
 import {
+  AUTHORS,
   CATEGORIES,
   CATEGORY_TO_WEEK,
+  DEFAULT_PROFILE,
   DEFAULTS,
+  EVERGREENS,
+  FUNNELS,
+  INTENTS,
   MONTHS,
+  PRIORITIES,
   SITES,
   STATUSES,
   TYPES,
@@ -45,9 +51,16 @@ function inEnum(value, allowed) {
 
 /**
  * Validate + normalize a raw brief.
+ *
+ * @param {object} raw                raw brief
+ * @param {object} [opts]
+ * @param {object} [opts.profile]     schema profile (see config.schemaProfileFor).
+ *   `profile.hasWeekTheme` controls whether Category<->Week Theme is derived;
+ *   `profile.month` sets the default Month. Defaults to the June shape so
+ *   existing callers are unaffected.
  * @returns {{ ok: boolean, value: object|null, errors: string[] }}
  */
-export function normalizeBrief(raw) {
+export function normalizeBrief(raw, { profile = DEFAULT_PROFILE } = {}) {
   const errors = [];
   if (raw == null || typeof raw !== "object") {
     return { ok: false, value: null, errors: ["brief must be an object"] };
@@ -65,12 +78,17 @@ export function normalizeBrief(raw) {
     errors.push(`site must be one of ${SITES.join(", ")}`);
   }
 
-  // --- Derive Category <-> Week Theme (supply either one) ---
-  if (b.category && !b.weekTheme && CATEGORY_TO_WEEK[b.category]) {
-    b.weekTheme = CATEGORY_TO_WEEK[b.category];
-  }
-  if (b.weekTheme && !b.category && WEEK_TO_CATEGORY[b.weekTheme]) {
-    b.category = WEEK_TO_CATEGORY[b.weekTheme];
+  // --- Derive Category <-> Week Theme (only on boards that have Week Theme) ---
+  if (profile.hasWeekTheme) {
+    if (b.category && !b.weekTheme && CATEGORY_TO_WEEK[b.category]) {
+      b.weekTheme = CATEGORY_TO_WEEK[b.category];
+    }
+    if (b.weekTheme && !b.category && WEEK_TO_CATEGORY[b.weekTheme]) {
+      b.category = WEEK_TO_CATEGORY[b.weekTheme];
+    }
+  } else {
+    // Board has no Week Theme column — never carry one through to mapping.
+    delete b.weekTheme;
   }
 
   // --- Enum checks (only when present) ---
@@ -83,13 +101,29 @@ export function normalizeBrief(raw) {
   if (b.type != null && !inEnum(b.type, TYPES)) {
     errors.push(`type must be one of ${TYPES.join(", ")}`);
   }
+  // July editorial enums (only validated when supplied).
+  if (b.author != null && !inEnum(b.author, AUTHORS)) {
+    errors.push(`author must be one of ${AUTHORS.join(", ")}`);
+  }
+  if (b.priority != null && !inEnum(b.priority, PRIORITIES)) {
+    errors.push(`priority must be one of ${PRIORITIES.join(", ")}`);
+  }
+  if (b.intent != null && !inEnum(b.intent, INTENTS)) {
+    errors.push(`intent must be one of ${INTENTS.join(", ")}`);
+  }
+  if (b.funnel != null && !inEnum(b.funnel, FUNNELS)) {
+    errors.push(`funnel must be one of ${FUNNELS.join(", ")}`);
+  }
+  if (b.evergreen != null && !inEnum(b.evergreen, EVERGREENS)) {
+    errors.push(`evergreen must be one of ${EVERGREENS.join(", ")}`);
+  }
 
   // --- Defaults ---
   b.status = b.status || DEFAULTS.status;
   if (!inEnum(b.status, STATUSES)) {
     errors.push(`status must be one of ${STATUSES.join(", ")}`);
   }
-  b.month = b.month || DEFAULTS.month;
+  b.month = b.month || profile.month || DEFAULTS.month;
   if (!inEnum(b.month, MONTHS)) {
     errors.push(`month must be one of ${MONTHS.join(", ")}`);
   }
@@ -108,6 +142,13 @@ export function normalizeBrief(raw) {
     else b.gaViews = views;
   } else {
     delete b.gaViews;
+  }
+  if (b.wordTarget != null && b.wordTarget !== "") {
+    const wt = Number(b.wordTarget);
+    if (!Number.isFinite(wt)) errors.push("wordTarget must be a number");
+    else b.wordTarget = wt;
+  } else {
+    delete b.wordTarget;
   }
 
   // --- Date (accept YYYY-MM-DD or full ISO) ---

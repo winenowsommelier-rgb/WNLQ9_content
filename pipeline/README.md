@@ -154,3 +154,57 @@ front of the project.
 ```bash
 npm test          # node --test, fully offline (validation, mapping, ingest)
 ```
+
+## July 2026 → published Magento-safe HTML
+
+July content is **authored in Notion** (plain-text bilingual `Content TH` /
+`Content EN`, Status = `Review`) and published through main's Drive-handoff
+model: render → upload self-contained HTML to the "WNLQ9 Blog Html center" Drive
+folder → write the link + Status back to Notion → the team pastes into Magento.
+
+The July board (`93ac15a8-…`, data source `d342f9b8-…`) differs from June: it has
+**no `Week Theme`** and adds `Author/Priority/Intent/Funnel/Evergreen`. The
+pipeline adapts automatically via a **schema profile** (`config.schemaProfileFor`):
+validation accepts `July 2026`, and mapping omits `Week Theme` while writing the
+new editorial columns.
+
+```
+Notion row (Review)
+  └─ pickProducts()      real, in-stock SKUs from data/products.json (BI feed)
+  └─ expandArticle()     full-depth Thai body (Anthropic) — or seedExpansion() offline
+  └─ buildArticleModel() title split, slug, JSON-LD (from the row's Schema field),
+  │                      compliance, emoji strip, Buddhist ban-day handling
+  └─ renderArticle()     standalone Magento-safe HTML (brand chrome + assets/article.css)
+  └─ approveToDrive()    CSS-inline + upload + Notion writeback (Status, Drive/Final URL)
+```
+
+### Run it
+
+```bash
+# Dry-run: render every Review row to ./out/july-dry, no Notion/Drive writes.
+NOTION_DATABASE_ID=93ac15a8-bb65-40f7-b357-b8cabd336214 \
+  node src/july-cli.mjs --dry-run
+
+# Dry-run from a local items file (offline, no token needed):
+node src/july-cli.mjs --dry-run --items rows.json --out ./out/july-dry
+
+# Live publish (needs NOTION_TOKEN, GOOGLE_SERVICE_ACCOUNT_JSON, DRIVE_FOLDER_ID;
+# ANTHROPIC_API_KEY enables full-depth expansion, else an offline seed is used):
+NOTION_DATABASE_ID=93ac15a8-bb65-40f7-b357-b8cabd336214 \
+  node src/july-cli.mjs --publish --limit 1
+```
+
+| Env var | Purpose |
+|---------|---------|
+| `NOTION_DATABASE_ID` | Set to the July id `93ac15a8-…` (config defaults to June) |
+| `WNLQ9_BI_API_KEY` | BI product feed (header `X-API-Key`, base `https://wnlq9-bi-api.vercel.app`) |
+| `ANTHROPIC_API_KEY` | Full-depth Thai expansion (`llm.expandArticle`); falls back to seed |
+| `PUBLISH_LANGS` | **The EN switch.** `th` (default) = Thai-only; `th,en` also emits the English article from `Content EN` |
+
+### Turning on English later
+
+Thai-only ships now. To also publish English, set **`PUBLISH_LANGS=th,en`**
+(Vercel env or shell). The renderer already parses the EN half of the
+`TH / EN` title and reads `Content EN`; EN files are written as
+`<slug>.en.html`. **Before enabling**, confirm the EN locale/URL pattern (the
+canonical currently mirrors the TH domain) — that's the one open item.
