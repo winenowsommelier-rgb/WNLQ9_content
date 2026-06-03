@@ -203,6 +203,48 @@ def test_build_collectors_passes_geo_focus(tmp_path):
     assert collectors[0].geo_focus == "thailand"
 
 
+def test_build_collectors_passes_thailand_focus_override(tmp_path):
+    """A source with thailand_focus_override: high yields a collector with
+    that override set, so articles get thailand_focus_preset stamped."""
+    config = _write_config(tmp_path, """
+        sources:
+          lifestyle:
+            - name: "Khaosod English"
+              api_type: "rss"
+              rss_feed: "https://www.khaosod.co.th/rss"
+              vertical: "lifestyle"
+              geo_focus: "thailand"
+              thailand_focus_override: "high"
+              enabled: true
+        collection_config:
+          enabled_verticals: [lifestyle]
+    """)
+    pipeline = IngestPipeline(sources_config_path=config)
+    collectors = pipeline.build_collectors()
+    assert len(collectors) == 1
+    assert collectors[0].thailand_focus_override == "high"
+
+
+def test_build_collectors_override_absent_is_none(tmp_path):
+    """A source without thailand_focus_override yields a collector where the
+    attribute is None (no preset stamped on articles)."""
+    config = _write_config(tmp_path, """
+        sources:
+          wine:
+            - name: "Decanter"
+              api_type: "rss"
+              rss_feed: "https://www.decanter.com/feed/"
+              vertical: "wine"
+              enabled: true
+        collection_config:
+          enabled_verticals: [wine]
+    """)
+    pipeline = IngestPipeline(sources_config_path=config)
+    collectors = pipeline.build_collectors()
+    assert len(collectors) == 1
+    assert collectors[0].thailand_focus_override is None
+
+
 def test_enabled_verticals_defaults_to_all(tmp_path):
     """Absent enabled_verticals -> no vertical filtering (backward compatible)."""
     config = _write_config(tmp_path, """

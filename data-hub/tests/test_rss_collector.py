@@ -162,3 +162,35 @@ def test_geo_focus_thailand_stamps_medium_baseline_on_collected_articles():
 
     assert len(articles) == 1
     assert articles[0]["thailand_focus"] == "medium"
+
+
+def test_thailand_focus_override_stamps_preset_on_collected_articles():
+    """thailand_focus_override='high' stamps thailand_focus_preset='high' on
+    every collected article without needing keyword matching."""
+    collector = RSSCollector(
+        name="Khaosod English", feed_url=FEED_URL,
+        geo_focus="thailand", thailand_focus_override="high"
+    )
+    # Title has no Thailand keyword -- override must still win.
+    fake_feed = SimpleNamespace(entries=[_make_entry()], bozo=0)
+    with mock.patch(
+        "collectors.rss_collector.feedparser.parse", return_value=fake_feed
+    ):
+        articles = collector.collect()
+
+    assert len(articles) == 1
+    assert articles[0]["thailand_focus_preset"] == "high"
+
+
+def test_thailand_focus_override_none_does_not_stamp_preset():
+    """When thailand_focus_override is not set, no thailand_focus_preset key
+    is added to the article."""
+    collector = RSSCollector(name="Decanter", feed_url=FEED_URL)
+    fake_feed = SimpleNamespace(entries=[_make_entry()], bozo=0)
+    with mock.patch(
+        "collectors.rss_collector.feedparser.parse", return_value=fake_feed
+    ):
+        articles = collector.collect()
+
+    assert len(articles) == 1
+    assert "thailand_focus_preset" not in articles[0]

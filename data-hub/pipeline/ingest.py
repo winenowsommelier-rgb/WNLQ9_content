@@ -191,6 +191,7 @@ class IngestPipeline:
         api_type = source.get("api_type")
         vertical = source.get("vertical")
         geo_focus = source.get("geo_focus")
+        thailand_focus_override = source.get("thailand_focus_override")
 
         if api_type == "rss":
             feed = source.get("rss_feed")
@@ -199,7 +200,8 @@ class IngestPipeline:
                                name)
                 return None
             return RSSCollector(name=name, feed_url=feed, vertical=vertical,
-                                geo_focus=geo_focus)
+                                geo_focus=geo_focus,
+                                thailand_focus_override=thailand_focus_override)
 
         if api_type == "web_scrape":
             selectors = source.get("selectors")
@@ -213,7 +215,8 @@ class IngestPipeline:
             listing_url = source.get("scrape_endpoint") or source.get("url")
             return WebScraper(name=name, listing_url=listing_url,
                               selectors=selectors, vertical=vertical,
-                              geo_focus=geo_focus)
+                              geo_focus=geo_focus,
+                              thailand_focus_override=thailand_focus_override)
 
         if api_type == "sitemap":
             # Sitemap crawling is deep-history work reserved for the backfill
@@ -534,6 +537,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     print("Content Hub ingestion summary:")
     print(f"  collected            : {summary['collected']}")
     print(f"  after_dedup          : {summary['after_dedup']}")
+    print(f"  bev_dropped          : {summary.get('bev_dropped', 0)}")
     print(f"  after_cross_run_dedup: {summary['after_cross_run_dedup']}")
     print(f"  exported             : {summary['exported']}")
     print(f"  sources_run          : {len(summary['sources_run'])}")

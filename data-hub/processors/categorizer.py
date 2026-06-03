@@ -417,28 +417,44 @@ class Categorizer:
     def _detect_thailand_focus(self, article: Dict) -> str:
         """Classify cross-vertical Thailand relevance as high / medium / "".
 
-        Two paths feed this field. A ``geo_focus: thailand`` source stamps a
-        ``"medium"`` BASELINE (locally relevant); this keyword/Thai-script path
-        then refines it:
+        Three paths feed this field, checked in order:
 
-        * A preset of ``"high"`` is authoritative -- KEEP it (never downgrade).
-        * A preset of ``"medium"`` (the Thai-source baseline) is UPGRADED to
-          ``"high"`` when an actual Thailand keyword/Thai-script signal matches,
-          but is otherwise kept at ``"medium"`` (never downgraded to "").
-        * With no preset: HIGH when a strong, word-boundaried signal
-          (thailand/thai/bangkok/phuket/chiang mai/pattaya/koh samui/krabi/
-          isaan, or any Thai-script char) appears in the TITLE or URL; MEDIUM
-          when a strong signal appears only in the excerpt/body or a weaker
-          signal (southeast asia / baht) appears anywhere; "" otherwise.
+        1. ``thailand_focus_preset`` (source-level override set by the
+           collector from ``sources.yaml ``thailand_focus_override``): when
+           present and a valid level, it wins outright -- no keyword matching
+           needed. Invalid values fall through to the normal paths below.
+        2. A ``geo_focus: thailand`` source stamps a ``"medium"`` BASELINE
+           (locally relevant); this keyword/Thai-script path then refines it:
+           * A preset of ``"high"`` is authoritative -- KEEP it (never
+             downgrade).
+           * A preset of ``"medium"`` is UPGRADED to ``"high"`` when an actual
+             Thailand keyword/Thai-script signal matches, kept at ``"medium"``
+             otherwise (never downgraded to "").
+        3. With no preset: HIGH when a strong, word-boundaried signal
+           (thailand/thai/bangkok/phuket/chiang mai/pattaya/koh samui/krabi/
+           isaan, or any Thai-script char) appears in the TITLE or URL; MEDIUM
+           when a strong signal appears only in the excerpt/body or a weaker
+           signal (southeast asia / baht) appears anywhere; "" otherwise.
 
-        Net effect: Thai-source + keyword -> high; Thai-source, no keyword ->
-        medium; non-Thai source + keyword -> high; nothing -> "".
+        Net effect: source override -> wins; Thai-source + keyword -> high;
+        Thai-source, no keyword -> medium; non-Thai source + keyword -> high;
+        nothing -> "".
 
         Word-boundaried matching means "Thatcher", "thatched" and
         "Thanksgiving" never trigger a false positive on ``\\bthai\\b``.
         """
         if not isinstance(article, dict):
             return ""
+
+        # Respect source-level override (set by collector from sources.yaml).
+        # Only accepted when it is a known valid level; unknown values fall
+        # through to keyword matching so a misconfigured entry is safe.
+        source_override = article.get("thailand_focus_preset")
+        source_override = (
+            source_override.strip() if isinstance(source_override, str) else ""
+        )
+        if source_override in _VALID_THAILAND_FOCUS:
+            return source_override
 
         # An authoritative HIGH preset is never downgraded and short-circuits.
         preset = article.get("thailand_focus")
