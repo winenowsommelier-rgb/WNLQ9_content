@@ -110,6 +110,71 @@ sources:
       regions: ["Global"]
       notes: "Crowdsourced wine ratings and reviews; monitors trending wines and user sentiment."
 
+    - name: "VinePair"
+      url: "https://vinepair.com"
+      api_type: "rss"
+      rss_feed: "https://vinepair.com/feed/"
+      vertical: "wine"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "guide", "review"]
+      coverage: ["wine", "spirits"]
+      notes: "Premium-consumer wine + spirits coverage; broad trend and education signal for the premium market."
+
+    - name: "The Drinks Business"
+      url: "https://www.thedrinksbusiness.com"
+      api_type: "rss"
+      rss_feed: "https://www.thedrinksbusiness.com/feed/"
+      vertical: "wine"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "feature"]
+      coverage: ["wine", "spirits"]
+      notes: "Fine wine + drinks market/investment trade coverage; a premium-market and investment signal."
+
+    - name: "SevenFifty Daily"
+      url: "https://daily.sevenfifty.com"
+      api_type: "rss"
+      rss_feed: "https://daily.sevenfifty.com/feed/"
+      vertical: "wine"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "feature", "guide"]
+      coverage: ["wine", "spirits"]
+      notes: "Drinks-trade journal (wine + spirits) for the on-/off-premise trade; premium-market industry signal."
+
+    - name: "Liv-ex"
+      url: "https://www.liv-ex.com"
+      api_type: "rss"
+      rss_feed: "https://www.liv-ex.com/feed/"
+      vertical: "wine"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "feature"]
+      coverage: ["wine"]
+      notes: "Fine-wine PRICING / INVESTMENT index (the global fine-wine exchange). This is THE premium-market price/investment trend signal that was entirely missing from the corpus."
+
+    - name: "Wine Industry Advisor"
+      url: "https://wineindustryadvisor.com"
+      api_type: "rss"
+      rss_feed: "https://wineindustryadvisor.com/feed"
+      vertical: "wine"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "feature"]
+      coverage: ["wine"]
+      notes: "Wine trade/business news; supply, pricing, and market-side signal for the wine industry."
+
   spirits:
     - name: "Whisky Advocate"
       url: "https://www.whiskyadvocate.com"
