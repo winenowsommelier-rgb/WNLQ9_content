@@ -33,7 +33,7 @@ _FIDELITY_FIELDS = [
     "content_excerpt", "content_type", "topic_region", "spirits_type",
     "trend_signals", "primary_category", "buyer_persona",
     "aeo_citation_opportunity", "source_language", "thailand_focus",
-    "beverage_relevance", "enriched", "author", "published_date",
+    "beverage_relevance", "enriched", "kind", "author", "published_date",
     "collected_date", "title", "source_name",
 ]
 
@@ -55,7 +55,23 @@ def main() -> int:
     src.init_schema()
     dst = SupabaseArticleStore()
 
-    rows = src.query(limit=args.limit) if args.limit else src.query()
+    # Read FULL rows directly (store.query() omits the meta columns
+    # url_normalized/kind/enriched, which we must carry to Supabase).
+    import sqlite3, json
+    conn = sqlite3.connect(args.db)
+    conn.row_factory = sqlite3.Row
+    sql = "SELECT * FROM articles" + (" LIMIT ?" if args.limit else "")
+    raw = conn.execute(sql, (args.limit,) if args.limit else ()).fetchall()
+    rows = []
+    for rr in raw:
+        d = dict(rr)
+        ts = d.get("trend_signals")
+        if isinstance(ts, str):
+            try:
+                d["trend_signals"] = json.loads(ts)
+            except Exception:
+                d["trend_signals"] = [x.strip() for x in ts.split("|") if x.strip()]
+        rows.append(d)
     print(f"Read {len(rows)} rows from {args.db}")
 
     # Upsert grouped by kind so provenance (live/backfill) is preserved.
