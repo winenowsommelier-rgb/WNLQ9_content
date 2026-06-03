@@ -25,7 +25,12 @@ jobs:
       run:
         working-directory: data-hub
     steps:
+      # The data-hub code lives on the `main` branch (separate history from the
+      # default branch). Scheduled workflows run from the default branch, so we
+      # explicitly check out main to get the pipeline code.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:

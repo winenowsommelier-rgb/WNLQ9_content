@@ -30,7 +30,10 @@ jobs:
       run:
         working-directory: data-hub
     steps:
+      # data-hub code lives on `main` (separate history from default branch).
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
