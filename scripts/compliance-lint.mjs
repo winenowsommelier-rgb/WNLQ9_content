@@ -55,8 +55,11 @@ const PRICE_PATTERNS = [
 ];
 
 // 2. Emoji / decorative pictographs (Magento CMS display rule).
+//    NOTE: the arrows block (U+2190–U+21FF) is intentionally NOT included —
+//    plain typographic arrows like "→" are allowed in pairing copy
+//    ("dish → wine") and are not treated as decorative emoji.
 const EMOJI_PATTERN =
-  /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F0FF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu;
+  /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F0FF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu;
 
 // 3. Age-notice indicators expected in Thai content.
 const AGE_INDICATORS = [

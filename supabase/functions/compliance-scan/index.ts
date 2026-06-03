@@ -70,8 +70,10 @@ const PRICE_PATTERNS = [
   /ราคา[\s\S]{0,15}?\d[\d,]*(?:\.\d+)?\s?(?:บาท|฿|THB)/gi,
 ];
 
+// The arrows block (U+2190–U+21FF) is intentionally excluded — plain
+// typographic arrows like "→" are allowed in pairing copy, not decorative emoji.
 const EMOJI_PATTERN =
-  /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F0FF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu;
+  /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F0FF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}]/gu;
 
 const AGE_INDICATORS = [
   "ผู้ที่มีอายุ",
