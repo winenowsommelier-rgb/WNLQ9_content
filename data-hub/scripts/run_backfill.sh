@@ -23,6 +23,14 @@ cd "$(dirname "$0")/.."
 # shellcheck disable=SC1091
 source venv/bin/activate
 
-export DATA_HUB_SHEET_ID="${DATA_HUB_SHEET_ID:-YOUR_SHEET_ID_HERE}"
+# Load optional local config (DB backend + Supabase creds, sheet id); gitignored.
+if [ -f config/.env ]; then
+    set -a
+    # shellcheck disable=SC1091
+    . config/.env
+    set +a
+fi
+
+export DATA_HUB_SHEET_ID="${DATA_HUB_SHEET_ID:-1c5X9wcgBivLKVarNl0md0XgpnzE-zpPHhpsFiFmqJuM}"
 
 python -m pipeline.backfill "$@"
