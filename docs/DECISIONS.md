@@ -44,3 +44,34 @@ unchanged. Example live insight already visible: `bottle stopper` = 27k impressi
   migration (`seo_opportunity_score` / `detect_seo_regression`) — reconcile.
 - Optional: extend liq9 GSC + older GA4 history; deeper than 90 days if needed.
 - Then resume the monthly content engine (next month: **August 2026**).
+
+### Session retrospective (2026-06-03)
+
+**Goal drift:** started as "resume monthly engine / build a month" → pivoted to
+"design & solidify the content intelligence system" → narrowed to the urgent fix:
+make the GA4+GSC connection real and direct, fix the wrong domain.
+
+**Went well:** grounded every claim in real inspection of the actual estate;
+found the credential the owner said existed (Supabase Vault `gcp_sa_key`); shipped
+a verified working fix with real data, not just a plan.
+
+**Went badly (honest):**
+1. Overclaimed early — said "GA4+GSC authenticated, feedback loop is live now" based
+   on connector status + row counts, without checking **provenance**. The loop was a
+   stub importing 0; the rows were sample data. → New rule: never call a pipeline
+   "live/working" until you verify who wrote the rows, when, and via what.
+2. Too many question rounds up front (parameters, then architecture forks) read as
+   stalling to an owner who wanted action; two were dismissed. → Bias to
+   investigate-and-act; do cheap discovery first; reserve questions for true forks.
+3. `winenowsommelier.com` sat in committed code/docs across sessions — a
+   single-source-of-truth failure. → `seo_config` is authoritative; code never
+   hardcodes; config is verified against reality.
+
+**Process to carry forward (session protocol):**
+1. Read the top of this DECISIONS log + `docs/SEO_DATA_PIPELINE.md` first.
+2. Do cheap discovery (DB, repo, config) before proposing or asking.
+3. Act; verify provenance of any data before trusting it.
+4. Log here + commit + mirror to Notion before ending the session.
+
+**Handoff state:** branch `claude/brave-gates-FrHj8` clean + pushed · edge fn `sync-gsc-ga4`
+v7 live · daily cron 06:00 UTC · ~90 days real GSC/GA4 in Supabase `asnarjokyedupsjipzkl`.
