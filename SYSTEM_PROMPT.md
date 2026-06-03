@@ -1,10 +1,10 @@
 # SEO & AEO Dashboard System Prompt
 ## Wine Now TH & LIQ9 TH — Complete Context & Implementation Guide
 
-**Last Updated:** June 2026  
+**Last Updated:** 2026-06-03  
 **Repository:** winenowsommelier-rgb/WNLQ9_content  
-**Branch:** claude/lucid-bardeen-F6DjC  
-**Status:** Production Ready
+**Branch:** claude/gifted-pascal-7RHkk  
+**Status:** Data sync live (GSC + GA4, 2 sites) · Web deploy blocked (see Deployment Status)
 
 ---
 
@@ -176,13 +176,27 @@ CREATE TABLE seo_sync_log (
 
 ## Deployment Status
 
-### ✅ COMPLETE: Dashboard Deployed to Vercel
+### ⚠️ BLOCKED: Dashboard Deploy to Vercel (currently failing)
 
-**How It Works:**
-1. Push to `claude/lucid-bardeen-F6DjC` → GitHub Actions triggers
-2. GitHub Actions runs `npm run build` → deploys to Vercel
-3. Vercel hosts at: `https://seo-dashboard-abc.vercel.app`
+**Intended flow:**
+1. Push to `claude/gifted-pascal-7RHkk` → GitHub Actions triggers
+2. GitHub Actions runs `vercel --prod` → deploys to Vercel
+3. Vercel hosts the dashboard at a `*.vercel.app` URL
 4. Dashboard auto-refreshes every 5 minutes
+
+**Actual state (verified 2026-06-03):** No successful production deploy exists yet.
+Two blockers, both requiring account-owner action:
+- **GitHub Actions:** every run fails with `Error! The specified token is not valid`.
+  The `VERCEL_TOKEN` repo secret is invalid/expired → regenerate it at
+  Vercel → Account Settings → Tokens, then update the GitHub repo secret.
+- **Vercel native Git integration:** the repo is also linked to two Vercel
+  projects (`seo-dashboard`, `wnlq-9-content-seo`) that auto-build every push and
+  all error with `No Next.js version detected`. They build branches whose repo
+  root is the content-pipeline project, not this Next.js dashboard. Fix: set each
+  project's Production Branch to `claude/gifted-pascal-7RHkk` (where the dashboard
+  `package.json` lives) and Root Directory to the repo root, or disconnect the
+  redundant project. The `seo-dashboard-abc.vercel.app` URL used elsewhere in this
+  doc is a placeholder — replace it with the real URL once a deploy succeeds.
 
 **Verify Deployment:**
 ```bash
@@ -290,11 +304,11 @@ https://seo-dashboard-abc.vercel.app
 ```sql
 -- See latest synced data
 SELECT * FROM seo_gsc_daily 
-WHERE date = CURRENT_DATE 
+WHERE metric_date = (SELECT MAX(metric_date) FROM seo_gsc_daily)
 ORDER BY synced_at DESC LIMIT 10;
 
 SELECT * FROM seo_ga4_daily 
-WHERE date = CURRENT_DATE 
+WHERE metric_date = (SELECT MAX(metric_date) FROM seo_ga4_daily)
 ORDER BY synced_at DESC LIMIT 10;
 
 -- Check for errors
@@ -479,7 +493,7 @@ cd /home/user/WNLQ9_content
 
 # Verify branch
 git branch -a
-# Should show: * claude/lucid-bardeen-F6DjC
+# Should show: * claude/gifted-pascal-7RHkk
 
 # Check recent work
 git log --oneline -5
@@ -560,7 +574,7 @@ git add app/page.tsx
 git commit -m "Add new chart to dashboard"
 
 # Push to development branch
-git push -u origin claude/lucid-bardeen-F6DjC
+git push -u origin claude/gifted-pascal-7RHkk
 
 # GitHub Actions automatically deploys to Vercel
 # Check: https://github.com/winenowsommelier-rgb/WNLQ9_content/actions
@@ -587,7 +601,7 @@ vim app/page.tsx
 # Commit & push
 git add components/NewComponent.tsx app/page.tsx
 git commit -m "Add NewComponent to dashboard"
-git push origin claude/lucid-bardeen-F6DjC
+git push origin claude/gifted-pascal-7RHkk
 ```
 
 ### Task: Update Environment Variables
@@ -753,8 +767,8 @@ If issues:
 
 ### For Developers
 - Repository: https://github.com/winenowsommelier-rgb/WNLQ9_content
-- Branch: claude/lucid-bardeen-F6DjC
-- Git command: `git clone https://github.com/winenowsommelier-rgb/WNLQ9_content.git -b claude/lucid-bardeen-F6DjC`
+- Branch: claude/gifted-pascal-7RHkk
+- Git command: `git clone https://github.com/winenowsommelier-rgb/WNLQ9_content.git -b claude/gifted-pascal-7RHkk`
 
 ---
 

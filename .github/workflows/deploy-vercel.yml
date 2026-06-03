@@ -3,7 +3,7 @@ name: Deploy to Vercel
 on:
   push:
     branches:
-      - claude/lucid-bardeen-F6DjC
+      - claude/gifted-pascal-7RHkk
       - main
   workflow_dispatch:
 
