@@ -4,6 +4,12 @@ Fetches and parses RSS/Atom feeds via feedparser, mapping each entry into a
 dict that conforms to the Content Hub schema (data-schema.md). Tier-1 targets
 include Decanter (https://www.decanter.com/feed/) and The Spirits Business
 (https://www.thespiritsbusiness.com/feed/).
+
+Most RSS entries already carry a summary/description, so the excerpt is
+extracted inline here and the live daily ingest stays fast -- it deliberately
+does NOT fetch each article's full page. Bulk excerpt backfill for rows that
+arrived without text (e.g. sitemap-collected) is handled out-of-band by
+``scripts/enrich_excerpts.py``.
 """
 
 from __future__ import annotations

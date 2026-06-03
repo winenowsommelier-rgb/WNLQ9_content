@@ -114,6 +114,8 @@ export DATA_HUB_SHEET_ID="1c5X9wcgBivLKVarNl0md0XgpnzE-zpPHhpsFiFmqJuM"
 | Confirm the sheet connection is healthy | `./scripts/verify_sheets_setup.sh` |
 | Check the pipeline's health (recent data, logs) | `./scripts/run_health_check.sh` |
 | Backfill ~12 months of history (one-time/quarterly) | `./scripts/run_backfill.sh --months-back 12` |
+| Fix empty excerpts + re-categorize (fetch real article text, no LLM) | `./scripts/enrich_excerpts.sh` |
+| Refresh the Sheet from the DB after enriching | `./scripts/remirror_to_sheets.sh` |
 | See the scheduled job | `launchctl list \| grep datahub` |
 | Trigger the scheduled job manually | `launchctl kickstart gui/$(id -u)/com.wnlq9.datahub.ingest` |
 | Read the run log | `tail -f logs/cron.log` |

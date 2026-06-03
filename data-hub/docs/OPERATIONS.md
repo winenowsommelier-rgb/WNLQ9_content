@@ -298,6 +298,35 @@ the recommended hardening — Track B — and is not yet built.)*
 - Audit the full source list against the prioritization matrix in `research/`;
   add high-value sources and prune dead ones.
 
+### Excerpt enrichment (fix empty excerpts + re-categorize)
+
+Sitemap-backfilled rows arrive with only a slug-derived title and an **empty
+`content_excerpt`**. With no body text the keyword categorizer can't detect
+Region / Spirits Type / Trend Signals, so those rows skew toward `Other`. The
+enrichment pass fetches each article's **real page text** (the publisher's own
+meta description / first paragraph — **no LLM, no API key**), repopulates the
+excerpt, and re-runs the existing categorizer so the category fields refresh.
+
+```bash
+# 1) Backfill excerpts + re-categorize (writes to the SQLite DB).
+#    Bounded per run; re-run until it reports 'processed=0' to drain the backlog.
+./scripts/enrich_excerpts.sh                 # up to 500 rows
+./scripts/enrich_excerpts.sh --limit 1000 --delay 0.5
+
+# 2) Refresh the Sheet from the DB so the dashboards show the enriched data.
+DATA_HUB_SHEET_ID=... ./scripts/remirror_to_sheets.sh
+```
+
+- **Safe & idempotent.** Every processed row is marked `enriched=1` — including
+  rows whose fetch found nothing — so a dead URL is never refetched. Re-running
+  is harmless; a fully-drained run reports `processed=0`.
+- **Can run in the background.** It is fail-soft per row and rate-limited
+  (`--delay`), so it won't hammer publishers or crash on a bad page. The live
+  daily ingest is unaffected — it never does per-article page fetches.
+- `remirror_to_sheets.sh` rebuilds the **Articles** (kind=live) and
+  **Historical_Backfill** (kind=backfill) tabs straight from the DB
+  system-of-record; it clears each tab then rewrites header + rows.
+
 ---
 
 ## 6. Content Verticals & Adding a New Source
