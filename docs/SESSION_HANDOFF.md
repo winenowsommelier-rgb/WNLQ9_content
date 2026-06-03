@@ -137,15 +137,43 @@ This invalidates part of the Notion sweep already done: rows were pointed at the
 **older** (first-upload) ids. Per the user, **the new ids are authoritative** and
 the earlier pointers are partially wrong. **Do not resume piecemeal updates.**
 
-### Correct procedure for next session (single clean sweep)
-1. Confirm the upload agent has **finished** all 35.
-2. `search_files parentId = '1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM'` (pageSize 100).
-3. For each slug, keep the **newest `createdTime`** id; flag any byte size that
-   looks broken (e.g. the 2,090 B `day8-champagne-vs-prosecco-vs-cava.html` is a
-   truncated/bad upload — ignore it, use the 35,677 B copy).
-4. Update **all 52** Notion `Drive file URL` rows to the chosen ids in one batch.
-5. Then give the user the manual **delete list** (old duplicate ids per slug +
-   everything in Blog Html center root except the Magento-Ready subfolder).
+### Correct procedure (single clean sweep) — TOOLED, ready to fire
+Helpers committed this session:
+- **`docs/notion-drive-sweep-map.json`** — stable `slug → Notion page id` for all
+  **52** rows (Drive id deliberately NOT stored; it changes every re-upload).
+- **`docs/notion-drive-sweep-plan.mjs`** — feed it a folder scan, it dedupes
+  newest-per-slug, joins the map, and prints the Notion updates + the by-hand
+  delete list + anomalies (tiny/broken files, unmapped slugs, missing slugs).
+
+Steps:
+1. **Confirm the upload agent has STOPPED.** (As of 2026-06-03 ~22:34 it was
+   still running — the user confirmed "still running / not sure", so the sweep
+   was deliberately NOT fired. Repointing now would go stale on the next round.)
+2. `search_files parentId = '1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM'` (pageSize 100) →
+   save the JSON to `/tmp/scan.json`.
+3. `node docs/notion-drive-sweep-plan.mjs /tmp/scan.json`.
+4. Apply the printed **Notion updates** via `notion-update-page`
+   (`{"Drive file URL":"…"}`, NO `userDefined:` prefix) — batch them.
+5. Hand the user the printed **delete list** (stale dup ids + the 2,090 B broken
+   `day8-champagne-vs-prosecco-vs-cava` copy) plus: everything in Blog Html
+   center **root** except the Magento-Ready subfolder.
+
+### State at handoff (2026-06-03 ~22:40)
+- **52 unique slugs confirmed** in Magento-Ready (27 Wine-Now + 25 LIQ9) — full
+  set authored. Roster = the keys in `notion-drive-sweep-map.json`.
+- Folder is **bloated to ~95 files**: the agent ran repeated rounds (17:xx, 18:xx,
+  19:xx, 22:xx). The 22:xx round re-inlined larger/corrected versions for ~30
+  slugs, so most slugs now have 2–3 copies (a few have 4). Newest = keep.
+- **Known broken upload:** `day8-champagne-vs-prosecco-vs-cava.html` id
+  `1bq2zfmd…` is 2,090 B (truncated) — the plan script auto-skips it.
+- Notion `Drive file URL` sweep is **PARTIALLY APPLIED to STALE ids** from earlier
+  rounds; the clean re-sweep above supersedes all of it (idempotent — just
+  overwrites each row with the final newest id).
+
+### Decisions captured this session
+- **July:** the board is **June-only** (`Month` option set = just "June 2026"); no
+  July rows/board exist. User chose **"June first, July later"** — do NOT plan
+  July yet; finish finalizing June (sweep → dedup delete → status normalization).
 
 ### Known duplicate sets observed mid-upload (newest = keep)
 - `day8-champagne-vs-prosecco-vs-cava`: `1WBVEWF…` 34,034B (old) ·
