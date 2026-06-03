@@ -273,8 +273,8 @@ Google Search Console | Notion Database | Slack Webhooks<br>
         </tr>
         <tr>
           <td>API Integration</td>
-          <td>Google Search Console API (OAuth 2.0)</td>
-          <td><span class="status blocked">Future (Week 3)</span></td>
+          <td>GSC API → Supabase sync (read live by dashboard)</td>
+          <td><span class="status">Live via Supabase</span></td>
         </tr>
       </table>
 
@@ -287,8 +287,10 @@ Google Search Console | Notion Database | Slack Webhooks<br>
         <p><span class="highlight">Domains needed:</span> wine-now.com + liq9.com (GSC properties)</p>
       </div>
 
-      <h3>3. Supermetrics (Optional)</h3>
-      <p><span class="status blocked">NOT NEEDED</span> — Using GA4 + GSC directly</p>
+      <h3>3. Supermetrics</h3>
+      <p><span class="status blocked">DISCONNECTED</span> — not used. GA4 + GSC data is synced
+      directly into Supabase (project <code>WNLQ9 SEO Automation</code>) and read live by the
+      dashboard. No third-party connector sits in the data path.</p>
     </section>
 
     <!-- APIS -->
@@ -305,15 +307,15 @@ Google Search Console | Notion Database | Slack Webhooks<br>
         </tr>
         <tr>
           <td>Google Analytics 4 API</td>
-          <td>OAuth 2.0 + Service Account</td>
+          <td>OAuth 2.0 + Service Account → Supabase sync</td>
           <td>JSON key file</td>
-          <td><span class="status pending">Week 3</span></td>
+          <td><span class="status">Live via Supabase</span></td>
         </tr>
         <tr>
           <td>Google Search Console API</td>
-          <td>OAuth 2.0 + Service Account</td>
+          <td>OAuth 2.0 + Service Account → Supabase sync</td>
           <td>JSON key file (same as GA4)</td>
-          <td><span class="status pending">Week 3</span></td>
+          <td><span class="status">Live via Supabase</span></td>
         </tr>
       </table>
 

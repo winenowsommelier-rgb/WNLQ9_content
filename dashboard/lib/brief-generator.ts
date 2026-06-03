@@ -14,11 +14,11 @@ export function generateBriefOptions(
 ): BriefOption[] {
   // Filter signals to this brand
   const pages = ga4
-    .filter((r) => guessBrand(`${r.pageTitle} ${r.pagePath}`) === brand)
+    .filter((r) => (r.brand ?? guessBrand(`${r.pageTitle} ${r.pagePath}`)) === brand)
     .sort((a, b) => b.views - a.views);
 
   const keywords = gsc
-    .filter((r) => guessBrand(r.query) === brand)
+    .filter((r) => (r.brand ?? guessBrand(r.query)) === brand)
     .sort((a, b) => b.impressions - a.impressions);
 
   const maxViews = pages[0]?.views || 1;

@@ -66,20 +66,26 @@ Then open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-### 3️⃣ Sample Data (Included)
+### 3️⃣ GA4 / GSC Data (Live via Supabase)
 
-**Status:** Pre-loaded for testing
+**Status:** ✅ Live
 
-The dashboard includes sample GA4 and GSC data:
-- `data/sample-ga4-data.csv` — Top 15 wine/spirits topics (mock GA4 data)
-- `data/sample-gsc-data.csv` — Top 20 keywords by brand (mock GSC data)
+Real Google Search Console + Analytics 4 metrics are synced daily into the
+Supabase project **WNLQ9 SEO Automation** and read by `/api/data`, pre-aggregated
+per brand by the `dashboard_gsc_keywords` / `dashboard_ga4_pages` materialized
+views. Set these in `.env.local` to go live:
 
-**To use in the app:**
-1. Go to Settings page
-2. Click "Import GA Data" → Upload `data/sample-ga4-data.csv`
-3. Click "Import GSC Data" → Upload `data/sample-gsc-data.csv`
+```
+SUPABASE_URL=https://asnarjokyedupsjipzkl.supabase.co
+SUPABASE_ANON_KEY=<anon or publishable key>
+```
 
-The data is cached in memory with a 6-hour TTL. Click "Refresh Data" to reload.
+The Topics and Keywords tabs then show real wine-now / liq9 data, brand-tagged
+from the `site` column (no heuristic guessing).
+
+**Fallback:** when the Supabase env vars are absent, `/api/data` falls back to
+the bundled sample CSVs (`data/sample-*.csv`) so the UI still renders for
+local/offline dev.
 
 ---
 
@@ -94,29 +100,31 @@ The data is cached in memory with a 6-hour TTL. Click "Refresh Data" to reload.
 
 ---
 
-## Week 3 Setup (API Integration - Future)
+## Live Data Architecture (GA4 + GSC)
 
-*(Deferred to when GA4 API + GSC API are ready)*
+**Status:** ✅ Done — the dashboard reads real data from Supabase.
 
-### Google Cloud Project Setup
+```
+Google Search Console API ─┐
+Google Analytics 4 API ────┤→ sync-gsc-ga4 (Supabase Edge Fn, daily)
+                           │     ↓ writes
+                           │   seo_gsc_daily / seo_ga4_daily  (per-day rows, per site)
+                           │     ↓ rolled up by
+                           │   dashboard_gsc_keywords / dashboard_ga4_pages  (materialized views)
+                           └→  /api/data  →  Topics & Keywords tabs
+```
 
-When ready to replace manual CSV imports with live APIs:
+- The per-day tables hold 360k+ GSC rows; the **materialized views** pre-aggregate
+  per `(site, keyword)` / `(site, page_path)` so top-N reads are instant.
+- A **pg_cron** job (`refresh-dashboard-seo-views`, `0 7 * * *` UTC) runs
+  `refresh_dashboard_seo_views()` daily, just after the ~06:00 UTC sync, so the
+  aggregates stay current automatically.
+- The dashboard reads the views with the **anon key** (views are granted to anon
+  and bypass base-table RLS as aggregate-only, non-sensitive data) — server-side
+  only, via `/api/data`.
 
-1. Create a Google Cloud Project
-2. Enable APIs:
-   - Google Analytics 4 API
-   - Google Search Console API
-3. Create a Service Account → Download JSON key
-4. Add the service account email to:
-   - GA4 property settings (read-only)
-   - GSC settings (read-only)
-5. Set environment variables:
-   ```
-   GOOGLE_SERVICE_ACCOUNT_KEY={...full json...}
-   GOOGLE_GA4_PROPERTY_ID=123456789
-   GOOGLE_GSC_DOMAIN_WINE_NOW=wine-now.com
-   GOOGLE_GSC_DOMAIN_LIQ9=liq9.com
-   ```
+No Google service-account key is needed in the dashboard itself; that lives in the
+sync pipeline. Supermetrics is **not** used.
 
 ---
 
@@ -124,12 +132,11 @@ When ready to replace manual CSV imports with live APIs:
 
 | Variable | Purpose | Status | Where to Get |
 |----------|---------|--------|-------------|
-| `NOTION_API_TOKEN` | Notion API authentication | ✅ Week 1 | notion.so/my-integrations |
-| `NOTION_DATABASE_ID` | Content database ID | ✅ Pre-configured | `786d080f8da24a1eb84e161f4e19d56d` |
-| `SLACK_WEBHOOK_URL` | Slack notifications | ✅ Week 1 | Slack workspace → Incoming Webhooks |
-| `NEXT_PUBLIC_BRANDS` | Brand dropdown options | ✅ Default | `wine-now,liq9` |
-| `NEXT_PUBLIC_APP_URL` | App base URL | ✅ Default | `http://localhost:3000` |
-| `DATA_CACHE_TTL_HOURS` | GA/GSC cache duration | ✅ Default | `6` hours |
+| `SUPABASE_URL` | Live GA4/GSC data source | ✅ Live | `https://asnarjokyedupsjipzkl.supabase.co` |
+| `SUPABASE_ANON_KEY` | Read the aggregation views | ✅ Live | Supabase → Project Settings → API keys |
+| `NOTION_API_TOKEN` | Notion API authentication | Week 1 | notion.so/my-integrations |
+| `NOTION_DATABASE_ID` | Content database ID | Pre-configured | `786d080f8da24a1eb84e161f4e19d56d` |
+| `SLACK_WEBHOOK_URL` | Slack notifications | Week 1 | Slack workspace → Incoming Webhooks |
 
 ---
 

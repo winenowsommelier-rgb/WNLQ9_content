@@ -57,6 +57,8 @@ export interface GA4Row {
   views: number;
   users: number;
   avgEngagementTime: number;
+  /** Authoritative brand from the data source (Supabase `site`). Falls back to a heuristic when absent. */
+  brand?: Brand;
 }
 
 // ---------- GSC Data ----------
@@ -66,6 +68,8 @@ export interface GSCRow {
   impressions: number;
   ctr: number;
   position: number;
+  /** Authoritative brand from the data source (Supabase `site`). Falls back to a heuristic when absent. */
+  brand?: Brand;
 }
 
 // ---------- Brief generation option ----------
