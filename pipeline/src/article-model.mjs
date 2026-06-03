@@ -125,7 +125,7 @@ function collectQa(block, faq) {
  * when the row's Schema field asks for it (or products exist). The Article
  * headline is ALWAYS the on-page H1 — no overpromising.
  */
-export function buildJsonLd({ brand, h1, lang, datePublished, keywords, category, faq, products, howto, schemaField, blogUrl }) {
+export function buildJsonLd({ brand, h1, lang, datePublished, keywords, category, faq, products, howto, recipe, schemaField, blogUrl }) {
   const wants = (token) => new RegExp(token, "i").test(String(schemaField || ""));
   const blocks = [];
 
@@ -159,6 +159,19 @@ export function buildJsonLd({ brand, h1, lang, datePublished, keywords, category
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+  }
+
+  if (recipe && recipe.steps && recipe.steps.length && wants("recipe")) {
+    blocks.push({
+      "@context": "https://schema.org",
+      "@type": "Recipe",
+      name: recipe.name || h1,
+      ...(recipe.ingredients && recipe.ingredients.length ? { recipeIngredient: recipe.ingredients } : {}),
+      recipeInstructions: recipe.steps.map((s) => ({
+        "@type": "HowToStep",
+        text: typeof s === "string" ? s : s.text || "",
       })),
     });
   }
@@ -228,11 +241,20 @@ export function buildArticleModel(item, { brand, expansion, products = [], lang 
     a: stripEmoji(f.a),
   }));
 
-  // Optional HowTo (for cocktail/recipe rows whose Schema asks for it).
+  // Optional HowTo / Recipe (for cocktail rows whose Schema asks for it).
   const howtoModel = expansion?.howto
     ? {
         name: stripEmoji(expansion.howto.name || ""),
         steps: (expansion.howto.steps || [])
+          .map((s) => stripEmoji(typeof s === "string" ? s : s.text || ""))
+          .filter(Boolean),
+      }
+    : null;
+  const recipeModel = expansion?.recipe
+    ? {
+        name: stripEmoji(expansion.recipe.name || ""),
+        ingredients: (expansion.recipe.ingredients || []).map(stripEmoji).filter(Boolean),
+        steps: (expansion.recipe.steps || [])
           .map((s) => stripEmoji(typeof s === "string" ? s : s.text || ""))
           .filter(Boolean),
       }
@@ -299,6 +321,7 @@ export function buildArticleModel(item, { brand, expansion, products = [], lang 
       faq,
       products: cards,
       howto: howtoModel,
+      recipe: recipeModel,
       schemaField: item.schema,
       blogUrl,
     }),

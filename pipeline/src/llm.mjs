@@ -188,6 +188,14 @@ export function parseExpansion(text) {
       p.howto && Array.isArray(p.howto.steps)
         ? { name: String(p.howto.name || ""), steps: p.howto.steps.map((s) => (typeof s === "string" ? s : String(s.text || ""))) }
         : null,
+    recipe:
+      p.recipe && Array.isArray(p.recipe.steps)
+        ? {
+            name: String(p.recipe.name || ""),
+            ingredients: Array.isArray(p.recipe.ingredients) ? p.recipe.ingredients.map(String) : [],
+            steps: p.recipe.steps.map((s) => (typeof s === "string" ? s : String(s.text || ""))),
+          }
+        : null,
     productIntro: String(p.productIntro || ""),
     verifyNotes: [],
   };

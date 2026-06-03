@@ -256,6 +256,25 @@ test("HowTo JSON-LD is emitted when the Schema field asks for it", () => {
   assert.equal(howto.step[0]["@type"], "HowToStep");
 });
 
+test("Recipe JSON-LD is emitted (with ingredients + instructions) when asked", () => {
+  const blocks = buildJsonLd({
+    brand: brandFor("LIQ9"),
+    h1: "Whisky Sour",
+    lang: "th",
+    datePublished: "2026-07-26",
+    faq: [],
+    products: [],
+    recipe: { name: "Whisky Sour", ingredients: ["วิสกี้ 50 มล.", "มะนาว 25 มล."], steps: ["เชก", "กรอง"] },
+    schemaField: "Recipe + HowTo + FAQPage",
+    blogUrl: "https://th.liq9.com/blog",
+  });
+  const recipe = blocks.find((b) => b["@type"] === "Recipe");
+  assert.ok(recipe, "expected a Recipe block");
+  assert.equal(recipe.recipeIngredient.length, 2);
+  assert.equal(recipe.recipeInstructions.length, 2);
+  assert.equal(recipe.recipeInstructions[0]["@type"], "HowToStep");
+});
+
 test("HowTo is NOT emitted when the Schema field doesn't ask for it", () => {
   const blocks = buildJsonLd({
     brand: brandFor("LIQ9"),
