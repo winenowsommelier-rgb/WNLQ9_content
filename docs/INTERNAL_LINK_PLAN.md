@@ -86,13 +86,23 @@ mention sparkling/champagne and are ready-made spokes:
 - `wine-storage-condo.html`
 
 **Plan:**
-1. Author the pillar (Thai, "Whisky 101 v2" depth) — e.g.
-   `champagne-sparkling-101` at `th.wine-now.com/blog/champagne-sparkling-101.html`
-   (confirm slug against the Notion row / live site).
-2. From each of the 5 spokes above, add one contextual in-body link **to** the
-   pillar (anchor on the sparkling/celebration mention).
-3. From the pillar, link **out** to those 5 + the varietal hub.
-4. Add a board row + `Final URL` so it joins into `--score` next pull.
+1. ✅ **DONE** — pillar authored at
+   `pipeline/public/content/champagne-sparkling-101.html`
+   (canonical `th.wine-now.com/blog/champagne-sparkling-101.html`), built from the
+   Notion row **JUL-C3 "Champagne 101"** + `data/expansions/JUL-C3.json`. Registered
+   in `data/articles.json`. Passes the full pre-ship checklist; 3 real in-stock
+   sparkling SKUs (WSP1233AD / WSP1140AE / WSP1104BU).
+2. 🔲 From each of the 5 spokes above, add one contextual in-body link **to** the
+   pillar (anchor on the sparkling/celebration mention). ← do in the delivery pass.
+3. ✅ Pillar links **out** to relevant spokes (white-wines-summer, wine-acidity,
+   most-expensive-wines) + a sparkling catalog search.
+4. 🔲 Set the Notion row's `Final URL` so it joins into `--score` next pull.
+
+> ⚠️ **Brief vs. compliance note:** JUL-C3's brief says "ไม่ลงราคา" (no price), but
+> CLAUDE.md golden rules require every product card to carry a `~฿` chip + LINE
+> routing. The pillar ships compliant cards (`~฿` approximate + "สอบถาม/สั่งซื้อทาง
+> LINE"). If you want this TOFU pillar strictly price-free, say so and the cards
+> can drop the `.pr` line and route purely to LINE.
 
 Sequence with data: if the pillar or a spoke shows up **striking-distance** in
 `scored.json`, prioritise its links first — that's where the new equity converts
