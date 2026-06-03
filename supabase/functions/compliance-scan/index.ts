@@ -37,14 +37,15 @@ const RATE_LIMIT_DELAY_MS = 350; // Notion allows ~3 req/sec; stay under it.
 // must be compliant. Overridable via ?statuses=A,B,C.
 const DEFAULT_GATE_STATUSES = ["Review", "Done", "Published"];
 
-// Notion databases / data sources to scan. IDs are hardcoded so the function is
-// self-contained (mirrors scripts/notion-backup.mjs). The Master Topic Ledger
-// carries no Content EN/TH fields, so it only contributes title-level checks;
-// the monthly DBs carry the article content fields.
+// Notion databases to scan. These are database_ids (what the REST
+// /databases/{id}/query endpoint expects) — NOT the collection:// data-source
+// ids. The two differ for the monthly DBs; using the data-source id returns
+// 404. The Master Topic Ledger carries no Content EN/TH fields, so it only
+// contributes title-level checks; the monthly DBs carry the article content.
 const TARGETS = [
-  { name: "master-topic-ledger", id: "43240f1120df437391017e67a64723a7" },
-  { name: "july-2026", id: "d342f9b8-3725-4068-9ccb-03b09821b0c8" },
-  { name: "june-2026", id: "6be4a7bb-d42c-4286-be1b-fa73e3635b45" },
+  { name: "master-topic-ledger", id: "43240f11-20df-4373-9101-7e67a64723a7" },
+  { name: "july-2026", id: "93ac15a8-bb65-40f7-b357-b8cabd336214" },
+  { name: "june-2026", id: "786d080f-8da2-4a1e-b84e-161f4e19d56d" },
 ];
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -417,16 +418,26 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // 2. Fetch + scan all target databases.
+    // 2. Fetch + scan all target databases. A failure on one target (e.g. a DB
+    //    not shared with the integration) is recorded and skipped so the gate
+    //    still scans every reachable target rather than failing wholesale.
     const failing: FailingPage[] = [];
     let scanned = 0;
     let totalErrors = 0;
     let totalWarnings = 0;
-    const targetStats: Record<string, { scanned: number; errors: number }> = {};
+    const targetStats: Record<string, { scanned: number; errors: number; error?: string }> = {};
 
     for (const target of TARGETS) {
-      const pages = await queryDatabase(notionToken as string, target.id);
       targetStats[target.name] = { scanned: 0, errors: 0 };
+
+      let pages: any[];
+      try {
+        pages = await queryDatabase(notionToken as string, target.id);
+      } catch (err) {
+        targetStats[target.name].error = String(err);
+        await sleep(RATE_LIMIT_DELAY_MS);
+        continue;
+      }
 
       for (const page of pages) {
         const row = mapRow(target.name, page);
@@ -454,19 +465,30 @@ Deno.serve(async (req: Request) => {
       await sleep(RATE_LIMIT_DELAY_MS);
     }
 
-    // 3. Post to Slack — alert on errors; "all clear" only when verbose.
+    const unreachable = Object.entries(targetStats)
+      .filter(([, s]) => s.error)
+      .map(([name]) => name);
+
+    // 3. Post to Slack — alert on errors OR unreachable targets (an unshared DB
+    //    must not silently pass the gate); "all clear" only when verbose.
     const { data: webhookUrl, error: webhookErr } = await supabase.rpc("get_slack_webhook");
     const slackUrl = webhookErr ? null : (webhookUrl as string | null);
 
     let alertSent = false;
-    const shouldPost = slackUrl && (failing.length > 0 || verbose);
+    const shouldPost =
+      slackUrl && (failing.length > 0 || unreachable.length > 0 || verbose);
     if (shouldPost) {
-      const text = buildSlackText(failing, {
+      let text = buildSlackText(failing, {
         scanned,
         errors: totalErrors,
         warnings: totalWarnings,
         statuses: gateStatuses,
       });
+      if (unreachable.length > 0) {
+        text +=
+          `\n\n:warning: Unreachable target(s) (not scanned — check Notion sharing): ` +
+          unreachable.join(", ");
+      }
       const slackRes = await fetch(slackUrl!, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -483,6 +505,7 @@ Deno.serve(async (req: Request) => {
         failing_pages: failing.length,
         total_errors: totalErrors,
         total_warnings: totalWarnings,
+        unreachable_targets: unreachable,
         per_target: targetStats,
         alert_sent: alertSent,
       }),

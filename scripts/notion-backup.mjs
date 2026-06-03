@@ -47,14 +47,15 @@ const TARGETS = [
   {
     name: "july-2026-db",
     type: "database",
-    // July 2026 monthly DB data source.
-    id: "d342f9b8-3725-4068-9ccb-03b09821b0c8",
+    // July 2026 monthly DB — database_id (NOT the collection:// data-source id
+    // d342f9b8…, which 404s on /databases/{id}/query).
+    id: "93ac15a8-bb65-40f7-b357-b8cabd336214",
   },
   {
     name: "june-2026-db",
     type: "database",
-    // June 2026 monthly DB data source.
-    id: "6be4a7bb-d42c-4286-be1b-fa73e3635b45",
+    // June 2026 monthly DB — database_id (NOT data-source id 6be4a7bb…).
+    id: "786d080f-8da2-4a1e-b84e-161f4e19d56d",
   },
   {
     name: "editorial-standard",
