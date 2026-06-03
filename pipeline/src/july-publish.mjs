@@ -128,9 +128,14 @@ export async function publishJuly(opts = {}) {
         const notion = opts.notion || createClient(config);
         // Only Thai (canonical) drives the Notion Status + Drive link writeback.
         if (lang === "th") {
+          // Write Drive file URL + Status. We do NOT write Final URL by default —
+          // that's the live Magento URL and the slug scheme is still an open item;
+          // set opts.writeFinalUrl to record the predicted canonical instead.
+          const writeback = { url, status: statusAfter };
+          if (opts.writeFinalUrl) writeback.finalUrl = model.canonical;
           await notion.updateRow(
             item.id,
-            briefToNotionProperties({ url, finalUrl: model.canonical, status: statusAfter }, { hasWeekTheme: profile.hasWeekTheme }),
+            briefToNotionProperties(writeback, { hasWeekTheme: profile.hasWeekTheme }),
           );
           await notion.addLog(item.id, `Rendered + uploaded (${fileName}) — Status ${statusAfter}: ${url}`);
         }
