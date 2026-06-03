@@ -6,6 +6,8 @@ This repo produces blog content for two Thai beverage e-commerce brands:
 ## Read this first
 - **How to write content →** [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md)
 - **Where things live, keys, sync, deploy, get-up-and-running →** [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+- **GA4/GSC data pull + URL scoring (switch-over) →** [`docs/GA_GSC_PLANNING.md`](docs/GA_GSC_PLANNING.md)
+- **Orphans, link-format fix, Champagne pillar →** [`docs/INTERNAL_LINK_PLAN.md`](docs/INTERNAL_LINK_PLAN.md)
 
 Follow the playbook on every content session. Below are the rules that must never
 be skipped.

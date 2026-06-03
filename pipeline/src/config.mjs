@@ -38,6 +38,14 @@ export function schemaProfileFor(databaseId) {
   return DEFAULT_PROFILE;
 }
 
+/** Split a comma/whitespace-separated env value into a trimmed, non-empty list. */
+export function parseList(raw) {
+  return String(raw || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 /** Parse PUBLISH_LANGS ("th" | "th,en") into a deduped lowercase list. */
 export function parseLangs(raw) {
   const list = String(raw || "th")
@@ -73,6 +81,18 @@ export function getConfig(env = process.env) {
     // ({client_email, private_key}) + the destination Drive folder id.
     googleServiceAccount: env.GOOGLE_SERVICE_ACCOUNT_JSON || "",
     driveFolderId: env.DRIVE_FOLDER_ID || "",
+
+    // GA4 + Search Console pull (scripts/ga-gsc-pull.mjs). Same service account
+    // as Drive (grant it Viewer on each GA4 property + a user on each GSC site).
+    //   GA4_PROPERTY_IDS  comma list, e.g. "properties/123,properties/456"
+    //   GSC_SITES         comma list, e.g. "https://th.wine-now.com/,https://th.liq9.com/"
+    //                     (or sc-domain:wine-now.com for domain properties)
+    ga4Properties: parseList(env.GA4_PROPERTY_IDS).map((p) =>
+      p.startsWith("properties/") ? p : `properties/${p}`,
+    ),
+    gscSites: parseList(env.GSC_SITES),
+    // Default analytics lookback window (days) for a pull.
+    gaGscLookbackDays: Number(env.GA_GSC_LOOKBACK_DAYS) || 28,
 
     // Supabase (content_plan mirror + product picks). Service-role key is used
     // server-side only (it bypasses RLS); never expose it to the browser.
