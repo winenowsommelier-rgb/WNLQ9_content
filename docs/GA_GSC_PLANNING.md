@@ -1,83 +1,95 @@
-# GA4 + GSC Content-Planning Runbook (CSV-based)
+# GA4 + GSC Content-Planning Runbook
 
-Purpose: start the next planning session **straight on real data** with **no API
-keys, no service accounts, no property IDs** — the same CSV-ingest model the
-dashboard already uses (`dashboard/lib/csv.ts`, sample files in
-`dashboard/data/`). You export GA4 + GSC CSVs from your own GA/GSC, drop them in,
-and the scripts join them onto the content index and score everything.
+Goal: start the next planning session **straight on real data**. There are two
+ways to get GA4 + GSC numbers in; **both produce the same two CSVs and feed the
+same scorer** (`plan-from-csv.mjs`), so the downstream is identical.
 
-> Why CSV (and not the GA/GSC API): this project is deliberately no-paid-API
-> (Option B). The live MCP connections that ARE wired — Notion, Drive, GitHub,
-> Supabase — stay as-is. GA/GSC come in as CSV exports. Do **not** add GA4
-> property IDs or a service account; nothing here needs them.
-
----
-
-## 1. Export the two CSVs (once per planning cycle)
-
-**GA4** → Reports/Explore → *Pages and screens* → export CSV with columns
-(header names are matched loosely, order-independent):
-`page_path, page_title, views, users, avg_engagement_time`
-Save as **`pipeline/data/ga4.csv`** (combine both brands into one file — the
-join is by URL, so brand falls out of the path).
-
-**GSC** → Performance → *Queries* (and/or *Pages*) → export CSV:
-`keyword, brand, clicks, impressions, ctr, position` (a `page` column is used if
-present; `brand` = `wine-now` | `liq9` if you combine both properties).
-Save as **`pipeline/data/gsc.csv`**.
-
-(Or pass paths: `--ga4 <file> --gsc <file>`. With neither present the scripts run
-on the bundled `dashboard/data/sample-*.csv` and clearly label it SAMPLE.)
-
----
-
-## 2. Run the planner (zero deps, no creds)
-
-```bash
-node pipeline/scripts/build-articles-manifest.mjs   # refresh content-index.json (52 articles)
-node pipeline/scripts/plan-from-csv.mjs             # join + score → /tmp/ga-gsc/plan.json + summary
+```
+ (A) ga-gsc-pull.mjs  ── FREE GA4 + GSC APIs ──┐
+                                               ├─►  pipeline/data/{ga4,gsc}.csv ─►  plan-from-csv.mjs ─► /tmp/ga-gsc/plan.json
+ (B) manual CSV export ────────────────────────┘
 ```
 
-`plan.json` contains:
-- `performance[]` — every article with `views/users/eng`, a **bucket**
-  (`win/scale` ≥P75 views · `mid` · `thin` ≤P25 · `no-traffic-data`), its
-  `inboundLinks`, `orphan`, and `priorityLink` flags.
+> Note: GA4 Data API + GSC API are **free** — the repo's "no paid API" rule is
+> about the Anthropic generation API, not Google. Either path is fine.
+
+---
+
+## Path A — automated pull (preferred: direct + stable)
+
+One command, no manual export, repeatable/schedulable. Uses a **service account**
+(no token expiry, no interactive consent — best for unattended runs).
+
+**One-time:** set these in the environment that RUNS the script (your server /
+Vercel, or the Claude Code env once its secrets are configured — see
+https://code.claude.com/docs/en/claude-code-on-the-web for env/secrets):
+
+| Var | What |
+|---|---|
+| `GA_GSC_SERVICE_ACCOUNT_JSON` | service-account JSON (or reuse `GOOGLE_SERVICE_ACCOUNT_JSON`) |
+| `GA4_PROPERTY_WN` / `GA4_PROPERTY_LIQ9` | numeric GA4 property IDs |
+| `GSC_SITE_WN` / `GSC_SITE_LIQ9` | `sc-domain:wine-now.com` or `https://th.wine-now.com/` |
+
+Grant the service account's `client_email`: **GA4** property → Viewer; **GSC**
+property → user. Scopes (read-only): `analytics.readonly`, `webmasters.readonly`.
+
+```bash
+node pipeline/scripts/ga-gsc-pull.mjs --check        # validate config/creds, NO network
+node pipeline/scripts/ga-gsc-pull.mjs --days 28      # → pipeline/data/{ga4,gsc}.csv
+node pipeline/scripts/ga-gsc-pull.mjs --plan         # pull AND score in one go
+```
+`--check` prints exactly what's missing (and detects an unsubstituted
+`${PLACEHOLDER}` secret, i.e. the run environment isn't injecting it).
+
+---
+
+## Path B — manual CSV (zero creds, always works)
+
+Export from your own GA/GSC and drop the files (header names matched loosely):
+- **`pipeline/data/ga4.csv`** — `page_path, page_title, views, users, avg_engagement_time`
+- **`pipeline/data/gsc.csv`** — `keyword, brand, clicks, impressions, ctr, position`
+
+(With neither path's files present, the scorer falls back to the bundled
+`dashboard/data/sample-*.csv`, clearly labeled SAMPLE.)
+
+---
+
+## Score it
+
+```bash
+node pipeline/scripts/build-articles-manifest.mjs   # refresh content-index.json
+node pipeline/scripts/plan-from-csv.mjs             # → /tmp/ga-gsc/plan.json + summary
+```
+`plan.json`:
+- `performance[]` — per article `views/users/eng`, **bucket** (`win/scale` ≥P75 ·
+  `mid` · `thin` ≤P25 · `no-traffic-data`), `inboundLinks`, `orphan`, `priorityLink`.
 - `opportunities` — `strikingDistance` (GSC pos 4–20, ≥median impressions),
-  `lowCtr` (high impressions, CTR <2%, pos ≤10), `newTopics` (queries with
-  impressions but no covering article).
+  `lowCtr` (high impressions, CTR <2%, pos ≤10), `newTopics` (impressions, no
+  covering article).
 
-The console summary leads with **orphans capturing real traffic** (fix internal
-links there first), striking-distance keywords, and new-topic candidates.
-
-### Join key
-GA4 `page_path` → basename → `urlKey` in `content-index.json`. Legacy Day 1–7
-posts strip the `dayN-` filename prefix in their live URL (file
-`day1-most-expensive-wines-2026.html` → live `/blog/most-expensive-wines-2026`),
-which the index already handles (it keys off each file's `<link rel="canonical">`).
+**Join key:** GA4 `page_path` basename → `urlKey` in `content-index.json`. Legacy
+Day 1–7 posts strip the `dayN-` prefix in their live URL; the index keys off each
+file's `<link rel="canonical">`, so this is already handled.
 
 ---
 
-## 3. Act on it (this is the refresh pass)
-
+## Act on it (the refresh pass)
 1. **Internal links first** — execute `docs/INTERNAL_LINK_PLAN.md`, prioritizing
-   any orphan with real `views` and the Day 12 Champagne pillar. Re-run the
-   manifest and assert **0 orphans**, every pillar ≥6 inbound.
+   orphans with real `views` and the Day 12 Champagne pillar. Re-run the manifest;
+   assert 0 orphans, every pillar ≥6 inbound.
 2. **Striking-distance / low-CTR** — tune title/H1 + meta + FAQ on those pages.
-3. **New topics** — turn `newTopics` (grouped by brand) into briefs; respect the
-   golden rules (real in-stock SKUs only, no fabricated numbers, ~฿+LINE, Thai-only).
-4. Run everything through `validate-articles.mjs` → `inline-css.mjs` → Drive
-   (one clean re-delivery) → Notion.
-5. **Write-backs** to the board (`update-page`, exact property names): `GA Views`
-   (number, from `performance.views`), and `Target Keyword` / `Funnel` / `Day`.
+3. **New topics** — turn `newTopics` (by brand) into briefs (golden rules: real
+   in-stock SKUs, no fabricated numbers, ~฿+LINE, Thai-only).
+4. `validate-articles.mjs` → `inline-css.mjs` → Drive (one clean re-delivery) → Notion.
+5. **Write-backs** (`update-page`, exact names): `GA Views` (number), `Target
+   Keyword`, `Funnel`, `Day`.
 
-The web dashboard consumes the **same** CSVs (upload via its UI → BriefGenerator
-/ TopicIntelligence) if you prefer a visual pass — `plan-from-csv.mjs` is the
-headless equivalent for a Claude Code session.
+The web dashboard ingests the same CSVs via its UI (BriefGenerator /
+TopicIntelligence) if you want a visual pass — `plan-from-csv.mjs` is the headless
+equivalent.
 
----
-
-## 4. Guardrails
-- No Supermetrics, no GA/GSC API keys, no service account. CSV in, plan out.
-- Planning data informs *what to write/fix* — never paste raw metrics into
-  article bodies as claims.
-- Every produced/updated article still passes `validate-articles.mjs`.
+## Guardrails
+- Service account = read-only; the puller never writes to Google.
+- No Supermetrics.
+- Planning data informs *what to write/fix* — never paste raw metrics into article
+  bodies as claims. Every produced/updated article still passes `validate-articles.mjs`.
