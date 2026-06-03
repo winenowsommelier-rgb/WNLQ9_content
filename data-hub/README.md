@@ -115,10 +115,44 @@ export DATA_HUB_SHEET_ID="1c5X9wcgBivLKVarNl0md0XgpnzE-zpPHhpsFiFmqJuM"
 | Check the pipeline's health (recent data, logs) | `./scripts/run_health_check.sh` |
 | Backfill ~12 months of history (one-time/quarterly) | `./scripts/run_backfill.sh --months-back 12` |
 | Fix empty excerpts + re-categorize (fetch real article text, no LLM) | `./scripts/enrich_excerpts.sh` |
+| See how many rows still need agent enrichment | `./scripts/enrich_with_agents.sh status` |
+| Upgrade tagging with Claude agents — step 1 (dump rows) | `./scripts/enrich_with_agents.sh prep` |
+| Upgrade tagging with Claude agents — step 3 (write back + refresh) | `./scripts/enrich_with_agents.sh merge --remirror` |
 | Refresh the Sheet from the DB after enriching | `./scripts/remirror_to_sheets.sh` |
 | See the scheduled job | `launchctl list \| grep datahub` |
 | Trigger the scheduled job manually | `launchctl kickstart gui/$(id -u)/com.wnlq9.datahub.ingest` |
 | Read the run log | `tail -f logs/cron.log` |
+
+### Upgrade tagging with agents (no API key)
+
+The keyword categorizer is fast but coarse. To re-tag articles at LLM quality
+using **Claude agents** (your existing Claude Code session — **no API key, no
+paid endpoint**), use the three-step agent-enrichment helper:
+
+```bash
+# 1) Dump the rows that still need tagging -> data/enrich/input.jsonl + manifest.
+#    Prints the EXACT workflow args to run next (copy them verbatim).
+./scripts/enrich_with_agents.sh prep                 # scope=unenriched (default)
+
+# 2) Claude runs the saved workflow (the prep step prints the exact args):
+#    Workflow(name="enrich-articles", args={"inputFile": "...", "outDir": "...",
+#             "total": N, "batchSize": 50, "model": "sonnet"})
+#    Agents fan out, classify each line per the taxonomy, and write out_<batch>.jsonl.
+
+# 3) Write the agents' classifications back to the DB and refresh the Sheet.
+DATA_HUB_SHEET_ID=... ./scripts/enrich_with_agents.sh merge --remirror
+```
+
+- **Idempotent.** `prep --scope unenriched` (the default) only dumps rows that
+  still lack the `enriched` flag, so a re-run after a partial merge picks up
+  only the remainder. `merge` sets `enriched=1` on every row it writes.
+- **Agent compute, no key.** The classification runs as Claude agents inside
+  your session — there is no `ANTHROPIC_API_KEY` and no per-call billing.
+- **Re-mirrors the Sheet.** `merge --remirror` rebuilds the **Articles** and
+  **Historical_Backfill** tabs from the DB so dashboards show the new tags.
+- Other scopes: `--scope live` (live rows), `--scope recent --months 6`
+  (live + recent backfill), `--scope all` (everything).
+- Check progress any time with `./scripts/enrich_with_agents.sh status`.
 
 ---
 

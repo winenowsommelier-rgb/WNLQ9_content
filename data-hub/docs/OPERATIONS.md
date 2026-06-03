@@ -327,6 +327,31 @@ DATA_HUB_SHEET_ID=... ./scripts/remirror_to_sheets.sh
   **Historical_Backfill** (kind=backfill) tabs straight from the DB
   system-of-record; it clears each tab then rewrites header + rows.
 
+### Agent enrichment (LLM-quality tagging, no API key)
+
+To re-tag rows at LLM quality, use Claude **agents** (in a Claude Code session —
+**no API key, no paid endpoint**) instead of the keyword categorizer. The
+`enrich_with_agents.sh` helper packages the proven flow into three commands:
+
+```bash
+# 1) Dump rows needing tags -> data/enrich/input.jsonl + manifest.json.
+#    Prints the exact workflow args to run next.
+./scripts/enrich_with_agents.sh prep                 # scope=unenriched (default)
+
+# 2) Claude runs the saved `enrich-articles` workflow with the printed args;
+#    agents classify each line per the taxonomy and write out_<batch>.jsonl.
+
+# 3) Write classifications back to the DB (enriched=1) and re-mirror the Sheet.
+DATA_HUB_SHEET_ID=... ./scripts/enrich_with_agents.sh merge --remirror
+```
+
+- **Idempotent.** `prep --scope unenriched` (default) only dumps rows still
+  missing the `enriched` flag; `merge` sets it. Re-running is harmless.
+- **No API key** — the agents run as Claude compute in your session.
+- `status` shows enriched vs total. Scopes: `unenriched` (default), `live`,
+  `recent --months N`, `all`. The agent fan-out is defined in the project-root
+  workflow `.claude/workflows/enrich-articles.js` (args-driven, taxonomy inline).
+
 ---
 
 ## 6. Content Verticals & Adding a New Source
