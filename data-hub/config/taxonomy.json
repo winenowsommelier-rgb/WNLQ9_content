@@ -41,6 +41,7 @@
   ],
   "verticals": ["wine", "spirits", "food", "lifestyle", "travel", "hospitality"],
   "thailand_focus_levels": ["high", "medium", "none"],
+  "beverage_relevance_levels": ["high", "medium", "low"],
   "primary_categories": [
     {
       "value": "wine",

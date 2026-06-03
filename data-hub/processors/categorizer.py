@@ -49,6 +49,35 @@ _THAILAND_STRONG_RE = re.compile(
 # WEAKER signals: regional / currency cues. Anywhere -> at most medium.
 _THAILAND_WEAK_RE = re.compile(r"\b(?:southeast\s*asia|baht)\b")
 
+# -- Beverage relevance detection (cross-vertical topical filter) ------------
+# Cuts ACROSS the verticals like Thailand-focus does. Answers "is this actually
+# about premium wine/spirits?" so broad lifestyle/travel/hospitality sources
+# (and their sitemap backfill) can be filtered down to what matters. Levels:
+#   high   -- core beverage (wine/spirits vertical, or a strong beverage term)
+#   medium -- food/drink/hospitality-adjacent (no strong beverage term)
+#   low    -- genuinely off-topic (furniture, sports, royalty, pure politics)
+
+# Valid (settable) levels. An agent may preset one of these; it then wins over
+# the keyword fallback below.
+_VALID_BEVERAGE_RELEVANCE = {"high", "medium", "low"}
+
+# STRONG beverage terms -> high. Word-boundaried so "gin" never matches inside
+# "ginger" and "beer" never matches inside "beard". Multi-word terms ("wine
+# bar") are matched as phrases.
+_BEVERAGE_STRONG_RE = re.compile(
+    r"\b(?:wine|spirits|whisky|whiskey|scotch|bourbon|gin|rum|vodka|tequila|"
+    r"mezcal|cognac|brandy|champagne|prosecco|sake|cocktail|mixology|"
+    r"distillery|distiller|winery|vineyard|sommelier|brewery|beer|aperitif|"
+    r"liqueur|vermouth|bartender|wine\s+bar|cocktail\s+bar)\b"
+)
+
+# ADJACENT (food/drink/hospitality context) terms -> medium, only when no
+# strong term matched.
+_BEVERAGE_ADJACENT_RE = re.compile(
+    r"\b(?:restaurant|dining|chef|menu|hotel|bar|hospitality|beverage|drinks|"
+    r"pairing|tasting|nightlife)\b"
+)
+
 
 class Categorizer:
     """Enrich collected articles with taxonomy-backed classification fields.
@@ -97,6 +126,13 @@ class Categorizer:
         self._valid_thailand_focus = set(
             self.taxonomy.get("thailand_focus_levels", ["high", "medium", "none"])
         )
+        # Beverage-relevance levels for reference/validation. Backward
+        # compatible: default to the canonical set if the key is absent.
+        self._valid_beverage_relevance = set(
+            self.taxonomy.get(
+                "beverage_relevance_levels", ["high", "medium", "low"]
+            )
+        )
 
     # -- public API -----------------------------------------------------
 
@@ -130,6 +166,9 @@ class Categorizer:
             article["aeo_citation_opportunity"] = self._estimate_aeo_value(article)
             # Cross-vertical Thailand geo-tagging (high / medium / "").
             article["thailand_focus"] = self._detect_thailand_focus(article)
+            # Cross-vertical beverage relevance (high / medium / low). Computed
+            # AFTER primary_category so the wine/spirits short-circuit works.
+            article["beverage_relevance"] = self._detect_beverage_relevance(article)
 
             enriched.append(article)
         return enriched
@@ -438,6 +477,52 @@ class Categorizer:
         if preset == "medium":
             return "medium"
         return ""
+
+    def _detect_beverage_relevance(self, article: Dict) -> str:
+        """Classify cross-vertical beverage relevance as high / medium / low.
+
+        Answers "is this actually about premium wine/spirits?" so off-topic
+        articles from broad lifestyle/travel/hospitality sources can be
+        filtered out of the trend views (non-destructively -- a flag, never a
+        delete).
+
+        Resolution order:
+
+        * A valid preset (``high`` / ``medium`` / ``low``) is authoritative and
+          kept as-is -- an agent-set value WINS over the keyword fallback.
+        * Else, a ``primary_category`` of wine or spirits is core -> ``high``.
+        * Else, scan title+excerpt (lowercased):
+            - a STRONG beverage term (word-boundaried) -> ``high``
+            - else an ADJACENT food/drink/hospitality term -> ``medium``
+            - else -> ``low``
+
+        Word-boundaried matching means "ginger"/"beard" never trigger a false
+        positive on ``\\bgin\\b`` / ``\\bbeer\\b``.
+        """
+        if not isinstance(article, dict):
+            return "low"
+
+        # A valid preset (agent-set) is authoritative and short-circuits.
+        preset = article.get("beverage_relevance")
+        preset = preset.strip().lower() if isinstance(preset, str) else ""
+        if preset in self._valid_beverage_relevance:
+            return preset
+
+        # Core verticals are always highly relevant.
+        category = article.get("primary_category")
+        if isinstance(category, str) and category.strip() in ("wine", "spirits"):
+            return "high"
+
+        text = self._text(article)
+
+        if _BEVERAGE_STRONG_RE.search(text):
+            level = "high"
+        elif _BEVERAGE_ADJACENT_RE.search(text):
+            level = "medium"
+        else:
+            level = "low"
+
+        return level if level in self._valid_beverage_relevance else "low"
 
     # -- helpers --------------------------------------------------------
 

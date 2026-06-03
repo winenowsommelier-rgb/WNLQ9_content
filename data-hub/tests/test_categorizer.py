@@ -358,3 +358,117 @@ def test_categorize_adds_thailand_focus(categorizer):
 def test_taxonomy_has_thailand_focus_levels(taxonomy):
     assert "thailand_focus_levels" in taxonomy
     assert taxonomy["thailand_focus_levels"] == ["high", "medium", "none"]
+
+
+# -- Beverage relevance detection (cross-vertical topical filter) -----------
+# beverage_relevance cuts ACROSS verticals: it answers "is this actually about
+# premium wine/spirits?" so broad lifestyle/travel/hospitality sources can be
+# filtered down. high = core beverage; medium = food/drink-adjacent; low =
+# genuinely off-topic (furniture, sports, royalty, pure politics).
+
+
+def test_beverage_relevance_wine_vertical_is_high(categorizer):
+    # A wine/spirits primary_category is core -> always high.
+    article = _article(title="Napa Valley harvest report")
+    article["primary_category"] = "wine"
+    assert categorizer._detect_beverage_relevance(article) == "high"
+
+
+def test_beverage_relevance_spirits_vertical_is_high(categorizer):
+    article = _article(title="A profile piece")
+    article["primary_category"] = "spirits"
+    assert categorizer._detect_beverage_relevance(article) == "high"
+
+
+def test_beverage_relevance_lifestyle_with_whisky_is_high(categorizer):
+    # A lifestyle-vertical article whose TITLE mentions a strong beverage term
+    # is still high -- the topic is about the drink.
+    article = _article(
+        title="The new collector's whisky everyone wants",
+        excerpt="A lifestyle look at a rare bottling.",
+    )
+    article["primary_category"] = "lifestyle"
+    assert categorizer._detect_beverage_relevance(article) == "high"
+
+
+def test_beverage_relevance_hotel_restaurant_no_drink_is_medium(categorizer):
+    # A hospitality piece with food/drink context but no strong beverage term
+    # -> medium (adjacent, not core).
+    article = _article(
+        title="A new hotel restaurant opens downtown",
+        excerpt="The dining room and menu reviewed.",
+    )
+    article["primary_category"] = "hospitality"
+    assert categorizer._detect_beverage_relevance(article) == "medium"
+
+
+def test_beverage_relevance_office_furniture_is_low(categorizer):
+    # Genuinely off-topic -> low.
+    article = _article(
+        title="Office furniture power unit explained",
+        excerpt="A guide to powering the modern desk.",
+    )
+    article["primary_category"] = "hospitality"
+    assert categorizer._detect_beverage_relevance(article) == "low"
+
+
+def test_beverage_relevance_sports_is_low(categorizer):
+    article = _article(
+        title="Rafael Nadal's wife and their new home",
+        excerpt="A look at the tennis star's family life.",
+    )
+    article["primary_category"] = "lifestyle"
+    assert categorizer._detect_beverage_relevance(article) == "low"
+
+
+def test_beverage_relevance_respects_valid_preset(categorizer):
+    # An agent-set value (one of the 3 levels) wins over the keyword fallback.
+    article = _article(
+        title="Office furniture power unit explained",
+    )
+    article["primary_category"] = "hospitality"
+    article["beverage_relevance"] = "high"  # agent override
+    assert categorizer._detect_beverage_relevance(article) == "high"
+
+
+def test_beverage_relevance_ignores_invalid_preset(categorizer):
+    # An invalid preset is ignored; keyword fallback runs.
+    article = _article(title="Office furniture power unit explained")
+    article["primary_category"] = "hospitality"
+    article["beverage_relevance"] = "banana"  # not a valid level
+    assert categorizer._detect_beverage_relevance(article) == "low"
+
+
+def test_beverage_relevance_word_boundary_no_false_positive(categorizer):
+    # "ginger" must not match the strong term "gin"; "beard" must not match
+    # "beer". With no real beverage/adjacent term -> low.
+    article = _article(
+        title="Ginger the cat and the bearded man",
+        excerpt="A heartwarming pet story.",
+    )
+    article["primary_category"] = "lifestyle"
+    assert categorizer._detect_beverage_relevance(article) == "low"
+
+
+def test_categorize_adds_beverage_relevance(categorizer):
+    # Every categorized article gets a beverage_relevance field.
+    article = _article(title="Single malt scotch tasting notes")
+    result = categorizer.categorize([article])[0]
+    assert result["beverage_relevance"] == "high"
+
+    off_topic = _article(title="Best office chairs of the year")
+    result2 = categorizer.categorize([off_topic])[0]
+    assert result2["beverage_relevance"] == "low"
+
+
+def test_categorize_respects_beverage_relevance_preset(categorizer):
+    # A valid preset survives categorize() (agent-set value wins).
+    article = _article(title="Best office chairs of the year")
+    article["beverage_relevance"] = "high"
+    result = categorizer.categorize([article])[0]
+    assert result["beverage_relevance"] == "high"
+
+
+def test_taxonomy_has_beverage_relevance_levels(taxonomy):
+    assert "beverage_relevance_levels" in taxonomy
+    assert taxonomy["beverage_relevance_levels"] == ["high", "medium", "low"]
