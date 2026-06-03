@@ -43,7 +43,9 @@ for (const f of files) {
   const extCss = (html.match(/href="assets\/article\.css"/g) || []).length;
   const styleBlocks = (html.match(/<style>/g) || []).length;
   const skuChips = (html.match(/SKU: <b>/g) || []).length;
-  const ok = extCss === 0 && styleBlocks === 1 && skuChips > 0;
+  // 0-card articles (no matching stock → routed to LINE) are valid by design,
+  // so don't require SKU chips here — validate-articles.mjs owns card/SKU rules.
+  const ok = extCss === 0 && styleBlocks === 1;
   if (!ok) bad = true;
   console.log(
     `${ok ? "OK  " : "BAD "}${name} | extCss=${extCss} styleBlocks=${styleBlocks} skuChips=${skuChips} bytes=${html.length} -> ${OUT}/${name}`
