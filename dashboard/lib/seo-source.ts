@@ -7,10 +7,27 @@ import type { Brand, GA4Row, GSCRow } from "./types";
 // `sync-gsc-ga4` pipeline lands in Postgres, pre-aggregated per brand by the
 // `dashboard_gsc_keywords` / `dashboard_ga4_pages` materialized views.
 //
-// Configure with env (server-side only — never exposed to the browser):
+// Configure with env (server-side only) to override the built-in defaults:
 //   SUPABASE_URL        e.g. https://asnarjokyedupsjipzkl.supabase.co
 //   SUPABASE_ANON_KEY   anon/publishable key (views are granted to anon)
+//
+// Defaults below point at the production "WNLQ9 SEO Automation" project so the
+// dashboard serves live data on any deploy with zero env setup. The anon key is
+// safe to ship: it is RLS-protected and the granted views expose only
+// aggregated, non-sensitive SEO metrics (no raw rows, no secrets).
 // ============================================================
+
+const DEFAULT_SUPABASE_URL = "https://asnarjokyedupsjipzkl.supabase.co";
+const DEFAULT_SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzbmFyam9reWVkdXBzamlwemtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMTgzNjMsImV4cCI6MjA5NTc5NDM2M30.sST_AGx6Vax-zEdTm_igXqcrrv_gm4ZMsxUHOi1tx1I";
+
+function supabaseUrl(): string {
+  return (process.env.SUPABASE_URL || DEFAULT_SUPABASE_URL).replace(/\/$/, "");
+}
+
+function supabaseKey(): string {
+  return process.env.SUPABASE_ANON_KEY || DEFAULT_SUPABASE_ANON_KEY;
+}
 
 const BRANDS: Brand[] = ["wine-now", "liq9"];
 
@@ -20,17 +37,17 @@ const GSC_LIMIT = 150;
 const GA4_LIMIT = 120;
 
 export function seoSourceConfigured(): boolean {
-  return Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY);
+  // Always available thanks to the built-in defaults; env vars only override.
+  return Boolean(supabaseUrl() && supabaseKey());
 }
 
 function restUrl(view: string, params: Record<string, string>): string {
-  const base = process.env.SUPABASE_URL!.replace(/\/$/, "");
   const qs = new URLSearchParams(params).toString();
-  return `${base}/rest/v1/${view}?${qs}`;
+  return `${supabaseUrl()}/rest/v1/${view}?${qs}`;
 }
 
 async function query<T>(view: string, params: Record<string, string>): Promise<T[]> {
-  const key = process.env.SUPABASE_ANON_KEY!;
+  const key = supabaseKey();
   const res = await fetch(restUrl(view, params), {
     headers: { apikey: key, Authorization: `Bearer ${key}` },
     // The materialized views are the performance layer; keep results live.

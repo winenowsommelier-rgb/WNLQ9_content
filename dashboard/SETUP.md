@@ -73,19 +73,20 @@ Then open [http://localhost:3000](http://localhost:3000)
 Real Google Search Console + Analytics 4 metrics are synced daily into the
 Supabase project **WNLQ9 SEO Automation** and read by `/api/data`, pre-aggregated
 per brand by the `dashboard_gsc_keywords` / `dashboard_ga4_pages` materialized
-views. Set these in `.env.local` to go live:
+views. **No setup needed** — the connection ships as a built-in default (the
+anon key is RLS-safe and the views expose only aggregated metrics), so the
+Topics and Keywords tabs show real wine-now / liq9 data on any deploy,
+brand-tagged from the `site` column (no heuristic guessing).
+
+To point at a different project/key, override in `.env.local`:
 
 ```
-SUPABASE_URL=https://asnarjokyedupsjipzkl.supabase.co
+SUPABASE_URL=https://<project>.supabase.co
 SUPABASE_ANON_KEY=<anon or publishable key>
 ```
 
-The Topics and Keywords tabs then show real wine-now / liq9 data, brand-tagged
-from the `site` column (no heuristic guessing).
-
-**Fallback:** when the Supabase env vars are absent, `/api/data` falls back to
-the bundled sample CSVs (`data/sample-*.csv`) so the UI still renders for
-local/offline dev.
+**Fallback:** if a Supabase fetch fails at runtime, `/api/data` degrades to the
+bundled sample CSVs (`data/sample-*.csv`) so the UI still renders.
 
 ---
 
