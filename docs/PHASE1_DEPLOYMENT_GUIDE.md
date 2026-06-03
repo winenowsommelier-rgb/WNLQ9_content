@@ -100,7 +100,7 @@ supabase functions list
 
 2. Add GSC property in Google Search Console:
    - Visit https://search.google.com/search-console
-   - Verify your site: `winenowsommelier.com`
+   - Verify your site: `th.wine-now.com` (and `th.liq9.com` for LIQ9)
    - Note the Site URL
 
 3. Grant service account access to GSC:
@@ -112,7 +112,7 @@ supabase functions list
    ```bash
    # Supabase Dashboard → Project Settings → Environment Variables
    
-   GSC_SITE_URL=https://winenowsommelier.com
+   GSC_SITE_URL=https://th.wine-now.com
    GSC_PROJECT_ID=[your-gcp-project-id]
    GSC_SERVICE_ACCOUNT_KEY=[contents-of-service-account-json]
    GSC_SCOPE_DATE_RANGE=last_90_days  # Sync last 90 days of data
@@ -311,4 +311,4 @@ Once Phase 1 is stable (3-5 days of clean syncs):
 - **Google Analytics API:** https://developers.google.com/analytics/devguides/reporting/data/v1
 - **Slack API:** https://api.slack.com/messaging/webhooks
 
-**Contact:** Ping #eng-seo or email claude@winenowsommelier.com if deployment issues.
+**Contact:** Ping #eng-seo or email winenowsommelier@gmail.com if deployment issues.

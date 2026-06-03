@@ -136,7 +136,7 @@ Generate optimized SEO metadata for all 11,436 products:
     "@context": "https://schema.org/",
     "@type": "Product",
     "name": "Penfolds Grange 2015",
-    "image": "https://cdn.winenowsommelier.com/penfolds-grange-2015.jpg",
+    "image": "https://cdn.wine-now.com/penfolds-grange-2015.jpg",
     "description": "Premium Australian Shiraz blend...",
     "brand": { "@type": "Brand", "name": "Penfolds" },
     "offers": {

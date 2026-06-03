@@ -1,189 +1,203 @@
-// Supabase Edge Function: Sync Google Search Console + GA4 metrics daily
-// Run every 6 AM daily via cron
+// Supabase Edge Function: Sync Google Search Console + GA4 metrics
+// Pulls REAL data directly from Google APIs (no Supermetrics in the loop).
+//
+// 1. Reads the GCP service-account JSON from Supabase Vault (get_vault_secret RPC).
+// 2. Reads site + GA4 property config from the seo_config table.
+// 3. Mints a Google OAuth2 access token (RS256-signed JWT, jwt-bearer grant).
+// 4. Streams GSC Search Analytics (date x query) per page -> insert -> release.
+// 5. Streams GA4 runReport (date x pagePath) per page -> insert -> release.
+// 6. Delete-then-insert per site+date window (idempotent), logs to seo_sync_log.
+//
+// Memory-safe: never holds more than one API page (<=25k rows) in memory, so
+// large backfills (months) and high-traffic days won't hit WORKER_RESOURCE_LIMIT.
+//
+// Trigger: POST. Body (optional): { startDate, endDate } | { days:N } | {} (default last 4 days)
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
-const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "";
+const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+const supabase = createClient(SUPABASE_URL, SERVICE_ROLE, { auth: { persistSession: false } });
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+const SCOPES = [
+  "https://www.googleapis.com/auth/webmasters.readonly",
+  "https://www.googleapis.com/auth/analytics.readonly",
+].join(" ");
 
-interface GSCData {
-  product_id: number;
-  keyword: string;
-  position: number;
-  impressions: number;
-  clicks: number;
-  ctr: number;
-  avg_position: number;
+const GSC_PAGE = 25000;
+const GA4_PAGE = 50000;
+const INSERT_CHUNK = 500;
+
+function fmtDate(d: Date): string { return d.toISOString().slice(0, 10); }
+function ga4DateToISO(s: string): string { return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`; }
+function b64url(input: string | Uint8Array): string {
+  let bin: string;
+  if (typeof input === "string") { bin = btoa(unescape(encodeURIComponent(input))); }
+  else { let s = ""; for (let i = 0; i < input.length; i++) s += String.fromCharCode(input[i]); bin = btoa(s); }
+  return bin.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function pemToPkcs8(pem: string): ArrayBuffer {
+  const b64 = pem.replace(/-----BEGIN PRIVATE KEY-----/, "").replace(/-----END PRIVATE KEY-----/, "").replace(/\s+/g, "");
+  const bin = atob(b64); const buf = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+  return buf.buffer;
 }
 
-interface GA4Data {
-  product_id: number;
-  page_path: string;
-  users: number;
-  sessions: number;
-  pageviews: number;
-  bounce_rate: number;
-  avg_session_duration: number;
-  goal_completions: number;
-  conversion_rate: number;
+interface ServiceAccount { client_email: string; private_key: string; }
+
+async function getServiceAccount(): Promise<ServiceAccount> {
+  const { data, error } = await supabase.rpc("get_vault_secret", { secret_name: "gcp_sa_key" });
+  if (error) throw new Error(`Vault read failed: ${error.message}`);
+  if (!data) throw new Error("gcp_sa_key not found in Vault");
+  return JSON.parse(data as string);
 }
 
-// Mock GSC API call (replace with real Google Search Console API)
-async function fetchGSCData(siteUrl: string): Promise<GSCData[]> {
-  // In production, call Google Search Console API
-  // For now, return empty array (will be integrated with real GSC)
-  console.log(`Fetching GSC data for ${siteUrl}`);
-  return [];
-}
-
-// Mock GA4 API call (replace with real Google Analytics 4 API)
-async function fetchGA4Data(propertyId: string): Promise<GA4Data[]> {
-  // In production, call Google Analytics 4 API
-  // For now, return empty array (will be integrated with real GA4)
-  console.log(`Fetching GA4 data for property ${propertyId}`);
-  return [];
-}
-
-async function importGSCData(data: GSCData[]) {
-  if (data.length === 0) return { imported: 0, updated: 0 };
-
-  const { data: result, error } = await supabase
-    .from("seo_gsc_daily")
-    .upsert(
-      data.map((row) => ({
-        ...row,
-        date: new Date().toISOString().split("T")[0],
-        synced_at: new Date().toISOString(),
-      })),
-      { onConflict: "product_id,keyword,date" }
-    )
-    .select();
-
-  if (error) throw error;
-  return { imported: data.length, updated: result?.length || 0 };
-}
-
-async function importGA4Data(data: GA4Data[]) {
-  if (data.length === 0) return { imported: 0, updated: 0 };
-
-  const { data: result, error } = await supabase
-    .from("seo_ga4_daily")
-    .upsert(
-      data.map((row) => ({
-        ...row,
-        date: new Date().toISOString().split("T")[0],
-        synced_at: new Date().toISOString(),
-      })),
-      { onConflict: "product_id,page_path,date" }
-    )
-    .select();
-
-  if (error) throw error;
-  return { imported: data.length, updated: result?.length || 0 };
-}
-
-async function detectOpportunities() {
-  // Find keywords with high impressions but low CTR (opportunity to optimize titles/metas)
-  const { data, error } = await supabase.rpc("detect_seo_opportunities", {
-    impression_threshold: 500,
-    ctr_threshold: 0.02,
+async function getAccessToken(sa: ServiceAccount): Promise<string> {
+  const now = Math.floor(Date.now() / 1000);
+  const header = { alg: "RS256", typ: "JWT" };
+  const claims = { iss: sa.client_email, scope: SCOPES, aud: "https://oauth2.googleapis.com/token", iat: now, exp: now + 3600 };
+  const unsigned = `${b64url(JSON.stringify(header))}.${b64url(JSON.stringify(claims))}`;
+  const key = await crypto.subtle.importKey("pkcs8", pemToPkcs8(sa.private_key), { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["sign"]);
+  const sig = new Uint8Array(await crypto.subtle.sign("RSASSA-PKCS1-v1_5", key, new TextEncoder().encode(unsigned)));
+  const jwt = `${unsigned}.${b64url(sig)}`;
+  const res = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({ grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer", assertion: jwt }),
   });
-
-  if (error) console.error("Error detecting opportunities:", error);
-  return data || [];
+  const json = await res.json();
+  if (!res.ok) throw new Error(`Token exchange failed: ${JSON.stringify(json)}`);
+  return json.access_token as string;
 }
 
-async function detectRegressions() {
-  // Find keywords where position dropped >3 or CTR dropped >20% in last 7 days
-  const { data, error } = await supabase.rpc("detect_seo_regressions", {
-    days: 7,
-    position_drop_threshold: 3,
-    ctr_drop_threshold: 0.2,
-  });
-
-  if (error) console.error("Error detecting regressions:", error);
-  return data || [];
+async function loadConfig(): Promise<Record<string, string>> {
+  const { data, error } = await supabase.from("seo_config").select("config_key, config_value");
+  if (error) throw new Error(`seo_config read failed: ${error.message}`);
+  const cfg: Record<string, string> = {};
+  for (const row of data ?? []) cfg[row.config_key] = row.config_value;
+  return cfg;
 }
 
-async function logSync(
-  syncType: string,
-  imported: number,
-  updated: number,
-  status: string,
-  error?: string
-) {
-  const { error: logError } = await supabase.from("seo_sync_log").insert({
-    sync_type: syncType,
-    records_imported: imported,
-    records_updated: updated,
-    sync_date: new Date().toISOString().split("T")[0],
-    completed_at: new Date().toISOString(),
-    status,
-    error_message: error,
-  });
-
-  if (logError) console.error("Error logging sync:", logError);
-}
-
-async function main() {
-  console.log("Starting SEO GSC/GA4 sync...");
-
-  const siteUrl = Deno.env.get("GSC_SITE_URL") || "https://winenowsommelier.com";
-  const ga4PropertyId = Deno.env.get("GA4_PROPERTY_ID") || "";
-
-  try {
-    // Fetch data from GSC
-    const gscData = await fetchGSCData(siteUrl);
-    const gscResult = await importGSCData(gscData);
-    await logSync("gsc", gscResult.imported, gscResult.updated, "completed");
-    console.log(`GSC: imported ${gscResult.imported}, updated ${gscResult.updated}`);
-
-    // Fetch data from GA4
-    const ga4Data = await fetchGA4Data(ga4PropertyId);
-    const ga4Result = await importGA4Data(ga4Data);
-    await logSync("ga4", ga4Result.imported, ga4Result.updated, "completed");
-    console.log(`GA4: imported ${ga4Result.imported}, updated ${ga4Result.updated}`);
-
-    // Detect opportunities
-    const opportunities = await detectOpportunities();
-    console.log(`Detected ${opportunities.length} SEO opportunities`);
-
-    // Detect regressions
-    const regressions = await detectRegressions();
-    console.log(`Detected ${regressions.length} potential regressions`);
-
-    return {
-      status: "success",
-      gsc: gscResult,
-      ga4: ga4Result,
-      opportunities: opportunities.length,
-      regressions: regressions.length,
-    };
-  } catch (err) {
-    console.error("Sync failed:", err);
-    await logSync("sync", 0, 0, "failed", String(err));
-    throw err;
+async function insertRows(table: string, rows: Record<string, unknown>[]) {
+  for (let i = 0; i < rows.length; i += INSERT_CHUNK) {
+    const { error } = await supabase.from(table).insert(rows.slice(i, i + INSERT_CHUNK));
+    if (error) throw new Error(`Insert ${table} failed: ${error.message}`);
   }
 }
 
-// Deno Deploy handler
-Deno.serve(async (req) => {
-  if (req.method !== "POST") {
-    return new Response("Method not allowed", { status: 405 });
-  }
-
-  try {
-    const result = await main();
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
+// Streamed GSC: fetch one page -> map -> insert -> release. Returns total inserted.
+async function syncGSC(token: string, slug: string, siteUrl: string, startDate: string, endDate: string): Promise<number> {
+  await supabase.from("seo_gsc_daily").delete().eq("site", slug).gte("metric_date", startDate).lte("metric_date", endDate);
+  let startRow = 0, total = 0;
+  while (true) {
+    const res = await fetch(`https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/searchAnalytics/query`, {
+      method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ startDate, endDate, dimensions: ["date", "query"], rowLimit: GSC_PAGE, startRow, dataState: "final" }),
     });
+    if (!res.ok) throw new Error(`GSC ${siteUrl} ${res.status}: ${await res.text()}`);
+    const json = await res.json();
+    const raw = json.rows ?? [];
+    if (raw.length === 0) break;
+    const now = new Date().toISOString();
+    const rows = raw.map((r: any) => { const pos = r.position ?? null; return {
+      site: slug, product_id: null, keyword: r.keys?.[1] ?? "", metric_date: r.keys?.[0] ?? null,
+      impressions: r.impressions ?? 0, clicks: r.clicks ?? 0, ctr: r.ctr ?? 0,
+      rank_position: pos, avg_rank_position: pos, synced_at: now }; });
+    await insertRows("seo_gsc_daily", rows);
+    total += rows.length;
+    if (raw.length < GSC_PAGE) break;
+    startRow += raw.length;
+  }
+  return total;
+}
+
+// Streamed GA4: paginate with offset/limit -> map -> insert -> release.
+async function syncGA4(token: string, slug: string, propertyId: string, startDate: string, endDate: string): Promise<number> {
+  await supabase.from("seo_ga4_daily").delete().eq("site", slug).gte("metric_date", startDate).lte("metric_date", endDate);
+  let offset = 0, total = 0;
+  while (true) {
+    const res = await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`, {
+      method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        dateRanges: [{ startDate, endDate }],
+        dimensions: [{ name: "date" }, { name: "pagePath" }],
+        metrics: [{ name: "sessions" }, { name: "totalUsers" }, { name: "screenPageViews" }, { name: "bounceRate" }, { name: "averageSessionDuration" }, { name: "conversions" }],
+        limit: GA4_PAGE, offset, keepEmptyRows: false,
+      }),
+    });
+    if (!res.ok) throw new Error(`GA4 ${propertyId} ${res.status}: ${await res.text()}`);
+    const json = await res.json();
+    const raw = json.rows ?? [];
+    if (raw.length === 0) break;
+    const now = new Date().toISOString();
+    const rows = raw.map((r: any) => { const dv = r.dimensionValues ?? []; const mv = r.metricValues ?? [];
+      const sessions = Number(mv[0]?.value ?? 0); const conversions = Number(mv[5]?.value ?? 0); return {
+      site: slug, product_id: null, page_path: dv[1]?.value ?? "", metric_date: ga4DateToISO(dv[0]?.value ?? ""),
+      sessions, users: Number(mv[1]?.value ?? 0), pageviews: Number(mv[2]?.value ?? 0),
+      bounce_rate: Number(mv[3]?.value ?? 0), avg_session_duration: Number(mv[4]?.value ?? 0),
+      goal_completions: conversions, conversion_rate: sessions > 0 ? conversions / sessions : 0, synced_at: now }; });
+    await insertRows("seo_ga4_daily", rows);
+    total += rows.length;
+    if (raw.length < GA4_PAGE) break;
+    offset += raw.length;
+  }
+  return total;
+}
+
+async function logSync(syncType: string, imported: number, status: string, errorMessage?: string, notes?: string) {
+  await supabase.from("seo_sync_log").insert({
+    sync_type: syncType, records_imported: imported, records_updated: 0,
+    sync_date: fmtDate(new Date()), completed_at: new Date().toISOString(),
+    status, error_message: errorMessage ?? null, notes: notes ?? null,
+  });
+}
+
+function resolveWindow(body: Record<string, unknown>): { startDate: string; endDate: string } {
+  if (typeof body.startDate === "string" && typeof body.endDate === "string") return { startDate: body.startDate, endDate: body.endDate };
+  const days = typeof body.days === "number" ? body.days : 4;
+  const end = new Date(); const start = new Date(); start.setDate(start.getDate() - days);
+  return { startDate: fmtDate(start), endDate: fmtDate(end) };
+}
+
+async function main(body: Record<string, unknown>) {
+  const { startDate, endDate } = resolveWindow(body);
+  const cfg = await loadConfig();
+  const sa = await getServiceAccount();
+  const token = await getAccessToken(sa);
+  // Optional source filter: { source: "gsc" | "ga4" } to run one pipe at a time.
+  const only = typeof body.source === "string" ? body.source : null;
+  const sites = [
+    { slug: "wine-now", gsc: cfg.GSC_SITE_URL, ga4: cfg.GA4_PROPERTY_ID },
+    { slug: "liq9", gsc: cfg.GSC_SITE_URL_LIQ9, ga4: cfg.GA4_PROPERTY_ID_LIQ9 },
+  ];
+  const summary: Record<string, unknown> = { startDate, endDate, sites: {} };
+  let gscTotal = 0, ga4Total = 0; const errors: string[] = [];
+  for (const s of sites) {
+    const siteResult: Record<string, unknown> = {};
+    if (s.gsc && only !== "ga4") {
+      try { const n = await syncGSC(token, s.slug, s.gsc, startDate, endDate); gscTotal += n; siteResult.gsc = n; }
+      catch (e) { errors.push(`GSC ${s.slug}: ${String(e)}`); siteResult.gsc_error = String(e); }
+    }
+    if (s.ga4 && only !== "gsc") {
+      try { const n = await syncGA4(token, s.slug, s.ga4, startDate, endDate); ga4Total += n; siteResult.ga4 = n; }
+      catch (e) { errors.push(`GA4 ${s.slug}: ${String(e)}`); siteResult.ga4_error = String(e); }
+    }
+    (summary.sites as Record<string, unknown>)[s.slug] = siteResult;
+  }
+  const status = errors.length === 0 ? "completed" : (gscTotal + ga4Total > 0 ? "partial" : "failed");
+  await logSync("gsc", gscTotal, status, errors.length ? errors.join(" | ") : undefined, JSON.stringify(summary));
+  await logSync("ga4", ga4Total, status, errors.length ? errors.join(" | ") : undefined);
+  return { status, gsc_rows: gscTotal, ga4_rows: ga4Total, errors, summary };
+}
+
+Deno.serve(async (req) => {
+  if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
+  let body: Record<string, unknown> = {};
+  try { body = await req.json(); } catch { body = {}; }
+  try {
+    const result = await main(body);
+    return new Response(JSON.stringify(result), { status: result.status === "failed" ? 500 : 200, headers: { "Content-Type": "application/json" } });
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: String(error), status: "failed" }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    await logSync("sync", 0, "failed", String(error));
+    return new Response(JSON.stringify({ status: "failed", error: String(error) }), { status: 500, headers: { "Content-Type": "application/json" } });
   }
 });

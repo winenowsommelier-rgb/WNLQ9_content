@@ -17,7 +17,7 @@
 ## What You Do Now (10 Steps)
 
 ### ✅ Step 1: Verify Google Search Console
-- Site: `winenowsommelier.com`
+- Site: `th.wine-now.com` (and `th.liq9.com` for LIQ9)
 - Status: **Need to verify** (5-15 min)
 - Go: https://search.google.com/search-console
 
@@ -47,7 +47,7 @@
 
 ### ✅ Step 7: Set Supabase Environment Variables
 ```
-GSC_SITE_URL = https://winenowsommelier.com
+GSC_SITE_URL = https://th.wine-now.com
 GSC_PROJECT_ID = [your-gcp-project-id]
 GSC_SERVICE_ACCOUNT_KEY = [JSON file contents from Step 2]
 GA4_PROPERTY_ID = [your-ga4-property-id]

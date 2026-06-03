@@ -28,15 +28,15 @@ Status: ACTIVE_HEALTHY
 
 ## Step 1: Verify Google Search Console
 
-Your site: `winenowsommelier.com`
+Your site: `th.wine-now.com` (and `th.liq9.com` for LIQ9)
 
 **Action:** Visit https://search.google.com/search-console
 
 1. Click **"Property"** dropdown
-2. Verify you see **"https://winenowsommelier.com"** in the list
+2. Verify you see **"https://th.wine-now.com"** in the list
 3. If NOT listed:
    - Click "Add property"
-   - Enter: `https://winenowsommelier.com`
+   - Enter: `https://th.wine-now.com`
    - Choose: "URL prefix" (faster)
    - Verify ownership (copy HTML tag → add to site header, OR add DNS record)
 4. Once verified, continue to Step 2
@@ -98,7 +98,7 @@ This single service account will have access to BOTH GSC & GA4.
 ### 3.2 Grant Service Account Access to GSC
 
 1. Go to https://search.google.com/search-console
-2. Select your property: `winenowsommelier.com`
+2. Select your property: `th.wine-now.com` (and `th.liq9.com` for LIQ9)
 3. Go to **Settings** (left sidebar) → **Users and permissions**
 4. Click **"Invite users"**
 5. Paste service account email: `seo-automation@[your-gcp-project].iam.gserviceaccount.com`
@@ -140,7 +140,7 @@ This single service account will have access to BOTH GSC & GA4.
 ### 5.1 Prepare Variables
 
 You'll need:
-- **GSC_SITE_URL:** `https://winenowsommelier.com`
+- **GSC_SITE_URL:** `https://th.wine-now.com`
 - **GSC_SERVICE_ACCOUNT_KEY:** Contents of JSON file from Step 2.4
 - **GA4_PROPERTY_ID:** Property ID from Step 4.2
 - **SLACK_WEBHOOK_URL:** We'll get this next
@@ -153,7 +153,7 @@ You'll need:
 4. Click **"New Variable"** and add:
 
 ```
-GSC_SITE_URL = https://winenowsommelier.com
+GSC_SITE_URL = https://th.wine-now.com
 GSC_PROJECT_ID = [your-gcp-project-id]
 GSC_SERVICE_ACCOUNT_KEY = [entire JSON file content]
 GA4_PROPERTY_ID = 123456789
