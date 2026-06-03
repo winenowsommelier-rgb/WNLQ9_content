@@ -1,4 +1,6 @@
--- SEO detectors for TRUE per-day metric_date data  (PENDING REVIEW — not yet applied)
+-- SEO detectors for TRUE per-day metric_date data
+-- ✅ APPLIED: 2026-06-03 18:45 UTC via Supabase MCP
+-- Results: detect_seo_opportunities found 72 records, detect_seo_regressions found 254 records
 -- =============================================================================
 -- Context / findings (2026-06-03, verified against project asnarjokyedupsjipzkl):
 --   * The Edge Function calls supabase.rpc("detect_seo_opportunities") and
