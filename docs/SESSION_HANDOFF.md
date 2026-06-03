@@ -118,3 +118,55 @@ producing `<slug>-inlined.html` files from a checkout **lacking** the day4 fix;
 its `day4-…-inlined.html` (28,666 B) was confirmed wrong-premise. Because Drive
 can't overwrite by name, that session can't clobber `FINAL` or the Notion
 pointer — but it should pull `claude/festive-dirac-QcgOV` before any re-run.
+
+---
+
+## 6) Drive consolidation + Notion URL sweep — IN PROGRESS (hand to next session)
+
+**Canonical delivery folder is now the subfolder "WNLQ9 Magento-Ready (scoped)"**
+(id `1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM`, inside Blog Html center). One self-
+contained, CSS-inlined HTML per slug lives here for Magento paste-in. The Blog
+Html center **root** should end up holding only this subfolder.
+
+### ⚠️ STOP-AND-RESYNC GOTCHA (why this is unfinished)
+A **separate upload agent** is re-uploading ~35 corrected/re-inlined files into
+Magento-Ready. Drive MCP can't overwrite by name → **each re-upload makes a new
+duplicate with a NEW file id**. The newest id per slug is the correct one.
+
+This invalidates part of the Notion sweep already done: rows were pointed at the
+**older** (first-upload) ids. Per the user, **the new ids are authoritative** and
+the earlier pointers are partially wrong. **Do not resume piecemeal updates.**
+
+### Correct procedure for next session (single clean sweep)
+1. Confirm the upload agent has **finished** all 35.
+2. `search_files parentId = '1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM'` (pageSize 100).
+3. For each slug, keep the **newest `createdTime`** id; flag any byte size that
+   looks broken (e.g. the 2,090 B `day8-champagne-vs-prosecco-vs-cava.html` is a
+   truncated/bad upload — ignore it, use the 35,677 B copy).
+4. Update **all 52** Notion `Drive file URL` rows to the chosen ids in one batch.
+5. Then give the user the manual **delete list** (old duplicate ids per slug +
+   everything in Blog Html center root except the Magento-Ready subfolder).
+
+### Known duplicate sets observed mid-upload (newest = keep)
+- `day8-champagne-vs-prosecco-vs-cava`: `1WBVEWF…` 34,034B (old) ·
+  `1bq2zfmd…` **2,090B BROKEN** · `1aLfSIC7…` 35,677B (newest, keep)
+- `liq9-day13-world-gin-day-2026`: `1u8QrUwj…` 38,810B (old) ·
+  `1stMo57W…` 40,191B (newest, keep)
+- `liq9-day14-capsule-bar-8-bottles`: `1qiJNQ5W…` 44,436B (old) ·
+  `10_ZwcGx…` 45,893B (newest, keep)
+- (re-scan for any further dupes the agent produced after this note.)
+
+### Notion property name (important)
+The DB property is literally **`Drive file URL`** (type url). Do **not** prefix
+with `userDefined:` — that errors. `notion-update-page` →
+`{"properties": {"Drive file URL": "https://drive.google.com/file/d/<id>/view"}}`.
+DB id `786d080f-8da2-4a1e-b84e-161f4e19d56d`,
+collection `6be4a7bb-d42c-4286-be1b-fa73e3635b45`.
+
+### Two slugs whose Notion rows were found this session
+- `day2-tannin` → Notion page `3749d75a-e4b5-81a6-b07d-f6d6e27c0c4f`
+  ("Tannin คืออะไร…"); Drive (pre-resync) `1b_xPJl6fjXZw14L9udkdiYoq3Z44XLT9`.
+- `day3-wine-storage-condo` → Notion page `3739d75a-e4b5-814b-afac-feb4c1e24117`
+  ("เริ่มเซลลาร์แรกในงบจำกัด…" / "เก็บไวน์คอนโด"); Drive (pre-resync)
+  `1ydlwYojWBZFy1mXYKKEDk78sSedtYJnQ`. ⚠️ Re-verify both titles against the row
+  before trusting — these were semantic-search matches, not exact.
