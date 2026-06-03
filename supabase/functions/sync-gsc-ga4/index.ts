@@ -1,20 +1,6 @@
 // Supabase Edge Function: Sync Google Search Console + GA4 metrics (Wine-Now + LIQ9).
 // Service-account JWT (key from Vault via get_gcp_sa_key) -> GSC Search Analytics + GA4 runReport.
-//
-// ⚠️ PENDING DEPLOY (reviewed change, not yet `supabase functions deploy`d).
-// Fix vs deployed v9: queries now include a `date` dimension, so each row is
-// stored under its TRUE day in `metric_date` (v9 omitted the date dimension and
-// stamped a 28–30-day rolling aggregate onto a single date). Also paginates and
-// raises row limits (no long-tail truncation), and refreshes by deleting the
-// date *range* per site before insert (idempotent).
-//
-// DEPLOY + BACKFILL when approved:
-//   1) supabase functions deploy sync-gsc-ga4 --project-ref asnarjokyedupsjipzkl
-//   2) Trigger once; confirm seo_sync_log = completed and seo_gsc_daily now has
-//      multiple distinct metric_dates per run (true per-day rows).
-//   3) Historical rows (>30d old) remain old-style rolling aggregates — re-backfill
-//      them as true-daily (same date-dimension query over the desired range) or
-//      truncate+rebackfill, so the whole table has consistent semantics.
+// Sites + property IDs read from seo_config table. Scheduled 6 AM UTC daily.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
