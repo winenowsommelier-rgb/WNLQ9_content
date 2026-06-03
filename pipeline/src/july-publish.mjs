@@ -17,19 +17,24 @@ import { buildArticleModel } from "./article-model.mjs";
 import { renderArticle } from "./render-article.mjs";
 import { pickProducts, loadFeed } from "./products.mjs";
 import { seedExpansion } from "./expand.mjs";
+import { loadExpansion } from "./expansion-store.mjs";
 import { expandArticle } from "./llm.mjs";
 import { briefToNotionProperties } from "./mapping.mjs";
 import { inlineStylesheet } from "./htmldoc.mjs";
 
 /**
- * Choose the expander: full-depth LLM when ANTHROPIC_API_KEY is set, otherwise
- * the offline seed expander (carries a loud verify-note).
+ * Choose the expander, in priority order:
+ *   1. authored expansion file  (data/expansions/<BriefID>.json) — full depth, no API key
+ *   2. ANTHROPIC_API_KEY        (llm.expandArticle) — full depth via the API
+ *   3. offline seed             (seedExpansion) — authored Notion seed + verify-note
  */
-export function defaultExpander(config = getConfig()) {
-  return async (item, { products = [], lang = "th" } = {}) =>
-    config.anthropicKey
-      ? expandArticle(item, { products, config })
-      : seedExpansion(item, { lang });
+export function defaultExpander(config = getConfig(), { cwd = process.cwd() } = {}) {
+  return async (item, { products = [], lang = "th" } = {}) => {
+    const authored = await loadExpansion(item, { cwd, lang });
+    if (authored) return authored;
+    if (config.anthropicKey) return expandArticle(item, { products, config });
+    return seedExpansion(item, { lang });
+  };
 }
 
 /**
@@ -77,7 +82,7 @@ export async function publishJuly(opts = {}) {
   const langs = opts.langs || config.publishLangs || ["th"];
   const banDays = opts.banDays || [];
   const outDir = opts.outDir || join(cwd, "out", "july-dry");
-  const expand = opts.expand || defaultExpander(config);
+  const expand = opts.expand || defaultExpander(config, { cwd });
 
   const feed = opts.feed || (await loadFeed(cwd).catch(() => []));
 

@@ -16,6 +16,7 @@ import {
 } from "../src/article-model.mjs";
 import { renderArticle } from "../src/render-article.mjs";
 import { seedExpansion } from "../src/expand.mjs";
+import { normalizeExpansion, loadExpansion } from "../src/expansion-store.mjs";
 
 const julyProfile = schemaProfileFor(DATABASES.july.id);
 
@@ -56,10 +57,20 @@ test("mapping omits Week Theme for July but writes editorial columns", () => {
   assert.equal(props["Schema"].rich_text[0].text.content, "Article + FAQPage");
 });
 
-test("June still derives + emits Week Theme (backwards compatible)", () => {
-  const { value } = normalizeBrief({ title: "X", site: "Wine-Now", category: "Education" });
-  const props = briefToNotionProperties(value);
+test("June board still derives + emits Week Theme (explicit June profile)", () => {
+  const juneProfile = DATABASES.june;
+  const { value } = normalizeBrief(
+    { title: "X", site: "Wine-Now", category: "Education" },
+    { profile: juneProfile },
+  );
+  const props = briefToNotionProperties(value, { hasWeekTheme: juneProfile.hasWeekTheme });
   assert.deepEqual(props["Week Theme"], { select: { name: "W1 Education" } });
+});
+
+test("default profile drops Week Theme (retired going forward)", () => {
+  const { value } = normalizeBrief({ title: "X", site: "Wine-Now", category: "Education" });
+  const props = briefToNotionProperties(value, { hasWeekTheme: false });
+  assert.ok(!("Week Theme" in props));
 });
 
 test("parseLangs defaults to th and dedupes", () => {
@@ -195,6 +206,36 @@ test("renderArticle produces a compliant, Magento-safe Thai page", () => {
   assert.ok(html.includes('"headline":"Champagne 101: รู้จักแชมเปญ"'));
   // Seed render carries the verify-note.
   assert.ok(model.verifyList.some((v) => /SEED RENDER/.test(v)));
+});
+
+test("authored expansion files load by Brief ID and have no seed verify-note", async () => {
+  const exp = await loadExpansion({ briefId: "JUL-E1" });
+  assert.ok(exp, "expected data/expansions/JUL-E1.json to load");
+  assert.ok(exp.sections.length >= 5, "hero article should be full-depth");
+  assert.ok(exp.table && exp.table.rows.length >= 4);
+  assert.ok(exp.faq.length >= 4);
+  assert.equal(exp.verifyNotes.length, 0); // authored = not a seed render
+});
+
+test("normalizeExpansion coerces a partial object into the canonical shape", () => {
+  const e = normalizeExpansion({ summary: "x", sections: [{ h2: "H" }], faq: [{ q: "a", a: "b" }] });
+  assert.equal(e.sections[0].paragraphs.length, 0);
+  assert.equal(e.table, null);
+  assert.deepEqual(e.faq, [{ q: "a", a: "b" }]);
+});
+
+test("a full render from an authored expansion is deeper than the seed", async () => {
+  const exp = await loadExpansion({ briefId: "JUL-E1" });
+  const model = buildArticleModel({ ...ROW, site: "LIQ9", briefId: "JUL-E1" }, {
+    brand: brandFor("LIQ9"),
+    expansion: exp,
+    products: [],
+    lang: "th",
+  });
+  const html = renderArticle(model);
+  assert.ok(model.sections.length >= 5);
+  assert.ok(html.includes("<table>")); // comparison table rendered
+  assert.ok(!model.verifyList.some((v) => /SEED RENDER/.test(v)));
 });
 
 test("ban-day render is secular + non-commercial (no CTA, no product cards)", () => {

@@ -1,5 +1,6 @@
 // Orchestration: validate -> (optional dedupe) -> map -> create row.
 
+import { getConfig, schemaProfileFor } from "./config.mjs";
 import { briefToNotionProperties } from "./mapping.mjs";
 import { createClient } from "./notion.mjs";
 import { normalizeBrief } from "./validate.mjs";
@@ -12,15 +13,19 @@ import { normalizeBrief } from "./validate.mjs";
  * @param {boolean} [opts.dryRun]       validate + map but do not call Notion
  * @param {boolean} [opts.skipExisting] skip if a row with the same Brief ID exists
  * @param {object}  [opts.client]       Notion client (created lazily if omitted)
+ * @param {object}  [opts.profile]      schema profile (else resolved from the
+ *   target database id so the right columns are written per board)
  * @returns {Promise<{status: 'created'|'skipped'|'invalid'|'dry-run', briefId?: string, url?: string, properties?: object, errors?: string[]}>}
  */
 export async function ingestBrief(raw, opts = {}) {
   const { dryRun = false, skipExisting = false } = opts;
+  const profile =
+    opts.profile || schemaProfileFor((opts.client?.config || getConfig()).databaseId);
 
-  const { ok, value, errors } = normalizeBrief(raw);
+  const { ok, value, errors } = normalizeBrief(raw, { profile });
   if (!ok) return { status: "invalid", errors };
 
-  const properties = briefToNotionProperties(value);
+  const properties = briefToNotionProperties(value, { hasWeekTheme: profile.hasWeekTheme });
 
   if (dryRun) {
     return { status: "dry-run", briefId: value.briefId, properties };

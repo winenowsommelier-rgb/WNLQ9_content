@@ -13,22 +13,24 @@ export const NOTION_VERSION = "2022-06-28";
 // Override per-environment with NOTION_DATABASE_ID.
 export const DEFAULT_DATABASE_ID = "786d080f-8da2-4a1e-b84e-161f4e19d56d";
 
-// Known monthly content databases. Each month's board has a slightly different
-// column set (June carries "Week Theme"; July drops it and instead exposes the
-// editorial columns Author/Priority/Intent/Funnel/Evergreen). `schemaProfileFor()`
-// maps a database id to its profile so validate/mapping only ever touch columns
-// that actually exist on the target board.
+// Known monthly content databases. "Week Theme" is RETIRED going forward — only
+// the historical June board still carries it; July (and every month after) drops
+// it and instead exposes the editorial columns Author/Priority/Intent/Funnel/
+// Evergreen. `schemaProfileFor()` maps a database id to its profile so
+// validate/mapping only ever touch columns that exist on the target board.
 export const DATABASES = {
   june: { id: "786d080f-8da2-4a1e-b84e-161f4e19d56d", month: "June 2026", hasWeekTheme: true },
   july: { id: "93ac15a8-bb65-40f7-b357-b8cabd336214", month: "July 2026", hasWeekTheme: false },
 };
 
-// Default (backwards-compatible) profile = the June shape, which includes Week
-// Theme. Callers targeting July pass the july profile so the non-existent
-// "Week Theme" column is never written (Notion would 400 on an unknown column).
-export const DEFAULT_PROFILE = DATABASES.june;
+// Standard shape for any board we don't specifically recognise: the current,
+// Week-Theme-free layout. This is the DEFAULT — new months inherit it with no
+// code change (only add a DATABASES entry if a month's columns differ again).
+// If we ever reintroduce Week Theme, set hasWeekTheme:true here.
+export const STANDARD_PROFILE = { id: null, month: "July 2026", hasWeekTheme: false };
+export const DEFAULT_PROFILE = STANDARD_PROFILE;
 
-/** Resolve the schema profile for a database id (falls back to the June shape). */
+/** Resolve the schema profile for a database id (falls back to the standard shape). */
 export function schemaProfileFor(databaseId) {
   for (const profile of Object.values(DATABASES)) {
     if (profile.id === databaseId) return profile;
@@ -129,5 +131,5 @@ export const WEEK_TO_CATEGORY = Object.fromEntries(
 
 export const DEFAULTS = {
   status: "Brief Ready",
-  month: "June 2026",
+  month: "July 2026",
 };
