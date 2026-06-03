@@ -138,6 +138,13 @@
         return String(s || "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
       }
 
+      // Only allow http(s) URLs into href (block javascript:/data: etc.) and
+      // neutralize quotes so a Notion field can't break out of the attribute.
+      function safeUrl(u) {
+        u = String(u || "");
+        return /^https?:\/\//i.test(u) ? u.replace(/"/g, "%22") : "#";
+      }
+
       async function selectItem(id) {
         selectedId = id;
         renderList();
@@ -159,8 +166,8 @@
             ${caps.approve
               ? `<button id="btnApprove" ${canApprove ? "" : "disabled"}>✅ Approve → Drive</button>`
               : `<span class="sub" style="margin:0" title="Set GOOGLE_SERVICE_ACCOUNT_JSON + DRIVE_FOLDER_ID in Vercel to upload from the dashboard — or have Claude Code upload to Drive.">☁️ Drive upload not configured</span>`}
-            <a class="btn" href="${it.url}" target="_blank">Notion ↗</a>
-            ${it.driveUrl ? `<a class="btn" href="${it.driveUrl}" target="_blank">Google Doc ↗</a>` : ""}
+            <a class="btn" href="${safeUrl(it.url)}" target="_blank" rel="noopener noreferrer">Notion ↗</a>
+            ${it.driveUrl ? `<a class="btn" href="${safeUrl(it.driveUrl)}" target="_blank" rel="noopener noreferrer">Google Doc ↗</a>` : ""}
           </div>
           <div class="panel"><h3>Brief</h3><div class="content">${escapeHtml(it.contentBrief) || "—"}</div>
             ${it.targetKeyword ? `<p class="sub" style="margin-top:8px">🎯 ${escapeHtml(it.targetKeyword)}</p>` : ""}
