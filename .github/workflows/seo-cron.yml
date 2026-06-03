@@ -15,6 +15,8 @@ on:
     - cron: '0 6 * * *'
     # Slack alerts at 7 AM UTC daily
     - cron: '0 7 * * *'
+    # Compliance gate scan at 8 AM UTC daily (after content edits land overnight)
+    - cron: '0 8 * * *'
     # Sync health check at 9 AM UTC daily (1h after alerts, 3h after sync)
     - cron: '0 9 * * *'
   workflow_dispatch: # Allow manual trigger
@@ -52,6 +54,20 @@ jobs:
 
       - name: Log alert completion
         run: echo "Slack alerts sent at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+
+  compliance-scan:
+    name: WNLQ9 Compliance Gate
+    runs-on: ubuntu-latest
+    if: github.event.schedule == '0 8 * * *' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Run Compliance Scan
+        run: |
+          curl -X GET https://asnarjokyedupsjipzkl.supabase.co/functions/v1/compliance-scan \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            -w "\nStatus: %{http_code}\n"
+
+      - name: Log compliance scan completion
+        run: echo "Compliance scan completed at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
 
   check-sync-health:
     name: SEO Sync Health Check
