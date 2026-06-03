@@ -39,7 +39,7 @@ from collectors.web_scraper import WebScraper
 from exporters.sheets_exporter import SheetsExporter
 from processors.categorizer import Categorizer
 from processors.deduplicator import Deduplicator
-from storage.article_store import SqliteArticleStore
+from storage import get_store
 
 logger = logging.getLogger("pipeline.ingest")
 
@@ -101,10 +101,12 @@ class IngestPipeline:
             # (collect/process) can still be exercised without a sheet.
             self.exporter = None
 
-        # The DB is the system-of-record + cross-run dedup index. Lazy: the
-        # default SqliteArticleStore constructor never opens a file, so this is
-        # side-effect free; init_schema() is called in run().
-        self.store = store if store is not None else SqliteArticleStore()
+        # The DB is the system-of-record + cross-run dedup index. When no store
+        # is injected, the env-based factory picks the backend (SQLite default,
+        # or Supabase when DATA_HUB_DB_BACKEND=supabase + creds are set). Both
+        # backends are lazy-connecting, so this stays side-effect free;
+        # init_schema() is called in run(). Injection still wins (for tests).
+        self.store = store if store is not None else get_store()
 
         self.deduplicator = Deduplicator()
         self.categorizer = Categorizer()

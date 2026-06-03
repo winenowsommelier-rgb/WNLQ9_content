@@ -57,7 +57,7 @@ from collectors.web_scraper import WebScraper
 from exporters.sheets_exporter import SheetsExporter
 from processors.categorizer import Categorizer
 from processors.deduplicator import Deduplicator
-from storage.article_store import SqliteArticleStore
+from storage import get_store
 
 logger = logging.getLogger("pipeline.backfill")
 
@@ -151,9 +151,11 @@ class BackfillPipeline:
             self.exporter = None
 
         # The DB is the system-of-record + cross-run dedup index, shared with
-        # the daily ingest (same articles table). Lazy: the default
-        # SqliteArticleStore constructor never opens a file.
-        self.store = store if store is not None else SqliteArticleStore()
+        # the daily ingest (same articles table). When no store is injected the
+        # env-based factory picks the backend (SQLite default, or Supabase when
+        # DATA_HUB_DB_BACKEND=supabase + creds). Both backends are
+        # lazy-connecting. Injection still wins (for tests).
+        self.store = store if store is not None else get_store()
 
         self.deduplicator = Deduplicator()
         self.categorizer = Categorizer()
