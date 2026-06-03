@@ -156,7 +156,9 @@
             ${caps.generate
               ? `<button id="btnGen" ${canGenerate ? "" : "disabled"}>✨ Generate drafts</button>`
               : `<span class="sub" style="margin:0" title="Articles are authored in Claude Code (no API key), then shipped via Approve → Drive.">✍️ Drafts authored in Claude Code</span>`}
-            <button id="btnApprove" ${canApprove ? "" : "disabled"}>✅ Approve → Drive</button>
+            ${caps.approve
+              ? `<button id="btnApprove" ${canApprove ? "" : "disabled"}>✅ Approve → Drive</button>`
+              : `<span class="sub" style="margin:0" title="Set GOOGLE_SERVICE_ACCOUNT_JSON + DRIVE_FOLDER_ID in Vercel to upload from the dashboard — or have Claude Code upload to Drive.">☁️ Drive upload not configured</span>`}
             <a class="btn" href="${it.url}" target="_blank">Notion ↗</a>
             ${it.driveUrl ? `<a class="btn" href="${it.driveUrl}" target="_blank">Google Doc ↗</a>` : ""}
           </div>
@@ -171,7 +173,7 @@
           <div class="panel"><h3>Activity log</h3><ul class="log" id="log"><li class="sub">loading…</li></ul></div>`;
 
         if (caps.generate) $("btnGen").onclick = () => runAction("generate", it.id, "Generating drafts…");
-        $("btnApprove").onclick = () => runAction("approve", it.id, "Creating Google Doc…");
+        if (caps.approve) $("btnApprove").onclick = () => runAction("approve", it.id, "Uploading to Google Drive…");
         loadLog(it.id);
       }
 
