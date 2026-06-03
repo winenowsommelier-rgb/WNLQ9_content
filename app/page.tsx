@@ -113,16 +113,16 @@ export default function Dashboard() {
       if (!trendMap[date]) {
         trendMap[date] = { position: [], ctr: [], count: 0 }
       }
-      if (row.position) trendMap[date].position.push(row.position)
+      if (row.rank_position) trendMap[date].position.push(row.rank_position)
     })
 
-    // Aggregate GA4 by date
+    // Aggregate GA4 CTR (conversion_rate as engagement proxy) by date
     ga4.forEach((row) => {
       const date = row.metric_date
       if (!trendMap[date]) {
         trendMap[date] = { position: [], ctr: [], count: 0 }
       }
-      if (row.ctr) trendMap[date].ctr.push(row.ctr)
+      if (row.conversion_rate) trendMap[date].ctr.push(row.conversion_rate)
     })
 
     // Calculate averages
@@ -166,10 +166,7 @@ export default function Dashboard() {
   // Filter opportunities by search term
   const filteredOpportunities = opportunities.filter((opp) => {
     const searchLower = opportunitySearch.toLowerCase()
-    return (
-      opp.keyword?.toLowerCase().includes(searchLower) ||
-      opp.topic?.toLowerCase().includes(searchLower)
-    )
+    return opp.keyword?.toLowerCase().includes(searchLower)
   })
 
   // Export opportunities to CSV
@@ -179,14 +176,12 @@ export default function Dashboard() {
       return
     }
 
-    const headers = ['Keyword', 'Topic', 'Impressions', 'CTR %', 'Priority', 'Product URL']
+    const headers = ['Keyword', 'Impressions', 'CTR %', 'Priority']
     const rows = filteredOpportunities.map((opp) => [
       opp.keyword || '',
-      opp.topic || '',
-      opp.impressions || 0,
-      ((opp.ctr || 0) * 100).toFixed(2),
-      opp.priority || '',
-      opp.product_url || ''
+      opp.current_impressions || 0,
+      ((opp.current_ctr || 0) * 100).toFixed(2),
+      opp.priority || ''
     ])
 
     const csv = [

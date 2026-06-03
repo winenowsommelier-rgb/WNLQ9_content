@@ -36,12 +36,7 @@ export function TrendChart({ data }: TrendChartProps) {
                 reversed
               />
               <Tooltip
-                formatter={(value: number) => {
-                  const label = arguments[2].dataKey === 'avgPosition'
-                    ? `Position: ${value.toFixed(1)}`
-                    : `CTR: ${(value * 100).toFixed(2)}%`
-                  return label
-                }}
+                formatter={(value: number) => `Position: ${(value as number).toFixed(1)}`}
                 contentStyle={{
                   backgroundColor: '#1F2937',
                   border: '1px solid #4B5563',
