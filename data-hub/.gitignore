@@ -30,3 +30,4 @@ data/*.sqlite3
 
 # Local enrichment intermediate files
 data/enrich/
+data/sb_migrate/
