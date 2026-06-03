@@ -120,6 +120,19 @@ class ArticleStore(ABC):
         """Count stored articles, optionally filtered (same kwargs as query)."""
 
     @abstractmethod
+    def update_article(self, url_normalized: str, fields: Dict) -> bool:
+        """Update the given columns on the row matching ``url_normalized``.
+
+        Returns True if a row was updated, False if no such row exists.
+        """
+
+    @abstractmethod
+    def iter_articles_missing_excerpt(
+        self, limit: Optional[int] = None
+    ) -> List[Dict]:
+        """Fetch stored articles with an empty excerpt not yet enriched."""
+
+    @abstractmethod
     def record_run(self, summary: Dict) -> None:
         """Append a row to the runs ledger for observability."""
 
@@ -177,7 +190,8 @@ class SqliteArticleStore(ArticleStore):
                     url_normalized TEXT UNIQUE NOT NULL,
                     {columns_sql},
                     kind TEXT DEFAULT 'live',
-                    ingested_at TEXT
+                    ingested_at TEXT,
+                    enriched INTEGER DEFAULT 0
                 );
 
                 CREATE UNIQUE INDEX IF NOT EXISTS idx_articles_url_normalized
@@ -206,6 +220,19 @@ class SqliteArticleStore(ArticleStore):
                 );
                 """
             )
+            # Guarded migration: an older DB created before the enrichment
+            # feature has an `articles` table WITHOUT the `enriched` column
+            # (CREATE TABLE IF NOT EXISTS won't add it). Add it in place so
+            # existing data is preserved -- the one ALTER worth doing to avoid
+            # a full rebuild. Idempotent: a duplicate-column error is expected
+            # on an already-migrated DB and is swallowed.
+            try:
+                conn.execute(
+                    "ALTER TABLE articles ADD COLUMN enriched INTEGER DEFAULT 0"
+                )
+            except sqlite3.OperationalError:
+                # Column already exists (fresh schema or prior migration).
+                pass
             conn.commit()
 
     # -- serialization --------------------------------------------------
@@ -398,6 +425,79 @@ class SqliteArticleStore(ArticleStore):
             f"SELECT COUNT(*) FROM articles{where}", params
         ).fetchone()
         return int(row[0])
+
+    # -- update / enrichment --------------------------------------------
+
+    # Columns the store will update in place. Beyond the schema fields we also
+    # allow the ``enriched`` flag so the enrichment pass can mark a row done.
+    _UPDATABLE_FIELDS = set(ARTICLE_FIELDS) | {"enriched"}
+
+    def update_article(self, url_normalized: str, fields: Dict) -> bool:
+        """Update ``fields`` on the row keyed by ``url_normalized``.
+
+        Only known columns (the 16 schema fields plus ``enriched``) are
+        written; unknown keys are ignored. Values are serialized with the same
+        rules as insert (``trend_signals`` -> JSON, ``thailand_focus`` ->
+        level), so a re-categorized article round-trips faithfully. Returns
+        True if a row was updated, False if no row matched (or nothing to set).
+        """
+        if not url_normalized or not isinstance(fields, dict):
+            return False
+
+        set_cols: List[str] = []
+        values: List = []
+        for field, value in fields.items():
+            if field not in self._UPDATABLE_FIELDS:
+                continue
+            set_cols.append(f"{field} = ?")
+            if field == "enriched":
+                values.append(1 if value else 0)
+            else:
+                values.append(self._serialize(field, value))
+
+        if not set_cols:
+            return False
+
+        conn = self._connect()
+        sql = (
+            f"UPDATE articles SET {', '.join(set_cols)} "
+            f"WHERE url_normalized = ?"
+        )
+        values.append(url_normalized)
+        with self._lock:
+            cursor = conn.execute(sql, values)
+            conn.commit()
+        return cursor.rowcount > 0
+
+    def iter_articles_missing_excerpt(
+        self, limit: Optional[int] = None
+    ) -> List[Dict]:
+        """Return articles with an empty excerpt that aren't enriched yet.
+
+        Selects rows where ``content_excerpt`` is empty AND ``enriched`` is not
+        set (0/NULL), so a completed enrichment pass -- even one that found no
+        text and left the excerpt empty -- is never reprocessed. Each returned
+        dict carries the normalized URL under ``url_normalized`` so the caller
+        can write back via :meth:`update_article`.
+        """
+        conn = self._connect()
+        sql = (
+            "SELECT * FROM articles "
+            "WHERE (content_excerpt IS NULL OR content_excerpt = '') "
+            "AND COALESCE(enriched, 0) = 0 "
+            "ORDER BY id ASC"
+        )
+        params: List = []
+        if limit is not None:
+            sql += " LIMIT ?"
+            params.append(int(limit))
+        rows = conn.execute(sql, params).fetchall()
+        articles: List[Dict] = []
+        for row in rows:
+            article = self._deserialize_row(row)
+            article["url_normalized"] = row["url_normalized"]
+            articles.append(article)
+        return articles
 
     # -- runs ledger ----------------------------------------------------
 

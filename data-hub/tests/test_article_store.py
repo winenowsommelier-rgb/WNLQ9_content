@@ -11,7 +11,12 @@ or tmp_path SQLite database, so they are fully isolated and fast.
 
 from __future__ import annotations
 
-from storage.article_store import ArticleStore, SqliteArticleStore
+from collectors.url_utils import normalize_url
+from storage.article_store import (
+    ARTICLE_FIELDS,
+    ArticleStore,
+    SqliteArticleStore,
+)
 
 
 def _article(url, **overrides):
@@ -358,3 +363,126 @@ def test_persists_to_tmp_file(tmp_path):
     reopened.init_schema()
     assert reopened.count() == 1
     assert reopened.exists("https://a.com/1") is True
+
+
+# -- update_article + enriched flag (excerpt re-enrichment) ------------------
+
+
+def test_update_article_changes_fields_and_returns_true():
+    """update_article writes the given columns and reports success."""
+    store = _store()
+    store.upsert_articles([_article("https://a.com/1", content_excerpt="")])
+
+    key = normalize_url("https://a.com/1")
+    updated = store.update_article(
+        key,
+        {
+            "content_excerpt": "Napa Valley Cabernet vertical tasting.",
+            "topic_region": "USA (California)",
+            "trend_signals": ["award_winning"],
+            "enriched": 1,
+        },
+    )
+    assert updated is True
+
+    rows = store.query()
+    row = next(r for r in rows if r["article_url"] == "https://a.com/1")
+    assert row["content_excerpt"] == "Napa Valley Cabernet vertical tasting."
+    assert row["topic_region"] == "USA (California)"
+    # trend_signals round-trips back to a list.
+    assert row["trend_signals"] == ["award_winning"]
+
+
+def test_update_article_unknown_url_returns_false():
+    """Updating a URL that isn't stored returns False (no row matched)."""
+    store = _store()
+    store.upsert_articles([_article("https://a.com/1")])
+    assert store.update_article(
+        normalize_url("https://nope.com/x"), {"content_excerpt": "hi"}
+    ) is False
+
+
+def test_update_article_ignores_unknown_columns():
+    """Unknown keys are ignored; with only unknown keys nothing is updated."""
+    store = _store()
+    store.upsert_articles([_article("https://a.com/1")])
+    key = normalize_url("https://a.com/1")
+    assert store.update_article(key, {"not_a_column": "x"}) is False
+
+
+def test_enriched_flag_round_trips_and_filters():
+    """enriched=1 marks a row done so it drops out of the missing-excerpt set."""
+    store = _store()
+    store.upsert_articles([_article("https://a.com/1", content_excerpt="")])
+    key = normalize_url("https://a.com/1")
+
+    # Before enrichment the empty-excerpt row is selected.
+    missing = store.iter_articles_missing_excerpt()
+    assert [m["article_url"] for m in missing] == ["https://a.com/1"]
+    assert missing[0]["url_normalized"] == key
+
+    # Marking enriched (even with NO excerpt found) removes it from the set, so
+    # a dead URL is never refetched on the next run.
+    assert store.update_article(key, {"enriched": 1}) is True
+    assert store.iter_articles_missing_excerpt() == []
+
+
+def test_iter_articles_missing_excerpt_selects_only_empty():
+    """Only rows with an empty excerpt and not enriched are returned."""
+    store = _store()
+    store.upsert_articles([
+        _article("https://has.com/1", content_excerpt="Already has text."),
+        _article("https://empty.com/2", content_excerpt=""),
+    ])
+    missing = store.iter_articles_missing_excerpt()
+    assert [m["article_url"] for m in missing] == ["https://empty.com/2"]
+
+
+def test_iter_articles_missing_excerpt_respects_limit():
+    """The limit bounds how many rows a single pass returns."""
+    store = _store()
+    store.upsert_articles([
+        _article("https://a.com/1", content_excerpt=""),
+        _article("https://a.com/2", content_excerpt=""),
+        _article("https://a.com/3", content_excerpt=""),
+    ])
+    assert len(store.iter_articles_missing_excerpt(limit=2)) == 2
+
+
+def test_init_schema_adds_enriched_to_preexisting_table(tmp_path):
+    """init_schema migrates an old table (no enriched column) without data loss."""
+    db_path = str(tmp_path / "old.db")
+    # Simulate a pre-enrichment DB: create the articles table WITHOUT enriched,
+    # seed a row, then let init_schema migrate it in place.
+    import sqlite3
+
+    conn = sqlite3.connect(db_path)
+    column_defs = ", ".join(f"{f} TEXT" for f in ARTICLE_FIELDS)
+    conn.execute(
+        f"CREATE TABLE articles ("
+        f"id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        f"url_normalized TEXT UNIQUE NOT NULL, {column_defs}, "
+        f"kind TEXT DEFAULT 'live', ingested_at TEXT)"
+    )
+    conn.execute(
+        "INSERT INTO articles (url_normalized, article_url, title) "
+        "VALUES (?, ?, ?)",
+        (normalize_url("https://old.com/1"), "https://old.com/1", "Old row"),
+    )
+    conn.commit()
+    conn.close()
+
+    store = SqliteArticleStore(db_path=db_path)
+    store.init_schema()  # must add `enriched` without dropping the row.
+
+    cols = {
+        row[1]
+        for row in store._connect().execute(
+            "PRAGMA table_info(articles)"
+        ).fetchall()
+    }
+    assert "enriched" in cols
+    # The pre-existing row survived and is usable for enrichment.
+    assert store.count() == 1
+    missing = store.iter_articles_missing_excerpt()
+    assert [m["article_url"] for m in missing] == ["https://old.com/1"]
