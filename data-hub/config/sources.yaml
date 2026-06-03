@@ -9,8 +9,8 @@
 #                  collection_config.enabled_verticals (see bottom of file).
 #   * enabled   -- true/false. A source with enabled:false is always skipped.
 #
-# Last Updated: 2026-06-02
-# Version: 2.0 (6 selectable content verticals)
+# Last Updated: 2026-06-04
+# Version: 2.1 (fixed Whisky Advocate, Wine Enthusiast; replaced SWRI; added Khaosod English; disabled QSR noise)
 
 sources:
   wine:
@@ -79,12 +79,11 @@ sources:
       notes: "Influential wine critic; strong coverage of Italian and Spanish wines; regional focus."
 
     - name: "Wine Enthusiast"
-      url: "https://www.winemag.com"
+      url: "https://www.wineenthusiast.com"
       api_type: "rss"
-      rss_feed: "https://www.winemag.com/feed/"
+      rss_feed: "https://www.wineenthusiast.com/feed/"
       vertical: "wine"
-      enabled: false
-      disabled_reason: "broken RSS — winemag.com feed returns no entries; needs scrape"
+      enabled: true
       categories: ["reviews", "news", "guides"]
       language: "en"
       update_frequency: "daily"
@@ -92,7 +91,7 @@ sources:
       content_types: ["review", "news", "guide", "blog"]
       coverage: ["wine"]
       regions: ["France", "Italy", "Spain", "USA (California)", "USA (Other)", "Argentina", "Chile", "Australia", "South Africa"]
-      notes: "Broad wine coverage with daily publishing; accessible content for enthusiasts."
+      notes: "Broad wine coverage with daily publishing; accessible content for enthusiasts. Fixed 2026-06-04: old config used wrong domain winemag.com; correct domain is wineenthusiast.com. Feed verified live: RSS 2.0, 3 items dated 2026-06-03, updates hourly, WordPress 6.9."
 
     - name: "Vivino Community"
       url: "https://www.vivino.com"
@@ -181,7 +180,8 @@ sources:
       api_type: "rss"
       rss_feed: "https://www.whiskyadvocate.com/feed/"
       vertical: "spirits"
-      enabled: true
+      enabled: false
+      disabled_reason: "RSS not found — needs manual RSS URL discovery. Tested 2026-06-04: www.whiskyadvocate.com/feed/ → 404; whiskyadvocate.com/feed/ (no-www) → 404; /news/feed/ → returns HTML homepage (no XML); site HTML head contains no <link rel=alternate> feed element; feedspot whiskey directory lists the source but shows no feed URL. Whisky Advocate appears to have removed public RSS syndication entirely."
       categories: ["reviews", "news", "ratings"]
       language: "en"
       update_frequency: "daily"
@@ -228,23 +228,24 @@ sources:
       regions: ["Scotland", "Ireland", "USA", "Japan", "Mexico", "France"]
       notes: "Industry news and market analysis; strong for trend signals and competitive intelligence."
 
-    - name: "Scotch Whisky Research Institute"
-      url: "https://www.scotchwhiskyresearch.com"
+    - name: "Scotch Whisky Association"
+      url: "https://scotch-whisky.org.uk"
       api_type: "web_scrape"
-      scrape_endpoint: "https://www.scotchwhiskyresearch.com/research/"
-      scrape_selector: ".research-article"
+      scrape_endpoint: "https://scotch-whisky.org.uk/newsroom/"
+      scrape_selector: "article, .news-item, .post"
       vertical: "spirits"
+      geo_focus: "scotland"
       enabled: false
-      disabled_reason: "defunct domain — site no longer resolves; no full selectors"
-      categories: ["research", "market_data"]
+      disabled_reason: "No RSS feed found — site uses a custom CMS (likely Umbraco) with no <link rel=alternate> feed element and no /feed/ or /rss/ endpoint. Newsroom at scotch-whisky.org.uk/newsroom/ is server-rendered HTML. Add a static scraper with verified selectors before enabling. Tested 2026-06-04."
+      categories: ["research", "market_data", "industry_news", "regulation"]
       language: "en"
-      update_frequency: "monthly"
+      update_frequency: "weekly"
       auth_required: false
-      content_types: ["research", "guide"]
+      content_types: ["research", "news", "guide"]
       coverage: ["spirits"]
       spirits_types: ["whisky"]
       regions: ["Scotland", "UK"]
-      notes: "Research reports on Scotch whisky market, production data, and industry trends."
+      notes: "Scotch Whisky Association — the official Scotch industry body (replaces defunct Scotch Whisky Research Institute entry). Publishes trade statistics, duty/tariff commentary, and industry news. High strategic value for Scotland/whisky signal. Needs scrape selector verification before enabling."
 
     - name: "Punch"
       url: "https://punchdrink.com"
@@ -412,7 +413,8 @@ sources:
       api_type: "rss"
       rss_feed: "https://www.nrn.com/rss.xml"
       vertical: "hospitality"
-      enabled: true
+      enabled: false
+      disabled_reason: "consistently low beverage relevance — dominates hospitality feed with QSR/fast-food content (e.g. 'Yum Brands COO to retire', 'Little Caesars $5 pizza deal', 'Illinois restaurants face tip fees'). Disabled 2026-06-04; filtered out by collection_config.minimum_beverage_relevance=medium."
       categories: ["foodservice", "restaurant_industry", "news"]
       language: "en"
       update_frequency: "daily"
@@ -427,7 +429,8 @@ sources:
       api_type: "rss"
       rss_feed: "https://www.restaurantdive.com/feeds/news/"
       vertical: "hospitality"
-      enabled: true
+      enabled: false
+      disabled_reason: "consistently low beverage relevance — dominates hospitality feed with QSR/fast-food content (e.g. 'Yum Brands COO to retire', 'Little Caesars $5 pizza deal', 'Illinois restaurants face tip fees'). Disabled 2026-06-04; filtered out by collection_config.minimum_beverage_relevance=medium."
       categories: ["foodservice", "restaurant_industry", "news"]
       language: "en"
       update_frequency: "daily"
@@ -609,6 +612,22 @@ sources:
       regions: ["Thailand"]
       notes: "Thai-market source (Coconuts Bangkok). Auto-tagged Thailand focus=high via geo_focus. Verified live 2026-06-02."
 
+    - name: "Khaosod English"
+      url: "https://www.khaosodenglish.com"
+      api_type: "rss"
+      rss_feed: "https://www.khaosodenglish.com/feed/"
+      vertical: "lifestyle"
+      geo_focus: "thailand"
+      thailand_focus_override: "high"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "blog"]
+      coverage: ["lifestyle", "food", "travel"]
+      regions: ["Thailand"]
+      notes: "Thai-market source: Khaosod English — English-language Thai news covering politics, society, food and culture. RSS verified live 2026-06-04: 5 items dated 2026-06-03. Auto-tagged Thailand focus=high via geo_focus + thailand_focus_override."
+
 # Backfill-only sources (deep historical seeding via XML sitemaps).
 #
 # Sitemaps list EVERY article URL a site has published -- often with a
@@ -649,6 +668,11 @@ collection_config:
   # If this key is absent entirely, NO vertical filtering is applied (every
   # source builds) -- backward compatible.
   enabled_verticals: [wine, spirits, food, lifestyle, travel, hospitality]
+  # Minimum beverage relevance score required to keep an article. Articles
+  # scored below this threshold are dropped before insertion. Valid values:
+  # "low", "medium", "high". Set to "medium" to filter out QSR/fast-food/
+  # non-beverage hospitality noise (e.g. from Restaurant Dive / NRN). Added 2026-06-04.
+  minimum_beverage_relevance: "medium"
   # Cap how many articles ANY single source may contribute to a backfill run
   # (newest kept). Prevents one prolific source -- e.g. a sitemap exposing
   # thousands of URLs -- from dominating the corpus. Default 800 if absent.
