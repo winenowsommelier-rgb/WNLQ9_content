@@ -83,6 +83,7 @@ def _full_out_obj(**overrides):
         "buyer_persona": "enthusiast",
         "aeo_citation_opportunity": "high",
         "thailand_focus": "",
+        "beverage_relevance": "high",
     }
     obj.update(overrides)
     return obj
@@ -98,6 +99,8 @@ def test_out_line_maps_all_fields_and_sets_enriched():
     assert fields["buyer_persona"] == "enthusiast"
     assert fields["aeo_citation_opportunity"] == "high"
     assert fields["thailand_focus"] == ""
+    # The agent enrichment path also carries beverage_relevance through.
+    assert fields["beverage_relevance"] == "high"
     # enriched is ALWAYS set to 1.
     assert fields["enriched"] == 1
     # url is the routing key, not an update column.

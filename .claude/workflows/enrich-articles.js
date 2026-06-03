@@ -23,6 +23,7 @@ CONTROLLED VOCABULARY — use these EXACT strings, never invent values:
 - buyer_persona: casual_drinker | enthusiast | collector
 - aeo_citation_opportunity: high | medium | low
 - thailand_focus: high (clearly about Thailand/Bangkok/Thai cities) | medium (from a Thai outlet but not Thailand-topical) | "" (not Thailand)
+- beverage_relevance: high (core — actually about wine/spirits/beer/cocktails/distilleries/wineries/etc.) | medium (food/drink/hospitality-adjacent: restaurants, dining, hotels, menus, pairings) | low (genuinely off-topic: furniture, sports, royalty, pure politics)
 `;
 
 const SCHEMA = {
@@ -51,12 +52,13 @@ For EACH article, produce an enrichment object:
 - buyer_persona: casual_drinker | enthusiast | collector
 - aeo_citation_opportunity: high if an AI engine would likely cite it for a buying/recommendation query (guides, rankings, "best", comparisons, definitive explainers); medium for solid educational/news; low for thin/ephemeral
 - thailand_focus: per the rule below
+- beverage_relevance: per the rule below — one of high | medium | low
 
 ${TAXONOMY}
 
 OUTPUT: using python (via Bash), write one JSON object per line to:
 ${out}
-Each line = {"url","content_excerpt","topic_region","spirits_type","trend_signals","primary_category","buyer_persona","aeo_citation_opportunity","thailand_focus"}. trend_signals must be a JSON array. Write ALL ${end - start} articles (read input with python json.loads per line, filter n in [${start},${end}), classify, write). Do not skip any.
+Each line = {"url","content_excerpt","topic_region","spirits_type","trend_signals","primary_category","buyer_persona","aeo_citation_opportunity","thailand_focus","beverage_relevance"}. trend_signals must be a JSON array. Write ALL ${end - start} articles (read input with python json.loads per line, filter n in [${start},${end}), classify, write). Do not skip any.
 
 Return {"written": <line count>, "out_file": "${out}"}.`;
 }

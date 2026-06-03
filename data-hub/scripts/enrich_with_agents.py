@@ -69,6 +69,7 @@ _OUT_FIELDS = (
     "buyer_persona",
     "aeo_citation_opportunity",
     "thailand_focus",
+    "beverage_relevance",
 )
 
 
