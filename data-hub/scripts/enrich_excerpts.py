@@ -188,9 +188,7 @@ def main(argv=None) -> int:
     store = SqliteArticleStore(db_path=args.db_path)
     store.init_schema()
 
-    remaining = store.count() and len(
-        store.iter_articles_missing_excerpt(limit=args.limit)
-    )
+    remaining = len(store.iter_articles_missing_excerpt(limit=args.limit))
     print(f"DB: {args.db_path}")
     print(f"Rows to process this run (<= --limit {args.limit}): {remaining}")
     print("-" * 40)
