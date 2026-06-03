@@ -1,5 +1,26 @@
 #!/bin/bash
 # ============================================================
+# ⚠️ DEPRECATED — DO NOT RUN. Kept for historical reference only.
+#
+# The deployed `sync-gsc-ga4` function does NOT read the GCP key from an
+# edge-function secret. It reads the service-account JSON from Supabase
+# Vault via the `get_gcp_sa_key()` RPC, and its site/property config from
+# the `seo_config` table — verified against the live function (v9) and a
+# working daily sync (seo_sync_log shows successful imports, 0 failures).
+#
+# Therefore `supabase secrets set GCP_SERVICE_ACCOUNT_KEY=...` is a no-op
+# for the live function. This script also fails on the SUPABASE_URL /
+# SUPABASE_SERVICE_ROLE_KEY lines below — Supabase reserves the `SUPABASE_`
+# secret prefix and rejects setting it.
+#
+# To rotate the real key, update the Vault secret that `get_gcp_sa_key()`
+# reads (a production write — do it deliberately, with the SA JSON in hand).
+echo "This script is DEPRECATED and a no-op for the deployed Vault-based function."
+echo "See the banner in this file. Exiting without changing anything."
+exit 0
+# ------------------------------------------------------------
+# Original (obsolete) script below:
+# ============================================================
 # Supabase Edge Function Secrets Setup Script
 # Run this once per new session/container to push credentials
 # to the Supabase project so the Edge Functions can access them.

@@ -14,30 +14,40 @@
 | Slack Alerts (7 AM UTC) | ✅ Deployed | Supabase Edge Function: `seo-slack-alerts` |
 | GitHub Actions Cron | ✅ Running | `.github/workflows/seo-cron.yml` |
 | Vercel Auto-Deploy | ⚠️ Pending | Fixed in latest commit — needs one push to confirm |
-| GSC/GA4 Credentials in Supabase | ❌ NOT SET | Run `scripts/setup-supabase-secrets.sh` |
+| GSC/GA4 Credentials | ✅ Working (in Vault) | Read via `get_gcp_sa_key()` RPC — sync importing real data daily |
 | Magento 2 SEO Module | 🔄 In Progress | Guide: `docs/MAGENTO2_SEO_AEO_DEVELOPER_GUIDE.md` |
 
 ---
 
-## One Remaining Blocker
+## Credentials — RESOLVED (this was a false alarm)
 
-**The GSC/GA4 credentials are NOT yet in the Supabase secret store.**
+**The GSC/GA4 credentials are working.** An earlier handoff claimed they were
+"NOT SET" and the sync "returns empty data" — that was wrong. Verified against
+the live project (`asnarjokyedupsjipzkl`) on 2026-06-03:
 
-The Edge Function code is correct and deployed. It reads from `Deno.env.get("GCP_SERVICE_ACCOUNT_KEY")` but that secret was never pushed to Supabase. The daily sync runs but returns empty data because Google API auth fails silently.
+- The **deployed** `sync-gsc-ga4` (v9) reads the service-account JSON from
+  **Supabase Vault** via the `get_gcp_sa_key()` RPC — **not** from a
+  `GCP_SERVICE_ACCOUNT_KEY` edge secret. Site/property config comes from the
+  **`seo_config` table**.
+- `seo_sync_log` shows recent runs **completed** (incl. the ~6 AM UTC daily
+  run), **0 failures**, with real data: ~90 days backfilled across **2 sites**
+  (wine-now + liq9), 0 duplicate rows.
 
-### Fix (2 minutes):
+The previous "fix" (run `scripts/setup-supabase-secrets.sh` to push
+`GCP_SERVICE_ACCOUNT_KEY`) targeted a mechanism the deployed function doesn't
+use, so it would be a **no-op** (and the script errors on the reserved
+`SUPABASE_` prefix anyway). That script is now marked **DEPRECATED**.
 
-```bash
-# 1. Add to web environment config (code.claude.com → your environment → Env Vars):
-SUPABASE_ACCESS_TOKEN=sbp_xxxx   ← from supabase.com/dashboard/account/tokens
+> Note: the repo previously carried a divergent env-var version of this
+> function whose JWT signer was a stub (`...signature` literal) — that draft
+> would have failed Google auth and returned empty data, which is likely the
+> source of the original (mistaken) "credentials missing" diagnosis. The repo
+> now matches the working deployed v9.
 
-# 2. In the session, run:
-bash scripts/setup-supabase-secrets.sh
-
-# 3. Verify with a manual trigger:
-curl -X POST https://asnarjokyedupsjipzkl.supabase.co/functions/v1/sync-gsc-ga4 \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzbmFyam9reWVkdXBzamlwemtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMTgzNjMsImV4cCI6MjA5NTc5NDM2M30.sST_AGx6Vax-zEdTm_igXqcrrv_gm4ZMsxUHOi1tx1I"
+### If you ever need to rotate the key
+Update the Vault secret that `get_gcp_sa_key()` reads (a deliberate production
+write, with the real SA JSON in hand) — do **not** use the deprecated secrets
+script.
 
 # Expected response: {"status":"success","gsc":{...},"ga4":{...}}
 ```
@@ -160,9 +170,10 @@ Branch: claude/lucid-bardeen-F6DjC
 
 Read docs/SESSION_HANDOFF.md first for full status.
 
-Priority task: Push GSC/GA4 credentials to Supabase so the daily
-sync actually works. The script is ready at scripts/setup-supabase-secrets.sh
-— it just needs SUPABASE_ACCESS_TOKEN set in the environment.
+Note: the GSC/GA4 credentials are already working (read from Supabase Vault
+via get_gcp_sa_key(); daily sync is importing data with 0 failures). The old
+"push credentials" task and scripts/setup-supabase-secrets.sh are DEPRECATED
+— see the Credentials section above. Do NOT run that script.
 
 Check: https://seodashboard-rho.vercel.app is the live dashboard.
 ```
@@ -171,10 +182,11 @@ Check: https://seodashboard-rho.vercel.app is the live dashboard.
 
 ## Remaining Work (Priority Order)
 
-### P0 — Blocker (do first)
-- [ ] **Push credentials to Supabase** via `scripts/setup-supabase-secrets.sh`
-- [ ] **Verify sync works** — trigger manual curl, confirm data in `seo_gsc_daily` table
+### P0 — Credentials/sync (RESOLVED — no action)
+- [x] ~~Push credentials to Supabase~~ — not needed; key is in Vault, sync works (verified 2026-06-03)
+- [x] ~~Verify sync works~~ — `seo_sync_log` shows `completed`, 0 failures, dual-site data
 - [ ] **Confirm Vercel deploy** — push a small change, watch GitHub Actions succeed
+- [ ] (Optional) Data-quality follow-ups — see "Known issues" below
 
 ### P1 — Magento 2 Implementation
 - [ ] Dev team reads `docs/MAGENTO2_SEO_AEO_DEVELOPER_GUIDE.md`
@@ -191,8 +203,32 @@ Check: https://seodashboard-rho.vercel.app is the live dashboard.
 
 ### P3 — Monitoring & Alerts
 - [ ] Verify Slack webhook is receiving daily 7 AM UTC alerts
-- [ ] Add LIQ9 TH site (`https://th.liq9.com`) to GSC sync
-- [ ] Add second GA4 property ID for LIQ9 to the sync function
+- [x] ~~Add LIQ9 TH site to GSC sync~~ — deployed v9 already syncs wine-now + liq9 (`seo_config`)
+- [x] ~~Add second GA4 property for LIQ9~~ — already handled by deployed v9
+
+---
+
+## Known Issues (data-quality, non-blocking — from 2026-06-03 audit)
+
+The sync runs green, but a read-only audit of the deployed v9 + tables surfaced
+these. None is breaking ingestion today; prioritize before trusting trends.
+
+1. **`metric_date` stores trailing-window aggregates, not daily values.** The
+   GSC (`["query"]`/`["page"]`) and GA4 (`["pagePath"]`) queries have **no date
+   dimension** over 28–30-day windows, then stamp every row with one
+   `metric_date`. So each "daily" row is a rolling 30-day **sum** — trend charts
+   and the `detect_seo_opportunities`/`detect_seo_regressions` thresholds operate
+   on rolling totals. Fix: add a `date` dimension for true per-day rows, or
+   rename to `snapshot_date` and make detectors window-aware.
+2. **Daily GSC query `rowLimit: 1000` truncates the long tail** (backfill seeded
+   up to ~5000/snapshot). Raise + paginate so opportunity detection sees more.
+3. **Partial failures look successful.** The handler returns HTTP 200
+   `"success"` even when a per-site sync threw (error only in the JSON payload),
+   and `detect_*` RPC errors are swallowed by `catch(_){}`. Surface per-site
+   failures into `seo_sync_log` + the Slack alert.
+4. **GA4 `conversions` metric is deprecated** (→ `keyEvents`); plan the swap.
+5. **GSC tables lag GA4 by ~3 days** (Google finalization latency; `endDate =
+   today-3`). Annotate dashboards so GSC panels don't read as "stale".
 
 ---
 
@@ -200,7 +236,7 @@ Check: https://seodashboard-rho.vercel.app is the live dashboard.
 
 | Metric | Baseline | Week 2-4 Target | Month 1-3 Target |
 |--------|----------|----------------|-----------------|
-| GSC Avg Position | tbd after credentials fix | stable / improving | +10% improvement |
+| GSC Avg Position | pull from `seo_gsc_daily` (data is live) | stable / improving | +10% improvement |
 | CTR on target keywords | ~1-2% | +10-30% | +30%+ |
 | Organic sessions (GA4) | tbd | +10% | +20-50% |
 | AI engine citations | 0 | 5+ pages cited | 20+ pages cited |
