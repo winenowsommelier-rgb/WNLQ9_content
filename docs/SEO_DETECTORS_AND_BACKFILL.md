@@ -1,7 +1,15 @@
-# SEO sync — per-day fix, backfill, and detectors (review before deploy)
+# SEO sync — per-day fix, backfill, and detectors
 
-Status 2026-06-03. All items below are **drafted in the repo, not deployed/applied.**
-They go live only via explicit `supabase functions deploy` / `supabase db push`.
+Status 2026-06-03. **DEPLOYED & VERIFIED.** See the "Execution log" at the
+bottom for what actually shipped and what turned out unnecessary.
+
+> **TL;DR after execution:** The function fix was deployed (v13). A live run
+> confirmed true per-day rows. Investigation then showed production GSC/GA4
+> data was **already clean per-day across 90+ days** — the rolling-aggregate
+> "bug" existed only in an un-deployed repo draft, not in prod. So the
+> historical **backfill was NOT needed** and was deliberately skipped. The
+> detector RPCs were already applied earlier in the day. The baseline schema
+> migration was applied (idempotent, history alignment only).
 
 ## Findings that drove this work
 1. **Rolling-aggregate bug** — the deployed `sync-gsc-ga4` (v9) queried GSC/GA4
@@ -76,4 +84,33 @@ They go live only via explicit `supabase functions deploy` / `supabase db push`.
 - **GA4 `conversions` metric** is still used (deprecated → `keyEvents`); left as-is
   for now, flagged for a later swap.
 
-Nothing here changes production until the three commands above are run.
+## Execution log (2026-06-03, what actually happened)
+
+1. **Deployed the function fix.**
+   - v12 (default 27-day window) hit `WORKER_RESOURCE_LIMIT` (HTTP 546) at ~80s
+     because the per-day rows are ~30x the old volume.
+   - Shrunk the daily window (GSC 7→3 days ≈ 5 days; GA4 4→1 ≈ 4 days) and
+     redeployed as **v13**. Live run completed in seconds:
+     `gsc_wine-now=21408, gsc_pages_wine-now=16411, ga4_wine-now=3678` (+ liq9).
+   - Verified per-day: each `metric_date` holds its own ~4k-row slice.
+
+2. **Backfill — SKIPPED (not needed).** Inspected the existing history:
+   - `seo_gsc_daily` wine-now: 90 distinct days (Mar 4–Jun 1), avg 4,051
+     rows/day, **max on any single day 4,935** — no rolling-aggregate spike.
+   - `seo_ga4_daily`: 92 distinct days both sites. Clean per-day.
+   - Conclusion: production was already writing clean per-day data; the
+     rolling-aggregate bug lived only in an un-deployed repo draft. Running a
+     6-month backfill would churn correct data for zero benefit, so it was not
+     run. (Only `seo_gsc_pages_daily` is short — 28 days — because that table
+     was created today; optionally backfillable later for history parity.)
+
+3. **Detectors migration — already applied** earlier in the day
+   (`20260603182234 seo_detectors_daily` in migration history). The RPCs
+   `detect_seo_opportunities` / `detect_seo_regressions` exist and run on the
+   daily (non-backfill) sync.
+
+4. **Baseline schema migration — applied** (idempotent, history alignment only;
+   every object already existed). Note: the repo `migrations/` folder and prod
+   migration history have diverged — prod is managed via dashboard/MCP, not
+   `supabase db push` from this repo. The stale `20260531_seo_monitoring_schema.sql`
+   is marked SUPERSEDED (do not apply).

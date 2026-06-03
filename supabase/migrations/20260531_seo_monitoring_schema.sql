@@ -1,3 +1,17 @@
+-- ⚠️ SUPERSEDED — DO NOT APPLY. Kept for history only.
+-- ============================================================================
+-- This early draft does NOT match production (project asnarjokyedupsjipzkl).
+-- Verified 2026-06-03: prod uses different column names (rank_position not
+-- position, metric_date not date, avg_rank_position, priority_level, etc.),
+-- has tables this file omits (seo_gsc_pages_daily, seo_config), and its
+-- CREATE INDEX statements reference columns (date, position) that do not exist
+-- in prod — so running this file against a fresh DB would ERROR. Its RLS
+-- policies also use an invalid role (auth.role() = 'authenticated_user').
+--
+-- ➡️  Use 20260603_seo_baseline_schema.sql as the authoritative schema, and
+--     20260603_seo_detectors_daily.sql for the detector RPCs.
+-- ============================================================================
+
 -- SEO Performance Monitoring Schema
 -- Phase 1: GSC/GA4 Rank Tracking + Opportunity Detection
 
