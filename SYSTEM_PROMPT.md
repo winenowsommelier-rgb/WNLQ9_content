@@ -85,8 +85,6 @@ WNLQ9_content/
 ├── supabase/functions/
 │   └── sync-gsc-ga4/
 │       └── index.ts                 # Daily sync function (DENO)
-├── .github/workflows/
-│   └── deploy-vercel.yml            # Auto-deploy on git push
 ├── docs/
 │   └── MAGENTO2_SEO_AEO_DEVELOPER_GUIDE.md  # 818-line implementation guide
 ├── .env.production                  # Supabase credentials
@@ -176,27 +174,29 @@ CREATE TABLE seo_sync_log (
 
 ## Deployment Status
 
-### ⚠️ BLOCKED: Dashboard Deploy to Vercel (currently failing)
+### ⚠️ BLOCKED: Dashboard Deploy to Vercel (needs one Vercel-UI setting)
 
-**Intended flow:**
-1. Push to `claude/gifted-pascal-7RHkk` → GitHub Actions triggers
-2. GitHub Actions runs `vercel --prod` → deploys to Vercel
-3. Vercel hosts the dashboard at a `*.vercel.app` URL
-4. Dashboard auto-refreshes every 5 minutes
+**Deploy mechanism: Vercel native GitHub integration** (no tokens). The old
+token-based GitHub Actions workflow (`deploy-vercel.yml`) was removed on
+2026-06-03 — it kept failing on an expired/wrong-scope `VERCEL_TOKEN`, and the
+native integration is the more robust path.
 
 **Actual state (verified 2026-06-03):** No successful production deploy exists yet.
-Two blockers, both requiring account-owner action:
-- **GitHub Actions:** every run fails with `Error! The specified token is not valid`.
-  The `VERCEL_TOKEN` repo secret is invalid/expired → regenerate it at
-  Vercel → Account Settings → Tokens, then update the GitHub repo secret.
-- **Vercel native Git integration:** the repo is also linked to two Vercel
-  projects (`seo-dashboard`, `wnlq-9-content-seo`) that auto-build every push and
-  all error with `No Next.js version detected`. They build branches whose repo
-  root is the content-pipeline project, not this Next.js dashboard. Fix: set each
-  project's Production Branch to `claude/gifted-pascal-7RHkk` (where the dashboard
-  `package.json` lives) and Root Directory to the repo root, or disconnect the
-  redundant project. The `seo-dashboard-abc.vercel.app` URL used elsewhere in this
-  doc is a placeholder — replace it with the real URL once a deploy succeeds.
+Root cause: the `seo-dashboard` Vercel project's **Production Branch is `main`**,
+but the Next.js dashboard (its `package.json` with `next`) lives only on
+`claude/gifted-pascal-7RHkk`. Building `main` (a content-pipeline app at root)
+errors with `No Next.js version detected`.
+
+**Fix (one setting, account-owner only):**
+1. Vercel → `seo-dashboard` → Settings → Git → set **Production Branch =
+   `claude/gifted-pascal-7RHkk`** (leave Root Directory at repo root).
+2. Confirm env vars on that project (Production scope):
+   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+3. Push any commit or click **Redeploy** → native integration builds the
+   dashboard with no token. Replace the placeholder `seo-dashboard-abc.vercel.app`
+   URL used elsewhere in this doc with the real one.
+4. Optional cleanup: the redundant `wnlq-9-content-seo` project also auto-builds
+   this repo and errors — disconnect it to stop double-building.
 
 **Verify Deployment:**
 ```bash
@@ -502,14 +502,12 @@ git log --oneline -5
 git status
 ```
 
-**2. Verify Deployment**
-```bash
-# Check GitHub Actions workflow
-curl -s https://api.github.com/repos/winenowsommelier-rgb/WNLQ9_content/actions/workflows/deploy-vercel.yml/runs \
-  | jq '.[0] | {status, conclusion, created_at}'
-
-# Or manually check:
-# https://github.com/winenowsommelier-rgb/WNLQ9_content/actions
+**2. Verify Deployment** (Vercel native integration — no GitHub Actions)
+```
+# Vercel dashboard → seo-dashboard project → Deployments tab
+# Latest deployment for branch claude/gifted-pascal-7RHkk should be "Ready".
+# If it errors with "No Next.js version detected", the project's
+# Production Branch is still pointing at main — see Deployment Status above.
 ```
 
 **3. Check Live Dashboard**
@@ -742,7 +740,7 @@ If issues:
 | lib/supabase.ts | DB client & types | ✅ Complete |
 | supabase/functions/sync-gsc-ga4/index.ts | Real GSC/GA4 API | ✅ Complete |
 | docs/MAGENTO2_SEO_AEO_DEVELOPER_GUIDE.md | Developer guide | ✅ Complete |
-| .github/workflows/deploy-vercel.yml | Auto-deploy | ✅ Complete |
+| Vercel native Git integration | Auto-deploy (no token) | ⚠️ Set Production Branch |
 | .env.production | Secrets | ✅ Configured |
 | vercel.json | Vercel config | ✅ Complete |
 
