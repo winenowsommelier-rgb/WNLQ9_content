@@ -1,103 +1,83 @@
-# GA4 + GSC Content-Planning Runbook
+# GA4 + GSC Content-Planning Runbook (CSV-based)
 
-Purpose: start the next planning session **straight on real data**. We pull
-Google Analytics 4 + Google Search Console **directly** (no Supermetrics), join
-the numbers onto the Notion board per article, and decide what to refresh, kill,
-or write next — then write `Target Keyword` / `Funnel` / `Day` / `GA Views` back.
+Purpose: start the next planning session **straight on real data** with **no API
+keys, no service accounts, no property IDs** — the same CSV-ingest model the
+dashboard already uses (`dashboard/lib/csv.ts`, sample files in
+`dashboard/data/`). You export GA4 + GSC CSVs from your own GA/GSC, drop them in,
+and the scripts join them onto the content index and score everything.
 
----
-
-## 1. One-time setup (do once, then it's ready)
-
-Fill these in Vercel env (prod) and/or a local `.env` (template in
-`pipeline/.env.example`):
-
-| Var | What | Where to find it |
-|---|---|---|
-| `GA_GSC_SERVICE_ACCOUNT_JSON` | service-account JSON (1 line). Optional — falls back to the existing `GOOGLE_SERVICE_ACCOUNT_JSON` used for Drive. | GCP → IAM → Service Accounts → Keys |
-| `GA4_PROPERTY_WN` / `GA4_PROPERTY_LIQ9` | numeric GA4 property IDs (digits only) | GA4 Admin → Property Settings → Property ID |
-| `GSC_SITE_WN` / `GSC_SITE_LIQ9` | GSC property string | exactly as registered: `sc-domain:wine-now.com` **or** `https://th.wine-now.com/` |
-
-Grant the service account's `client_email`:
-- **GA4**: each property → Property Access Management → **Viewer**
-- **GSC**: each property → Settings → Users and permissions → add as **Restricted** user
-
-Scopes used (read-only): `analytics.readonly`, `webmasters.readonly`.
-
-> If you use OAuth + a refresh token instead of a service account, that's a small
-> swap in `getAccessToken()` (use `grant_type=refresh_token`); ask and I'll adapt it.
-
-Verify with **no network / no creds needed**:
-```bash
-node pipeline/scripts/ga-gsc-pull.mjs --check    # validates env + creds parse
-node pipeline/scripts/ga-gsc-pull.mjs --index    # builds the slug→article join map
-```
-`--check` prints exactly which vars are still missing and exits non-zero until ready.
+> Why CSV (and not the GA/GSC API): this project is deliberately no-paid-API
+> (Option B). The live MCP connections that ARE wired — Notion, Drive, GitHub,
+> Supabase — stay as-is. GA/GSC come in as CSV exports. Do **not** add GA4
+> property IDs or a service account; nothing here needs them.
 
 ---
 
-## 2. Pull the data
+## 1. Export the two CSVs (once per planning cycle)
+
+**GA4** → Reports/Explore → *Pages and screens* → export CSV with columns
+(header names are matched loosely, order-independent):
+`page_path, page_title, views, users, avg_engagement_time`
+Save as **`pipeline/data/ga4.csv`** (combine both brands into one file — the
+join is by URL, so brand falls out of the path).
+
+**GSC** → Performance → *Queries* (and/or *Pages*) → export CSV:
+`keyword, brand, clicks, impressions, ctr, position` (a `page` column is used if
+present; `brand` = `wine-now` | `liq9` if you combine both properties).
+Save as **`pipeline/data/gsc.csv`**.
+
+(Or pass paths: `--ga4 <file> --gsc <file>`. With neither present the scripts run
+on the bundled `dashboard/data/sample-*.csv` and clearly label it SAMPLE.)
+
+---
+
+## 2. Run the planner (zero deps, no creds)
 
 ```bash
-node pipeline/scripts/ga-gsc-pull.mjs --days 28           # default window
-node pipeline/scripts/ga-gsc-pull.mjs --since 2026-05-01 --until 2026-05-31
+node pipeline/scripts/build-articles-manifest.mjs   # refresh content-index.json (52 articles)
+node pipeline/scripts/plan-from-csv.mjs             # join + score → /tmp/ga-gsc/plan.json + summary
 ```
-Writes to `/tmp/ga-gsc/`:
-- `ga4-wn.json` / `ga4-liq9.json` — per page: `views, sessions, engagedSessions, avgSessionSec, conversions`
-- `gsc-wn.json` / `gsc-liq9.json` — per page: `clicks, impressions, ctr, position, topQueries[10]`
-- `merged.json` — **one record per article**, GA4 + GSC joined, with `title`/`site`/`onSite`
-- `slug-index.json` — the join map
 
-**Join key = the live-URL basename (canonical), not the repo filename.** Legacy
-files carry a `dayN-` filename prefix that is stripped in the published URL
-(e.g. `day1-most-expensive-wines-2026.html` → live `/blog/most-expensive-wines-2026.html`
-→ join key `most-expensive-wines-2026`). The script already keys the index off
-each file's `<link rel="canonical">`, so this is handled — just be aware when
-eyeballing.
+`plan.json` contains:
+- `performance[]` — every article with `views/users/eng`, a **bucket**
+  (`win/scale` ≥P75 views · `mid` · `thin` ≤P25 · `no-traffic-data`), its
+  `inboundLinks`, `orphan`, and `priorityLink` flags.
+- `opportunities` — `strikingDistance` (GSC pos 4–20, ≥median impressions),
+  `lowCtr` (high impressions, CTR <2%, pos ≤10), `newTopics` (queries with
+  impressions but no covering article).
 
----
+The console summary leads with **orphans capturing real traffic** (fix internal
+links there first), striking-distance keywords, and new-topic candidates.
 
-## 3. Join onto the Notion board
-
-Board: **2026 JUN — WNLQ9 — Content Production**
-(db `786d080f-8da2-4a1e-b84e-161f4e19d56d`, data source
-`collection://6be4a7bb-d42c-4286-be1b-fa73e3635b45`).
-
-`merged.json` is keyed by URL slug; the board rows are keyed by **Title**.
-Bridge them with `slug-index.json` (`urlKey → {title, site}`), then match the
-title to the row. Two reliable paths:
-- If a row's **`Final URL`** is populated → join directly on the live URL.
-- Else join `merged.slug → slug-index.title → board row Title` (Site
-  disambiguates WN vs LIQ9).
-
-Write-backs per row (Notion `update-page`, property names exact):
-`GA Views` (number), and during planning `Target Keyword`, `Funnel`, `Day`,
-optionally `Status`. (`GA Views` is already a column on the board.)
+### Join key
+GA4 `page_path` → basename → `urlKey` in `content-index.json`. Legacy Day 1–7
+posts strip the `dayN-` filename prefix in their live URL (file
+`day1-most-expensive-wines-2026.html` → live `/blog/most-expensive-wines-2026`),
+which the index already handles (it keys off each file's `<link rel="canonical">`).
 
 ---
 
-## 4. Scoring heuristic (starting point — tune with the client)
+## 3. Act on it (this is the refresh pass)
 
-Per existing article:
-- **Win / scale** — high impressions **and** good position (≤10): refresh,
-  expand, add internal links, build a cluster around it.
-- **Striking distance** — high impressions, position 11–20, low CTR: title/H1 +
-  meta + FAQ tune; these move fastest.
-- **Thin** — low impressions after 60+ days indexed: merge into a pillar or
-  rework the angle.
-- **Converter** — high `conversions`/`engagedSessions` per view: prioritize
-  more like it; feed winning `topQueries` into new briefs.
+1. **Internal links first** — execute `docs/INTERNAL_LINK_PLAN.md`, prioritizing
+   any orphan with real `views` and the Day 12 Champagne pillar. Re-run the
+   manifest and assert **0 orphans**, every pillar ≥6 inbound.
+2. **Striking-distance / low-CTR** — tune title/H1 + meta + FAQ on those pages.
+3. **New topics** — turn `newTopics` (grouped by brand) into briefs; respect the
+   golden rules (real in-stock SKUs only, no fabricated numbers, ~฿+LINE, Thai-only).
+4. Run everything through `validate-articles.mjs` → `inline-css.mjs` → Drive
+   (one clean re-delivery) → Notion.
+5. **Write-backs** to the board (`update-page`, exact property names): `GA Views`
+   (number, from `performance.views`), and `Target Keyword` / `Funnel` / `Day`.
 
-For **new topics**: cluster GSC `topQueries` that have impressions but **no
-ranking page yet** → candidate briefs. Respect the golden rules (no fabricated
-numbers; real in-stock SKUs only; ~฿+LINE; Thai-only).
+The web dashboard consumes the **same** CSVs (upload via its UI → BriefGenerator
+/ TopicIntelligence) if you prefer a visual pass — `plan-from-csv.mjs` is the
+headless equivalent for a Claude Code session.
 
 ---
 
-## 5. Guardrails
-- **No Supermetrics.** Direct GA4 Data API + GSC Search Analytics API only.
-- Read-only scopes; the script never writes to Google.
-- GA/GSC data lags ~1–2 days — the script defaults `--until` to *yesterday*.
-- Don't paste real metrics into article bodies as claims; planning data informs
-  *what to write*, not fabricated stats inside posts.
-- Every produced/updated article still goes through `validate-articles.mjs`.
+## 4. Guardrails
+- No Supermetrics, no GA/GSC API keys, no service account. CSV in, plan out.
+- Planning data informs *what to write/fix* — never paste raw metrics into
+  article bodies as claims.
+- Every produced/updated article still passes `validate-articles.mjs`.
