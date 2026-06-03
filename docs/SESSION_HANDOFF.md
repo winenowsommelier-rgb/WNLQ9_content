@@ -74,3 +74,47 @@ The prior session handoff was written against a stale mental model. For the reco
   Vercel project (root `dashboard/`) + env (`NOTION_API_TOKEN`,
   `NOTION_DATABASE_ID`, `SLACK_WEBHOOK_URL`); don't reuse the dead-dup projects.
 - See `RUNBOOK.md` §7 for the `pipeline/` content backlog.
+
+---
+
+## 5) Content corrections & verify-list (2026-06-03 session)
+
+**day4 excise-tax article — premise was wrong, now fixed.**
+`pipeline/public/content/day4-wine-excise-tax-2026.html` originally argued
+"why wine/liquor prices **rose** in 2026" — contradicting its own *reframed*
+Notion brief, which says the 2026 excise direction was a **cut**. Rewrote H1,
+title, meta/OG, all three JSON-LD blocks (Article headline = H1; FAQPage mirrors
+on-page FAQ), and the body to the corrected framing. Commits `0defae7` (premise)
++ `d04a144` (figures). SKUs and compliance footer unchanged.
+
+**Verify-list** (Golden Rule #2 — figures sourced, for legal/tax review before
+publish; keep abstract if any source is later contradicted by the official
+notice):
+
+| Claim in article | Value used | Sources |
+|---|---|---|
+| Wine import duty (HS 22.04/22.05) | 54–60% → **0%** (exempt) | USDA FAS TH2024-0014; Royal Thai Embassy OCA (commercethaiusa.org); Acclime |
+| Wine excise (ad valorem) | ~10% → **~5%** of retail | USDA FAS; belaws; Bangkok Global Law |
+| Wine excise (specific) | **~1,000 ฿ / litre pure alcohol** | belaws; USDA FAS |
+| Effective / status | Jan 2 2024, continuing through 2026 (indefinite) | USDA FAS; multiple legal-firm briefings |
+| Retail impact | ~35–40% cheaper for some imports | USDA FAS (post estimate) |
+
+⚠️ The exact current rates still carry a visible verify-note pointing to the
+**official Excise Department notice** — confirm before any commercial citation.
+
+**Audits run this session (read-only):**
+- Premise/fact-drift across the other 16 articles vs their briefs → **clean**
+  (no other day4-type reversal; one cosmetic title variance on
+  `liq9-day7-bourbon-recommend`).
+- SKU validity sweep — all **43** product-card SKUs across the 17 articles exist
+  in `pipeline/data/products.json` (2026-06-01 feed) **and** are `in_stock`.
+
+**Drive delivery folder (`1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm`) — day4 cleanup:**
+canonical = **`day4-wine-excise-tax-2026-FINAL.html`** (id `14FggWC…`, 32,471 B,
+verified-correct; Notion `Drive file URL` points here). The older
+`-inlined`/`-v2`/`-v3` copies are stale duplicates — **delete manually** (Drive
+MCP has no delete/rename, only create/copy). A concurrent upload session was
+producing `<slug>-inlined.html` files from a checkout **lacking** the day4 fix;
+its `day4-…-inlined.html` (28,666 B) was confirmed wrong-premise. Because Drive
+can't overwrite by name, that session can't clobber `FINAL` or the Notion
+pointer — but it should pull `claude/festive-dirac-QcgOV` before any re-run.
