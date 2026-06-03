@@ -42,9 +42,13 @@ function date(value) {
 
 /**
  * @param {object} brief normalized brief (see normalizeBrief)
+ * @param {object} [opts]
+ * @param {boolean} [opts.hasWeekTheme=true] emit the "Week Theme" column. Set
+ *   false for boards that don't have it (e.g. the July database) — writing an
+ *   unknown column makes Notion reject the whole request with a 400.
  * @returns {object} Notion `properties` object for POST /pages
  */
-export function briefToNotionProperties(brief) {
+export function briefToNotionProperties(brief, { hasWeekTheme = true } = {}) {
   const props = {};
 
   // Title (required on create; omitted on partial updates)
@@ -53,14 +57,21 @@ export function briefToNotionProperties(brief) {
   // Selects
   if (brief.status) props["Status"] = select(brief.status);
   if (brief.site) props["Site"] = select(brief.site);
-  if (brief.weekTheme) props["Week Theme"] = select(brief.weekTheme);
+  if (hasWeekTheme && brief.weekTheme) props["Week Theme"] = select(brief.weekTheme);
   if (brief.category) props["Category"] = select(brief.category);
   if (brief.type) props["Type"] = select(brief.type);
   if (brief.month) props["Month"] = select(brief.month);
+  // July editorial selects (omitted when absent, so June rows are unaffected).
+  if (brief.author) props["Author"] = select(brief.author);
+  if (brief.priority) props["Priority"] = select(brief.priority);
+  if (brief.intent) props["Intent"] = select(brief.intent);
+  if (brief.funnel) props["Funnel"] = select(brief.funnel);
+  if (brief.evergreen) props["Evergreen"] = select(brief.evergreen);
 
   // Numbers
   if (brief.day != null) props["Day"] = number(brief.day);
   if (brief.gaViews != null) props["GA Views"] = number(brief.gaViews);
+  if (brief.wordTarget != null) props["Word Target"] = number(brief.wordTarget);
 
   // Date
   if (brief.publishDate) props["Publish Date"] = date(brief.publishDate);
@@ -75,6 +86,7 @@ export function briefToNotionProperties(brief) {
   if (brief.story) props["STORY"] = richText(brief.story);
   if (brief.tension) props["TENSION"] = richText(brief.tension);
   if (brief.cta) props["CTA"] = richText(brief.cta);
+  if (brief.schema) props["Schema"] = richText(brief.schema);
 
   // URLs
   if (brief.finalUrl) props["Final URL"] = url(brief.finalUrl);

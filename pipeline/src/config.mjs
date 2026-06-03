@@ -13,10 +13,52 @@ export const NOTION_VERSION = "2022-06-28";
 // Override per-environment with NOTION_DATABASE_ID.
 export const DEFAULT_DATABASE_ID = "786d080f-8da2-4a1e-b84e-161f4e19d56d";
 
+// Known monthly content databases. Each month's board has a slightly different
+// column set (June carries "Week Theme"; July drops it and instead exposes the
+// editorial columns Author/Priority/Intent/Funnel/Evergreen). `schemaProfileFor()`
+// maps a database id to its profile so validate/mapping only ever touch columns
+// that actually exist on the target board.
+export const DATABASES = {
+  june: { id: "786d080f-8da2-4a1e-b84e-161f4e19d56d", month: "June 2026", hasWeekTheme: true },
+  july: { id: "93ac15a8-bb65-40f7-b357-b8cabd336214", month: "July 2026", hasWeekTheme: false },
+};
+
+// Default (backwards-compatible) profile = the June shape, which includes Week
+// Theme. Callers targeting July pass the july profile so the non-existent
+// "Week Theme" column is never written (Notion would 400 on an unknown column).
+export const DEFAULT_PROFILE = DATABASES.june;
+
+/** Resolve the schema profile for a database id (falls back to the June shape). */
+export function schemaProfileFor(databaseId) {
+  for (const profile of Object.values(DATABASES)) {
+    if (profile.id === databaseId) return profile;
+  }
+  return DEFAULT_PROFILE;
+}
+
+/** Parse PUBLISH_LANGS ("th" | "th,en") into a deduped lowercase list. */
+export function parseLangs(raw) {
+  const list = String(raw || "th")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  return list.length ? [...new Set(list)] : ["th"];
+}
+
 export function getConfig(env = process.env) {
   return {
     token: env.NOTION_TOKEN || env.NOTION_API_KEY || "",
     databaseId: env.NOTION_DATABASE_ID || DEFAULT_DATABASE_ID,
+
+    // WNLQ9 BI / data-warehouse API (live product feed, bestsellers). Key name
+    // is fixed by platform convention: WNLQ9_BI_API_KEY (sent as X-API-Key).
+    biApiKey: env.WNLQ9_BI_API_KEY || "",
+    biApiBase: env.WNLQ9_BI_API_BASE || "https://wnlq9-bi-api.vercel.app",
+
+    // Languages to publish. Thai-only by default; set PUBLISH_LANGS="th,en" to
+    // ALSO emit the English article from Content EN once the EN locale/URL
+    // pattern is confirmed. This is THE switch that turns on bilingual output.
+    publishLangs: parseLangs(env.PUBLISH_LANGS),
 
     // Shared secret guarding the dashboard API (fail-closed when unset).
     ingestSecret: env.INGEST_SECRET || "",
@@ -62,7 +104,14 @@ export const STATUSES = [
   "Done",
   "Published",
 ];
-export const MONTHS = ["June 2026"];
+export const MONTHS = ["June 2026", "July 2026"];
+
+// July board editorial columns (June expressed these as Week Theme instead).
+export const AUTHORS = ["Wine-Now Sommelier Desk", "LIQ9 Bartender Desk", "Guest Expert"];
+export const PRIORITIES = ["Hero", "Standard", "Filler"];
+export const INTENTS = ["Informational", "Commercial", "Transactional", "Navigational"];
+export const FUNNELS = ["TOFU", "MOFU", "BOFU"];
+export const EVERGREENS = ["Evergreen", "Timely"];
 
 // Category <-> Week Theme are 1:1 in the editorial calendar. Either can be
 // derived from the other so the dashboard only has to supply one.

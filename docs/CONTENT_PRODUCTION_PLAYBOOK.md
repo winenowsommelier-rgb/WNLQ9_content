@@ -205,6 +205,15 @@ content).
   output `public`. (Two other Vercel projects — `seo-dashboard`,
   `wnlq-9-content-seo` — are dead duplicates whose builds Error; ignore or clean
   up. Only `seodashboard` reacts to pushes.)
+- **Monthly auto-render → Drive (July 2026+):** `src/july-cli.mjs` renders each
+  `Status=Review` row into a full Magento-safe Thai article and runs it through
+  the same Drive-handoff path. Per-month DB/column differences are handled by a
+  **schema profile** (`config.schemaProfileFor` — e.g. July has no `Week Theme`
+  and adds `Author/Priority/Intent/Funnel/Evergreen`). Real SKUs come from the
+  BI feed (`products.pickProducts`); body depth from `llm.expandArticle` (needs
+  `ANTHROPIC_API_KEY`, else an offline seed render). **Thai-only by default;**
+  set `PUBLISH_LANGS=th,en` to also publish English. Always `--dry-run` first
+  (writes to `out/july-dry`, no Notion/Drive writes). See `pipeline/README.md`.
 - Node-native pipeline (no deps, `type:module`, Node ≥22): `src/notion.mjs`,
   `src/mapping.mjs`, `src/pipeline.mjs` (`approveToDrive` sets status "Brief
   Ready" + writes `Drive file URL`), plus the Notion→Supabase sync
