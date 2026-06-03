@@ -56,6 +56,13 @@ jobs:
           DATA_HUB_SHEET_ID: ${{ secrets.DATA_HUB_SHEET_ID }}
         run: python -m pipeline.ingest
 
+      - name: Refresh SQL intelligence views → Sheet (Intel_* tabs)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          DATA_HUB_SHEET_ID: ${{ secrets.DATA_HUB_SHEET_ID }}
+        run: python scripts/export_intelligence.py
+
       - name: Clean up credentials
         if: always()
         run: rm -f config/google-credentials.json
