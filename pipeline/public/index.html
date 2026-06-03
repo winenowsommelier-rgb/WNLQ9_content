@@ -74,6 +74,7 @@
 
       let items = [];
       let selectedId = null;
+      let caps = {};
 
       const stKey = (s) => "st-" + String(s || "Not started").replace(/\s/g, "");
       const fmtDate = (d) => (d ? new Date(d).toLocaleString() : "—");
@@ -152,7 +153,9 @@
           <h2>${escapeHtml(it.title)}</h2>
           <div class="sub">${it.briefId || ""} · ${it.site || ""} · ${it.category || ""} · Day ${it.day ?? "—"} · ${it.publishDate || "no date"} · <span class="badge ${stKey(it.status)}">${it.status || "—"}</span></div>
           <div class="actions">
-            <button id="btnGen" ${canGenerate ? "" : "disabled"}>✨ Generate drafts</button>
+            ${caps.generate
+              ? `<button id="btnGen" ${canGenerate ? "" : "disabled"}>✨ Generate drafts</button>`
+              : `<span class="sub" style="margin:0" title="Articles are authored in Claude Code (no API key), then shipped via Approve → Drive.">✍️ Drafts authored in Claude Code</span>`}
             <button id="btnApprove" ${canApprove ? "" : "disabled"}>✅ Approve → Drive</button>
             <a class="btn" href="${it.url}" target="_blank">Notion ↗</a>
             ${it.driveUrl ? `<a class="btn" href="${it.driveUrl}" target="_blank">Google Doc ↗</a>` : ""}
@@ -167,7 +170,7 @@
           <div class="panel"><h3>Content TH</h3><div class="content">${escapeHtml(it.contentTH) || "— ยังไม่ได้สร้าง —"}</div></div>
           <div class="panel"><h3>Activity log</h3><ul class="log" id="log"><li class="sub">loading…</li></ul></div>`;
 
-        $("btnGen").onclick = () => runAction("generate", it.id, "Generating drafts…");
+        if (caps.generate) $("btnGen").onclick = () => runAction("generate", it.id, "Generating drafts…");
         $("btnApprove").onclick = () => runAction("approve", it.id, "Creating Google Doc…");
         loadLog(it.id);
       }
@@ -204,6 +207,7 @@
         try {
           const data = await api("/api/items");
           items = data.items;
+          caps = data.capabilities || {};
           renderPipeline();
           renderList();
         } catch (e) {
