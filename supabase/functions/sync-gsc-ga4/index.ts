@@ -47,8 +47,10 @@ async function syncGSC(token: string, siteUrl: string, site: string) {
   const body = await res.json();
   if (!res.ok) throw new Error(`GSC ${site} ${res.status}: ${JSON.stringify(body).slice(0, 400)}`);
   const rows = (body.rows || []).map((r: any) => ({ product_id: null, site, keyword: r.keys?.[0] ?? "", impressions: Math.round(r.impressions || 0), clicks: Math.round(r.clicks || 0), ctr: r.ctr || 0, rank_position: r.position || 0, avg_rank_position: r.position || 0, metric_date: endDate, synced_at: new Date().toISOString() })).filter((r: any) => r.keyword);
+  // Guard: never delete existing data for a 0-row API response, or an empty run would wipe a good day.
+  if (!rows.length) return 0;
   await supabase.from("seo_gsc_daily").delete().eq("metric_date", endDate).eq("site", site);
-  if (rows.length) { const { error } = await supabase.from("seo_gsc_daily").insert(rows); if (error) throw new Error(`GSC insert ${site}: ${error.message}`); }
+  const { error } = await supabase.from("seo_gsc_daily").insert(rows); if (error) throw new Error(`GSC insert ${site}: ${error.message}`);
   return rows.length;
 }
 
@@ -59,8 +61,10 @@ async function syncGA4(token: string, propertyId: string, site: string) {
   const body = await res.json();
   if (!res.ok) throw new Error(`GA4 ${site} ${res.status}: ${JSON.stringify(body).slice(0, 400)}`);
   const rows = (body.rows || []).map((r: any) => { const m = r.metricValues || []; const num = (i: number) => Number(m[i]?.value || 0); const sessions = Math.round(num(1)); const conversions = Math.round(num(5)); return { product_id: null, site, page_path: r.dimensionValues?.[0]?.value ?? "", users: Math.round(num(0)), sessions, pageviews: Math.round(num(2)), bounce_rate: num(3), avg_session_duration: num(4), goal_completions: conversions, conversion_rate: sessions > 0 ? conversions / sessions : 0, metric_date: metricDate, synced_at: new Date().toISOString() }; }).filter((r: any) => r.page_path);
+  // Guard: never delete existing data for a 0-row API response, or an empty run would wipe a good day.
+  if (!rows.length) return 0;
   await supabase.from("seo_ga4_daily").delete().eq("metric_date", metricDate).eq("site", site);
-  if (rows.length) { const { error } = await supabase.from("seo_ga4_daily").insert(rows); if (error) throw new Error(`GA4 insert ${site}: ${error.message}`); }
+  const { error } = await supabase.from("seo_ga4_daily").insert(rows); if (error) throw new Error(`GA4 insert ${site}: ${error.message}`);
   return rows.length;
 }
 
