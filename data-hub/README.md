@@ -217,6 +217,31 @@ A dedicated **Thailand** dashboard tab lists every Thailand-focused article
 across all verticals. To make a non-Thai source Thailand-focused, add
 `geo_focus: thailand` to its entry in `sources.yaml`.
 
+**Beverage relevance (cross-vertical topical tag)**
+
+Like Thailand focus, **beverage relevance** cuts ACROSS the verticals — it is
+**not** a vertical. It answers "is this article actually about premium
+wine/spirits?" Every article gets a **Beverage Relevance** value (**column Q**:
+`high`, `medium`, or `low`):
+
+- **`high`** — core beverage: the `wine`/`spirits` vertical, or a strong
+  beverage term (wine, whisky, gin, cocktail, distillery, winery, sommelier,
+  brewery, beer, champagne, …) in the title/excerpt.
+- **`medium`** — food/drink/hospitality-adjacent (restaurant, dining, hotel,
+  menu, pairing, tasting, nightlife) with no strong beverage term.
+- **`low`** — genuinely off-topic (furniture, sports, royalty, pure politics).
+
+Broad lifestyle/travel/hospitality sources (Town & Country, Robb Report, Skift,
+NRN, …) are correctly vertical-tagged but their sitemap backfill pulls in
+off-topic articles (e.g. "office furniture power unit", "Rafael Nadal's wife").
+This flag lets the trend views filter them out. It is **non-destructive** — a
+flag, never a delete. The **Editorial** and **AEO Opportunities** dashboard
+QUERYs now exclude `Q = 'low'` so they stay focused on the premium drinks
+market. Agent enrichment sets the value too; the keyword path is the fallback,
+and a valid agent-set level wins. Backfill existing rows with
+`./scripts/backfill_beverage_relevance.sh` (pure keyword, no network), then
+re-mirror.
+
 **Add a new source**
 1. Edit `config/sources.yaml` (copy an existing entry).
 2. Set `vertical:` (one of the six) and `enabled: true`.

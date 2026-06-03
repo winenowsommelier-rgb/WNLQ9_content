@@ -40,16 +40,30 @@ the contract enforced by `SheetsExporter.COLUMNS`.
 | N   | Collected Date   | collected_date             | when the pipeline grabbed it |
 | O   | Source Language  | source_language            | en/th/es/fr/de/it/ja/zh/pt |
 | P   | Thailand Focus   | thailand_focus             | high/medium/"" — cross-vertical geo tag |
+| Q   | Beverage Relevance | beverage_relevance       | high/medium/low — cross-vertical topical tag |
 
 Row 1 is the header row. Data starts at row 2. Open-ended ranges like
 `Articles!C2:C` grow automatically as new rows land.
 
-> **Range note:** the table now has **16 columns (A–P)**. QUERY formulas read
-> `Articles!A:P` so the new **Thailand Focus** column (P) is in scope. The older
-> `Articles!A:O` formulas in this guide still work for the columns they select,
-> but use `A:P` for anything that references column P. **Thailand Focus** is a
-> cross-vertical geo tag (NOT a vertical): any article in any vertical can be
-> `high`, `medium`, or `""` (blank = not Thailand-focused).
+> **Range note:** the table now has **17 columns (A–Q)**. QUERY formulas read
+> `Articles!A:Q` so the **Thailand Focus** (P) and **Beverage Relevance** (Q)
+> columns are in scope. The older `Articles!A:O` / `Articles!A:P` formulas in
+> this guide still work for the columns they select, but use `A:Q` for anything
+> that references column P or Q.
+>
+> **Thailand Focus** (P) is a cross-vertical geo tag (NOT a vertical): any
+> article in any vertical can be `high`, `medium`, or `""` (blank = not
+> Thailand-focused).
+>
+> **Beverage Relevance** (Q) is a cross-vertical *topical* tag answering "is this
+> actually about premium wine/spirits?": `high` (core — wine/spirits, or a strong
+> beverage term), `medium` (food/drink/hospitality-adjacent), `low` (genuinely
+> off-topic: furniture, sports, royalty, pure politics). Broad lifestyle/travel/
+> hospitality sources (Town & Country, Robb Report, Skift, NRN, …) are correctly
+> vertical-tagged but bring in off-topic articles; this flag lets views filter
+> them out. It is a flag, never a delete — nothing is removed. The **Editorial**
+> and **AEO Opportunities** views now exclude `Q = 'low'` so they stay focused on
+> the premium drinks market.
 
 ---
 
@@ -334,11 +348,13 @@ team should respond to or out-do.
 Paste into **A1**:
 
 ```
-=QUERY(Articles!A:O, "SELECT B, A, H, J, D WHERE M = 'high' ORDER BY D DESC LIMIT 50", 1)
+=QUERY(Articles!A:Q, "SELECT B, A, H, J, D WHERE M = 'high' AND Q <> 'low' ORDER BY D DESC LIMIT 50", 1)
 ```
 
 Columns returned: **Title (B), Source (A), Region (H), Trend Signals (J),
-Published Date (D)** — the 50 most recent high-AEO articles.
+Published Date (D)** — the 50 most recent high-AEO articles. The `Q <> 'low'`
+clause excludes off-topic (non-beverage) rows so the queue stays on the premium
+wine/spirits market.
 
 Variants:
 - Only wine: add `AND K = 'wine'` → `WHERE M = 'high' AND K = 'wine'`.
@@ -364,10 +380,11 @@ are simultaneously **trending** (have at least one Trend Signal) **and**
 
 ### Auto-generated opportunity feed
 Paste into **A1**. The condition `J IS NOT NULL AND J <> ''` keeps only rows that
-carry a trend signal; `M = 'high'` keeps the AEO winners:
+carry a trend signal; `M = 'high'` keeps the AEO winners; `Q <> 'low'` drops
+off-topic (non-beverage) rows so the board stays on the premium drinks market:
 
 ```
-=QUERY(Articles!A:O, "SELECT D, B, A, H, J, K WHERE M = 'high' AND J IS NOT NULL AND J <> '' ORDER BY D DESC LIMIT 100", 1)
+=QUERY(Articles!A:Q, "SELECT D, B, A, H, J, K WHERE M = 'high' AND J IS NOT NULL AND J <> '' AND Q <> 'low' ORDER BY D DESC LIMIT 100", 1)
 ```
 
 Returns **Published Date (D), Title (B), Source (A), Region (H), Trend Signals

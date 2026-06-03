@@ -67,26 +67,30 @@ class DashboardBootstrap:
             "A8": "High-AEO articles",
             "B8": '=COUNTIF(Articles!M2:M, "high")',
             "D1": (
-                "=QUERY(Articles!A:P, \"SELECT K, COUNT(K) WHERE K IS NOT NULL "
+                "=QUERY(Articles!A:Q, \"SELECT K, COUNT(K) WHERE K IS NOT NULL "
                 "GROUP BY K ORDER BY COUNT(K) DESC LABEL COUNT(K) 'Articles'\", 1)"
             ),
         },
         "Regions": {
             "A1": (
-                "=QUERY(Articles!A:P, \"SELECT H, COUNT(C) WHERE H IS NOT NULL "
+                "=QUERY(Articles!A:Q, \"SELECT H, COUNT(C) WHERE H IS NOT NULL "
                 "GROUP BY H ORDER BY COUNT(C) DESC LABEL COUNT(C) 'Articles'\", 1)"
             ),
         },
+        # AEO Opportunities now EXCLUDES off-topic rows (Q = beverage relevance):
+        # Q <> 'low' keeps the focus on the premium wine/spirits market.
         "AEO Opportunities": {
             "A1": (
-                "=QUERY(Articles!A:P, \"SELECT B, A, H, J, D WHERE M = 'high' "
-                "ORDER BY D DESC LIMIT 50\", 1)"
+                "=QUERY(Articles!A:Q, \"SELECT B, A, H, J, D WHERE M = 'high' "
+                "AND Q <> 'low' ORDER BY D DESC LIMIT 50\", 1)"
             ),
         },
+        # Editorial likewise focuses on beverage-relevant rows (Q <> 'low').
         "Editorial": {
             "A1": (
-                "=QUERY(Articles!A:P, \"SELECT D, B, A, H, J, K WHERE M = 'high' "
-                "AND J IS NOT NULL AND J <> '' ORDER BY D DESC LIMIT 100\", 1)"
+                "=QUERY(Articles!A:Q, \"SELECT D, B, A, H, J, K WHERE M = 'high' "
+                "AND J IS NOT NULL AND J <> '' AND Q <> 'low' "
+                "ORDER BY D DESC LIMIT 100\", 1)"
             ),
             "G1": "Content Idea",
             "H1": "Priority (1-5)",
@@ -98,7 +102,7 @@ class DashboardBootstrap:
         # H=Region, P=Thailand Focus.
         "Thailand": {
             "A1": (
-                "=QUERY(Articles!A:P, \"SELECT D, B, A, K, H, P "
+                "=QUERY(Articles!A:Q, \"SELECT D, B, A, K, H, P "
                 "WHERE P = 'high' OR P = 'medium' ORDER BY D DESC LIMIT 200\", 1)"
             ),
         },

@@ -82,18 +82,32 @@ def test_default_tabs_match_guide():
 def test_thailand_tab_query_uses_full_range():
     # The Thailand tab QUERY pulls across all verticals filtered by column P.
     formula = DashboardBootstrap.DEFAULT_FORMULAS["Thailand"]["A1"]
-    assert "Articles!A:P" in formula
+    assert "Articles!A:Q" in formula
     assert "P = 'high'" in formula
     assert "P = 'medium'" in formula
 
 
 def test_existing_queries_use_full_range():
-    # Every seeded QUERY must reference A:P now that the table has 16 columns.
+    # Every seeded QUERY must reference A:Q now that the table has 17 columns
+    # (column Q = Beverage Relevance).
     for tab, formulas in DashboardBootstrap.DEFAULT_FORMULAS.items():
         for cell, value in formulas.items():
             if isinstance(value, str) and "QUERY(Articles!" in value:
-                assert "Articles!A:P" in value, f"{tab}!{cell} not A:P"
+                assert "Articles!A:Q" in value, f"{tab}!{cell} not A:Q"
+                assert "Articles!A:P" not in value
                 assert "Articles!A:O" not in value
+
+
+def test_editorial_query_excludes_off_topic_rows():
+    # Editorial focuses on beverage-relevant rows: column Q must NOT be 'low'.
+    formula = DashboardBootstrap.DEFAULT_FORMULAS["Editorial"]["A1"]
+    assert "Q <> 'low'" in formula
+
+
+def test_aeo_query_excludes_off_topic_rows():
+    # AEO Opportunities likewise excludes off-topic (low) rows.
+    formula = DashboardBootstrap.DEFAULT_FORMULAS["AEO Opportunities"]["A1"]
+    assert "Q <> 'low'" in formula
 
 
 # -- create_dashboard_tabs --------------------------------------------
