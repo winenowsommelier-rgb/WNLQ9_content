@@ -47,7 +47,14 @@ export default async function handler(req, res) {
     // hasHtml = a self-contained article file exists for this row, so it can be
     // approved → Drive without generated drafts.
     for (const it of items) it.hasHtml = Boolean(manifest[it.id]);
-    res.status(200).json({ ok: true, count: items.length, items });
+    // Capabilities tell the dashboard which server actions are configured, so it
+    // can hide buttons that would just error. Drafting is done in Claude Code
+    // (no API key); server-side Generate only exists if ANTHROPIC_API_KEY is set.
+    const capabilities = {
+      generate: Boolean(process.env.ANTHROPIC_API_KEY),
+      approve: Boolean(process.env.GOOGLE_SERVICE_ACCOUNT_JSON && process.env.DRIVE_FOLDER_ID),
+    };
+    res.status(200).json({ ok: true, count: items.length, items, capabilities });
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });
   }
