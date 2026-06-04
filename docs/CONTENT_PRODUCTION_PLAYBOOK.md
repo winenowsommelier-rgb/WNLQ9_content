@@ -3,15 +3,79 @@
 The repeatable process for producing blog content for the two Thai beverage
 e-commerce brands **Wine-Now** (wine) and **LIQ9** (spirits). Follow this on
 **every** content session so output stays consistent. This is the source of
-truth for *how we make content*; the Notion board is the source of truth for
-*what to make and its status*.
+truth for *how we make content*; the **Notion board** is the source of truth for
+*what to make and its status*; the **product feed** (`pipeline/data/products.json`,
+from the BI/Supabase DB) is the source of truth for *real SKUs/prices*.
 
-> TL;DR for a new session: read the Notion content-plan rows → write
-> **full, ready-to-use Thai articles** (not briefs) at "Whisky 101 v2" depth →
-> real in-stock SKUs on every product card with a visible SKU chip → no
-> fabricated numbers (verify-list instead) → inline the CSS → upload the
-> self-contained HTML to the Google Drive folder → set Notion **Status = "Brief
-> Ready"** and paste the link into **Drive file URL**.
+> TL;DR for a new session: pull updated topics+briefs from the **Notion board**
+> and SKUs from the **product feed** → write **full, ready-to-use Thai articles**
+> (not briefs) at "Whisky 101 v2" depth → real in-stock SKUs on every card with a
+> visible SKU chip; no fabricated numbers (verify-list instead) → pass the **QA
+> gate** (`validate-articles.mjs`) → generate **Magento-safe fragments**
+> (`magento-export.mjs --mode scoped`) → upload them to the Drive folder
+> **`WNLQ9 2026-JUN`** → set Notion **Status = "Brief Ready"** + **Drive file URL**
+> → commit/push the standalone HTML.
+
+---
+
+## 0. The production pipeline (intake → publish)
+
+This is the orchestration that turns updated DB/Notion briefs into delivered
+content. Each phase has a committed tool; the whole thing is reproducible.
+
+**Phase 1 — Intake.** Pull the rows to make from the Notion board
+**`2026 JUN — WNLQ9 — Content Production`** (db `786d080f-8da2-4a1e-b84e-161f4e19d56d`,
+data source `collection://6be4a7bb-d42c-4286-be1b-fa73e3635b45`). Each row gives:
+Title, Site, Day, Funnel, Intent, Category, Type, Priority, Word Target, Target
+Keyword, Evergreen, Author, **STORY / TENSION / CTA / Content Brief**. Load the
+**product feed** `pipeline/data/products.json` for real in-stock SKUs/prices.
+
+**Phase 2 — Plan SKUs & stock gaps (do this BEFORE authoring).** For each row,
+pick the real in-stock SKUs it will feature. Flag categories the feed does **not**
+stock → those articles ship **0 product cards + route to LINE** (never invent a
+product). Known empty categories: **Cava, Japanese whisky, mezcal, sake,
+Thai-craft/Iron Balls, barware, vermouth**.
+
+**Phase 3 — Author in parallel (sub-agents).** Dispatch `general-purpose`
+sub-agents (waves of ≤6) each producing ONE article. Hand each agent: its row's
+brief, the exact SKUs (or "0 cards → LINE"), and point it at
+`pipeline/scripts/author-kit.md` (the authoring spec) + the brand exemplar. Each
+agent writes a standalone `.html` to `pipeline/public/content/` and self-runs the
+QA gate until it PASSES. (Sub-agents can self-publish to Drive/Notion only if those
+MCP tools are in `.claude/settings.json` → `permissions.allow` — see §9 ops.)
+
+**Phase 4 — QA gate (mechanical, must pass).**
+`node pipeline/scripts/validate-articles.mjs` — enforces every golden rule
+(headline==H1, FAQ mirror, real in-stock SKU + visible chip, soft badges, ~฿+LINE,
+footer 20+, 3 JSON-LD, Sarabun/canonical/og). Nothing ships unless it PASSES.
+
+**Phase 5 — Magento export.** `node pipeline/scripts/magento-export.mjs --mode scoped`
+→ embeddable fragments in `pipeline/public/magento/scoped/` (see §6).
+
+**Phase 6 — Deliver to Drive.** Upload the **fragments** to **`WNLQ9 2026-JUN`**
+(see §7). **Use ONE sequential agent** — parallel upload agents trip the model-API
+rate limiter.
+
+**Phase 7 — Notion.** Per row: **Status = "Brief Ready"** + **Drive file URL** →
+the new fragment.
+
+**Phase 8 — Commit/push** the standalone HTML + any tooling to the session branch.
+
+**Phase 9 — Plan/refresh loop (data-driven).** Pull GA4+GSC, score, and improve —
+see §8.
+
+### Toolchain (all committed under `pipeline/scripts/` + `docs/`)
+| Tool | Does |
+|---|---|
+| `author-kit.md` | authoring spec handed to each sub-agent (chrome, head, rules, steps) |
+| `validate-articles.mjs` | **QA gate** — golden-rule checks per article |
+| `inline-css.mjs` | self-contained copies (CSS inlined) — for archive/preview |
+| `magento-export.mjs` | standalone → **Magento fragment** (`--mode scoped` faithful; `--mode blog` re-skin) |
+| `build-articles-manifest.mjs` | → `pipeline/data/content-index.json` (planning/join index) |
+| `ga-gsc-pull.mjs` | direct GA4+GSC APIs → `pipeline/data/{ga4,gsc}.csv` |
+| `plan-from-csv.mjs` | join GA/GSC onto content + score (win/scale · striking-distance · new-topics) |
+| `docs/INTERNAL_LINK_PLAN.md` | cluster/orphan plan (22 orphans, pillars) |
+| `docs/GA_GSC_PLANNING.md`, `docs/ENV_SETUP.md`, `pipeline/data/README.md` | planning runbook + env/CSV contracts |
 
 ---
 
@@ -47,24 +111,20 @@ byline), `<article>` body, CTA, FAQ accordion, "related" links, site footer.
 3. **No fabricated facts.** Never invent tax rates, auction prices, critic
    scores, vineyard names/hours, PPM, ABV specifics, or "#NN bestseller" ranks.
    Where a hard number would be needed, **write around it** and add a visible
-   `หมายเหตุ`/editor's note telling the team to verify against the real source
-   (กรมสรรพสามิต, Wine-Searcher, auction houses, Whisky Advocate, etc.). Keep a
-   **verify-list** of every such spot in the session summary.
+   `หมายเหตุ`/editor's note telling the team to verify against the real source.
+   Keep a **verify-list** of every such spot in the session summary.
 4. **Compliance, every article:**
    - Price framing = **approximate + price-on-request**: show `~฿x,xxx` (real
-     from the feed) AND a footnote "ราคาเป็นค่าประมาณ … สอบถามราคา/สั่งซื้อทาง
-     LINE".
+     from the feed) AND a footnote "ราคาเป็นค่าประมาณ … สอบถามราคา/สั่งซื้อทาง LINE".
    - Footer always carries `ดื่มอย่างมีความรับผิดชอบ · 20+`.
    - Order/enquire via LINE; never imply unrestricted online alcohol checkout.
-5. **E-E-A-T byline** on every article (branded team persona, "คัดสรรและตรวจทาน
-   โดยทีมผู้เชี่ยวชาญ…").
+5. **E-E-A-T byline** on every article (branded team persona).
 
 ---
 
 ## 3. Product cards — the SKU rule
 
-The team builds product widgets from our output, so **every product card must
-carry the real SKU**, both machine- and human-readable:
+Every product card must carry the real SKU, machine- and human-readable:
 
 ```html
 <div class="product-card" data-sku="WRW0282AD">
@@ -77,178 +137,189 @@ carry the real SKU**, both machine- and human-readable:
 </div>
 ```
 
-- Use **only real, in-stock SKUs** from the BI product feed (`products.json`).
-  If the feed has no matching stock (e.g. Thai wine), ship **0 cards** and route
-  to LINE honestly — do not invent a product.
-- Badges: keep them soft (`ขายดี`, category). **Do not** put ranked claims like
-  `ขายดี #15` — they drift and become wrong.
-- Cards currently deep-link via `catalogsearch?q=<name>`. **Open item:** switch
-  to real PDP links by SKU once the PDP URL pattern is confirmed.
-
-### SKU registry used so far (real, in-stock — reuse, don't invent)
-- **Wine-Now:** WRW4683AD, WRW6217FS, WRW4559CB, WSP9005BN, WRW5408BN,
-  WWW1106AD, WWW5371AB, WWW6233FJ, WSP1140AE, WWW2244BN, WWW0106AH, WRW0282AD,
-  WRW3122CH, WRW3305DD, WRW4693AD, WRW5853CB, WRW0211AH, WRW5836AA
-- **LIQ9:** LWH0001AA, LWH0305BU, LWH0161BU, LWH0318CN, LWH0364CN, LWH0668CN,
-  LTQ0034CN, LGN0106AA, LRM0116DR, LLQ0426CN
+- Use **only real, in-stock SKUs** from `pipeline/data/products.json`. No matching
+  stock → **0 cards + route to LINE** (see Phase 2 empty-category list).
+- Badges stay **soft** (`ขายดี`, category). **No** ranked claims like `ขายดี #15`.
+- Cards deep-link via `catalogsearch?q=<name>`. **Open item:** switch to real PDP
+  links by SKU once the PDP URL pattern is confirmed.
 
 ---
 
-## 4. The HTML template
+## 4. The HTML template (standalone = repo source of truth)
 
-Source of truth lives in the repo at **`pipeline/public/content/`**. Each
-article is a standalone `.html` that links the shared stylesheet:
+Source of truth lives in the repo at **`pipeline/public/content/`**. Each article
+is a standalone `.html` that links the shared stylesheet:
 
 ```html
 <link rel="stylesheet" href="assets/article.css">
 ```
 
-`assets/article.css` is the single shared stylesheet — edit it once, every
-article inherits. Required `<head>` for every new article:
+`assets/article.css` is the single shared stylesheet. Required `<head>`:
 
 - `<meta charset>`, `<meta viewport>`
-- **Google Fonts Sarabun** (brand type):
+- **Google Fonts Sarabun**:
   ```html
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap">
   ```
 - `<title>`, `<meta name="description">`, `<link rel="canonical">`
-- Open Graph + Twitter: `og:type`, `og:title`, `og:description`,
-  `og:image` (placeholder `…/blog/og/<slug>.jpg`), `twitter:card=summary_large_image`,
+- Open Graph + Twitter: `og:type/title/description`, `og:image`
+  (placeholder `…/blog/og/<slug>.jpg`), `twitter:card=summary_large_image`,
   `twitter:image`, `og:locale=th_TH`
-- **Three JSON-LD blocks**: `Article` (headline MUST match the H1/title — no
-  overpromising), `BreadcrumbList`, `FAQPage` (questions/answers mirror the
-  on-page FAQ).
-- Images use `.figph` placeholders that hold a **16/9 aspect-ratio** so real
-  images drop in later with zero CLS. Real `<img>` must keep
-  `aspect-ratio:16/9;object-fit:cover`.
+- **Three JSON-LD blocks**: `Article` (headline MUST match the H1 exactly),
+  `BreadcrumbList`, `FAQPage` (mirrors the on-page FAQ).
+- Images use `.figph` placeholders holding **16/9 aspect-ratio** (zero CLS).
+
+> Filename vs live URL: new articles use canonical `…/blog/<fileSlug>.html`.
+> Some legacy posts strip the `dayN-` prefix in their canonical (file
+> `day1-most-expensive-wines-2026.html` → live `most-expensive-wines-2026`). The
+> manifest/GA-join key off `<link rel="canonical">`, so keep canonical accurate.
 
 ---
 
 ## 5. Notion workflow
 
-The board: **`2026 JUN — WNLQ9 — Content Production`**.
+Board: **`2026 JUN — WNLQ9 — Content Production`** (db `786d080f…`, data source
+`collection://6be4a7bb-d42c-4286-be1b-fa73e3635b45`).
 
-- Read each row for: title, brand, day, funnel/intent, schema type, **Word
-  Target**, keywords, evergreen flag, author, priority.
-- When a draft is written and turned into HTML → set **Status = "Brief Ready"**
-  (explicitly NOT "Done").
-- Paste the Drive link into the **`Drive file URL`** property (this property was
-  renamed from "URL"; because the name is no longer exactly "url" it does **not**
-  need the `userDefined:` prefix — pass it as `{"Drive file URL": "<url>"}` to
-  `notion-update-page` → `update_properties`).
-- Property names that are *exactly* `id` or `url` (case-insensitive) DO need the
-  `userDefined:` prefix — relevant if a column is ever renamed back.
-
----
-
-## 6. Google Drive delivery
-
-Target folder: **"WNLQ9 Blog Html center"**, id
-`1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm` (owner winenowsommelier@gmail.com).
-
-Upload **self-contained** HTML (CSS inlined into a `<style>` block) so the file
-renders standalone in Drive preview:
-
-1. Generate inlined copies (replace the `<link rel="stylesheet" …article.css">`
-   line with `<style>…contents of article.css…</style>`). The helper pattern:
-   a small Node script reads each repo `.html`, swaps the link for inline CSS,
-   writes to `/tmp/drive2/<file>.html`. Validate: 0 external css links, exactly
-   one `<style>`, SKU chips present.
-2. `create_file` (Drive MCP) per file:
-   `parentId` = folder id, `title` = `<slug>.html`,
-   `contentMimeType="text/html"`, `disableConversionToGoogleType=true`,
-   `textContent` = the full inlined HTML.
-3. Capture each returned file id and write it into the matching Notion row's
-   `Drive file URL` as `https://drive.google.com/file/d/<id>/view`.
-
-> ⚠️ **Drive MCP cannot overwrite or delete.** Re-uploading a changed file
-> creates a **same-name duplicate**. To refresh cleanly: ask the owner to clear
-> the folder, then do one upload pass and re-point Notion. If you must
-> "add alongside", re-point Notion to the new ids and tell the owner the older
-> same-name copies are superseded (identify keepers by file id / newest
-> modified — names collide).
+- Read each row for: Title, Site, Day, Funnel/Intent, Schema, **Word Target**,
+  Target Keyword, Evergreen, Author, Priority, STORY/TENSION/CTA/Content Brief.
+- When HTML is done → **Status = "Brief Ready"** (explicitly NOT "Done").
+- Set **`Drive file URL`** to the delivered fragment:
+  `notion-update-page` → `update_properties`,
+  `properties={"Status":"Brief Ready","Drive file URL":"<url>"}`. (Property is
+  exactly "Drive file URL" — no `userDefined:` prefix. Only columns named exactly
+  `id`/`url` need that prefix.)
 
 ---
 
-## 7. Performance & SEO baseline (already true; keep it)
+## 6. Magento export (what actually goes live)
 
-Static, self-contained, **zero JS**, inline CSS (~5KB) → excellent Core Web
-Vitals ceiling. Protect it: keep image dimensions reserved (aspect-ratio),
-don't add render-blocking scripts, keep one shared stylesheet. Heading order
-h1→h2(→h3). Unique body per article; shared chrome/CSS is fine (not dup
-content).
+The live blog is **Magento**, which needs an **embeddable fragment** (body-only,
+scoped CSS) — NOT a standalone page. Generate with:
+
+```
+node pipeline/scripts/magento-export.mjs --mode scoped        # all articles
+node pipeline/scripts/magento-export.mjs --mode scoped --only <slug>.html
+```
+
+`--mode scoped` (default, faithful to our design): strips `<!DOCTYPE>/<html>/<head>`
++ the site topbar, scopes all of `article.css` under a `.wnlq9-article` wrapper
+(no global CSS leakage), keeps the compliance footer + all three JSON-LD blocks.
+Output → `pipeline/public/magento/scoped/<slug>.html` (gitignored — regenerable).
+`--mode blog` re-skins onto the legacy `.blog-wrap`/Kanit system (keep for uniform
+look with older posts; needs visual sign-off before bulk).
+
+The exporter self-validates each fragment (0 full-doc markers, scoped CSS, JSON-LD
+present, compliance footer present).
 
 ---
 
-## 8. Per-article pre-ship checklist
+## 7. Google Drive delivery (current structure)
+
+Parent: **"WNLQ9 Blog Html center"** (`1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm`). Inside:
+
+| Folder | id | Holds |
+|---|---|---|
+| **WNLQ9 2026-JUN** | `1JBuRFDzO2UFZdQRO5LRzSzueNwgKZS4O` | **active** — the 52 Magento fragments (paste-into-Magento) |
+| **Archive Html** | `1xci1D7mGqdclMuv-gxVGvRcgNVCvjaPV` | old standalone self-contained copies |
+
+Upload (Drive MCP `create_file`): `parentId` = the month folder, `title` =
+`<slug>.html`, `contentMimeType="text/html"`, `disableConversionToGoogleType=true`,
+`textContent` = the fragment contents. Then write the returned id into the Notion
+row's `Drive file URL` as `https://drive.google.com/file/d/<id>/view`.
+
+> ⚠️ **Two hard-won rules:**
+> 1. **Upload with ONE sequential agent**, not many in parallel — 5 concurrent
+>    upload agents trip the model-API rate limiter and die mid-run. One agent
+>    (or batches handed off sequentially) is reliable.
+> 2. **Drive MCP cannot overwrite or delete.** Re-uploading a changed file makes a
+>    same-name duplicate. To refresh: upload once into a **fresh month folder**,
+>    archive the old, and never re-upload same-name. The owner deletes dupes
+>    manually (MCP can't).
+
+---
+
+## 8. Plan / refresh loop (data-driven, GA4 + GSC)
+
+Free GA4 + GSC, two ways in, both feed `plan-from-csv.mjs` (full runbook:
+`docs/GA_GSC_PLANNING.md`):
+- **Automated:** set env per `docs/ENV_SETUP.md`, then
+  `node pipeline/scripts/ga-gsc-pull.mjs --plan` (service account → writes
+  `pipeline/data/{ga4,gsc}.csv` → scores).
+- **Manual:** drop `pipeline/data/ga4.csv` + `gsc.csv`, then
+  `node pipeline/scripts/build-articles-manifest.mjs && node pipeline/scripts/plan-from-csv.mjs`.
+
+Output `/tmp/ga-gsc/plan.json`: per-article buckets (win/scale · thin · …) +
+opportunities (striking-distance · low-CTR · new-topics). Act on it: fix internal
+links (`docs/INTERNAL_LINK_PLAN.md` — 22 orphans incl. the Day-12 Champagne
+pillar), tune striking-distance pages, draft new-topic briefs, then re-deliver
+**once** and write `GA Views`/`Target Keyword`/`Funnel`/`Day` back to Notion.
+
+---
+
+## 9. Ops & lessons (carry forward)
+
+- **Sub-agent self-publish:** add the Drive `create_file` + Notion
+  `notion-update-page` MCP tools to `.claude/settings.json` →
+  `permissions.allow` so sub-agents don't hit permission denials. **Never commit
+  `.claude/settings.json`** — it contains a real API key; the auto-mode classifier
+  blocks committing it anyway. The on-disk edit is enough for the session.
+- **Rate limits:** Drive uploads = one sequential agent (see §7). Author waves =
+  ≤6 agents at once.
+- **Gitignored** (regenerable / inputs, not committed): `pipeline/public/magento/`
+  (fragments), `pipeline/data/ga4.csv`, `pipeline/data/gsc.csv`.
+- **QA gate is the bar:** the whole library (52 articles) passes
+  `validate-articles.mjs`; keep it that way for anything new or edited.
+
+---
+
+## 10. Performance & SEO baseline (keep it)
+
+Static, zero-JS, inline CSS → excellent CWV. Protect it: reserve image dimensions
+(aspect-ratio), no render-blocking scripts, one shared stylesheet, heading order
+h1→h2(→h3), unique body per article.
+
+---
+
+## 11. Per-article pre-ship checklist
 
 - [ ] Thai-only, full long-form, hits Word Target
 - [ ] `สรุปสั้นๆ` summary callout near top
 - [ ] No fabricated numbers; verify-notes added; verify-list updated
-- [ ] Product cards: real in-stock SKUs, `data-sku` + visible `.sku` chip, soft badges
+- [ ] Product cards: real in-stock SKUs, `data-sku` + visible `.sku` chip, soft badges (or 0 cards → LINE)
 - [ ] Price `~฿` + "สอบถามราคา/สั่งซื้อทาง LINE" footnote
 - [ ] Byline + footer (`ดื่มอย่างมีความรับผิดชอบ · 20+`)
-- [ ] `<head>`: Sarabun webfont, canonical, OG+Twitter (incl. og:image placeholder)
+- [ ] `<head>`: Sarabun, canonical, OG+Twitter (incl. og:image placeholder)
 - [ ] JSON-LD Article/Breadcrumb/FAQ — **headline matches H1**, FAQ mirrors page
 - [ ] `.figph`/`img` hold 16/9 aspect-ratio (CLS guard)
 - [ ] Related-links anchor text matches the real target titles
-- [ ] Commit to the working branch, push
-- [ ] Inlined copy uploaded to Drive; Notion `Drive file URL` set; Status = "Brief Ready"
+- [ ] **`validate-articles.mjs` PASSES**
+- [ ] **`magento-export.mjs --mode scoped` fragment generated**
+- [ ] Fragment uploaded to **WNLQ9 2026-JUN**; Notion `Drive file URL` set; Status = "Brief Ready"
+- [ ] Standalone HTML committed + pushed to the session branch
 
 ---
 
-## 9. Pipeline / infra notes
+## 12. Infra notes
 
-- Repo deploy: Vercel project **`seodashboard`**, Root Directory `pipeline/`,
-  output `public`. (Two other Vercel projects — `seo-dashboard`,
-  `wnlq-9-content-seo` — are dead duplicates whose builds Error; ignore or clean
-  up. Only `seodashboard` reacts to pushes.)
-- **Monthly auto-render → Drive (July 2026+):** `src/july-cli.mjs` renders each
-  `Status=Review` row into a full Magento-safe Thai article and runs it through
-  the same Drive-handoff path. Per-month DB/column differences are handled by a
-  **schema profile** (`config.schemaProfileFor` — e.g. July has no `Week Theme`
-  and adds `Author/Priority/Intent/Funnel/Evergreen`). Real SKUs come from the
-  BI feed (`products.pickProducts`); body depth from `llm.expandArticle` (needs
-  `ANTHROPIC_API_KEY`, else an offline seed render). **Thai-only by default;**
-  set `PUBLISH_LANGS=th,en` to also publish English. Always `--dry-run` first
-  (writes to `out/july-dry`, no Notion/Drive writes). See `pipeline/README.md`.
-- Node-native pipeline (no deps, `type:module`, Node ≥22): `src/notion.mjs`,
-  `src/mapping.mjs`, `src/pipeline.mjs` (`approveToDrive` sets status "Brief
-  Ready" + writes `Drive file URL`), plus the Notion→Supabase sync
-  (`src/plan-sync.mjs`, `api/sync-plan.mjs`, `api/plan.mjs`).
-- Supabase project `dsyplzckfezcxiuikkfm` ("WNLQ9 PI DB"): `content_plan` table,
-  `pick_products()`, `v_content_products`, `plan_with_picks()` RPC. Direct
-  production writes (migrations, INSERT) require explicit user authorization
-  before running.
+- Vercel project **`seodashboard`** (Root `pipeline/`, prod branch `main`).
+  `seo-dashboard`, `wnlq-9-content-seo` are dead duplicates — ignore.
+- `main` has unrelated git history to `claude/*` content branches; ship to prod by
+  branching from `main`, copying deliverables in additively, PR + merge.
+- Supabase `dsyplzckfezcxiuikkfm` ("WNLQ9 PI DB"): `content_plan`, `pick_products()`,
+  `v_content_products`, `plan_with_picks()`. Production writes need explicit auth.
+- Dashboard ingests GA/GSC as **CSV** (`dashboard/lib/csv.ts`, sample CSVs in
+  `dashboard/data/`) — the same files `plan-from-csv.mjs` reads.
 
 ---
 
-## 10. Week-1 (June 2026) page-id ↔ file map (reference)
-
-12 articles (Days 1–7; Days 2 & 6 have no LIQ9 row).
-
-| Notion page id | File |
-|---|---|
-| 3729d75a-e4b5-8157-80c7-c200e03292d7 | day1-most-expensive-wines-2026.html |
-| 36e9d75a-e4b5-816e-87be-ce9c206e770c | day2-wine-acidity.html |
-| 36f9d75a-e4b5-8168-a44d-cbac08ff6b51 | day3-white-wines-summer.html |
-| 3739d75a-e4b5-81ef-aa99-fe45f589b5e9 | day4-wine-excise-tax-2026.html |
-| 3739d75a-e4b5-81bd-b527-c35237d34766 | day5-pinot-noir-101.html |
-| 36e9d75a-e4b5-81f7-998e-c03ff25db360 | day6-wine-tourism-khao-yai.html |
-| 3729d75a-e4b5-8131-ab7b-f070b1401cbb | day7-cabernet-sauvignon-101.html |
-| 3729d75a-e4b5-8185-a837-c8e50133117b | liq9-day1-whisky-101.html (exemplar) |
-| 3729d75a-e4b5-818a-8748-f595089711e1 | liq9-day3-macallan-guide.html |
-| 36e9d75a-e4b5-8162-9c6d-c6139d4b7a2f | liq9-day4-spicy-thai-cocktails.html |
-| 3729d75a-e4b5-811b-925b-d320fa814821 | liq9-day5-buy-gin-online.html |
-| 3729d75a-e4b5-8185-9f46-e0194c1ea413 | liq9-day7-bourbon-recommend.html |
-
----
-
-## 11. Open items (carry forward)
+## 13. Open items (carry forward)
+- Finish/confirm all 52 Magento fragments delivered to **WNLQ9 2026-JUN** (done as
+  of last session) and decide whether to **repoint Notion `Drive file URL`** from
+  the archived standalones to the new fragments.
 - SKU → real PDP deep-links (needs confirmed PDP URL pattern).
-- Bring the other 5 repo articles (tannin, storage, label, natural/organic,
-  proof-vs-abv) up to the same head/CSS standard if they get shipped.
 - Real OG/hero images to replace `.figph` placeholders + og:image URLs.
-- Optional: activate Notion→Supabase sync via env vars + production deploy.
+- Execute `docs/INTERNAL_LINK_PLAN.md` during the next GA/GSC refresh (one clean re-delivery).
+- Publish fragments to the live Magento blog → flip Notion to **Published** + set `Final URL`.
