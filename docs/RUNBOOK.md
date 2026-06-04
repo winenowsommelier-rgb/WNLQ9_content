@@ -2,8 +2,14 @@
 
 The one page to spin this process back up fast. Pairs with:
 - **`CLAUDE.md`** — rules auto-loaded into every Claude Code session.
+- **`docs/CONTENT_STRATEGY.md`** — *what* to make next + brand strategy (GSC/GA4-backed).
 - **`docs/CONTENT_PRODUCTION_PLAYBOOK.md`** — *how* to write the content.
 - **this file** — *where things live, the keys, the sync points, and how to deploy/run.*
+
+> **Live data sources (verified 2026-06):** Google Search Console + Google
+> Analytics 4 are both authed via the Supermetrics MCP (`winenowsommelier@gmail.com`).
+> GSC accounts: `https://th.wine-now.com/`, `https://th.liq9.com/`. GA4 properties:
+> WN TH `377750759`, LIQ9 TH `396617303`. Use them to rank topics on real demand.
 
 ---
 

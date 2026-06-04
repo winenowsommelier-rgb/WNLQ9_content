@@ -4,8 +4,14 @@ This repo produces blog content for two Thai beverage e-commerce brands:
 **Wine-Now** (wine) and **LIQ9** (spirits).
 
 ## Read this first
+- **What to make next + brand strategy (data-backed) →** [`docs/CONTENT_STRATEGY.md`](docs/CONTENT_STRATEGY.md)
 - **How to write content →** [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md)
 - **Where things live, keys, sync, deploy, get-up-and-running →** [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+
+> **Brand asymmetry (data-verified):** Wine-Now = SEO-volume play (real wine
+> search demand). LIQ9 = premium/luxury **storytelling** play for AEO + brand +
+> LINE conversion (barely indexed on Google; traffic is direct/LINE). Plan them
+> differently — see `CONTENT_STRATEGY.md`.
 
 Follow the playbook on every content session. Below are the rules that must never
 be skipped.
