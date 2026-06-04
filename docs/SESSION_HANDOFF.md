@@ -30,6 +30,21 @@ handoffs drifted from reality (see "Corrections" below).
   only indexed)**; new monthly articles overlap existing live rankers (e.g. new
   most-expensive-wines vs the live 150k-impression page).
 
+### July de-dup APPLIED to Notion (2026-06-04)
+Per `docs/JULY_DEDUP_PLAN.md` (user-approved). **18 rows edited, non-destructive:**
+- **4 repurposes** (dup/twin → premium cluster, properties rewritten incl. Title/brief,
+  old-topic drafts cleared, `REPURPOSED 2026-06-04` marker): Organic&Biodynamic →
+  **Icon-Producer Spotlight**; Khao-Yai-Rainy → **Prestige Champagne**; 6-Bottles-Serious →
+  **Rare/Collectible Whisky**; 3-Bottles-Round-Out → **Luxury Cognac**.
+- **14 sharpen directives** inserted into the (blank) row bodies pinning a distinct angle +
+  cross-links: Champagne 101, Bangkok New Wine Bars, Wine-Tasting-Beginners, Read-a-Label,
+  Som Tam, Street-Food (re-angled→grilled/BBQ), 2× wine glasses, Tequila-with-Thai,
+  Scotch 101, 5 Scotch Regions, Bangkok Cocktail Bars, World Rum Day, Ultimate Rum Guide.
+- **Premium canonicals kept:** Fine-Wine Cellar (Hero), Collector's Bar, 5-Best-Value Home Bar.
+- **Deferred to HTML build:** swap guessed June URLs → real live URLs
+  (`REAL_URL_INVENTORY.md`); expand Standard **stub drafts → v2 full depth**; add a
+  value→premium real-SKU pair per Education/listicle row.
+
 ### Folder-naming convention (going forward — per user 2026-06-04)
 Each month, upload that month's CLEAN set (one copy per slug, no dupes, no broken files)
 into a **new subfolder named `YYYY-MM <Month>`** (e.g. `2026-07 July`) inside
