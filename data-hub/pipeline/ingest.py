@@ -215,8 +215,31 @@ class IngestPipeline:
             listing_url = source.get("scrape_endpoint") or source.get("url")
             return WebScraper(name=name, listing_url=listing_url,
                               selectors=selectors, vertical=vertical,
-                              geo_focus=geo_focus,
-                              thailand_focus_override=thailand_focus_override)
+                              geo_focus=geo_focus)
+
+        if api_type == "playwright":
+            selectors = source.get("selectors")
+            if not self._has_required_selectors(selectors):
+                logger.info(
+                    "Skipping playwright source %r: no full selectors configured yet",
+                    name,
+                )
+                return None
+            listing_url = source.get("scrape_endpoint") or source.get("url")
+            try:
+                from collectors.playwright_collector import PlaywrightCollector
+                return PlaywrightCollector(
+                    name=name, listing_url=listing_url, selectors=selectors,
+                    vertical=vertical, geo_focus=geo_focus,
+                    thailand_focus_override=thailand_focus_override,
+                )
+            except ImportError as exc:
+                logger.warning(
+                    "Skipping playwright source %r: Playwright not installed (%s). "
+                    "Run: pip install playwright && python -m playwright install chromium",
+                    name, exc,
+                )
+                return None
 
         if api_type == "sitemap":
             # Sitemap crawling is deep-history work reserved for the backfill
@@ -537,7 +560,6 @@ def main(argv: Optional[List[str]] = None) -> int:
     print("Content Hub ingestion summary:")
     print(f"  collected            : {summary['collected']}")
     print(f"  after_dedup          : {summary['after_dedup']}")
-    print(f"  bev_dropped          : {summary.get('bev_dropped', 0)}")
     print(f"  after_cross_run_dedup: {summary['after_cross_run_dedup']}")
     print(f"  exported             : {summary['exported']}")
     print(f"  sources_run          : {len(summary['sources_run'])}")

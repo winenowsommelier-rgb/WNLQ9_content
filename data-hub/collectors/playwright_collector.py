@@ -1,21 +1,19 @@
-"""Static HTML web scraper for the Content Trend Data Hub.
+"""Headless-browser collector using Playwright for JS-rendered sources.
 
-Fetches an article-listing page via ``requests`` and parses it with
-BeautifulSoup, mapping each article container into a dict that conforms to
-the Content Hub schema (data-schema.md). This is the fallback collector for
-sources without a usable RSS feed.
+Drop-in replacement for WebScraper when a source renders content with
+JavaScript. Uses Playwright's synchronous API (chromium, headless) so it
+integrates with the existing synchronous pipeline without async changes.
 
 Targets (per research/source-audit.md):
-  * Wongnai (Thai, high priority) -- needs scraping.
-  * Wine Spectator, Wine Enthusiast, James Suckling -- broken RSS, fall back
-    to scraping their article-listing pages.
+  * Difford's Guide — /en/spirits/reviews/ (sets session cookies, JS-rendered)
+  * Wongnai — wongnai.com (React SPA)
+  * Wine Spectator — article listing (broken RSS, JS rendering suspected)
 
-NOTE: This collector handles *static* HTML only (requests + BeautifulSoup,
-deliberately lightweight -- no Selenium). JS-rendered sources such as
-Difford's Guide return an empty/skeleton DOM here and will need a headless
-fallback later (e.g. a SeleniumWebScraper / PlaywrightWebScraper subclass
-that overrides ``_fetch_html`` to render the page). That is intentionally
-out of scope for now (YAGNI).
+NOTE: Playwright must be installed in the venv:
+  pip install playwright==1.44.0
+  python -m playwright install chromium
+If Playwright is unavailable at import time this module raises ImportError
+with a clear install message rather than a silent failure.
 """
 
 from __future__ import annotations
@@ -24,38 +22,55 @@ import re
 from typing import Dict, List, Optional
 from urllib.parse import urljoin
 
-import requests
 from bs4 import BeautifulSoup
 
 from collectors.base_collector import BaseCollector
-from collectors.retry import retry_call
 
 
-class WebScraper(BaseCollector):
-    """Scrape articles from a single static-HTML listing page.
+class PlaywrightCollector(BaseCollector):
+    """Scrape articles from a JS-rendered listing page using Playwright.
 
     Each produced article has the schema's required fields plus
     ``collected_date``. Containers missing required fields are validated and
-    skipped. Network/parse failures are caught and yield an empty list rather
+    skipped. Browser/parse failures are caught and yield an empty list rather
     than crashing the pipeline.
+
+    Raises ``ImportError`` at instantiation (not at import time) when
+    Playwright is not installed in the environment, so the pipeline can
+    degrade gracefully — the ``ImportError`` is caught by :meth:`_build_one`
+    in ``pipeline.ingest`` and the source is simply skipped.
     """
 
     DEFAULT_CONTENT_TYPE = "news"
     EXCERPT_MAX_CHARS = 500
-    REQUEST_TIMEOUT = 15
-    # Fetch retry policy (overridable per instance). Backoff is small; the
-    # retry helper's sleep is injectable so tests never wait real seconds.
-    RETRY_ATTEMPTS = 3
-    RETRY_BACKOFF_SECONDS = 2.0
     USER_AGENT = (
-        "Mozilla/5.0 (compatible; ContentTrendDataHub/1.0; "
-        "+https://www.wine-now.com/bot)"
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
     )
 
     def __init__(
-        self, name: str, listing_url: str, selectors: Dict, vertical=None,
-        geo_focus=None, thailand_focus_override=None,
+        self,
+        name: str,
+        listing_url: str,
+        selectors: Dict,
+        vertical: Optional[str] = None,
+        geo_focus: Optional[str] = None,
+        thailand_focus_override: Optional[str] = None,
+        wait_until: str = "networkidle",
+        timeout_ms: int = 30000,
     ) -> None:
+        # Guard: raise early with a clear message so ingest._build_one can
+        # catch ImportError and skip the source rather than crash the pipeline.
+        try:
+            import playwright.sync_api  # noqa: F401  -- availability check only
+        except ImportError as exc:
+            raise ImportError(
+                "Playwright is not installed. "
+                "Run: pip install playwright==1.44.0 "
+                "&& python -m playwright install chromium"
+            ) from exc
+
         super().__init__(
             name=name,
             source_config={"listing_url": listing_url, "selectors": selectors},
@@ -69,12 +84,14 @@ class WebScraper(BaseCollector):
         # stamped to that value so the categorizer can short-circuit keyword
         # matching and use the source-level override directly.
         self.thailand_focus_override = thailand_focus_override
+        self.wait_until = wait_until
+        self.timeout_ms = timeout_ms
 
     def collect(self) -> List[Dict]:
-        """Fetch & parse the listing page, returning validated articles."""
+        """Render & parse the listing page, returning validated articles."""
         html = self._fetch_html(self.listing_url)
         if not html:
-            # Network failure (or empty response) -- fail soft.
+            # Browser failure (or empty rendered DOM) -- fail soft.
             return []
 
         try:
@@ -100,27 +117,37 @@ class WebScraper(BaseCollector):
         return articles
 
     def _fetch_html(self, url: str) -> str:
-        """GET ``url`` with a sane User-Agent and timeout.
+        """Launch a headless Chromium instance, navigate to ``url``, and
+        return the fully-rendered ``innerHTML`` of the page body.
 
-        Retries transient failures (timeout/HTTP error) with backoff, then
-        returns the response body, or '' once retries are exhausted so the
-        caller can fail soft.
+        Waits for ``wait_until`` (default ``"networkidle"``) so that
+        JS-rendered content is present in the DOM before parsing begins.
+        Returns ``''`` on any browser/navigation failure so the caller can
+        fail soft.
         """
-        def _do_fetch() -> str:
-            response = requests.get(
-                url,
-                headers={"User-Agent": self.USER_AGENT},
-                timeout=self.REQUEST_TIMEOUT,
-            )
-            response.raise_for_status()
-            return response.text or ""
+        try:
+            from playwright.sync_api import sync_playwright
+        except ImportError:
+            return ""
 
-        return retry_call(
-            _do_fetch,
-            attempts=self.RETRY_ATTEMPTS,
-            backoff_seconds=self.RETRY_BACKOFF_SECONDS,
-            fallback="",
-        )
+        try:
+            with sync_playwright() as pw:
+                browser = pw.chromium.launch(headless=True)
+                try:
+                    context = browser.new_context(user_agent=self.USER_AGENT)
+                    page = context.new_page()
+                    page.goto(
+                        url,
+                        wait_until=self.wait_until,
+                        timeout=self.timeout_ms,
+                    )
+                    html = page.content()
+                finally:
+                    browser.close()
+            return html or ""
+        except Exception:
+            # Any Playwright / navigation error -> fail soft.
+            return ""
 
     def _build_article(self, container) -> Dict:
         """Map one article container into a schema-conforming article dict."""
@@ -170,7 +197,7 @@ class WebScraper(BaseCollector):
             text = text[: self.EXCERPT_MAX_CHARS]
         return text
 
-    # -- helpers --------------------------------------------------------
+    # -- helpers ----------------------------------------------------------------
 
     def _select_one(self, container, selector_key: str):
         """Find the first element matching the selector named ``selector_key``.
@@ -190,19 +217,10 @@ class WebScraper(BaseCollector):
         return self._clean_text(element.get_text())
 
     def _select_attr(self, container, selector_key: str, attr: str) -> str:
-        """Return an attribute value for a configured selector ('' if missing).
-
-        Falls back to the container's own attribute when the child selector
-        finds nothing. This handles sites (e.g. Scotch Whisky Association)
-        where the article container itself IS the link element — select_one()
-        only searches inside the container, not the container itself.
-        """
+        """Return an attribute value for a configured selector ('' if missing)."""
         element = self._select_one(container, selector_key)
         if element is None:
-            # Fallback: the container itself may carry the attribute directly
-            # (e.g. <a class="news-article-item__holder" href="/newsroom/...">)
-            val = container.get(attr)
-            return self._clean_text(val) if val else ""
+            return ""
         return self._clean_text(element.get(attr) or "")
 
     @staticmethod
