@@ -34,6 +34,14 @@ The one page to spin this process back up fast. Pairs with:
 
 **Dead duplicates to ignore:** Vercel projects `seo-dashboard` and `wnlq-9-content-seo` (always Error — not used).
 
+### Delivered batches (one fresh Drive subfolder per period — see CLAUDE.md convention)
+
+| Period | Drive subfolder | Folder ID | Articles |
+|---|---|---|---|
+| 2026-JUN | `WNLQ9 2026-JUN` | `1JBuRFDzO2UFZdQRO5LRzSzueNwgKZS4O` | 52 (day 1–30, both brands) |
+
+> All 52 rows on the June Notion board point to file IDs inside this folder; Status = "Brief Ready". The earlier interim folder `WNLQ9 Magento-Ready (scoped)` (`1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM`) was a duplicate-laden working copy and has been deleted. Each new period gets its own subfolder under the delivery root above.
+
 ---
 
 ## 2) Keys / environment variables (set in Vercel → `seodashboard` → Settings → Env Vars)
