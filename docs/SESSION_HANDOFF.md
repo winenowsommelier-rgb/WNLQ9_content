@@ -8,6 +8,38 @@ handoffs drifted from reality (see "Corrections" below).
 
 ---
 
+## 0) Live state add-ons (2026-06-04 session)
+
+- **July board EXISTS** in Notion: `2026 JUL - WNLQ9 - Content Production`
+  id `93ac15a8-bb65-40f7-b357-b8cabd336214`, data source
+  `collection://d342f9b8-3725-4068-9ccb-03b09821b0c8`. Note its link property is
+  **`Final URL`** (url type) — it has **no `Drive file URL` property** like June did.
+  Strategy doc calls July "batch-created Jun 2, generic, differentiation dropped."
+  July HTML is **not authored yet** (only planned rows).
+- **Two Drive folders now exist** under "WNLQ9 Blog Html center"
+  (`1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm`):
+  - `WNLQ9 Magento-Ready (scoped)` `1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM` — the OLD messy
+    ~95-file June folder (dupes + the broken 2KB day8).
+  - `WNLQ9 Magento-Ready Version` `1JBuRFDzO2UFZdQRO5LRzSzueNwgKZS4O` — a CLEAN set of
+    **52 files, one per slug** (re-uploaded 2026-06-03 23:23→00:18). ⚠️ Contents are the
+    **June** slugs (day1-most-expensive-wines … liq9-day30-…), despite "Version" naming —
+    so this is the clean June deliverable, NOT July.
+- **Real-URL access confirmed** (GSC + GA4 authenticated via Supermetrics). Inventory +
+  cannibalization map saved to [`docs/REAL_URL_INVENTORY.md`](REAL_URL_INVENTORY.md).
+  Key: Wine-Now has ~300 live indexed URLs (deep link graph); **LIQ9 is thin (homepage
+  only indexed)**; new monthly articles overlap existing live rankers (e.g. new
+  most-expensive-wines vs the live 150k-impression page).
+
+### Folder-naming convention (going forward — per user 2026-06-04)
+Each month, upload that month's CLEAN set (one copy per slug, no dupes, no broken files)
+into a **new subfolder named `YYYY-MM <Month>`** (e.g. `2026-07 July`) inside
+"WNLQ9 Blog Html center". One month = one subfolder. Because Drive MCP can't overwrite/
+delete, never re-upload into a live month folder — make the clean set first, upload once.
+Recommend renaming `WNLQ9 Magento-Ready Version` → `2026-06 June` and deleting the
+`(scoped)` folder once the Notion sweep points at the clean ids.
+
+---
+
 ## 1) The repo has three subsystems — don't conflate them
 
 | Subsystem | What it is | Stack | Data source | Deployed? |
