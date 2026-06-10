@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>WNLQ9 — Mission Control</title>
+<meta name="description" content="ศูนย์ควบคุมเดียวสำหรับ Wine-Now × LIQ9 — ตั้งค่า (Settings) · วางแผน (Planning) · ผลิต (Processing)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ink:#1c1a17; --muted:#6b6560; --line:#ece7e1; --bg:#fbf9f6; --card:#fff;
+  --wine:#7b1230; --wine-soft:#fbeef0; --gold:#b8862f; --liq:#143a4a; --liq-soft:#e7f0f4;
+  --ok:#15803d; --ok-soft:#e7f4ec; --warn:#b45309; --warn-soft:#fbf0e2; --err:#b91c1c;
+  --radius:14px; --maxw:1160px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Sarabun","Noto Sans Thai",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:15.5px; line-height:1.65; -webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+a{color:var(--wine); text-decoration:none} a:hover{text-decoration:underline}
+code{background:#f3eee8; padding:1px 6px; border-radius:6px; font-size:.92em}
+
+/* top bar + tabs */
+.topbar{background:var(--card); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20}
+.topbar .wrap{display:flex; align-items:center; gap:12px; min-height:60px; flex-wrap:wrap; padding-top:8px; padding-bottom:8px}
+.brand{font-weight:700; letter-spacing:.2px; font-size:16px}
+.brand .w{color:var(--wine)} .brand .l{color:var(--liq)}
+.brand small{display:block; font-weight:500; color:var(--muted); font-size:11px; letter-spacing:.14em; text-transform:uppercase}
+.tabs{display:flex; gap:4px; flex-wrap:wrap; margin-left:8px}
+.tabs button{background:none; border:0; border-radius:999px; padding:8px 14px; font:inherit; font-weight:600;
+  color:var(--muted); cursor:pointer}
+.tabs button:hover{background:var(--bg)}
+.tabs button.active{background:var(--wine-soft); color:var(--wine)}
+.bar-right{margin-left:auto; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.bar-right input{background:#fff; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:7px 10px; font:inherit; width:128px}
+.bar-right button{background:var(--wine); color:#fff; border:0; border-radius:8px; padding:8px 12px; font:inherit; font-weight:600; cursor:pointer}
+.bar-right button.secondary{background:#fff; color:var(--ink); border:1px solid var(--line)}
+.mode{font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px; border:1px solid var(--line); color:var(--muted); white-space:nowrap}
+.mode.live{color:var(--ok); border-color:#16a34a55; background:var(--ok-soft)}
+.mode.static{color:var(--warn); border-color:#d9770655; background:var(--warn-soft)}
+
+main{padding:26px 0 10px}
+.tabpane{display:none} .tabpane.active{display:block}
+.kicker{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--wine); background:var(--wine-soft); padding:3px 11px; border-radius:999px}
+h1{font-size:1.7rem; line-height:1.25; margin:.45em 0 .25em; letter-spacing:-.01em}
+h2{font-size:1.25rem; margin:1.5em 0 .5em; letter-spacing:-.01em; display:flex; align-items:baseline; gap:8px}
+h2 .n{color:var(--gold); font-variant-numeric:tabular-nums; font-size:.95rem}
+h3{font-size:1rem; margin:1.2em 0 .4em}
+.dek{font-size:1.05rem; color:var(--muted); margin:0 0 6px; max-width:70ch}
+p{margin:0 0 1em}
+.section{padding:8px 0 16px; border-bottom:1px solid var(--line)}
+.section:last-child{border-bottom:0}
+
+/* cards / grids */
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:14px 0}
+.kpi{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px}
+.kpi .v{font-size:1.7rem; font-weight:700; line-height:1.1}
+.kpi .v.w{color:var(--wine)} .kpi .v.l{color:var(--liq)} .kpi .v.g{color:var(--gold)}
+.kpi .k{font-size:12.5px; color:var(--muted); margin-top:3px}
+.cards{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:1em 0}
+@media(max-width:740px){ .cards{grid-template-columns:1fr} .tabs{order:3; width:100%} }
+.cardbox{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:15px 17px}
+.cardbox.wine{border-left:4px solid var(--wine)} .cardbox.liq{border-left:4px solid var(--liq)}
+.cardbox h3{margin:0 0 6px}
+.cardbox p{margin:0; font-size:14px; color:#3a3531}
+
+/* flow */
+.flow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:1em 0 1.2em; font-size:13.5px}
+.flow span.step{background:var(--card); border:1px solid var(--line); border-radius:999px; padding:7px 13px; font-weight:600}
+.flow b{color:var(--wine)}
+.flow .arrow{color:var(--muted); font-weight:700}
+
+/* rules */
+.rules{display:grid; grid-template-columns:1fr 1fr 1fr; gap:11px; margin:1em 0}
+@media(max-width:880px){ .rules{grid-template-columns:1fr 1fr} }
+@media(max-width:560px){ .rules{grid-template-columns:1fr} .cards{grid-template-columns:1fr} }
+.rule{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--wine); border-radius:10px; padding:12px 14px}
+.rule h4{margin:0 0 4px; font-size:.95rem} .rule p{margin:0; font-size:13.5px; color:#3a3531}
+
+/* notes */
+.note{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:8px; padding:13px 15px; margin:1.1em 0; font-size:14.5px}
+.note.ok{border-left-color:var(--ok)} .note b{color:var(--gold)}
+.note.ok b{color:var(--ok)}
+
+/* tables */
+.table-wrap{overflow-x:auto; margin:1em 0; border:1px solid var(--line); border-radius:10px}
+table{border-collapse:collapse; width:100%; font-size:13.8px; background:var(--card)}
+th,td{padding:9px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:#f4efe9; font-weight:700; font-size:12.5px; position:sticky; top:0; cursor:default}
+th.sortable{cursor:pointer; user-select:none} th.sortable:hover{color:var(--wine)}
+tr:last-child td{border-bottom:0}
+td.num{text-align:right; font-variant-numeric:tabular-nums}
+.tag{display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px; white-space:nowrap}
+.tag.w{background:var(--wine-soft); color:var(--wine)} .tag.l{background:var(--liq-soft); color:var(--liq)}
+.tag.v{background:#efe7f6; color:#6b21a8} .tag.both{background:#eee; color:#555}
+.tag.hi{background:var(--ok-soft); color:var(--ok)} .tag.mid{background:var(--warn-soft); color:var(--warn)} .tag.lo{background:#f0eeec; color:var(--muted)}
+.tag.stock{background:var(--ok-soft); color:var(--ok)} .tag.out{background:#f6e9e9; color:var(--err)} .tag.move{background:var(--warn-soft); color:var(--warn)}
+
+/* filter bar */
+.filters{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:.8em 0}
+.filters input, .filters select{background:#fff; border:1px solid var(--line); border-radius:8px; padding:7px 10px; font:inherit; font-size:13.5px}
+.filters input[type=search]{min-width:200px; flex:1}
+.filters label{font-size:13px; color:var(--muted); display:inline-flex; align-items:center; gap:5px; user-select:none}
+.count-chip{font-size:12.5px; color:var(--muted); margin-left:auto}
+
+/* link rows */
+.links{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:1em 0}
+@media(max-width:560px){ .links{grid-template-columns:1fr} }
+.linkrow{display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:11px 14px}
+.linkrow .ic{font-size:18px} .linkrow .nm{font-weight:600} .linkrow .ds{font-size:12.5px; color:var(--muted)}
+.linkrow a.go{margin-left:auto; font-size:12.5px; font-weight:600; border:1px solid var(--line); border-radius:8px; padding:6px 11px; color:var(--ink)}
+
+/* code box w/ copy */
+.codebox{position:relative; background:#231f1c; color:#ede6dd; border-radius:10px; padding:14px 16px; font-size:13px; line-height:1.55; white-space:pre-wrap; word-break:break-word; margin:1em 0}
+.codebox button{position:absolute; top:10px; right:10px; background:#3a332e; color:#ede6dd; border:0; border-radius:7px; padding:5px 10px; font:inherit; font-size:12px; cursor:pointer}
+
+/* live board */
+.board{display:grid; grid-template-columns:minmax(280px,380px) 1fr; gap:14px; margin:1em 0}
+@media(max-width:780px){ .board{grid-template-columns:1fr} }
+.pipeline{display:flex; gap:7px; flex-wrap:wrap; margin:.6em 0}
+.stage{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:5px 11px; font-size:12px; color:var(--muted)}
+.stage b{color:var(--ink); font-size:14px; margin-left:5px}
+.list{border:1px solid var(--line); border-radius:10px; max-height:62vh; overflow:auto; background:var(--card)}
+.item{padding:10px 14px; border-bottom:1px solid var(--line); cursor:pointer}
+.item:hover{background:var(--bg)} .item.active{background:var(--wine-soft)}
+.item .t{font-weight:600; margin-bottom:3px; font-size:13.8px}
+.item .meta{color:var(--muted); font-size:12px; display:flex; gap:7px; flex-wrap:wrap}
+#detail{border:1px solid var(--line); border-radius:10px; padding:16px; max-height:62vh; overflow:auto; background:var(--card)}
+.panel{background:var(--bg); border:1px solid var(--line); border-radius:9px; padding:12px; margin:10px 0}
+.panel h4{margin:0 0 6px; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em}
+.panel .content{white-space:pre-wrap; word-break:break-word; max-height:240px; overflow:auto; font-size:13px}
+.btnlink{display:inline-block; padding:7px 12px; border:1px solid var(--line); border-radius:8px; font-size:13px; font-weight:600; color:var(--ink); margin:2px 4px 2px 0}
+.empty{color:var(--muted); padding:30px 16px; text-align:center}
+
+footer{margin-top:30px; background:#231f1c; color:#c9c2bb; padding:22px 0; font-size:13.5px}
+footer a{color:#e9b949}
+footer .wrap{display:flex; flex-wrap:wrap; gap:6px 18px; align-items:center}
+footer .sp{margin-left:auto}
+#toast{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); padding:10px 16px; border-radius:9px; display:none; max-width:90%; font-size:14px; z-index:50}
+#toast.ok{display:block; background:var(--ok-soft); border:1px solid var(--ok); color:var(--ok)}
+#toast.err{display:block; background:#f6e9e9; border:1px solid var(--err); color:var(--err)}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <span class="brand"><span class="w">Wine·Now</span> × <span class="l">LIQ9</span><small>Mission Control</small></span>
+  <nav class="tabs" id="tabs">
+    <button data-tab="overview" class="active">🏠 ภาพรวม</button>
+    <button data-tab="settings">⚙️ ตั้งค่า</button>
+    <button data-tab="planning">🧠 วางแผน</button>
+    <button data-tab="processing">⚙️ ผลิต</button>
+    <button data-tab="map">🗺️ แผนผัง</button>
+  </nav>
+  <div class="bar-right">
+    <span class="mode static" id="modeBadge" title="ใส่ passphrase แล้วกด Refresh เพื่อเชื่อม Notion สด">● Static</span>
+    <input id="secret" type="password" placeholder="Passphrase" autocomplete="current-password">
+    <button id="refresh" class="secondary">↻ Refresh</button>
+  </div>
+</div></div>
+
+<main><div class="wrap">
+
+<!-- ============ OVERVIEW ============ -->
+<section class="tabpane active" id="tab-overview">
+  <span class="kicker">Internal · ศูนย์ควบคุมเดียว</span>
+  <h1>WNLQ9 Mission Control</h1>
+  <p class="dek">ที่เดียวจบ: ตั้งค่า · วางแผน · ผลิต — รวมทุกกระบวนการของ Wine-Now (ไวน์) และ LIQ9 (สุรา) ไว้ในหน้าเดียว ข้อมูลโหลดสดจากฟีดจริง</p>
+
+  <div class="kpis" id="kpis">
+    <div class="kpi"><div class="v g" id="kpiArticles">52</div><div class="k">บทความที่ส่งมอบ</div></div>
+    <div class="kpi"><div class="v w" id="kpiWine">27</div><div class="k">Wine-Now</div></div>
+    <div class="kpi"><div class="v l" id="kpiLiq">25</div><div class="k">LIQ9</div></div>
+    <div class="kpi"><div class="v" id="kpiTopics">204</div><div class="k">หัวข้อในคลัง (topic bank)</div></div>
+    <div class="kpi"><div class="v" id="kpiSkus">100</div><div class="k">SKU ในสต็อก (feed)</div></div>
+    <div class="kpi"><div class="v" id="kpiBatch">2026-JUN</div><div class="k">batch ปัจจุบัน</div></div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">01</span> ลูปการผลิต (the content loop)</h2>
+    <div class="flow">
+      <span class="step">📡 <b>TREND</b> data-hub</span><span class="arrow">→</span>
+      <span class="step">📈 <b>DEMAND</b> GSC/GA4</span><span class="arrow">→</span>
+      <span class="step">🗂️ <b>TOPIC</b> libraries</span><span class="arrow">→</span>
+      <span class="step">🍷 <b>INVENTORY</b> products.json</span><span class="arrow">→</span>
+      <span class="step">📋 <b>BRIEF</b> Notion</span><span class="arrow">→</span>
+      <span class="step">✍️ <b>ARTICLE</b> Thai HTML</span><span class="arrow">→</span>
+      <span class="step">🔁 <b>FEEDBACK</b> GA4/GSC</span>
+    </div>
+    <p class="dek" style="font-size:.95rem">Notion = แผน/สถานะ · repo <code>pipeline/public/content/</code> = ตัวบทความ · Drive = ส่งมอบ (HTML รวม CSS) · หน้านี้ = แผงควบคุมที่อ่านทุกอย่างมารวมกัน</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">02</span> ทางลัด (quick links)</h2>
+    <div class="links" id="quickLinks"></div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">03</span> เริ่มงานต่อ (paste-to-resume)</h2>
+    <p class="dek" style="font-size:.95rem">วางข้อความนี้ในเซสชัน Claude Code ใหม่เพื่อทำงานต่อทันที</p>
+    <div class="codebox" id="resumePrompt">Resume WNLQ9 content. Read CLAUDE.md + docs/CONTENT_PRODUCTION_PLAYBOOK.md. We work Option B (no paid API): you author Thai v2 articles into pipeline/public/content/, map them in data/articles.json, commit, then upload the self-contained HTML to Drive folder 1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm and set the Notion row to Brief Ready with the Drive file URL. Next task: &lt;…&gt;.<button onclick="copyText('resumePrompt',this)">คัดลอก</button></div>
+  </div>
+</section>
+
+<!-- ============ SETTINGS ============ -->
+<section class="tabpane" id="tab-settings">
+  <span class="kicker">Settings · RUNBOOK</span>
+  <h1>ตั้งค่า — คีย์ ที่อยู่ และการดีพลอย</h1>
+  <p class="dek">ทุกอย่างที่ต้องรู้เพื่อ "สตาร์ทระบบ" ใหม่ให้ไว — สรุปจาก <code>docs/RUNBOOK.md</code> (ไม่เก็บค่า secret ใด ๆ ไว้ในหน้านี้)</p>
+
+  <div class="section">
+    <h2><span class="n">01</span> โหมดสด (live console)</h2>
+    <p>ใส่ <b>Passphrase</b> (= <code>INGEST_SECRET</code> ที่ตั้งไว้บน Vercel) ที่มุมขวาบนแล้วกด <b>Refresh</b> → แท็บ <b>ผลิต</b> จะดึงบอร์ด Notion มาแสดงสด ถ้าไม่ใส่ ระบบทำงานแบบ <b>Static</b> (อ่านดัชนีบทความจากไฟล์ในรีโป) — ใช้งานได้เสมอแม้เปิดออฟไลน์</p>
+    <div class="note"><b>Option B:</b> เราเขียน+อัปโหลดด้วย Claude Code ปุ่ม Generate/Approve ฝั่งเซิร์ฟเวอร์จึงถูกปิดไว้โดยตั้งใจ หน้านี้จึง <em>อ่าน</em> Notion สดและ <em>ลิงก์ออก</em>ไป Notion/Drive/Vercel ได้ แต่ไม่ยิงการสร้างฝั่งเซิร์ฟเวอร์</div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">02</span> ที่อยู่ของทุกอย่าง</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>สิ่งของ</th><th>ที่อยู่</th></tr></thead>
+      <tbody>
+        <tr><td>บทความ HTML (ต้นทาง)</td><td><code>pipeline/public/content/*.html</code> + <code>assets/article.css</code></td></tr>
+        <tr><td>ดัชนี pageId → ไฟล์</td><td><code>pipeline/data/articles.json</code></td></tr>
+        <tr><td>ฟีดสินค้า (SKU)</td><td><code>pipeline/data/products.json</code> (100 SKU)</td></tr>
+        <tr><td>คลังหัวข้อ</td><td><code>wine-now-topic-library.csv</code> · <code>liq9-topic-library.csv</code> · <code>viral-seo-boosters.csv</code></td></tr>
+        <tr><td>แผงควบคุม (หน้านี้)</td><td><code>pipeline/public/index.html</code></td></tr>
+        <tr><td>โค้ด pipeline</td><td><code>pipeline/src/*.mjs</code> · endpoints <code>pipeline/api/*.mjs</code></td></tr>
+        <tr><td>บอร์ด Notion</td><td>“2026 JUN — WNLQ9 — Content Production” · DB <code>786d080f-8da2-4a1e-b84e-161f4e19d56d</code></td></tr>
+        <tr><td>โฟลเดอร์ Drive (ส่งมอบ)</td><td>“WNLQ9 Blog Html center” · <code>1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm</code></td></tr>
+        <tr><td>Vercel (live)</td><td>project <code>seodashboard</code> · Root <code>pipeline/</code> · Prod branch <code>main</code></td></tr>
+        <tr><td>Supabase (ออปชัน)</td><td>project <code>dsyplzckfezcxiuikkfm</code> “WNLQ9 PI DB” (ปิดอยู่)</td></tr>
+        <tr><td>GA4 / GSC</td><td>GA4 WN <code>377750759</code> · LIQ9 <code>396617303</code> · GSC <code>th.wine-now.com</code> / <code>th.liq9.com</code></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">03</span> Environment variables (ตั้งบน Vercel → seodashboard)</h2>
+    <p class="dek" style="font-size:.92rem">ชื่อเท่านั้น — ห้าม commit ค่า template อยู่ใน <code>pipeline/.env.example</code></p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ตัวแปร</th><th>ใช้ทำอะไร</th><th>สถานะ (Option B)</th></tr></thead>
+      <tbody>
+        <tr><td><code>INGEST_SECRET</code></td><td>รหัสเข้าแดชบอร์ด (Passphrase)</td><td><span class="tag hi">ต้องมี</span></td></tr>
+        <tr><td><code>NOTION_TOKEN</code></td><td>อ่านบอร์ด Notion</td><td><span class="tag hi">ต้องมี</span></td></tr>
+        <tr><td><code>NOTION_DATABASE_ID</code></td><td>ระบุบอร์ดเป้าหมาย (ดีฟอลต์ = มิ.ย.)</td><td><span class="tag lo">ออปชัน</span></td></tr>
+        <tr><td><code>ANTHROPIC_API_KEY</code></td><td>Generate ฝั่งเซิร์ฟเวอร์</td><td><span class="tag lo">ไม่ใช้</span></td></tr>
+        <tr><td><code>GOOGLE_SERVICE_ACCOUNT_JSON</code> + <code>DRIVE_FOLDER_ID</code></td><td>Approve→Drive ฝั่งเซิร์ฟเวอร์</td><td><span class="tag lo">ไม่ใช้</span></td></tr>
+        <tr><td><code>SUPABASE_URL</code> + <code>SUPABASE_SERVICE_ROLE_KEY</code></td><td>มิเรอร์ content_plan</td><td><span class="tag lo">ออปชัน</span></td></tr>
+        <tr><td><code>CRON_SECRET</code></td><td>อนุญาต cron รายวัน</td><td><span class="tag lo">ออปชัน</span></td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">ขั้นต่ำเพื่อรันแดชบอร์ด: <code>INGEST_SECRET</code> + <code>NOTION_TOKEN</code> → Redeploy → เปิด <code>/</code> → ใส่ passphrase → Refresh</div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">04</span> ดีพลอย</h2>
+    <p>โปรดักชันดีพลอยจาก <b><code>main</code></b> เท่านั้น (push → Vercel auto-deploy, Root <code>pipeline/</code>) · branch <code>claude/*</code> ได้แค่ preview URL · <code>main</code> มีประวัติคนละสาย → ส่งขึ้นโปรดักชันด้วยการ branch จาก main แล้วก๊อปไฟล์เข้า (additive) + merge PR · เปลี่ยน env แล้วต้อง <b>Redeploy</b></p>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">05</span> แก้ปัญหาที่เจอจริง</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>อาการ</th><th>สาเหตุ → วิธีแก้</th></tr></thead>
+      <tbody>
+        <tr><td>เว็บขอ login Vercel / 403</td><td>Deployment Protection เปิดอยู่ (ปกติสำหรับเครื่องมือภายใน) จะเปิดสาธารณะให้ตั้ง Disabled</td></tr>
+        <tr><td>ขึ้นช่อง Passphrase</td><td>คือ <code>INGEST_SECRET</code> — ใส่ค่าที่ตั้งบน Vercel</td></tr>
+        <tr><td>Notion error “object_not_found”</td><td>integration ยังไม่ได้เชื่อมบอร์ด → เพิ่มใน Notion Connections / เช็ค <code>NOTION_DATABASE_ID</code></td></tr>
+        <tr><td>“Drive upload not configured”</td><td>คาดไว้ใน Option B (Claude Code อัปเอง)</td></tr>
+        <tr><td>ลิงก์บทความ 404 บนบล็อกจริง</td><td>บล็อกจริงคือ Magento — วาง HTML ที่นั่น (Vercel ใช้พรีวิวเท่านั้น)</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ============ PLANNING ============ -->
+<section class="tabpane" id="tab-planning">
+  <span class="kicker">Planning · CONTENT_STRATEGY</span>
+  <h1>วางแผน — จะทำอะไรต่อ และทำไม</h1>
+  <p class="dek">ชั้น "ทำไม/ทำอะไรต่อ" สรุปจาก <code>docs/CONTENT_STRATEGY.md</code> (ข้อมูล GSC+GA4, 90 วัน) + คลังหัวข้อและสินค้าจริงที่โหลดสด</p>
+
+  <div class="section">
+    <h2><span class="n">01</span> สองแบรนด์ไม่สมมาตร — วางแผนคนละแบบ</h2>
+    <div class="cards">
+      <div class="cardbox wine"><h3>Wine-Now — เล่นปริมาณ SEO</h3><p>มี demand ค้นหาจริงบน Google (~1.2M impressions / ~46k clicks, 90 วัน). อินเวนทอรีลึก 73 SKU. เลเวอร์หลัก = จัดอันดับตาม demand จริง วัดผลด้วย impressions→clicks→sessions→product views</p></div>
+      <div class="cardbox liq"><h3>LIQ9 — เล่นสตอรี่พรีเมียม</h3><p>Google แทบไม่ index (~1.7k impressions) ทราฟฟิกมาจาก direct/LINE/brand. 27 SKU. เลเวอร์หลัก = เล่าเรื่องพรีเมียม/หรู เพื่อ AEO + AI-citation + แบรนด์ + ปิดการขายทาง LINE บนขวด AOV สูง</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">02</span> Wine-Now: คลัสเตอร์ตาม demand จริง (GSC)</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>คลัสเตอร์</th><th>demand (impressions, 90 วัน)</th><th>แอ็กชัน</th></tr></thead>
+      <tbody>
+        <tr><td><b>Champagne / Sparkling</b></td><td>แชมเปญ 18.9k · cava 9.9k · prosecco 6k · sparkling 3.8k</td><td>Pillar สำคัญ — มี 4 SKU แชมเปญ (รวม Dom Pérignon)</td></tr>
+        <tr><td><b>“ไวน์แพงที่สุด”</b></td><td>~38k รวมทุกแบบ</td><td>Evergreen — June Day 1 จับอยู่ รีเฟรช+เพิ่มลิงก์ภายใน</td></tr>
+        <tr><td><b>ไวน์แดงพื้นฐาน</b></td><td>ไวน์แดง 11.5k · cabernet 2.4k</td><td>Pillar + การ์ดสินค้า (48 SKU แดง — ลึกสุด)</td></tr>
+        <tr><td><b>ไวน์ขาวพื้นฐาน</b></td><td>ไวน์ขาว 7.6k (อันดับ ~2 แล้ว)</td><td>ป้องกัน+ขยาย intent สูง</td></tr>
+        <tr><td><b>แบรนด์/พันธุ์ที่เราสต็อก</b></td><td>robert mondavi 11k · jacob's creek 2k</td><td>หน้า buying-guide ราย brand พร้อม SKU จริง</td></tr>
+        <tr><td><b>“ไวน์ / wine” ทั่วไป</b></td><td>ไวน์ 34.9k · wine 9.8k</td><td>Hub/pillar ลิงก์ลงทุกคลัสเตอร์</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">03</span> LIQ9: สตอรี่พรีเมียมจาก SKU จริง</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>SKU พรีเมียม (ในสต็อก)</th><th>~ราคา</th><th>มุมเล่าเรื่อง</th></tr></thead>
+      <tbody>
+        <tr><td>The Macallan 18 Sherry Oak</td><td>฿20,738</td><td>งานคราฟต์ sherry-cask, ทำไม 18 ปี, คุณค่านักสะสม</td></tr>
+        <tr><td>St Agnes X.O. 40 Year Old</td><td>฿31,654</td><td>บ้านบรั่นดีเก่าแก่สุดของออสเตรเลีย, ความอดทน 40 ปี</td></tr>
+        <tr><td>Martell Chanteloup XXO</td><td>฿23,467</td><td>คอนญักระดับ prestige, อธิบายชั้น XXO</td></tr>
+        <tr><td>Ballantine's 30 Years</td><td>฿18,133</td><td>Blended Scotch ระดับบนสุด</td></tr>
+        <tr><td>1800 Guachimonton / 818</td><td>~฿12,500</td><td>เตกีล่า añejo พรีเมียม, terroir/celebrity</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">กฎ LIQ9: นำด้วย <b>เรื่องเล่า+provenance</b> ไม่ใช่ keyword density · เล็ง AEO ("what makes Macallan 18 worth it") · คงเสา 101 ไว้ · หยุดปั่นชิ้นบางที่ไม่มีทั้งสต็อกและ demand (เช่น Gin — 1 SKU)</div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">04</span> โมเดลจัดลำดับ + ประตูสภาคอนเทนต์</h2>
+    <div class="cards">
+      <div class="cardbox">
+        <h3>สูตรจัดลำดับ (ทำคะแนนสูงก่อน)</h3>
+        <p style="font-family:ui-monospace,monospace; font-size:12.5px; line-height:1.7">priority = demand × inventory × funnel_fit × must_move ÷ cannibalization<br><br>ลำดับเขียน: Hero pillars → บล็อกที่ demand พิสูจน์แล้ว → สตอรี่พรีเมียม LIQ9 → filler/social</p>
+      </div>
+      <div class="cardbox">
+        <h3>ประตูก่อนผลิต (ทุกแถวต้องผ่าน)</h3>
+        <p style="font-size:13.3px">1 · Brand-channel fit<br>2 · ปรับ inventory จริง (ไม่มีของ = route-to-LINE)<br>3 · กำหนด keyword/intent/funnel<br>4 · ระบุ pillar hub + spokes (ไม่มีบทความกำพร้า)<br>5 · ไม่มโนข้อมูล (มี verify-list)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">05</span> คลังหัวข้อ (topic bank) — ค้นหา/กรองได้</h2>
+    <div class="filters">
+      <input type="search" id="topicSearch" placeholder="ค้นหา keyword / หัวข้อ…">
+      <select id="topicBrand"><option value="">ทุกแบรนด์</option><option>Wine-Now</option><option>LIQ9</option><option value="Viral">Viral boosters</option></select>
+      <select id="topicType"><option value="">ทุกชนิด</option></select>
+      <select id="topicIntent"><option value="">ทุก intent</option></select>
+      <span class="count-chip" id="topicCount"></span>
+    </div>
+    <div class="table-wrap"><table id="topicTable">
+      <thead><tr>
+        <th>แบรนด์</th><th class="sortable" data-k="topicEN">หัวข้อ</th><th class="sortable" data-k="type">ชนิด</th>
+        <th class="sortable" data-k="primaryKeyword">Primary keyword</th><th>Intent</th><th>Persona</th>
+        <th class="sortable" data-k="volume">Volume</th><th class="sortable" data-k="aeo">AEO</th>
+      </tr></thead>
+      <tbody id="topicBody"><tr><td colspan="8" class="empty">กำลังโหลด…</td></tr></tbody>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">06</span> อินเวนทอรีจริง (products feed) — ค้นหา/กรองได้</h2>
+    <div class="filters">
+      <input type="search" id="prodSearch" placeholder="ค้นหาชื่อสินค้า / brand…">
+      <select id="prodSite"><option value="">ทุกแบรนด์</option><option>Wine-Now</option><option>LIQ9</option></select>
+      <select id="prodCat"><option value="">ทุกหมวด</option></select>
+      <label><input type="checkbox" id="prodStock"> เฉพาะในสต็อก</label>
+      <label><input type="checkbox" id="prodMove"> must-move</label>
+      <span class="count-chip" id="prodCount"></span>
+    </div>
+    <div class="table-wrap"><table id="prodTable">
+      <thead><tr>
+        <th>แบรนด์</th><th class="sortable" data-k="product_name">สินค้า</th><th class="sortable" data-k="category_raw">หมวด</th>
+        <th class="sortable" data-k="country">ประเทศ</th><th class="sortable num" data-k="price_thb">~ราคา ฿</th>
+        <th class="sortable num" data-k="units_sold_90d">ขาย 90 วัน</th><th>สต็อก</th><th>SKU</th>
+      </tr></thead>
+      <tbody id="prodBody"><tr><td colspan="8" class="empty">กำลังโหลด…</td></tr></tbody>
+    </table></div>
+    <p class="dek" style="font-size:.85rem">ราคาเป็นค่าประมาณ — ทุกการ์ดสินค้าในบทความใช้ SKU จริงจากฟีดนี้เท่านั้น (Golden Rule 3)</p>
+  </div>
+</section>
+
+<!-- ============ PROCESSING ============ -->
+<section class="tabpane" id="tab-processing">
+  <span class="kicker">Processing · the loop</span>
+  <h1>ผลิต — ลูปงาน กฎทอง และสถานะสด</h1>
+  <p class="dek">ขั้นตอนการทำงานจริงทุกครั้ง + บอร์ดสถานะ (สดจาก Notion เมื่อใส่ passphrase, ไม่งั้นโชว์ดัชนีบทความจากรีโป)</p>
+
+  <div class="section">
+    <h2><span class="n">01</span> ลูปการทำงาน</h2>
+    <div class="flow">
+      <span class="step">📋 อ่านแผน <b>Notion</b></span><span class="arrow">→</span>
+      <span class="step">✍️ เขียน <b>ไทยเต็ม</b></span><span class="arrow">→</span>
+      <span class="step">🍷 ใส่การ์ด <b>SKU จริง</b></span><span class="arrow">→</span>
+      <span class="step">🔎 ไม่มโน (verify-list)</span><span class="arrow">→</span>
+      <span class="step">📄 รวม CSS ไฟล์เดียว</span><span class="arrow">→</span>
+      <span class="step">☁️ อัป <b>Drive</b></span><span class="arrow">→</span>
+      <span class="step">✅ Notion = <b>Brief Ready</b></span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">02</span> กฎทอง (ห้ามข้าม)</h2>
+    <div class="rules">
+      <div class="rule"><h4>1 · ไทยล้วน เต็มรูปแบบ</h4><p>ความลึกระดับ “Whisky 101 v2” ถึง Word Target ไม่ใช่ brief</p></div>
+      <div class="rule"><h4>2 · ไม่มโนข้อมูล</h4><p>ห้ามแต่งภาษี/ราคา/คะแนน/อันดับ/ABV·PPM — เลี่ยง+verify-list</p></div>
+      <div class="rule"><h4>3 · SKU จริงทุกการ์ด</h4><p><code>data-sku</code> + ชิป SKU จากฟีดเท่านั้น ไม่มีของ = 0 การ์ด → LINE</p></div>
+      <div class="rule"><h4>4 · คอมพลายแอนซ์</h4><p>ราคา <code>~฿</code> + “สอบถามทาง LINE” · ฟุตเตอร์ ดื่มรับผิดชอบ 20+ · byline E-E-A-T</p></div>
+      <div class="rule"><h4>5 · มาตรฐาน HTML</h4><p>standalone · article.css · Sarabun · canonical · OG/Twitter · JSON-LD 3 บล็อก · รูป 16/9</p></div>
+      <div class="rule"><h4>6 · ส่งมอบ & สถานะ</h4><p>อัป HTML รวม CSS → ใส่ <b>Drive file URL</b> → Status = <b>Brief Ready</b></p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">03</span> บอร์ดสถานะ <span id="boardMode" class="mode static" style="font-size:11px">● Static</span></h2>
+    <div class="filters">
+      <select id="fSite"><option value="">ทุกแบรนด์</option><option>Wine-Now</option><option>LIQ9</option></select>
+      <select id="fStatus"><option value="">ทุกสถานะ</option><option>Not started</option><option>Brief Ready</option><option>In progress</option><option>Review</option><option>Done</option><option>Published</option></select>
+      <a class="btnlink" href="intake.html">+ New brief</a>
+      <span class="count-chip" id="boardCount"></span>
+    </div>
+    <div class="pipeline" id="pipeline"></div>
+    <div class="board">
+      <div class="list" id="list"><div class="empty">กำลังโหลดดัชนีบทความ…</div></div>
+      <div id="detail"><div class="empty">เลือกบทความ/แถวเพื่อดูรายละเอียด</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">04</span> batch ที่ส่งมอบ</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ช่วง</th><th>โฟลเดอร์ Drive</th><th>บทความ</th><th>สถานะ</th></tr></thead>
+      <tbody>
+        <tr><td>2026-JUN</td><td><a href="https://drive.google.com/drive/folders/1JBuRFDzO2UFZdQRO5LRzSzueNwgKZS4O" target="_blank" rel="noopener">WNLQ9 2026-JUN ↗</a></td><td>52 (day 1–30, สองแบรนด์)</td><td><span class="tag hi">Brief Ready</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="dek" style="font-size:.85rem">หนึ่งช่วง = หนึ่งโฟลเดอร์ใหม่ใต้ delivery root (MCP ทับ/ลบไม่ได้ → โฟลเดอร์ใหม่กันไฟล์ซ้ำ) ทุกแถว Notion ชี้ไฟล์ในโฟลเดอร์ของช่วงนั้น</p>
+  </div>
+</section>
+
+<!-- ============ MAP ============ -->
+<section class="tabpane" id="tab-map">
+  <span class="kicker">Map · repo</span>
+  <h1>แผนผังรีโป — อะไรอยู่ที่ไหน ทำหน้าที่อะไร</h1>
+  <p class="dek">ระบบย่อยทั้งหมดในรีโปนี้และบทบาทของมัน — หน้านี้รวมร่างจาก process.html, แดชบอร์ด Next.js เดิม และไฟล์ scratch เข้ามาเป็นที่เดียว</p>
+
+  <div class="section">
+    <div class="table-wrap"><table>
+      <thead><tr><th>ระบบย่อย</th><th>บทบาท</th><th>ชั้น</th><th>สถานะ</th></tr></thead>
+      <tbody>
+        <tr><td><code>pipeline/</code></td><td>แดชบอร์ด + บทความ HTML (53) + ฟีดสินค้า + articles.json</td><td>✍️ เขียน+ops</td><td><span class="tag hi">Active</span></td></tr>
+        <tr><td><code>data-hub/</code></td><td>เก็บเทรนด์อัตโนมัติ → SQLite → Sheet/Supabase ป้อนการวางแผน</td><td>🧠 ข้อมูลแผน</td><td><span class="tag mid">รันนอกรีโป</span></td></tr>
+        <tr><td>topic libraries ×3</td><td>204 หัวข้อ + metadata (keyword/intent/persona/volume/AEO)</td><td>🧠 brief แผน</td><td><span class="tag hi">Active</span></td></tr>
+        <tr><td><code>wnlq9-blog-writer-skill/</code></td><td>สกิลเขียนบทความ (brand refs, components, Magento-safe)</td><td>✍️ กระบวนการเขียน</td><td><span class="tag hi">Active</span></td></tr>
+        <tr><td><code>docs/</code></td><td>CLAUDE.md · CONTENT_STRATEGY · PLAYBOOK · RUNBOOK</td><td>📚 กฎ/กลยุทธ์</td><td><span class="tag hi">Active</span></td></tr>
+        <tr><td><code>dashboard/</code> <span class="tag lo">retired</span></td><td>แอป Next.js แยก (รวมเข้าหน้านี้แล้ว)</td><td>ops UI</td><td><span class="tag out">เลิกใช้</span></td></tr>
+        <tr><td><code>sales-ops/</code></td><td>ข้อมูลการขาย (static CSV)</td><td>💰 Sales</td><td><span class="tag lo">Low</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">01</span> เอกสารหลัก (deep docs)</h2>
+    <div class="links" id="docLinks"></div>
+  </div>
+
+  <div class="section">
+    <h2><span class="n">02</span> สกิลเขียนบทความ — components</h2>
+    <p class="dek" style="font-size:.92rem"><code>wnlq9-blog-writer-skill/</code> ให้คอมโพเนนต์พร้อมใช้: Hero · Author byline · TOC · Section/alt · Image+caption · Highlight cards · Comparison table · Callout/Tip · Quote · FAQ accordion · LINE CTA · CTA button · Related articles · Region header · Product widget · Divider — ทุกคลาสขึ้นต้น <code>blog-</code> เพื่อกันชนกับ Magento</p>
+  </div>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+  <span>🍷 WNLQ9 Mission Control</span>
+  <span>· ดื่มอย่างมีความรับผิดชอบ · 20+</span>
+  <span class="sp"><a href="https://github.com/winenowsommelier-rgb/wnlq9_content" target="_blank" rel="noopener">GitHub repo ↗</a></span>
+</div></footer>
+
+<div id="toast"></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const safeUrl = (u) => /^https?:\/\//i.test(String(u||"")) ? String(u).replace(/"/g,"%22") : "#";
+const fmtDate = (d) => d ? new Date(d).toLocaleString() : "—";
+const stKey = (s) => "st-" + String(s||"Not started").replace(/\s/g,"");
+function toast(msg, kind="ok"){ const t=$("toast"); t.className=kind; t.textContent=msg; clearTimeout(toast._t); toast._t=setTimeout(()=>t.className="",4500); }
+function copyText(id, btn){ const el=$(id).cloneNode(true); const b=el.querySelector("button"); if(b)b.remove();
+  navigator.clipboard.writeText(el.textContent.trim()).then(()=>{ const o=btn.textContent; btn.textContent="คัดลอกแล้ว ✓"; setTimeout(()=>btn.textContent=o,1500); }); }
+
+/* ---------- tabs ---------- */
+$("tabs").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  const tab = b.dataset.tab;
+  for (const x of document.querySelectorAll(".tabs button")) x.classList.toggle("active", x===b);
+  for (const p of document.querySelectorAll(".tabpane")) p.classList.toggle("active", p.id==="tab-"+tab);
+  location.hash = tab;
+});
+if (location.hash) { const b=document.querySelector(`.tabs button[data-tab="${location.hash.slice(1)}"]`); if(b) b.click(); }
+
+/* ---------- quick links + doc links ---------- */
+const REPO="https://github.com/winenowsommelier-rgb/wnlq9_content/blob/main";
+$("quickLinks").innerHTML = [
+  ["📋","บอร์ด Notion","แผน + สถานะ (source of truth)","https://www.notion.so/786d080f8da24a1eb84e161f4e19d56d"],
+  ["☁️","Drive delivery","WNLQ9 Blog Html center","https://drive.google.com/drive/folders/1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm"],
+  ["▲","Vercel dashboard","seodashboard (live)","https://seodashboard-winenowsommelier-rgbs-projects.vercel.app"],
+  ["🌐","บล็อกจริง (Magento)","th.wine-now.com / th.liq9.com","https://th.wine-now.com/"],
+].map(([ic,nm,ds,u])=>`<div class="linkrow"><span class="ic">${ic}</span><span><span class="nm">${nm}</span><br><span class="ds">${ds}</span></span><a class="go" href="${u}" target="_blank" rel="noopener">เปิด ↗</a></div>`).join("");
+$("docLinks").innerHTML = [
+  ["CLAUDE.md","กฎที่ห้ามข้าม (auto-load)","/CLAUDE.md"],
+  ["CONTENT_STRATEGY.md","จะทำอะไรต่อ + กลยุทธ์","/docs/CONTENT_STRATEGY.md"],
+  ["CONTENT_PRODUCTION_PLAYBOOK.md","เขียนยังไง","/docs/CONTENT_PRODUCTION_PLAYBOOK.md"],
+  ["RUNBOOK.md","ที่อยู่ คีย์ ดีพลอย","/docs/RUNBOOK.md"],
+].map(([nm,ds,p])=>`<div class="linkrow"><span class="ic">📄</span><span><span class="nm">${nm}</span><br><span class="ds">${ds}</span></span><a class="go" href="${REPO}${p}" target="_blank" rel="noopener">อ่าน ↗</a></div>`).join("");
+
+/* ---------- data loaders (runtime) ---------- */
+async function getJSON(path){ const r = await fetch(path); if(!r.ok) throw new Error(path+" "+r.status); return r.json(); }
+const aeoTag = (v) => { const s=String(v||"").toLowerCase(); const c = s.startsWith("high")||s.includes("highly")?"hi":s.startsWith("med")?"mid":s?"lo":""; return c?`<span class="tag ${c}">${esc(v)}</span>`:""; };
+const brandTag = (b) => b==="Wine-Now"?'<span class="tag w">Wine</span>':b==="LIQ9"?'<span class="tag l">LIQ9</span>':b==="Viral"?'<span class="tag v">Viral</span>':`<span class="tag both">${esc(b)}</span>`;
+
+/* TOPICS */
+let TOPICS=[];
+function uniqSorted(arr){ return [...new Set(arr.filter(Boolean))].sort(); }
+function renderTopics(){
+  const q=$("topicSearch").value.toLowerCase(), brand=$("topicBrand").value, type=$("topicType").value, intent=$("topicIntent").value;
+  let rows = TOPICS.filter(t =>
+    (!brand || t.source===brand || t.brand===brand) &&
+    (!type || t.type===type) && (!intent || t.intent===intent) &&
+    (!q || (t.topicEN+t.topicTH+t.primaryKeyword+t.notes).toLowerCase().includes(q)));
+  if (renderTopics.sortK){ const k=renderTopics.sortK, d=renderTopics.sortDir;
+    rows.sort((a,b)=> String(a[k]).localeCompare(String(b[k]),"en",{numeric:true})*d); }
+  $("topicCount").textContent = rows.length+" / "+TOPICS.length+" หัวข้อ";
+  $("topicBody").innerHTML = rows.length ? rows.slice(0,400).map(t=>`<tr>
+    <td>${brandTag(t.source)}</td>
+    <td><b>${esc(t.topicEN||t.topicTH)}</b>${t.topicEN&&t.topicTH?`<br><span class="ds" style="color:var(--muted);font-size:12px">${esc(t.topicTH)}</span>`:""}</td>
+    <td>${esc(t.type)}</td><td>${esc(t.primaryKeyword)}</td><td>${esc(t.intent)}</td><td>${esc(t.persona)}</td>
+    <td>${esc(t.volume)}</td><td>${aeoTag(t.aeo)}</td></tr>`).join("")
+    : '<tr><td colspan="8" class="empty">ไม่พบหัวข้อที่ตรง</td></tr>';
+}
+/* PRODUCTS */
+let PRODUCTS=[];
+function renderProducts(){
+  const q=$("prodSearch").value.toLowerCase(), site=$("prodSite").value, cat=$("prodCat").value, stock=$("prodStock").checked, move=$("prodMove").checked;
+  let rows = PRODUCTS.filter(p =>
+    (!site || p.brand_site===site) && (!cat || p.category_raw===cat) &&
+    (!stock || p.in_stock) && (!move || p.must_move) &&
+    (!q || (p.product_name+" "+(p.brand||"")).toLowerCase().includes(q)));
+  if (renderProducts.sortK){ const k=renderProducts.sortK, d=renderProducts.sortDir;
+    rows.sort((a,b)=>{ const av=a[k]??"", bv=b[k]??""; return (typeof av==="number"? av-bv : String(av).localeCompare(String(bv)))*d; }); }
+  $("prodCount").textContent = rows.length+" / "+PRODUCTS.length+" SKU";
+  $("prodBody").innerHTML = rows.length ? rows.slice(0,400).map(p=>`<tr>
+    <td>${brandTag(p.brand_site)}</td>
+    <td><b>${esc(p.product_name)}</b>${p.brand?`<br><span class="ds" style="color:var(--muted);font-size:12px">${esc(p.brand)}</span>`:""}</td>
+    <td>${esc(p.category_raw)}</td><td>${esc(p.country||"")}</td>
+    <td class="num">${p.price_thb!=null?"~"+Number(p.price_thb).toLocaleString():"—"}</td>
+    <td class="num">${p.units_sold_90d??"—"}</td>
+    <td>${p.in_stock?'<span class="tag stock">in</span>':'<span class="tag out">out</span>'} ${p.must_move?'<span class="tag move">move</span>':""}</td>
+    <td><code>${esc(p.sku)}</code></td></tr>`).join("")
+    : '<tr><td colspan="8" class="empty">ไม่พบสินค้าที่ตรง</td></tr>';
+}
+/* sortable headers */
+function wireSort(tableId, renderFn, store){
+  $(tableId).querySelectorAll("th.sortable").forEach(th=>{
+    th.onclick = () => { const k=th.dataset.k;
+      store.sortDir = (store.sortK===k && store.sortDir===1) ? -1 : 1; store.sortK=k; renderFn(); };
+  });
+}
+
+async function loadPlanningData(){
+  try {
+    const [tp, pr] = await Promise.all([getJSON("data/topics.json"), getJSON("data/products.json")]);
+    TOPICS = tp.topics||[]; PRODUCTS = pr.products||[];
+    for (const t of uniqSorted(TOPICS.map(t=>t.type))) $("topicType").insertAdjacentHTML("beforeend",`<option>${esc(t)}</option>`);
+    for (const i of uniqSorted(TOPICS.map(t=>t.intent))) $("topicIntent").insertAdjacentHTML("beforeend",`<option>${esc(i)}</option>`);
+    for (const c of uniqSorted(PRODUCTS.map(p=>p.category_raw))) $("prodCat").insertAdjacentHTML("beforeend",`<option>${esc(c)}</option>`);
+    ["topicSearch","topicBrand","topicType","topicIntent"].forEach(id=>$(id).oninput=$(id).onchange=renderTopics);
+    ["prodSearch","prodSite","prodCat","prodStock","prodMove"].forEach(id=>$(id).oninput=$(id).onchange=renderProducts);
+    wireSort("topicTable", renderTopics, renderTopics); wireSort("prodTable", renderProducts, renderProducts);
+    renderTopics(); renderProducts();
+    $("kpiTopics").textContent = TOPICS.length; $("kpiSkus").textContent = PRODUCTS.length;
+  } catch(e){ $("topicBody").innerHTML=$("prodBody").innerHTML=`<tr><td colspan="8" class="empty">โหลดข้อมูลไม่ได้ (${esc(e.message)}) — รัน <code>node pipeline/scripts/gen-dashboard-data.mjs</code></td></tr>`; }
+}
+
+/* ---------- status board: live Notion OR static index ---------- */
+const secret = $("secret"); secret.value = localStorage.getItem("ingestSecret")||"";
+secret.addEventListener("change", ()=>localStorage.setItem("ingestSecret", secret.value));
+let ITEMS=[], CAPS={}, selectedId=null, LIVE=false;
+
+async function api(path,{method="GET",body}={}){
+  const res = await fetch(path,{ method, headers:{ "Content-Type":"application/json","X-Ingest-Secret":secret.value }, body: body?JSON.stringify(body):undefined });
+  const data = await res.json().catch(()=>({}));
+  if(!res.ok || data.ok===false) throw new Error(data.error||(data.errors||[]).join("; ")||("HTTP "+res.status));
+  return data;
+}
+function setMode(live){ LIVE=live;
+  const b=$("modeBadge"), bb=$("boardMode");
+  b.className=bb.className="mode "+(live?"live":"static"); b.textContent=bb.textContent=(live?"● Live · Notion":"● Static");
+}
+function renderPipeline(){
+  const order=["Not started","Brief Ready","In progress","Review","Done","Published"];
+  const c=Object.fromEntries(order.map(s=>[s,0]));
+  for(const it of ITEMS) if(c[it.status]!=null) c[it.status]++;
+  $("pipeline").innerHTML = LIVE ? order.map(s=>`<span class="stage">${s}<b>${c[s]}</b></span>`).join("")
+    : `<span class="stage">Brief Ready<b>${ITEMS.length}</b></span><span class="stage">แหล่ง<b style="font-size:12px">repo index</b></span>`;
+}
+function filtered(){
+  const site=$("fSite").value, status=$("fStatus").value;
+  return ITEMS.filter(it=>(!site||it.site===site)&&(!status||!LIVE||it.status===status)).sort((a,b)=>(a.day??99)-(b.day??99));
+}
+function renderList(){
+  const rows=filtered();
+  $("boardCount").textContent = rows.length+" รายการ"+(LIVE?" (สด)":" (จากรีโป)");
+  if(!rows.length){ $("list").innerHTML='<div class="empty">ไม่มีรายการที่ตรง</div>'; return; }
+  $("list").innerHTML = rows.map(it=>`<div class="item ${it.id===selectedId?"active":""}" data-id="${esc(it.id)}">
+    <div class="t">${it.day!=null?"D"+it.day+" · ":""}${esc(it.title)||"(untitled)"}</div>
+    <div class="meta">${it.status?`<span class="tag ${it.site==="LIQ9"?"l":"w"}">${esc(it.status)}</span>`:`<span class="tag ${it.site==="LIQ9"?"l":"w"}">${esc(it.site)}</span>`}
+      <span>${esc(it.site||"")}</span>${it.category?`<span>${esc(it.category)}</span>`:""}</div></div>`).join("");
+  for(const el of $("list").querySelectorAll(".item")) el.onclick=()=>selectItem(el.dataset.id);
+}
+function selectItem(id){
+  selectedId=id; renderList();
+  const it=ITEMS.find(x=>x.id===id); if(!it) return;
+  if(!LIVE){
+    $("detail").innerHTML=`<h2 style="font-size:16px;margin:0 0 6px">${esc(it.title)}</h2>
+      <div class="ds" style="color:var(--muted);font-size:12.5px">${esc(it.site)} · Day ${it.day??"—"}</div>
+      <div style="margin:12px 0"><a class="btnlink" href="content/${esc(it.file)}" target="_blank" rel="noopener">เปิดบทความ ↗</a></div>
+      <div class="panel"><h4>ไฟล์</h4><div class="content"><code>pipeline/public/content/${esc(it.file)}</code></div></div>
+      <p class="ds" style="color:var(--muted);font-size:12.5px">ใส่ passphrase ด้านบนเพื่อดู brief/สถานะ/ลิงก์ Drive สดจาก Notion</p>`;
+    return;
+  }
+  const canApprove=(it.hasHtml||(it.contentEN&&it.contentTH))&&it.status!=="Done"&&it.status!=="Published";
+  $("detail").innerHTML=`<h2 style="font-size:16px;margin:0 0 4px">${esc(it.title)}</h2>
+    <div class="ds" style="color:var(--muted);font-size:12.5px">${esc(it.briefId||"")} · ${esc(it.site||"")} · ${esc(it.category||"")} · Day ${it.day??"—"} · ${esc(it.publishDate||"no date")} · <span class="tag ${it.site==="LIQ9"?"l":"w"}">${esc(it.status||"—")}</span></div>
+    <div style="margin:12px 0">
+      ${CAPS.generate?`<button class="btnlink" id="btnGen" style="background:var(--wine);color:#fff;border:0">✨ Generate</button>`:`<span class="ds" style="color:var(--muted);font-size:12.5px">✍️ เขียนใน Claude Code</span>`}
+      ${CAPS.approve?`<button class="btnlink" id="btnApp" style="background:var(--wine);color:#fff;border:0" ${canApprove?"":"disabled"}>✅ Approve→Drive</button>`:`<span class="ds" style="color:var(--muted);font-size:12.5px"> · ☁️ อัปผ่าน Claude Code</span>`}
+      <a class="btnlink" href="${safeUrl(it.url)}" target="_blank" rel="noopener">Notion ↗</a>
+      ${it.driveUrl?`<a class="btnlink" href="${safeUrl(it.driveUrl)}" target="_blank" rel="noopener">Drive ↗</a>`:""}
+    </div>
+    <div class="panel"><h4>Brief</h4><div class="content">${esc(it.contentBrief)||"—"}</div>${it.targetKeyword?`<p class="ds" style="margin:8px 0 0;color:var(--muted)">🎯 ${esc(it.targetKeyword)}</p>`:""}</div>
+    <div class="panel"><h4>Content TH</h4><div class="content">${esc(it.contentTH)||"— ยังไม่ได้สร้าง —"}</div></div>
+    <div class="panel"><h4>Activity log</h4><ul class="log" id="log" style="list-style:none;margin:0;padding:0"><li class="ds" style="color:var(--muted)">loading…</li></ul></div>`;
+  if(CAPS.generate&&$("btnGen")) $("btnGen").onclick=()=>runAction("generate",it.id,"กำลังสร้าง…");
+  if(CAPS.approve&&$("btnApp")) $("btnApp").onclick=()=>runAction("approve",it.id,"กำลังอัป Drive…");
+  loadLog(it.id);
+}
+async function loadLog(id){
+  try{ const {log}=await api("/api/log?pageId="+id); const ul=$("log"); if(!ul)return;
+    ul.innerHTML = log.length? log.map(e=>`<li style="padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px">${esc(e.text)}<time style="color:var(--muted);font-size:11px;display:block">${fmtDate(e.createdAt)}</time></li>`).join("") : '<li class="ds" style="color:var(--muted)">No activity yet.</li>';
+  }catch(e){}
+}
+async function runAction(kind,pageId,msg){
+  toast(msg); try{ await api("/api/"+kind,{method:"POST",body:{pageId}}); toast(kind==="generate"?"สร้างแล้ว ✓":"อัป Drive แล้ว ✓"); await loadLive(); selectItem(pageId); }
+  catch(e){ toast(e.message,"err"); }
+}
+async function loadStatic(){
+  try{
+    const ci = await getJSON("data/content-index.json");
+    ITEMS = (ci.articles||[]).map(a=>({ id:a.file, title:a.title, site:a.brand, day:a.day, file:a.file, status:"Brief Ready" }));
+    $("kpiArticles").textContent = ci.count; $("kpiWine").textContent = ci.byBrand?.["Wine-Now"]??""; $("kpiLiq").textContent = ci.byBrand?.["LIQ9"]??"";
+    setMode(false); renderPipeline(); renderList();
+  }catch(e){ $("list").innerHTML=`<div class="empty">โหลดดัชนีไม่ได้ — รัน <code>node pipeline/scripts/gen-dashboard-data.mjs</code></div>`; }
+}
+async function loadLive(){
+  if(!secret.value){ return loadStatic(); }
+  localStorage.setItem("ingestSecret", secret.value);
+  try{
+    const data = await api("/api/items");
+    ITEMS = data.items||[]; CAPS = data.capabilities||{};
+    setMode(true); renderPipeline(); renderList();
+    toast("เชื่อม Notion สดแล้ว ✓");
+  }catch(e){ toast("โหมดสดไม่ได้: "+e.message+" — ใช้ดัชนีจากรีโปแทน","err"); loadStatic(); }
+}
+$("refresh").onclick = loadLive;
+$("fSite").onchange = renderList; $("fStatus").onchange = renderList;
+
+/* ---------- boot ---------- */
+loadPlanningData();
+if(secret.value) loadLive(); else loadStatic();
+</script>
+</body>
+</html>
