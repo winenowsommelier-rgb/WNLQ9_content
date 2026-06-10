@@ -1,0 +1,31 @@
+name: content-qa
+
+# Runs the article QA gate on every push / PR that touches content or the
+# tooling, so a non-compliant article (broken chrome, missing SKU chip, PRICE
+# DRIFT vs the feed, headline≠H1, FAQ mismatch, …) can't merge silently.
+
+on:
+  push:
+    paths:
+      - "pipeline/public/content/**"
+      - "pipeline/data/products.json"
+      - "pipeline/scripts/**"
+  pull_request:
+    paths:
+      - "pipeline/public/content/**"
+      - "pipeline/data/products.json"
+      - "pipeline/scripts/**"
+  workflow_dispatch: {}
+
+jobs:
+  qa-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: QA gate (validate-articles)
+        run: node pipeline/scripts/validate-articles.mjs
+      - name: Refresh + sanity-check content index
+        run: node pipeline/scripts/build-articles-manifest.mjs --check

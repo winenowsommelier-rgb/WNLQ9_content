@@ -117,6 +117,55 @@ for (const file of files) {
   // --- summary callout near top --------------------------------------------
   if (!/สรุปสั้นๆ/.test(html)) warns.push("missing 'สรุปสั้นๆ' summary callout");
 
+  // --- price accuracy: each card's ~฿ must equal the feed price (FAIL) ------
+  for (const m of html.matchAll(/data-sku="([^"]+)"[\s\S]{0,700}?class="pr">\s*~?฿\s*([\d,]+)/g)) {
+    const sku = m[1];
+    const shown = Number(m[2].replace(/,/g, ""));
+    const p = stockBySku.get(sku);
+    if (p && Number(p.price_thb) !== shown)
+      fails.push(`price drift: ${sku} shows ฿${shown} but feed = ฿${p.price_thb}`);
+  }
+
+  // --- body text (for keyword/thin checks) ---------------------------------
+  const bodyText = (html.match(/<article>([\s\S]*?)<\/article>/) || ["", ""])[1]
+    .replace(/<[^>]+>/g, " ")
+    .toLowerCase();
+  const bodyChars = bodyText.replace(/\s+/g, "").length;
+
+  // --- target keyword present (first term of Article JSON-LD keywords) ------
+  let kw = "";
+  for (const b of ld) {
+    try {
+      const j = JSON.parse(b);
+      if (j["@type"] === "Article" && j.keywords) kw = String(j.keywords).split(",")[0].trim();
+    } catch {}
+  }
+  if (kw) {
+    const hay = ((h1 || "") + " " + bodyText).toLowerCase();
+    const toks = kw.toLowerCase().split(/\s+/).filter((t) => t.length >= 2);
+    const hit = toks.filter((t) => hay.includes(t)).length;
+    if (toks.length && hit / toks.length < 0.6)
+      warns.push(`target keyword "${kw}" weak in H1/body (${hit}/${toks.length} terms)`);
+  }
+
+  // --- thin-content guard (char count; Thai has no word spaces) -------------
+  if (bodyChars > 0 && bodyChars < 1800) warns.push(`thin content (~${bodyChars} body chars)`);
+
+  // --- broken internal links (sibling .html must exist) --------------------
+  for (const m of html.matchAll(/href="([a-z0-9][a-zA-Z0-9_-]+\.html)"/g)) {
+    const tgt = m[1];
+    if (tgt !== name && !fs.existsSync(path.join(CONTENT_DIR, tgt)))
+      warns.push(`broken internal link → ${tgt}`);
+  }
+
+  // --- fabricated-number heuristics (human-verify, not auto-fail) -----------
+  if (/\b\d{2,3}\s*\/\s*100\b|\b\d{2,3}\s*(points|pts|คะแนน)\b/i.test(html))
+    warns.push("possible critic score (NN/100 · NN points) — verify against a named source");
+  if (/ภาษี[^.\n]{0,25}\d{1,3}\s*%/.test(html))
+    warns.push("possible tax-rate figure — verify against กรมสรรพสามิต");
+  if (/อันดับ(ขายดี)?\s*(ที่\s*)?#?\d/.test(html))
+    warns.push("possible bestseller-rank claim — soft badges only, verify");
+
   // --- report --------------------------------------------------------------
   if (fails.length) {
     hadFail = true;
