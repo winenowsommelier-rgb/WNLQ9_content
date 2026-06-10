@@ -6,6 +6,7 @@ This repo produces blog content for two Thai beverage e-commerce brands:
 ## Read this first
 - **How to write content →** [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md)
 - **Where things live, keys, sync, deploy, get-up-and-running →** [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+- **Marketing & content strategy (AEO/AI-SEO, pillars, programmatic, measurement) →** [`docs/MARKETING_CONTENT_PLAN.md`](docs/MARKETING_CONTENT_PLAN.md), powered by the vendored skills in [`.claude/skills/`](.claude/skills/README.md). Those skills are generic — the golden rules below always win.
 
 Follow the playbook on every content session. Below are the rules that must never
 be skipped.
