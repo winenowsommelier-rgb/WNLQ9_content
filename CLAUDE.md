@@ -7,6 +7,8 @@ This repo produces blog content for two Thai beverage e-commerce brands:
 - **What to make next + brand strategy (data-backed) →** [`docs/CONTENT_STRATEGY.md`](docs/CONTENT_STRATEGY.md)
 - **How to write content →** [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md)
 - **Where things live, keys, sync, deploy, get-up-and-running →** [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+- **One-page console (Settings · Planning · Processing) →** `pipeline/public/index.html`
+  ("Mission Control"; serves at `/`). Regenerate its data with `npm run data` in `pipeline/`.
 
 > **Brand asymmetry (data-verified):** Wine-Now = SEO-volume play (real wine
 > search demand). LIQ9 = premium/luxury **storytelling** play for AEO + brand +
