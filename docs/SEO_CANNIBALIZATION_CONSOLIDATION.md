@@ -18,10 +18,13 @@ Re-pull live GSC before executing any 301 to confirm current numbers.
 |---|---|---|---|---|---|
 | `blog/15-most-expensive-wine-in-the-world-en.html` | 150,778 | 362 | **0.24%** | 7.7 | **Keep = EN canonical.** Fix title/meta for CTR; push to top 3. |
 | `blog/15-most-expensive-wine-in-the-world-th.html` | 2,454 | 19 | 0.77% | 7.7 | **Keep = TH canonical;** hreflang-pair to `-en`. Expand TH content. |
-| `blog/15-most-expensive-wine-in-the-world.html` (base) | 13,242 | 251 | 1.9% | 7.2 | **301 → whichever language it matches** (de-dupe the 3rd URL). |
-> A 150k-impression page at 0.24% CTR is the highest-value fix on the site: consolidate the
-> 3rd URL, add hreflang, and rewrite the title to match intent. Likely +thousands of clicks/mo
-> with zero new content.
+| `blog/15-most-expensive-wine-in-the-world.html` (base) | 13,242 | 251 | 1.9% | 7.2 | **= TH canonical** — query-level confirms it ranks for Thai ("ไวน์ที่แพงที่สุดในโลก", "ไวน์ 3 เหรียญ ราคา"). Hreflang-pair base↔`-en`; **do not 301 base into the EN page.** |
+> A 150k-impression page at 0.24% CTR is the highest-value fix on the site: rewrite the `-en`
+> title to the exact English head term ("most expensive wine in the world" alone = 15,489 imp at
+> pos 7.4), hreflang base↔`-en`, push to top 3. Likely +thousands of clicks/mo, zero new content.
+> **Query-level correction:** this is *already* an EN/TH split (en=English terms, base=Thai), so it's
+> a 2-language hreflang setup — **not** a 3-way merge. The thin `-th` (2,454 imp) is the same language
+> as base → fold `-th` into base (301, same-language), then keep base↔`-en` as the hreflang pair.
 
 ## 🔴 Priority 2 — "wine for beginners" sprawl (5+ same-language posts)
 `5-recommended-wine-for-beginners` (16,843/pos 9.8) · `6-recommended-white-wine-for-beginners-th`
@@ -37,7 +40,7 @@ angle linking up. Pair June `day16-wine-for-beginners` with this as the refresh,
 |---|---|---|
 | Decanting | `what-is-decanting` · `when-should-you-decant-wine` · `decant-vs-aerator` | 1 pillar + sections; 301 the rest. June `day28-decanting-guide` = the refresh. |
 | Tannin/body | `what-is-tannin` · `what-is-body-tannin-and-acidity` · `what-is-body-wine` | merge → 1 "structure" pillar. June `day2-tannin`/`day2-wine-acidity` link up. |
-| Champagne/sparkling | `champagne-or-sparkling-wine` (26k) · `5-minute-guide-to-sparkling-wine` · `cava-champagne-from-spain` · `5-styles-champagne` | keep `champagne-or-sparkling-wine` as hub; others → sections/links. |
+| Champagne/sparkling **(Thai "แชมเปญ" — 5-way, query-level)** | `wine/champagne-wine.html` category (5,986 imp **pos 4.3** ← strongest) · `5-styles-champagne` (10,369/6.5) · `champagne-or-sparkling-wine` (4,078/4.1) · `5-world-class-champagne-for-celebrate` (3,524/10.8) · `champagne-the-art-of-bubble-wine` (1,400/9.3) | **category page = the "แชมเปญ" hub** (best position + commercial). Point the blogs' anchor text at it; differentiate each blog to a long-tail (styles / vs-sparkling / luxury / history) so they stop competing for the head term. `cava` stays separate (own term, see striking-distance). |
 | Rosé | `what-is-rose-wine` (12k) · `wine/rose-wine.html` (category) | blog = info hub linking to category; no merge (diff intent). |
 | Bottle sizes | `wine-bottle-sizes` · `meaning-of-wine-bottle-sizes-en` | EN/TH or dup? if same lang → 301; if EN/TH → hreflang. |
 | Corks | `corks-vs-screw-caps` + `corks-vs-screw-caps-th` | EN/TH → **hreflang pair** (keep both). |
