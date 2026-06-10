@@ -7,6 +7,7 @@ This repo produces blog content for two Thai beverage e-commerce brands:
 - **What to make next + brand strategy (data-backed) →** [`docs/CONTENT_STRATEGY.md`](docs/CONTENT_STRATEGY.md)
 - **How to write content →** [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md)
 - **Where things live, keys, sync, deploy, get-up-and-running →** [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+- **Subsystem map (`pipeline/` vs `dashboard/` vs `data-hub/`) + verified infra →** [`docs/SESSION_HANDOFF.md`](docs/SESSION_HANDOFF.md)
 
 > **Brand asymmetry (data-verified):** Wine-Now = SEO-volume play (real wine
 > search demand). LIQ9 = premium/luxury **storytelling** play for AEO + brand +
@@ -44,13 +45,15 @@ be skipped.
   `1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm`. Upload **CSS-inlined, self-contained**
   HTML. ⚠️ Drive MCP can't overwrite/delete → re-uploads make same-name
   duplicates; clear-then-reupload for a clean refresh.
-- **One fresh subfolder per batch/period.** For each content run, create a new
-  subfolder under the delivery root named for its period (e.g.
-  `WNLQ9 2026-JUN`, `WNLQ9 2026-JUL`) and upload that batch's files there — one
-  copy per article. Because the MCP can't overwrite/delete, a clean per-period
+- **One fresh subfolder per batch/period**, named `YYYY-MM Month` (e.g.
+  `2026-06 June`, `2026-07 July`). For each content run, create a new subfolder
+  under the delivery root and upload that batch's files there — one copy per
+  article. Because the MCP can't overwrite/delete/rename, a clean per-period
   folder avoids duplicate pile-up, makes auditing a simple file-count check
-  (N articles = N files), and keeps prior periods untouched. Point each Notion
-  row's `Drive file URL` at the file in the new folder.
+  (N articles = N files), and keeps prior periods untouched. **Pull the content
+  branch before inlining/uploading** (a stale checkout uploads outdated HTML).
+  Never re-upload into a live month folder — build the clean set first, upload
+  once. Point each Notion row's link property at the file in the new folder.
 
 ## Git
 - Develop on the session's feature branch; commit + push when work is complete.

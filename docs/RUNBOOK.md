@@ -3,6 +3,7 @@
 The one page to spin this process back up fast. Pairs with:
 - **`CLAUDE.md`** — rules auto-loaded into every Claude Code session.
 - **`docs/CONTENT_STRATEGY.md`** — *what* to make next + brand strategy (GSC/GA4-backed).
+- **`docs/SESSION_HANDOFF.md`** — subsystem map + verified infra state.
 - **`docs/CONTENT_PRODUCTION_PLAYBOOK.md`** — *how* to write the content.
 - **this file** — *where things live, the keys, the sync points, and how to deploy/run.*
 
@@ -42,11 +43,12 @@ The one page to spin this process back up fast. Pairs with:
 
 ### Delivered batches (one fresh Drive subfolder per period — see CLAUDE.md convention)
 
-| Period | Drive subfolder | Folder ID | Articles |
+| Period | Drive subfolder (`YYYY-MM Month`) | Folder ID | Articles |
 |---|---|---|---|
-| 2026-JUN | `WNLQ9 2026-JUN` | `1JBuRFDzO2UFZdQRO5LRzSzueNwgKZS4O` | 52 (day 1–30, both brands) |
+| 2026-06 | `2026-06 June` (currently named `WNLQ9 Magento-Ready Version` — rename pending; MCP can't rename) | `1JBuRFDzO2UFZdQRO5LRzSzueNwgKZS4O` | 52 (day 1–30, both brands) |
+| 2026-07 | `2026-07 July` (to create at build start) | _TBD_ | ~40 (post-dedup) |
 
-> All 52 rows on the June Notion board point to file IDs inside this folder; Status = "Brief Ready". The earlier interim folder `WNLQ9 Magento-Ready (scoped)` (`1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM`) was a duplicate-laden working copy and has been deleted. Each new period gets its own subfolder under the delivery root above.
+> All 52 rows on the June Notion board point to file IDs inside the June folder; Status = "Brief Ready". The earlier interim folder `WNLQ9 Magento-Ready (scoped)` (`1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM`) was a duplicate-laden working copy and has been deleted. Each new period gets its own subfolder under the delivery root above.
 
 ---
 
@@ -77,7 +79,16 @@ Claude Code session ──writes──▶ repo  pipeline/public/content/*.html (
         └──updates row──▶ Notion board (Status=Brief Ready, Drive file URL)  ◀── dashboard reads via NOTION_TOKEN
 ```
 - **Repo ↔ production:** push to **`main`** → Vercel auto-deploys (Root Dir `pipeline/`). Feature branches get preview URLs only.
-- **Repo ↔ Drive:** manual, by Claude Code (Drive MCP). ⚠️ Drive MCP can't overwrite/delete → re-uploads make same-name duplicates; clear the folder then re-upload for a clean refresh.
+- **Repo ↔ Drive:** manual, by Claude Code (Drive MCP) — it CSS-inlines the repo
+  HTML and uploads a self-contained file. ⚠️ Drive MCP can only create/copy/read:
+  **no overwrite, delete, or rename.** So:
+  - **Pull first.** `git pull` the active content branch **before** inlining/
+    uploading. A session on a stale checkout uploads outdated content (this bit us
+    on day4 — see `SESSION_HANDOFF.md`). The repo HTML is the source of truth; the
+    upload is only as fresh as the working copy.
+  - **One fresh `YYYY-MM Month` subfolder per period** (see CLAUDE.md). Re-uploads
+    make same-name duplicates; never re-upload into a live month folder. Build the
+    clean set, upload once, repoint Notion, delete stale copies by hand in Drive.
 - **Repo ↔ Notion:** the dashboard reads Notion live; Claude Code writes status + `Drive file URL` per row.
 - **Supabase:** only if activated (Notion→content_plan mirror + product picks). Off by default.
 
