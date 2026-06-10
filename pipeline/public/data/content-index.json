@@ -1,0 +1,374 @@
+{
+  "generated_at": "2026-06-10T14:33:18.238Z",
+  "count": 52,
+  "byBrand": {
+    "LIQ9": 25,
+    "Wine-Now": 27
+  },
+  "articles": [
+    {
+      "file": "liq9-day1-whisky-101.html",
+      "brand": "LIQ9",
+      "day": 1,
+      "h1": "Whisky 101: Scotch vs Bourbon vs Japanese ต่างกันยังไง",
+      "title": "Whisky 101: Scotch vs Bourbon vs Japanese ต่างกันยังไง (คู่มือฉบับเต็มสำหรับมือใหม่ 2026)"
+    },
+    {
+      "file": "liq9-day3-macallan-guide.html",
+      "brand": "LIQ9",
+      "day": 3,
+      "h1": "Macallan คู่มือ: รุ่นไหนน่าดื่ม รุ่นไหนน่าสะสม",
+      "title": "Macallan คู่มือ: รุ่นไหนน่าดื่ม รุ่นไหนน่าสะสม (Double Cask, Sherry Oak)"
+    },
+    {
+      "file": "liq9-day4-spicy-thai-cocktails.html",
+      "brand": "LIQ9",
+      "day": 4,
+      "h1": "อาหารไทยเผ็ด x Cocktail: Spirit ไหนรับความเผ็ดได้ดีที่สุด",
+      "title": "อาหารไทยเผ็ด x Cocktail: Spirit ไหนรับความเผ็ดได้ดีที่สุด"
+    },
+    {
+      "file": "liq9-day5-buy-gin-online.html",
+      "brand": "LIQ9",
+      "day": 5,
+      "h1": "Buy Gin Online Thailand: คู่มือสไตล์จินและวิธีเลือก",
+      "title": "Buy Gin Online Thailand: คู่มือสไตล์จิน เลือกตาม botanical และสูตร G&T"
+    },
+    {
+      "file": "liq9-day7-bourbon-recommend.html",
+      "brand": "LIQ9",
+      "day": 7,
+      "h1": "Bourbon แนะนำ: เข้าใจกฎ เลือกตามงบ และทำ Old Fashioned",
+      "title": "Bourbon แนะนำ: เข้าใจกฎ 51% corn เลือกตามงบ และทำ Old Fashioned"
+    },
+    {
+      "file": "liq9-day9-single-malt-blended-grain.html",
+      "brand": "LIQ9",
+      "day": 9,
+      "h1": "Single Malt, Blended, Grain: คู่มือ 5 นาทีเข้าใจประเภทสกอตช์",
+      "title": "Single Malt, Blended, Grain: คู่มือ 5 นาทีเข้าใจประเภทสกอตช์"
+    },
+    {
+      "file": "liq9-day11-hibiki-suntory.html",
+      "brand": "LIQ9",
+      "day": 11,
+      "h1": "Hibiki & Suntory: คู่มือวิสกี้ญี่ปุ่น ซื้อรุ่นไหนก่อนดี",
+      "title": "Hibiki & Suntory: คู่มือวิสกี้ญี่ปุ่น ซื้อรุ่นไหนก่อนดี (Toki, Yamazaki, Hakushu)"
+    },
+    {
+      "file": "liq9-day11-vsop-vs-xo-cognac.html",
+      "brand": "LIQ9",
+      "day": 11,
+      "h1": "VSOP vs XO Cognac: คู่มือเลือกซื้อฉบับเข้าใจง่าย",
+      "title": "VSOP vs XO Cognac: คู่มือเลือกซื้อฉบับเข้าใจง่าย (เลือกตามโอกาส 2026)"
+    },
+    {
+      "file": "liq9-day13-world-gin-day-2026.html",
+      "brand": "LIQ9",
+      "day": 13,
+      "h1": "World Gin Day 2026: คู่มือจินสำหรับมือใหม่ ฉบับฉลองวันจินโลก",
+      "title": "World Gin Day 2026: คู่มือจินสำหรับมือใหม่ ฉบับฉลองวันจินโลก"
+    },
+    {
+      "file": "liq9-day14-capsule-bar-8-bottles.html",
+      "brand": "LIQ9",
+      "day": 14,
+      "h1": "Capsule Bar: 8 ขวดที่ทำค็อกเทลคลาสสิกได้เกือบทั้งโลก",
+      "title": "Capsule Bar: 8 ขวดที่ทำค็อกเทลคลาสสิกได้เกือบทั้งโลก"
+    },
+    {
+      "file": "liq9-day16-mezcal-101.html",
+      "brand": "LIQ9",
+      "day": 16,
+      "h1": "Mezcal 101: รู้จักเมสคาล สุราอากาเวรมควันจากเม็กซิโก",
+      "title": "Mezcal 101: รู้จักเมสคาล สุราอากาเวรมควันจากเม็กซิโก (ต่างจาก Tequila ยังไง)"
+    },
+    {
+      "file": "liq9-day17-jigger-vs-free-pour.html",
+      "brand": "LIQ9",
+      "day": 17,
+      "h1": "Jigger vs Free Pour: ตวงหรือริน แบบไหนเหมาะกับคุณ",
+      "title": "Jigger คืออะไร? Jigger vs Free Pour ตวงหรือริน แบบไหนเหมาะกับคุณ"
+    },
+    {
+      "file": "liq9-day18-honey-whisky-cocktails.html",
+      "brand": "LIQ9",
+      "day": 18,
+      "h1": "ค็อกเทลวิสกี้กับน้ำผึ้ง: 3 สูตรง่ายๆ ที่บ้าน",
+      "title": "ค็อกเทลวิสกี้กับน้ำผึ้ง: 3 สูตรง่ายๆ ที่บ้าน (Honey Highball, Hot Toddy, Penicillin)"
+    },
+    {
+      "file": "liq9-day19-fathers-day-gift-guide.html",
+      "brand": "LIQ9",
+      "day": 19,
+      "h1": "คู่มือเลือกเหล้าเป็นของขวัญวันพ่อ (สากล) ตามคาแรกเตอร์พ่อ",
+      "title": "คู่มือเลือกเหล้าเป็นของขวัญวันพ่อ (สากล) ตามคาแรกเตอร์พ่อ"
+    },
+    {
+      "file": "liq9-day20-beyond-highball.html",
+      "brand": "LIQ9",
+      "day": 20,
+      "h1": "Beyond Highball: ยกระดับวิสกี้โซดาให้อร่อยขึ้น",
+      "title": "Beyond Highball: ยกระดับวิสกี้โซดาให้อร่อยขึ้น (เทคนิคไฮบอลสไตล์ญี่ปุ่น + สูตรต่อยอด)"
+    },
+    {
+      "file": "liq9-day21-low-no-abv-cocktails.html",
+      "brand": "LIQ9",
+      "day": 21,
+      "h1": "ค็อกเทลแอลกอฮอล์ต่ำ: ดื่มเบาๆ แต่รสไม่จืด",
+      "title": "ค็อกเทลแอลกอฮอล์ต่ำ: ดื่มเบาๆ แต่รสไม่จืด (สูตร aperitivo ทำเองที่บ้าน)"
+    },
+    {
+      "file": "liq9-day22-congeners.html",
+      "brand": "LIQ9",
+      "day": 22,
+      "h1": "Congeners คืออะไร: ทำไมเหล้าเข้มถึงแฮงหนักกว่า",
+      "title": "Congeners คืออะไร: ทำไมเหล้าเข้มถึงแฮงหนักกว่า"
+    },
+    {
+      "file": "liq9-day24-spirit-tasting-notes.html",
+      "brand": "LIQ9",
+      "day": 24,
+      "h1": "จดโน้ตชิมสุรา: วิธีชิมและบรรยายรสชาติแบบมือโปร",
+      "title": "จดโน้ตชิมสุรา: วิธีชิมและบรรยายรสชาติแบบมือโปร (คู่มือมือใหม่ 2026)"
+    },
+    {
+      "file": "liq9-day25-bangkok-cocktail-renaissance.html",
+      "brand": "LIQ9",
+      "day": 25,
+      "h1": "Bangkok Cocktail Renaissance: เทรนด์ค็อกเทลกรุงเทพยุคใหม่",
+      "title": "Bangkok Cocktail Renaissance: เทรนด์ค็อกเทลกรุงเทพยุคใหม่"
+    },
+    {
+      "file": "liq9-day26-buy-whisky-online.html",
+      "brand": "LIQ9",
+      "day": 26,
+      "h1": "ซื้อวิสกี้ออนไลน์ในไทย: คู่มือสั่งให้ได้ของแท้ ราคาคุ้ม",
+      "title": "ซื้อวิสกี้ออนไลน์ในไทย: คู่มือสั่งให้ได้ของแท้ ราคาคุ้ม"
+    },
+    {
+      "file": "liq9-day27-japanese-whisky-guide.html",
+      "brand": "LIQ9",
+      "day": 27,
+      "h1": "วิสกี้ญี่ปุ่น: คู่มือเข้าใจสไตล์และวิธีเลือกซื้อ",
+      "title": "วิสกี้ญี่ปุ่น: คู่มือเข้าใจสไตล์และวิธีเลือกซื้อ (Japanese Whisky Guide 2026)"
+    },
+    {
+      "file": "liq9-day28-nas-whisky.html",
+      "brand": "LIQ9",
+      "day": 28,
+      "h1": "NAS Whisky คืออะไร: วิสกี้ไม่มีอายุ ด้อยกว่าจริงไหม",
+      "title": "NAS Whisky คืออะไร: วิสกี้ไม่มีอายุ ด้อยกว่าจริงไหม"
+    },
+    {
+      "file": "liq9-day29-sake-101.html",
+      "brand": "LIQ9",
+      "day": 29,
+      "h1": "Sake 101: รู้จักสาเก เหล้าหมักจากข้าวของญี่ปุ่น",
+      "title": "Sake 101: รู้จักสาเก เหล้าหมักจากข้าวของญี่ปุ่น (คู่มือมือใหม่ Junmai-Daiginjo)"
+    },
+    {
+      "file": "liq9-day30-indigenous-asian-spirits.html",
+      "brand": "LIQ9",
+      "day": 30,
+      "h1": "สุราพื้นเมืองเอเชีย: คู่มือรู้จักสุราท้องถิ่นที่น่าลอง",
+      "title": "สุราพื้นเมืองเอเชีย: คู่มือรู้จักสุราท้องถิ่นที่น่าลอง"
+    },
+    {
+      "file": "liq9-day30-storing-spirits-wrong.html",
+      "brand": "LIQ9",
+      "day": 30,
+      "h1": "5 วิธีเก็บสุราที่คนส่วนใหญ่ทำผิด (และวิธีที่ถูก)",
+      "title": "5 วิธีเก็บสุราที่คนส่วนใหญ่ทำผิด (และวิธีที่ถูก)"
+    },
+    {
+      "file": "day1-most-expensive-wines-2026.html",
+      "brand": "Wine-Now",
+      "day": 1,
+      "h1": "ไวน์แพงที่สุดในโลก 2026: 20 อันดับ และขวดที่ดื่มแล้วใกล้เคียงในงบจริง",
+      "title": "ไวน์แพงที่สุดในโลก 2026: 20 อันดับ + 5 ขวดราคาจับต้องได้ที่รสใกล้กัน"
+    },
+    {
+      "file": "day1-wine-label-old-world-vs-new-world.html",
+      "brand": "Wine-Now",
+      "day": 1,
+      "h1": "อ่านฉลากไวน์: Old World vs New World ต่างกันยังไง",
+      "title": "อ่านฉลากไวน์: Old World vs New World ต่างกันยังไง (ฉบับเข้าใจใน 5 นาที)"
+    },
+    {
+      "file": "day2-tannin.html",
+      "brand": "Wine-Now",
+      "day": 2,
+      "h1": "Tannin คืออะไร และทำไมบางขวดทำให้ฝาดในปาก",
+      "title": "Tannin คืออะไร และทำไมไวน์บางขวดทำให้ฝาดปาก"
+    },
+    {
+      "file": "day2-wine-acidity.html",
+      "brand": "Wine-Now",
+      "day": 2,
+      "h1": "Acidity ในไวน์: ทำไมบางขวดทำให้น้ำลายไหล และนั่นคือสัญญาณที่ดี",
+      "title": "Acidity ในไวน์ คืออะไร: ทำไมความเปรี้ยวคือสัญญาณที่ดี (และจับคู่อาหารไทยได้ดี)"
+    },
+    {
+      "file": "day3-white-wines-summer.html",
+      "brand": "Wine-Now",
+      "day": 3,
+      "h1": "ไวน์ขาวสำหรับงานเลี้ยงฤดูร้อน: เลือกสไตล์ไหน เสิร์ฟกี่องศา จัดปาร์ตี้ยังไง",
+      "title": "ไวน์ขาวสำหรับหน้าร้อน: เลือกสไตล์ไหน เสิร์ฟกี่องศา จัดปาร์ตี้ยังไง"
+    },
+    {
+      "file": "day3-wine-storage-condo.html",
+      "brand": "Wine-Now",
+      "day": 3,
+      "h1": "เก็บไวน์ในคอนโด: วิธีให้ไวน์อยู่รอดในเมืองร้อน",
+      "title": "เก็บไวน์ในคอนโด: วิธีให้ไวน์อยู่รอดในเมืองร้อน"
+    },
+    {
+      "file": "day4-wine-excise-tax-2026.html",
+      "brand": "Wine-Now",
+      "day": 4,
+      "h1": "ทำไมไวน์/เหล้าขึ้นราคาปี 2026: เข้าใจภาษีสรรพสามิตใหม่ และขวดที่ยังคุ้ม",
+      "title": "ทำไมไวน์/เหล้าขึ้นราคาปี 2026: เข้าใจภาษีสรรพสามิตใหม่ และขวดที่ยังคุ้ม"
+    },
+    {
+      "file": "day5-natural-organic-biodynamic.html",
+      "brand": "Wine-Now",
+      "day": 5,
+      "h1": "Natural / Organic / Biodynamic: 3 คำที่คนสับสนที่สุดในร้านไวน์",
+      "title": "Natural / Organic / Biodynamic Wine: 3 คำที่คนสับสนที่สุด"
+    },
+    {
+      "file": "day5-pinot-noir-101.html",
+      "brand": "Wine-Now",
+      "day": 5,
+      "h1": "Pinot Noir 101: ไวน์แดงเบาที่ใครๆ ก็รัก",
+      "title": "Pinot Noir 101: ไวน์แดงเบาที่ใครๆ ก็รัก (รสชาติ–แหล่ง–คู่อาหาร)"
+    },
+    {
+      "file": "day5-proof-vs-abv.html",
+      "brand": "Wine-Now",
+      "day": 5,
+      "h1": "Proof vs ABV: ระบบวัดแอลกอฮอล์ที่สร้างความสับสนมา 200 ปี",
+      "title": "Proof vs ABV: ระบบวัดแอลกอฮอล์ที่สับสนมา 200 ปี"
+    },
+    {
+      "file": "day6-wine-tourism-khao-yai.html",
+      "brand": "Wine-Now",
+      "day": 6,
+      "h1": "Wine Tourism เขาใหญ่: สิ่งที่นักท่องเที่ยวส่วนใหญ่ยังไม่รู้",
+      "title": "Wine Tourism เขาใหญ่: คู่มือเที่ยวไร่ไวน์ ไวน์ไทยที่ควรชิม และวางแผนทริป"
+    },
+    {
+      "file": "day7-cabernet-sauvignon-101.html",
+      "brand": "Wine-Now",
+      "day": 7,
+      "h1": "Cabernet Sauvignon 101: รสชาติ แหล่งผลิต และขวดที่ดีที่สุดในแต่ละงบ",
+      "title": "Cabernet Sauvignon 101: รสชาติ แหล่งผลิต และขวดที่ดีที่สุดในแต่ละงบ"
+    },
+    {
+      "file": "day8-champagne-vs-prosecco-vs-cava.html",
+      "brand": "Wine-Now",
+      "day": 8,
+      "h1": "Champagne vs Prosecco vs Cava: เลือกสปาร์คกลิงให้ถูกงานและงบ",
+      "title": "Champagne vs Prosecco vs Cava: เลือกสปาร์คกลิงให้ถูกงานและงบ"
+    },
+    {
+      "file": "day8-scotch-double-cask-vs-sherry.html",
+      "brand": "Wine-Now",
+      "day": 8,
+      "h1": "Scotch: Double Cask vs Sherry Finish ต่างกันยังไง",
+      "title": "Scotch: Double Cask vs Sherry Finish ต่างกันยังไง (เลือกแบบไหนดี)"
+    },
+    {
+      "file": "day10-rose-myths-debunked.html",
+      "brand": "Wine-Now",
+      "day": 10,
+      "h1": "Rosé ไม่ได้หวานเสมอไป: อุณหภูมิและการจับคู่ที่ใช่",
+      "title": "Rosé ไม่ได้หวานเสมอไป: อุณหภูมิและการจับคู่ที่ใช่"
+    },
+    {
+      "file": "day11-vintage-year.html",
+      "brand": "Wine-Now",
+      "day": 11,
+      "h1": "Vintage Year: ตัวเลขที่สำคัญ และตัวเลขที่ไม่สำคัญ",
+      "title": "Vintage Year: ตัวเลขที่สำคัญ และตัวเลขที่ไม่สำคัญ"
+    },
+    {
+      "file": "day12-champagne-price-2026.html",
+      "brand": "Wine-Now",
+      "day": 12,
+      "h1": "แชมเปญ ราคา 2026: คู่มือเลือกซื้อ Moët, Veuve Clicquot, Dom Pérignon",
+      "title": "แชมเปญ ราคา 2026: คู่มือเลือกซื้อ Moët, Veuve Clicquot, Dom Pérignon"
+    },
+    {
+      "file": "day14-wine-cheese-pairing.html",
+      "brand": "Wine-Now",
+      "day": 14,
+      "h1": "ไวน์กับชีส: คู่มือจับคู่ให้อร่อยทุกคำ",
+      "title": "ไวน์กับชีส: คู่มือจับคู่ให้อร่อยทุกคำ"
+    },
+    {
+      "file": "day16-wine-for-beginners.html",
+      "brand": "Wine-Now",
+      "day": 16,
+      "h1": "ไวน์สำหรับมือใหม่: คู่มือเริ่มต้นฉบับสมบูรณ์",
+      "title": "ไวน์สำหรับมือใหม่: คู่มือเริ่มต้นฉบับสมบูรณ์ (เลือก เสิร์ฟ จับคู่อาหาร 2026)"
+    },
+    {
+      "file": "day19-aperitif-hour.html",
+      "brand": "Wine-Now",
+      "day": 19,
+      "h1": "Aperitif Hour: ไวน์เรียกน้ำย่อยก่อนมื้อค่ำ",
+      "title": "Aperitif คืออะไร: ไวน์เรียกน้ำย่อยก่อนมื้อค่ำ และวิธีจัด Aperitif Hour ที่บ้าน"
+    },
+    {
+      "file": "day20-rare-collectible-wine.html",
+      "brand": "Wine-Now",
+      "day": 20,
+      "h1": "ไวน์สะสม: อะไรทำให้ขวดหนึ่งมีค่าน่าเก็บ",
+      "title": "ไวน์สะสม: อะไรทำให้ขวดหนึ่งมีค่าน่าเก็บ"
+    },
+    {
+      "file": "day22-wine-thai-food-5-dishes.html",
+      "brand": "Wine-Now",
+      "day": 22,
+      "h1": "ไวน์กับอาหารไทย: จับคู่ 5 จานยอดนิยมให้ลงตัว",
+      "title": "ไวน์กับอาหารไทย: จับคู่ 5 จานยอดนิยมให้ลงตัว"
+    },
+    {
+      "file": "day24-vegetarian-thai-wine.html",
+      "brand": "Wine-Now",
+      "day": 24,
+      "h1": "อาหารเจ & มังสวิรัติไทยกับไวน์: จับคู่ให้อร่อยครบรส",
+      "title": "อาหารเจ & มังสวิรัติไทยกับไวน์: จับคู่ให้อร่อยครบรส"
+    },
+    {
+      "file": "day26-rainy-season-drinks.html",
+      "brand": "Wine-Now",
+      "day": 26,
+      "h1": "ไวน์หน้าฝน: แดงนุ่มอุ่นใจรับสายฝนกรุงเทพ",
+      "title": "ไวน์หน้าฝน: แดงนุ่มอุ่นใจรับสายฝนกรุงเทพ"
+    },
+    {
+      "file": "day27-bangkok-hidden-wine-bars.html",
+      "brand": "Wine-Now",
+      "day": 27,
+      "h1": "ไวน์บาร์กรุงเทพ: คู่มือค้นหาบาร์ที่ใช่สำหรับคุณ",
+      "title": "ไวน์บาร์กรุงเทพ: คู่มือค้นหาบาร์ที่ใช่สำหรับคุณ"
+    },
+    {
+      "file": "day28-decanting-guide.html",
+      "brand": "Wine-Now",
+      "day": 28,
+      "h1": "Decanting ไวน์: เมื่อไหร่ควรเท และทำยังไงไม่มี Decanter",
+      "title": "Decanting ไวน์: เมื่อไหร่ควรเท และทำยังไงไม่มี Decanter"
+    },
+    {
+      "file": "day29-napa-2023-vintage.html",
+      "brand": "Wine-Now",
+      "day": 29,
+      "h1": "Napa Valley วินเทจ 2023: สิ่งที่ควรรู้ก่อนซื้อ",
+      "title": "Napa Valley วินเทจ 2023: สิ่งที่ควรรู้ก่อนซื้อ"
+    }
+  ]
+}

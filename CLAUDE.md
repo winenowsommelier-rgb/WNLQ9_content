@@ -4,8 +4,16 @@ This repo produces blog content for two Thai beverage e-commerce brands:
 **Wine-Now** (wine) and **LIQ9** (spirits).
 
 ## Read this first
+- **What to make next + brand strategy (data-backed) →** [`docs/CONTENT_STRATEGY.md`](docs/CONTENT_STRATEGY.md)
 - **How to write content →** [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md)
 - **Where things live, keys, sync, deploy, get-up-and-running →** [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+- **One-page console (Settings · Planning · Processing) →** `pipeline/public/index.html`
+  ("Mission Control"; serves at `/`). Regenerate its data with `npm run data` in `pipeline/`.
+
+> **Brand asymmetry (data-verified):** Wine-Now = SEO-volume play (real wine
+> search demand). LIQ9 = premium/luxury **storytelling** play for AEO + brand +
+> LINE conversion (barely indexed on Google; traffic is direct/LINE). Plan them
+> differently — see `CONTENT_STRATEGY.md`.
 
 Follow the playbook on every content session. Below are the rules that must never
 be skipped.
@@ -34,10 +42,17 @@ be skipped.
 - Notion board `2026 JUN — WNLQ9 — Content Production` = what to make + status.
   When HTML is done: **Status = "Brief Ready"** (not "Done"); paste link into
   the **`Drive file URL`** property.
-- Drive delivery folder "WNLQ9 Blog Html center" =
+- Drive delivery root "WNLQ9 Blog Html center" =
   `1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm`. Upload **CSS-inlined, self-contained**
   HTML. ⚠️ Drive MCP can't overwrite/delete → re-uploads make same-name
   duplicates; clear-then-reupload for a clean refresh.
+- **One fresh subfolder per batch/period.** For each content run, create a new
+  subfolder under the delivery root named for its period (e.g.
+  `WNLQ9 2026-JUN`, `WNLQ9 2026-JUL`) and upload that batch's files there — one
+  copy per article. Because the MCP can't overwrite/delete, a clean per-period
+  folder avoids duplicate pile-up, makes auditing a simple file-count check
+  (N articles = N files), and keeps prior periods untouched. Point each Notion
+  row's `Drive file URL` at the file in the new folder.
 
 ## Git
 - Develop on the session's feature branch; commit + push when work is complete.
