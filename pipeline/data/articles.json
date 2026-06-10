@@ -1,5 +1,5 @@
 {
-  "_comment": "Maps a Notion page id -> the self-contained article HTML file in public/content. Source of truth for /api/approve Drive upload. Rebuilt 2026-06-04 to cover all delivered June 2026 articles (both brands). Regenerate from the slug->page_id map after each batch.",
+  "_comment": "Maps a Notion page id -> the self-contained article HTML file in public/content. Source of truth for /api/approve Drive upload. Rebuilt 2026-06-04 to cover all delivered June 2026 articles (both brands) + July build (Day 25 Prestige Champagne, JUL-T1). Regenerate from the slug->page_id map after each batch.",
   "articles": {
     "3729d75a-e4b5-8157-80c7-c200e03292d7": "day1-most-expensive-wines-2026.html",
     "36e9d75a-e4b5-8177-a04d-d113068d4c51": "day1-wine-label-old-world-vs-new-world.html",
@@ -14,6 +14,7 @@
     "3729d75a-e4b5-8191-8b70-f1dd3f9220d4": "day20-rare-collectible-wine.html",
     "36e9d75a-e4b5-8122-a45f-c7d9957c49ac": "day22-wine-thai-food-5-dishes.html",
     "36e9d75a-e4b5-81b2-87e4-c80590e02903": "day24-vegetarian-thai-wine.html",
+    "3739d75a-e4b5-817a-8d52-cb67c372abc5": "day25-prestige-champagne.html",
     "3739d75a-e4b5-8138-8860-c00704660866": "day26-rainy-season-drinks.html",
     "36e9d75a-e4b5-8178-b5da-e7bda59e5b7b": "day27-bangkok-hidden-wine-bars.html",
     "36e9d75a-e4b5-8191-9d5d-e1eb0b8da850": "day28-decanting-guide.html",
