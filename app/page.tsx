@@ -7,6 +7,7 @@ import { RegressionAlerts } from '@/components/RegressionAlerts'
 import { Opportunities } from '@/components/Opportunities'
 import { SyncStatus } from '@/components/SyncStatus'
 import { TrendChart } from '@/components/TrendChart'
+import { ContentOptimizer } from '@/components/ContentOptimizer'
 
 export default function Dashboard() {
   const [gscData, setGscData] = useState<GSCData[]>([])
@@ -244,6 +245,9 @@ export default function Dashboard() {
       )}
 
       <RegressionAlerts regressions={regressions} />
+
+      {/* AI Content Optimizer */}
+      <ContentOptimizer />
 
       {/* Opportunities with Search */}
       <div className="opportunities-section">
