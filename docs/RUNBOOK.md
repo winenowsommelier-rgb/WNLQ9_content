@@ -2,8 +2,14 @@
 
 The one page to spin this process back up fast. Pairs with:
 - **`CLAUDE.md`** — rules auto-loaded into every Claude Code session.
+- **`docs/CONTENT_STRATEGY.md`** — *what* to make next + brand strategy (GSC/GA4-backed).
 - **`docs/CONTENT_PRODUCTION_PLAYBOOK.md`** — *how* to write the content.
 - **this file** — *where things live, the keys, the sync points, and how to deploy/run.*
+
+> **Live data sources (verified 2026-06):** Google Search Console + Google
+> Analytics 4 are both authed via the Supermetrics MCP (`winenowsommelier@gmail.com`).
+> GSC accounts: `https://th.wine-now.com/`, `https://th.liq9.com/`. GA4 properties:
+> WN TH `377750759`, LIQ9 TH `396617303`. Use them to rank topics on real demand.
 
 ---
 
@@ -24,8 +30,9 @@ The one page to spin this process back up fast. Pairs with:
 | **Article HTML (source of truth)** | `pipeline/public/content/*.html` + shared `assets/article.css` |
 | **pageId → HTML manifest** | `pipeline/data/articles.json` |
 | **Product feed (SKUs)** | `pipeline/data/products.json` |
-| **Dashboard (ops console)** | `pipeline/public/index.html` |
-| **Public process summary + article index** | `pipeline/public/process.html` |
+| **Mission Control (single-page console)** | `pipeline/public/index.html` — Settings · Planning · Processing in one page |
+| **Browser-ready dashboard data** | `pipeline/public/data/*.json` (regen: `npm run data` in `pipeline/`) |
+| **Process summary (legacy)** | `pipeline/public/process.html` → redirects into `/#processing` |
 | **Pipeline code** | `pipeline/src/*.mjs`, endpoints `pipeline/api/*.mjs` |
 | **Notion board** | "2026 JUN — WNLQ9 — Content Production" · DB id `786d080f-8da2-4a1e-b84e-161f4e19d56d` |
 | **Google Drive delivery folder** | "WNLQ9 Blog Html center" · id `1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm` |
@@ -33,6 +40,14 @@ The one page to spin this process back up fast. Pairs with:
 | **Supabase (optional, dormant)** | project `dsyplzckfezcxiuikkfm` "WNLQ9 PI DB" |
 
 **Dead duplicates to ignore:** Vercel projects `seo-dashboard` and `wnlq-9-content-seo` (always Error — not used).
+
+### Delivered batches (one fresh Drive subfolder per period — see CLAUDE.md convention)
+
+| Period | Drive subfolder | Folder ID | Articles |
+|---|---|---|---|
+| 2026-JUN | `WNLQ9 2026-JUN` | `1JBuRFDzO2UFZdQRO5LRzSzueNwgKZS4O` | 52 (day 1–30, both brands) |
+
+> All 52 rows on the June Notion board point to file IDs inside this folder; Status = "Brief Ready". The earlier interim folder `WNLQ9 Magento-Ready (scoped)` (`1G8YX_IsFvv9VrvFiHT-HsPElerYv9AZM`) was a duplicate-laden working copy and has been deleted. Each new period gets its own subfolder under the delivery root above.
 
 ---
 
@@ -72,7 +87,7 @@ Claude Code session ──writes──▶ repo  pipeline/public/content/*.html (
 ## 4) Deploy / hosting model
 - Production deploys from **`main`** only. Current production domain:
   `https://seodashboard-winenowsommelier-rgbs-projects.vercel.app`
-  (`/` dashboard · `/process.html` summary · `/content/<file>.html` articles)
+  (`/` Mission Control console · `/process.html` → redirects to `/#processing` · `/content/<file>.html` articles)
 - **Deployment Protection is ON** (team-only; anonymous gets 403). That's fine — this is an internal tool. The *public* blog is Magento (`th.wine-now.com` / `th.liq9.com`), where the finished HTML is pasted.
 - **Apply env-var changes:** Vercel → Deployments → ⋯ → **Redeploy** (env changes don't apply to existing builds).
 - Branch model here: content is developed on a `claude/*` session branch; `main` is an **unrelated history** (different tree), so we ship by branching from `main`, copying the deliverables in (additive), and merging a normal PR. Don't try to merge a `claude/*` branch directly into `main` (no common ancestor).
