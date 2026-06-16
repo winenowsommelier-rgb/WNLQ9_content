@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03",
+  "generatedAt": "2026-06-16",
   "source": "pipeline/public/content/*.html",
   "count": 52,
   "articles": [
@@ -46,7 +46,7 @@
         "WRW3893AH"
       ],
       "cardCount": 8,
-      "faqCount": 3,
+      "faqCount": 5,
       "internalLinks": [
         "index",
         "day2-tannin",
@@ -205,7 +205,7 @@
       "canonical": "https://th.wine-now.com/blog/tannin-explained.html",
       "cards": [],
       "cardCount": 0,
-      "faqCount": 3,
+      "faqCount": 5,
       "internalLinks": [
         "index",
         "day1-wine-label-old-world-vs-new-world",
@@ -434,7 +434,7 @@
       "canonical": "https://th.wine-now.com/blog/wine-storage-condo.html",
       "cards": [],
       "cardCount": 0,
-      "faqCount": 3,
+      "faqCount": 5,
       "internalLinks": [
         "index",
         "day1-wine-label-old-world-vs-new-world",
@@ -475,7 +475,7 @@
       "canonical": "https://th.wine-now.com/blog/natural-organic-biodynamic-wine.html",
       "cards": [],
       "cardCount": 0,
-      "faqCount": 3,
+      "faqCount": 5,
       "internalLinks": [
         "index",
         "day1-wine-label-old-world-vs-new-world",
@@ -514,7 +514,7 @@
       "canonical": "https://th.liq9.com/blog/proof-vs-abv.html",
       "cards": [],
       "cardCount": 0,
-      "faqCount": 3,
+      "faqCount": 5,
       "internalLinks": [
         "index"
       ],
@@ -1068,7 +1068,7 @@
         "LLQ0426CN"
       ],
       "cardCount": 4,
-      "faqCount": 3,
+      "faqCount": 5,
       "internalLinks": [
         "index",
         "liq9-day5-buy-gin-online",
