@@ -2,6 +2,11 @@
 // Service-account JWT (key from Vault via get_gcp_sa_key) -> GSC Search Analytics + GA4 runReport.
 // Sites + property IDs from seo_config table. Backfill: POST {"startDate","endDate"} for any range.
 // Scheduled 6 AM UTC daily via GitHub Actions cron.
+//
+// Memory model: results are streamed page-by-page straight into the DB and a wide
+// range is split into <= CHUNK_DAYS windows, so peak memory stays bounded no matter
+// how wide the requested range is (wide backfills previously OOM'd the worker by
+// buffering the whole result set in one array).
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -9,6 +14,10 @@ const supabase = createClient(
   Deno.env.get("SUPABASE_URL") || "",
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "",
 );
+
+// Max days processed per delete/insert window. Keeps each window near the proven-good
+// daily profile so peak memory and per-window work stay well under worker limits.
+const CHUNK_DAYS = 14;
 
 function b64url(input: Uint8Array | string): string {
   const bytes = typeof input === "string" ? new TextEncoder().encode(input) : input;
@@ -46,6 +55,22 @@ function daysAgo(n: number): string { const d = new Date(); d.setDate(d.getDate(
 function gscWindow(): [string, string] { return [daysAgo(30), daysAgo(3)]; }
 function ga4Window(): [string, string] { return [daysAgo(28), daysAgo(1)]; }
 
+// Split [start,end] (inclusive) into consecutive windows of at most `days` days.
+function chunkRange(start: string, end: string, days: number): [string, string][] {
+  const out: [string, string][] = [];
+  const end_ = new Date(`${end}T00:00:00Z`);
+  let cur = new Date(`${start}T00:00:00Z`);
+  while (cur <= end_) {
+    const winEnd = new Date(cur);
+    winEnd.setUTCDate(winEnd.getUTCDate() + days - 1);
+    const capped = winEnd > end_ ? end_ : winEnd;
+    out.push([ymd(cur), ymd(capped)]);
+    cur = new Date(capped);
+    cur.setUTCDate(cur.getUTCDate() + 1);
+  }
+  return out;
+}
+
 // GA4 returns the date dimension as "YYYYMMDD"; normalize to "YYYY-MM-DD".
 function ga4Date(v: string): string {
   return v && v.length === 8 ? `${v.slice(0, 4)}-${v.slice(4, 6)}-${v.slice(6, 8)}` : v;
@@ -59,12 +84,25 @@ async function insertChunked(table: string, rows: any[], size = 1000) {
   }
 }
 
-// GSC Search Analytics with pagination (rowLimit caps TOTAL rows per request,
-// not per day — with a date dimension we must page through startRow).
-async function gscFetchAll(token: string, siteUrl: string, startDate: string, endDate: string, dimensions: string[]) {
+// Stream GSC Search Analytics straight into `table`, paging through startRow.
+// (rowLimit caps TOTAL rows per request, not per day — with a date dimension we must
+// page.) Each page is mapped and inserted immediately so we never hold the full
+// result set in memory. The window is delete-replaced only once real data arrives,
+// so a 0-row API response never wipes existing rows.
+async function syncGscStream(
+  token: string,
+  siteUrl: string,
+  site: string,
+  startDate: string,
+  endDate: string,
+  dimensions: string[],
+  table: string,
+  mapRow: (r: any) => any,
+): Promise<number> {
   const rowLimit = 25000; // GSC max per request
   let startRow = 0;
-  const all: any[] = [];
+  let total = 0;
+  let cleared = false;
   while (true) {
     const res = await fetch(
       `https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/searchAnalytics/query`,
@@ -72,39 +110,45 @@ async function gscFetchAll(token: string, siteUrl: string, startDate: string, en
     );
     const body = await res.json();
     if (!res.ok) throw new Error(`GSC ${res.status}: ${JSON.stringify(body).slice(0, 400)}`);
-    const rows = body.rows || [];
-    all.push(...rows);
-    if (rows.length < rowLimit) break;
+    const apiRows = body.rows || [];
+    if (apiRows.length) {
+      if (!cleared) {
+        await supabase.from(table).delete().eq("site", site).gte("metric_date", startDate).lte("metric_date", endDate);
+        cleared = true;
+      }
+      const rows = apiRows.map(mapRow).filter((r: any) => r.metric_date && (r.keyword || r.page_path));
+      await insertChunked(table, rows);
+      total += rows.length;
+    }
+    if (apiRows.length < rowLimit) break;
     startRow += rowLimit;
   }
-  return all;
+  return total;
 }
 
 async function syncGSC(token: string, siteUrl: string, site: string, startDate: string, endDate: string) {
   // dimensions ["date","query"] -> keys[0]=date (YYYY-MM-DD), keys[1]=query.
-  const apiRows = await gscFetchAll(token, siteUrl, startDate, endDate, ["date", "query"]);
-  const rows = apiRows.map((r: any) => ({ product_id: null, site, metric_date: r.keys?.[0] ?? "", keyword: r.keys?.[1] ?? "", impressions: Math.round(r.impressions || 0), clicks: Math.round(r.clicks || 0), ctr: r.ctr || 0, rank_position: r.position || 0, avg_rank_position: r.position || 0, synced_at: new Date().toISOString() })).filter((r: any) => r.keyword && r.metric_date);
-  // Guard: never wipe the window on a 0-row API response.
-  if (!rows.length) return 0;
-  await supabase.from("seo_gsc_daily").delete().eq("site", site).gte("metric_date", startDate).lte("metric_date", endDate);
-  await insertChunked("seo_gsc_daily", rows);
-  return rows.length;
+  return await syncGscStream(token, siteUrl, site, startDate, endDate, ["date", "query"], "seo_gsc_daily", (r: any) => ({
+    product_id: null, site, metric_date: r.keys?.[0] ?? "", keyword: r.keys?.[1] ?? "",
+    impressions: Math.round(r.impressions || 0), clicks: Math.round(r.clicks || 0), ctr: r.ctr || 0,
+    rank_position: r.position || 0, avg_rank_position: r.position || 0, synced_at: new Date().toISOString(),
+  }));
 }
 
 async function syncGSCPages(token: string, siteUrl: string, site: string, startDate: string, endDate: string) {
   // dimensions ["date","page"] -> keys[0]=date, keys[1]=page.
-  const apiRows = await gscFetchAll(token, siteUrl, startDate, endDate, ["date", "page"]);
-  const rows = apiRows.map((r: any) => ({ site, metric_date: r.keys?.[0] ?? "", page_path: r.keys?.[1] ?? "", impressions: Math.round(r.impressions || 0), clicks: Math.round(r.clicks || 0), ctr: r.ctr || 0, avg_rank_position: r.position || 0, synced_at: new Date().toISOString() })).filter((r: any) => r.page_path && r.metric_date);
-  if (!rows.length) return 0;
-  await supabase.from("seo_gsc_pages_daily").delete().eq("site", site).gte("metric_date", startDate).lte("metric_date", endDate);
-  await insertChunked("seo_gsc_pages_daily", rows);
-  return rows.length;
+  return await syncGscStream(token, siteUrl, site, startDate, endDate, ["date", "page"], "seo_gsc_pages_daily", (r: any) => ({
+    site, metric_date: r.keys?.[0] ?? "", page_path: r.keys?.[1] ?? "",
+    impressions: Math.round(r.impressions || 0), clicks: Math.round(r.clicks || 0), ctr: r.ctr || 0,
+    avg_rank_position: r.position || 0, synced_at: new Date().toISOString(),
+  }));
 }
 
 async function syncGA4(token: string, propertyId: string, site: string, startDate: string, endDate: string) {
-  const limit = 100000;
+  const limit = 25000;
   let offset = 0;
-  const apiRows: any[] = [];
+  let total = 0;
+  let cleared = false;
   while (true) {
     const res = await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`, {
       method: "POST", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
@@ -113,24 +157,28 @@ async function syncGA4(token: string, propertyId: string, site: string, startDat
     });
     const body = await res.json();
     if (!res.ok) throw new Error(`GA4 ${site} ${res.status}: ${JSON.stringify(body).slice(0, 400)}`);
-    const rows = body.rows || [];
-    apiRows.push(...rows);
-    const rowCount = Number(body.rowCount || apiRows.length);
-    if (rows.length < limit || apiRows.length >= rowCount) break;
+    const apiRows = body.rows || [];
+    if (apiRows.length) {
+      if (!cleared) {
+        await supabase.from("seo_ga4_daily").delete().eq("site", site).gte("metric_date", startDate).lte("metric_date", endDate);
+        cleared = true;
+      }
+      const rows = apiRows.map((r: any) => {
+        const dv = r.dimensionValues || [];
+        const m = r.metricValues || [];
+        const num = (i: number) => Number(m[i]?.value || 0);
+        const sessions = Math.round(num(1));
+        const conversions = Math.round(num(5));
+        return { product_id: null, site, metric_date: ga4Date(dv[0]?.value ?? ""), page_path: dv[1]?.value ?? "", users: Math.round(num(0)), sessions, pageviews: Math.round(num(2)), bounce_rate: num(3), avg_session_duration: num(4), goal_completions: conversions, conversion_rate: sessions > 0 ? conversions / sessions : 0, synced_at: new Date().toISOString() };
+      }).filter((r: any) => r.page_path && r.metric_date);
+      await insertChunked("seo_ga4_daily", rows);
+      total += rows.length;
+    }
+    const rowCount = Number(body.rowCount || (offset + apiRows.length));
+    if (apiRows.length < limit || offset + apiRows.length >= rowCount) break;
     offset += limit;
   }
-  const rows = apiRows.map((r: any) => {
-    const dv = r.dimensionValues || [];
-    const m = r.metricValues || [];
-    const num = (i: number) => Number(m[i]?.value || 0);
-    const sessions = Math.round(num(1));
-    const conversions = Math.round(num(5));
-    return { product_id: null, site, metric_date: ga4Date(dv[0]?.value ?? ""), page_path: dv[1]?.value ?? "", users: Math.round(num(0)), sessions, pageviews: Math.round(num(2)), bounce_rate: num(3), avg_session_duration: num(4), goal_completions: conversions, conversion_rate: sessions > 0 ? conversions / sessions : 0, synced_at: new Date().toISOString() };
-  }).filter((r: any) => r.page_path && r.metric_date);
-  if (!rows.length) return 0;
-  await supabase.from("seo_ga4_daily").delete().eq("site", site).gte("metric_date", startDate).lte("metric_date", endDate);
-  await insertChunked("seo_ga4_daily", rows);
-  return rows.length;
+  return total;
 }
 
 async function logSync(syncType: string, imported: number, status: string, error?: string) {
@@ -146,6 +194,30 @@ async function getConfig(): Promise<Record<string, string>> {
 
 const isYmd = (s: unknown): s is string => typeof s === "string" && /^\d{4}-\d{2}-\d{2}$/.test(s);
 
+// Run `fn` over each (site, window) pair, accumulating row counts and capturing
+// per-site errors without aborting the rest of the sync.
+async function runSynced(
+  targets: [string, string][],
+  windows: [string, string][],
+  results: Record<string, unknown>,
+  key: string,
+  fn: (id: string, site: string, start: string, end: string) => Promise<number>,
+): Promise<number> {
+  let grand = 0;
+  for (const [id, site] of targets) {
+    let siteTotal = 0;
+    try {
+      for (const [s, e] of windows) siteTotal += await fn(id, site, s, e);
+      results[`${key}_${site}`] = siteTotal;
+    } catch (err) {
+      results[`${key}_${site}_error`] = String(err);
+      await logSync(`${key}_${site}`, siteTotal, "failed", String(err));
+    }
+    grand += siteTotal;
+  }
+  return grand;
+}
+
 async function main(opts: { startDate?: string; endDate?: string } = {}) {
   const cfg = await getConfig();
   const { data: keyJson, error: keyErr } = await supabase.rpc("get_gcp_sa_key");
@@ -158,36 +230,30 @@ async function main(opts: { startDate?: string; endDate?: string } = {}) {
   const [gscStart, gscEnd] = backfill ? [opts.startDate!, opts.endDate!] : gscWindow();
   const [ga4Start, ga4End] = backfill ? [opts.startDate!, opts.endDate!] : ga4Window();
 
-  const results: Record<string, unknown> = { mode: backfill ? "backfill" : "daily", gscRange: [gscStart, gscEnd], ga4Range: [ga4Start, ga4End] };
+  // Process wide ranges as a series of bounded windows to keep peak memory in check.
+  const gscWindows = chunkRange(gscStart, gscEnd, CHUNK_DAYS);
+  const ga4Windows = chunkRange(ga4Start, ga4End, CHUNK_DAYS);
+
+  const results: Record<string, unknown> = { mode: backfill ? "backfill" : "daily", gscRange: [gscStart, gscEnd], ga4Range: [ga4Start, ga4End], chunkDays: CHUNK_DAYS };
 
   const gscSites: [string, string][] = [];
   if (cfg.GSC_SITE_URL) gscSites.push([cfg.GSC_SITE_URL, "wine-now"]);
   if (cfg.GSC_SITE_URL_LIQ9) gscSites.push([cfg.GSC_SITE_URL_LIQ9, "liq9"]);
-  let gscTotal = 0;
-  for (const [url, site] of gscSites) {
-    try { const n = await syncGSC(token, url, site, gscStart, gscEnd); gscTotal += n; results[`gsc_${site}`] = n; }
-    catch (e) { results[`gsc_${site}_error`] = String(e); await logSync(`gsc_${site}`, 0, "failed", String(e)); }
-  }
+
+  const gscTotal = await runSynced(gscSites, gscWindows, results, "gsc", (url, site, s, e) => syncGSC(token, url, site, s, e));
   if (gscTotal > 0) await logSync("gsc", gscTotal, "completed");
 
-  let gscPagesTotal = 0;
-  for (const [url, site] of gscSites) {
-    try { const n = await syncGSCPages(token, url, site, gscStart, gscEnd); gscPagesTotal += n; results[`gsc_pages_${site}`] = n; }
-    catch (e) { results[`gsc_pages_${site}_error`] = String(e); await logSync(`gsc_pages_${site}`, 0, "failed", String(e)); }
-  }
+  const gscPagesTotal = await runSynced(gscSites, gscWindows, results, "gsc_pages", (url, site, s, e) => syncGSCPages(token, url, site, s, e));
   if (gscPagesTotal > 0) await logSync("gsc_pages", gscPagesTotal, "completed");
 
   const ga4Props: [string, string][] = [];
   if (cfg.GA4_PROPERTY_ID) ga4Props.push([cfg.GA4_PROPERTY_ID, "wine-now"]);
   if (cfg.GA4_PROPERTY_ID_LIQ9) ga4Props.push([cfg.GA4_PROPERTY_ID_LIQ9, "liq9"]);
-  let ga4Total = 0;
-  for (const [pid, site] of ga4Props) {
-    try { const n = await syncGA4(token, pid, site, ga4Start, ga4End); ga4Total += n; results[`ga4_${site}`] = n; }
-    catch (e) { results[`ga4_${site}_error`] = String(e); await logSync(`ga4_${site}`, 0, "failed", String(e)); }
-  }
+
+  const ga4Total = await runSynced(ga4Props, ga4Windows, results, "ga4", (pid, site, s, e) => syncGA4(token, pid, site, s, e));
   if (ga4Total > 0) await logSync("ga4", ga4Total, "completed");
 
-  // Detectors run on the daily sync only (skip during a backfill chunk loop).
+  // Detectors run on the daily sync only (skip during a backfill).
   if (!backfill) {
     try { await supabase.rpc("detect_seo_opportunities", { impression_threshold: 500, ctr_threshold: 0.02 }); } catch (_) {}
     try { await supabase.rpc("detect_seo_regressions", { days: 7, position_drop_threshold: 3, ctr_drop_threshold: 0.2 }); } catch (_) {}

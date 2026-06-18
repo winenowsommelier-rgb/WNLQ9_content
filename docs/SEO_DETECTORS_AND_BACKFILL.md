@@ -45,6 +45,15 @@ They go live only via explicit `supabase functions deploy` / `supabase db push`.
    The function deletes each (site, date-range) before insert, so re-runs are
    idempotent. Detectors are skipped during backfill chunks.
 
+   > **Wall-clock limit — keep backfill windows small.** A single request is
+   > bound by the edge worker's per-request wall-clock budget (~115s observed; a
+   > 33-day wine-now range hit `WORKER_RESOURCE_LIMIT` / HTTP 546). The daily
+   > 27-day window runs in ~32s, so keep each backfill call to **≤ ~14 days**.
+   > The function (v14+) streams results page-by-page and processes the range in
+   > `CHUNK_DAYS`-day windows with a per-window range-delete, so each call stays
+   > memory-bounded and idempotent — but the *caller* must still split a wide
+   > range across multiple requests (one ~11–14 day window per call).
+
 3. **Apply the detectors migration:**
    ```bash
    supabase db push        # applies 20260603_seo_detectors_daily.sql
