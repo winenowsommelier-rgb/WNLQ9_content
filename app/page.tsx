@@ -8,6 +8,7 @@ import { Opportunities } from '@/components/Opportunities'
 import { SyncStatus } from '@/components/SyncStatus'
 import { TrendChart } from '@/components/TrendChart'
 import { ContentOptimizer } from '@/components/ContentOptimizer'
+import { OptimizationWorkflow } from '@/components/OptimizationWorkflow'
 
 export default function Dashboard() {
   const [gscData, setGscData] = useState<GSCData[]>([])
@@ -248,6 +249,9 @@ export default function Dashboard() {
 
       {/* AI Content Optimizer */}
       <ContentOptimizer />
+
+      {/* Optimization Workflow - Full Pipeline */}
+      <OptimizationWorkflow />
 
       {/* Opportunities with Search */}
       <div className="opportunities-section">
