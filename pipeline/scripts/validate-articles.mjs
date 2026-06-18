@@ -179,4 +179,39 @@ for (const file of files) {
 }
 
 console.log(`\n${files.length} file(s) checked — ${hadFail ? "SOME FAILED" : "all passed"}.`);
+
+// --- repo-wide invariant: one SKU → one displayed card name --------------
+// Catches cross-article drift (same data-sku shown under different names).
+const nameBySku = new Map();
+for (const f of listFiles()) {
+  const html = fs.readFileSync(f, "utf8");
+  for (const m of html.matchAll(/data-sku="([^"]+)"[\s\S]{0,220}?class="nm">([^<]+)</g)) {
+    const sku = m[1];
+    const nm = m[2].replace(/\s+/g, " ").trim();
+    if (!nameBySku.has(sku)) nameBySku.set(sku, new Map());
+    const mm = nameBySku.get(sku);
+    mm.set(nm, [...new Set([...(mm.get(nm) || []), path.basename(f)])]);
+  }
+}
+let nameDefects = 0, nameVaries = 0;
+for (const [sku, names] of nameBySku) {
+  // FAIL: a price glyph (฿) leaked into the product-name field
+  for (const nm of names.keys()) {
+    if (/฿/.test(nm)) {
+      nameDefects++;
+      hadFail = true;
+      console.log(`\x1b[31mNAME DEFECT\x1b[0m ${sku}: price glyph in card name "${nm}"`);
+    }
+  }
+  // WARN: same SKU shown under different names (often intentional enrichment —
+  // "(Speyside)", format, Thai descriptor — but worth a glance for accuracy)
+  if (names.size > 1) {
+    nameVaries++;
+    const feedName = stockBySku.get(sku)?.product_name || "(not in feed)";
+    console.log(`\x1b[33mNAME VARIES\x1b[0m ${sku} (${names.size}) — feed: "${feedName}"`);
+  }
+}
+if (nameDefects || nameVaries)
+  console.log(`\nSKU names: ${nameDefects} defect(s) [FAIL], ${nameVaries} cross-article variant(s) [review].`);
+
 process.exit(hadFail ? 1 : 0);
