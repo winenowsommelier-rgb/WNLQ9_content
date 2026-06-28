@@ -189,8 +189,10 @@ no open online checkout). Built on the `sms` skill, adapted to LINE.
 | **Cross-sell** | Active one brand, not the other | Silver+ | Wine↔spirits attach |
 | **Occasion** | Birthday / anniversary / festival | All (segmented) | Relevant, high-AOV moments |
 
-**Full worked example:** the complete **Silver** flow end-to-end (S0–S7, every
-message in Thai) lives in [`line-flows/silver-lifecycle-th.md`](line-flows/silver-lifecycle-th.md).
+**Full end-to-end flows (Thai copy, sending rules, fill-before-send checklists):**
+- 🟤 Bronze (B0–B6): [`line-flows/bronze-lifecycle-th.md`](line-flows/bronze-lifecycle-th.md)
+- ⚪ Silver (S0–S7): [`line-flows/silver-lifecycle-th.md`](line-flows/silver-lifecycle-th.md)
+- 🟡 Gold (G0–G7): [`line-flows/gold-lifecycle-th.md`](line-flows/gold-lifecycle-th.md)
 
 ### Thai message templates (ตัวอย่าง — localise tone & **confirm perks/prices/SKUs** before sending)
 
