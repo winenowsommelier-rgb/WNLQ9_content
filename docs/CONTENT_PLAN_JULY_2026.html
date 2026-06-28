@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WNLQ9 — July 2026 Editorial Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a1a22; --muted:#5d6470; --line:#e6e8ee; --bg:#f6f7f9; --card:#fff;
+    --wine:#7b1733; --wine-bg:#fbeef1; --liq:#1f4b66; --liq-bg:#eaf2f7;
+    --hero:#b8860b; --hero-bg:#fdf6e3; --warn:#b54708; --warn-bg:#fff4ec;
+    --p0:#b42318; --p0-bg:#fef3f2; --ok:#067647; --ok-bg:#ecfdf3;
+    --accent:#3538cd;
+  }
+  *{box-sizing:border-box}
+  body{font-family:'Inter','Sarabun',system-ui,sans-serif;color:var(--ink);background:var(--bg);margin:0;line-height:1.55;font-size:15px}
+  th,td,.th{font-family:'Sarabun','Inter',sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px 80px}
+  header.hero{background:linear-gradient(120deg,#23103a,#7b1733 55%,#1f4b66);color:#fff;padding:46px 20px 40px;margin-bottom:0}
+  header.hero .inner{max-width:1100px;margin:0 auto}
+  header.hero h1{font-size:30px;margin:0 0 6px;font-weight:700;letter-spacing:-.3px}
+  header.hero p{margin:4px 0;opacity:.92;font-size:14px}
+  .pillbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .pillbar span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:500}
+  nav.toc{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 20px;margin-bottom:26px}
+  nav.toc .inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:6px}
+  nav.toc a{font-size:12.5px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:7px;font-weight:500}
+  nav.toc a:hover{background:var(--bg);color:var(--ink)}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin:0 0 22px;scroll-margin-top:60px}
+  h2{font-size:20px;margin:0 0 4px;letter-spacing:-.2px}
+  h2 .num{color:var(--accent);font-weight:700;margin-right:8px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 18px}
+  h3{font-size:15.5px;margin:22px 0 8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 4px}
+  th{text-align:left;background:var(--bg);color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;border-bottom:1px solid var(--line)}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .t-wine{background:var(--wine-bg);color:var(--wine)} .t-liq{background:var(--liq-bg);color:var(--liq)}
+  .t-hero{background:var(--hero-bg);color:var(--hero)} .t-std{background:#eef0f4;color:#475}
+  .t-fill{background:#f1f1f4;color:#888} .t-warn{background:var(--warn-bg);color:var(--warn)}
+  .t-ok{background:var(--ok-bg);color:var(--ok)} .t-p0{background:var(--p0-bg);color:var(--p0)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}.tablewrap{overflow-x:auto}}
+  .posstmt{border-left:4px solid var(--wine);padding:6px 0 6px 16px;margin:0 0 16px}
+  .posstmt.liq{border-color:var(--liq)}
+  .posstmt b{font-size:14px}
+  .grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;margin-top:6px}
+  .brief{border:1px solid var(--line);border-radius:11px;padding:14px 16px;background:#fcfcfd}
+  .brief h4{margin:0 0 4px;font-size:14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .brief .id{font-family:ui-monospace,monospace;font-size:11.5px;color:var(--muted)}
+  .brief dl{margin:8px 0 0;font-size:12.5px}
+  .brief dt{font-weight:700;color:var(--accent);font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;margin-top:7px}
+  .brief dd{margin:1px 0 0}
+  .brief .sku{font-family:ui-monospace,monospace;font-size:11px;background:var(--bg);padding:1px 5px;border-radius:4px}
+  .callout{background:var(--warn-bg);border:1px solid #f5d9c4;border-radius:10px;padding:12px 15px;font-size:13px;margin:14px 0 0;color:#7a3a12}
+  .callout b{color:var(--warn)}
+  .kpi-base{font-size:12.5px;color:var(--muted);margin:2px 0 10px}
+  .legend{font-size:12px;color:var(--muted);margin:10px 0 0}
+  .blackout td{background:var(--p0-bg)!important}
+  footer{color:var(--muted);font-size:12px;text-align:center;margin-top:30px}
+  footer a{color:var(--accent)}
+  .confirm{background:#101322;color:#fff;border-radius:14px;padding:22px 26px;margin:22px 0 0}
+  .confirm h2{color:#fff}.confirm .sub{color:#aab}
+  .confirm ul{margin:8px 0 0;padding-left:18px;font-size:13.5px}.confirm li{margin:4px 0}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="inner">
+    <h1>WNLQ9 — July 2026 Editorial Calendar</h1>
+    <p>Wine-Now (th.wine-now.com) · LIQ9 (th.liq9.com) — <b>data-first plan</b>, review before Notion push</p>
+    <p>24 pieces (12 / brand) · 5 style categories · every topic pinned to a real GSC signal or verified BI trend</p>
+    <div class="pillbar">
+      <span>GSC 28-day: 2026-05-29 → 06-25</span>
+      <span>Supabase · asnarjokyedupsjipzkl</span>
+      <span>SKUs: Jun-2026 feed (100)</span>
+      <span>Branch: claude/festive-dirac-QcgOV</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc"><div class="inner">
+  <a href="#pos">1 · Positioning</a>
+  <a href="#intel">2 · Data signals</a>
+  <a href="#fw">3 · Framework</a>
+  <a href="#cal">4 · Calendar</a>
+  <a href="#slate">5 · Full slate</a>
+  <a href="#brief">6 · Brief register</a>
+  <a href="#rec">7 · Recovery</a>
+  <a href="#aeo">8 · AEO checklist</a>
+  <a href="#kpi">9 · KPIs</a>
+</div></nav>
+
+<div class="wrap">
+
+<!-- 1 -->
+<section id="pos">
+  <h2><span class="num">1</span>Brand positioning</h2>
+  <p class="sub">What June taught us → what July pushes.</p>
+  <div class="posstmt">
+    <b>Wine-Now.</b> June proved the engine is impression-rich but click-poor — 555,695 impressions at just <b>4.01% CTR</b>, with one guide (<i>15 Most Expensive Wines</i>, EN) burning <b>47,255 impressions at 0.41% CTR</b> from page one. July's job is to stop the leak: fix titles/cannibalization on proven pages and ship decisive, AEO-structured pieces against the exact head terms (ไวน์, แชมเปญ, cava, ไวน์แดง) where we sit at p5–9 but lose the click.
+  </div>
+  <div class="posstmt liq">
+    <b>LIQ9.</b> June confirmed a greenfield — 2 indexed pages, ~557 impressions — so there's nothing to optimise, only ground to claim. July's job is first-index velocity: ship a TH/EN-paired foundation (Rum 101, Tequila 101, single-malt & tequila selections, aperitivo/cocktail lifestyle) aimed at the surging premium-spirits signals (Japanese-whisky scarcity, tequila premiumisation, aperitivo) so we're the entity Google and the answer engines index <i>first</i>.
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="intel">
+  <h2><span class="num">2</span>Data intelligence — the 8 signals driving July</h2>
+  <p class="sub">Each row is the demand; the plan column is our response.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>#</th><th>Signal</th><th>Evidence (28-day)</th><th>Source</th><th>Plan response</th></tr></thead>
+    <tbody>
+    <tr><td>1</td><td><b>"Most expensive wine" — our biggest leak</b></td><td>EN guide 47,255 impr · <b>0.41% CTR</b> · p8.2; TH + 2026 variants live → 3-way cannibalization</td><td>gsc_pages</td><td>Recovery R1 (consolidate) — not a 4th page</td></tr>
+    <tr><td>2</td><td><b>"cava" — huge impr, ~zero clicks</b></td><td>kw <code>cava</code> 9,706 impr · <b>0.02% CTR</b> · p5.4; page 0.28%</td><td>opportunities</td><td>Hero <b>WN-E1 Cava 101</b> + title fix</td></tr>
+    <tr><td>3</td><td><b>Champagne head-terms rank p5, leak clicks</b></td><td><code>แชมเปญ</code> 5,370 p5.2 · <code>champagne</code> 2,210 p6.1 · <code>moet</code>, <code>dom perignon</code></td><td>opportunities</td><td>Hero <b>WN-S3</b> + title fixes</td></tr>
+    <tr><td>4</td><td><b>Red-wine commercial cluster is hot</b></td><td><code>ไวน์แดง</code> 3,205 p5.7 · /red-wine.html 9,065 impr p4.4</td><td>gsc_pages</td><td><b>WN-S1</b> (red ≤฿1,000) + <b>WN-S2</b> (top-10 2026)</td></tr>
+    <tr><td>5</td><td><b>Bestseller PDPs are collapsing in rank</b></td><td>jacob's creek cab 2.1→14.2 · catena zapata 1.6→8.4 · cloudy bay 2.6→11.3 · matua 2.2→7.9 · krug 3.0→8.8 (34 critical)</td><td>regression_alerts</td><td><b>Recovery R3</b> — internal-link repair</td></tr>
+    <tr><td>6</td><td><b>Japanese whisky + tequila premiumisation</b></td><td>BI: Asahi RTDs, Nikka, Four Roses, Casamigos, Los Sundays, "Brand Champions 2026"</td><td>content_hub</td><td><b>LQ-T1, LQ-S2, LQ-E2</b></td></tr>
+    <tr><td>7</td><td><b>Aperitivo / low-ABV / heat-driven drinking</b></td><td>BI: Paris heatwave ×2 (<code>climate_impact</code>), low-ABV seltzers, margarita bars + Thai hot season</td><td>content_hub</td><td><b>LQ-F1, LQ-F2, WN-T2</b></td></tr>
+    <tr><td>8</td><td><b>Pinot Noir is a cultural moment</b></td><td>BI VinePair "American Pinot Noir Is American Now" → <code>cultural_moment</code>, <code>viral_on_social</code></td><td>content_hub</td><td><b>WN-T1</b></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 3 -->
+<section id="fw">
+  <h2><span class="num">3</span>The 5-category framework, applied</h2>
+  <p class="sub">Identical distribution per brand — both treated as equal-weight properties.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Category</th><th class="num">Wine-Now</th><th class="num">LIQ9</th><th>What it does here</th></tr></thead>
+    <tbody>
+    <tr><td><b>Recommend</b></td><td class="num">3</td><td class="num">3</td><td>Single brand/style picks w/ rationale → commercial intent, PDP link equity</td></tr>
+    <tr><td><b>Selection / Curation</b></td><td class="num">3</td><td class="num">3</td><td>Ranked roundups → ItemList, "best X" AEO capture, recovery link hubs</td></tr>
+    <tr><td><b>Food Pairing &amp; Lifestyle</b></td><td class="num">2</td><td class="num">2</td><td>Pairing/occasion → HowTo, dwell-time, citation magnets</td></tr>
+    <tr><td><b>Education</b></td><td class="num">2</td><td class="num">2</td><td>101s / "คืออะไร" → FAQPage, definition snippets, top-of-funnel</td></tr>
+    <tr><td><b>Trend</b></td><td class="num">2</td><td class="num">2</td><td>What's surging globally that Thai buyers care about → freshness, entity authority</td></tr>
+    <tr><td><b>Total</b></td><td class="num"><b>12</b></td><td class="num"><b>12</b></td><td></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 4 -->
+<section id="cal">
+  <h2><span class="num">4</span>Week-by-week calendar (1–31 July 2026)</h2>
+  <p class="sub">Verified Thailand date pegs.</p>
+  <div class="callout">
+    <b>⛔ 28–30 July is a commercial blackout.</b> Tue 28 — H.M. King Vajiralongkorn's Birthday (royal occasion, respectful tone). Wed 29 — <b>Asalha Bucha</b> → nationwide 24h alcohol-sale ban. Thu 30 — <b>Khao Phansa / Buddhist Lent</b> → nationwide 24h ban (start of งดเหล้าเข้าพรรษา). No promotional pushes, no LINE/buy CTAs, no SKU cards publishing or boosting on those dates.
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Week</th><th>Dates</th><th>Wine-Now</th><th>LIQ9</th></tr></thead>
+    <tbody>
+    <tr><td><b>W1</b></td><td>Wed 1 – Fri 3</td><td>E1 Cava · S1 Red ≤฿1,000</td><td>E1 Rum 101 · R2 Bacardi</td></tr>
+    <tr><td><b>W2</b></td><td>Mon 6 – Fri 10</td><td>S2 Top-10 Red 2026 · S3 Champagne</td><td>E2 Tequila 101 · S1 Single Malt · R1 Lagavulin</td></tr>
+    <tr><td><b>W3</b></td><td>Mon 13 – Fri 17</td><td>R1 Rosé · R2 Mondavi · F1 Thai-food pairing</td><td>S2 Tequila all-budgets · F1 Aperitivo</td></tr>
+    <tr><td><b>W4</b></td><td>Mon 20 – Fri 24</td><td>E2 Decanter · R3 Prosecco · T1 Am. Pinot</td><td>R3 Vodka · F2 Summer cocktails · S3 Gift sets</td></tr>
+    <tr class="blackout"><td><b>—</b></td><td>Tue 28 – Thu 30</td><td colspan="2"><b>BLACKOUT</b> — no commercial publishing or link-boosting (optional non-commercial Khao Phansa / mindful-drinking note, 0 SKUs)</td></tr>
+    <tr><td><b>W5</b></td><td>Mon 27 + Fri 31</td><td>F2 Cheers &amp; table-setting (27) · T2 Hot-weather wine (31)</td><td>T1 Japanese whisky (27) · T2 Limited/investment (31)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="legend">Cadence ~5–6 publishes/week, brands alternated; four days carry one piece per brand. Nothing publishes or is link-boosted 28–30 Jul.</p>
+</section>
+
+<!-- 5 -->
+<section id="slate">
+  <h2><span class="num">5</span>Full content slate</h2>
+  <p class="sub">
+    <span class="tag t-hero">Hero</span> highest-signal, EN pair + full schema &nbsp;
+    <span class="tag t-std">Standard</span> core slate &nbsp;
+    <span class="tag t-fill">Filler</span> evergreen, flexible date &nbsp;·&nbsp;
+    <span class="tag t-ok">✅ SKUs mapped</span> &nbsp; <span class="tag t-warn">⚠️ no SKU → 0 cards + LINE</span>
+  </p>
+
+  <h3><span class="tag t-wine">Wine-Now</span> &nbsp;12 pieces</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ID</th><th>Cat</th><th>Thai title (H1)</th><th>Target kw</th><th>Priority</th><th class="num">Words</th><th>Schema</th><th>SKU</th></tr></thead>
+    <tbody>
+    <tr><td>WN-E1</td><td>Education</td><td class="th">Cava คืออะไร? สปาร์กลิงสเปนที่คุ้มกว่าแชมเปญ</td><td><code>cava คือ</code></td><td><span class="tag t-hero">Hero</span></td><td class="num">1,600</td><td>Article+FAQ</td><td>⚠️</td></tr>
+    <tr><td>WN-S1</td><td>Selection</td><td class="th">ไวน์แดงน่าดื่ม งบไม่เกิน 1,000 บาท: 8 ขวดคุ้มค่า</td><td><code>ไวน์แดง ราคาไม่เกิน 1000</code></td><td><span class="tag t-hero">Hero</span></td><td class="num">1,400</td><td>Article+ItemList+FAQ</td><td>✅</td></tr>
+    <tr><td>WN-S2</td><td>Selection</td><td class="th">10 ไวน์แดงขายดีแห่งปี 2026</td><td><code>ไวน์แดงขายดี</code></td><td><span class="tag t-hero">Hero</span></td><td class="num">1,500</td><td>Article+ItemList</td><td>✅</td></tr>
+    <tr><td>WN-S3</td><td>Selection</td><td class="th">8 แบรนด์แชมเปญที่ควรรู้จักก่อนเลือกฉลอง</td><td><code>แชมเปญ ยี่ห้อ</code></td><td><span class="tag t-hero">Hero</span></td><td class="num">1,500</td><td>Article+ItemList+FAQ</td><td>✅</td></tr>
+    <tr><td>WN-R1</td><td>Recommend</td><td class="th">ไวน์โรเซ่ไม่ใช่แค่ของหน้าร้อน: 6 ขวดน่าลอง</td><td><code>ไวน์โรเซ่</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,200</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>WN-R2</td><td>Recommend</td><td class="th">Robert Mondavi คุ้มไหม? เจาะรุ่นยอดนิยม</td><td><code>robert mondavi ราคา</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,200</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>WN-R3</td><td>Recommend</td><td class="th">Prosecco vs Champagne: เลือกฟองไหนดีในงบของคุณ</td><td><code>prosecco</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,200</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>WN-F1</td><td>Food/Life</td><td class="th">จับคู่ไวน์กับอาหารไทย: 5 คู่ที่ลงตัว (เผ็ดก็เอาอยู่)</td><td><code>ไวน์ คู่ อาหารไทย</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,300</td><td>Article+HowTo+FAQ</td><td>✅</td></tr>
+    <tr><td>WN-F2</td><td>Food/Life</td><td class="th">ธรรมเนียมการชนแก้วทั่วโลก &amp; วิธีจัดโต๊ะไวน์ต้อนรับแขก</td><td><code>การชนแก้ว</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,200</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>WN-E2</td><td>Education</td><td class="th">Decanter คืออะไร ใช้ตอนไหน และจำเป็นไหม</td><td><code>decanter คือ</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,100</td><td>Article+FAQ</td><td>⚠️</td></tr>
+    <tr><td>WN-T1</td><td>Trend</td><td class="th">ทำไม Pinot Noir อเมริกันถึงมาแรงในปีนี้</td><td><code>pinot noir อเมริกัน</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,000</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>WN-T2</td><td>Trend</td><td class="th">ไวน์รับมือหน้าร้อนไทย: เทรนด์ ABV ต่ำ เสิร์ฟเย็น</td><td><code>ไวน์ หน้าร้อน</code></td><td><span class="tag t-fill">Filler</span></td><td class="num">1,000</td><td>Article+FAQ</td><td>✅</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="tag t-liq">LIQ9</span> &nbsp;12 pieces &nbsp;<span class="tag t-ok">all TH/EN paired — hreflang from day one</span></h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ID</th><th>Cat</th><th>Thai title (H1)</th><th>Target kw</th><th>Priority</th><th class="num">Words</th><th>Schema</th><th>SKU</th></tr></thead>
+    <tbody>
+    <tr><td>LQ-E1</td><td>Education</td><td class="th">รัม 101: รู้จักรัมตั้งแต่การผลิตถึงการชิม</td><td><code>รัม คือ</code></td><td><span class="tag t-hero">Hero</span></td><td class="num">1,800</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>LQ-E2</td><td>Education</td><td class="th">เตกีล่า 101: จากต้นอากาเวถึงแก้วของคุณ</td><td><code>เตกีล่า คือ</code></td><td><span class="tag t-hero">Hero</span></td><td class="num">1,800</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>LQ-S1</td><td>Selection</td><td class="th">Single Malt น่าเริ่มสะสม: 5 ขวด เริ่มต้นถึงพรีเมียม</td><td><code>single malt แนะนำ</code></td><td><span class="tag t-hero">Hero</span></td><td class="num">1,500</td><td>Article+ItemList+FAQ</td><td>✅</td></tr>
+    <tr><td>LQ-S2</td><td>Selection</td><td class="th">เตกีล่าน่าลองทุกงบ: จากค็อกเทลถึงจิบเพียวๆ</td><td><code>เตกีล่า ยี่ห้อ</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,400</td><td>Article+ItemList</td><td>✅</td></tr>
+    <tr><td>LQ-S3</td><td>Selection</td><td class="th">ชุดของขวัญเหล้า: เลือกอย่างไรให้ดูดีและไม่ผิดที่</td><td><code>ชุดของขวัญ เหล้า</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,200</td><td>Article+ItemList+FAQ</td><td>✅</td></tr>
+    <tr><td>LQ-R1</td><td>Recommend</td><td class="th">Lagavulin 16: วิสกี้พีทสำหรับมือใหม่ถึงนักสะสม</td><td><code>lagavulin 16 รีวิว</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,100</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>LQ-R2</td><td>Recommend</td><td class="th">Bacardi: รัมคลาสสิกสำหรับค็อกเทลที่บ้าน</td><td><code>bacardi รัม</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,100</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>LQ-R3</td><td>Recommend</td><td class="th">วอดก้าตัวไหนคุ้มสุดสำหรับค็อกเทลที่บ้าน</td><td><code>วอดก้า ยี่ห้อ</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,100</td><td>Article+FAQ</td><td>✅</td></tr>
+    <tr><td>LQ-F1</td><td>Food/Life</td><td class="th">Negroni &amp; Aperitivo: เทรนด์ดื่มก่อนมื้อเย็นสไตล์อิตาเลียน</td><td><code>negroni สูตร</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,300</td><td>Article+HowTo+FAQ</td><td>✅</td></tr>
+    <tr><td>LQ-F2</td><td>Food/Life</td><td class="th">5 ค็อกเทลคลายร้อนทำเองง่ายๆ ที่บ้าน</td><td><code>ค็อกเทล ทำเอง</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,300</td><td>Article+HowTo</td><td>✅</td></tr>
+    <tr><td>LQ-T1</td><td>Trend</td><td class="th">ทำไมวิสกี้ญี่ปุ่นถึงหายากและราคาพุ่ง</td><td><code>วิสกี้ญี่ปุ่น</code></td><td><span class="tag t-std">Standard</span></td><td class="num">1,000</td><td>Article+FAQ</td><td>⚠️</td></tr>
+    <tr><td>LQ-T2</td><td>Trend</td><td class="th">เหล้ารุ่นลิมิเต็ด: สะสมเพื่อดื่มหรือเพื่อลงทุน</td><td><code>เหล้า สะสม ลงทุน</code></td><td><span class="tag t-fill">Filler</span></td><td class="num">1,000</td><td>Article+FAQ</td><td>✅</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 6 -->
+<section id="brief">
+  <h2><span class="num">6</span>Brief Register</h2>
+  <p class="sub">KEY · TENSION · STORY · AEO · SKUs (real, in-stock only) · hreflang · SCHEMA. Pricing on-page must read “~฿X · สอบถามราคา/สั่งซื้อทาง LINE”.</p>
+
+  <h3><span class="tag t-wine">Wine-Now</span></h3>
+  <div class="grid-cards">
+
+    <div class="brief"><h4>WN-E1 · Cava 101 <span class="tag t-hero">Hero</span></h4><span class="id">Education · cava คือ</span>
+      <dl><dt>Key</dt><dd>Méthode-traditionnelle sparkling at a fraction of Champagne — the value answer 9,706 impr are hunting but nobody serves (0.02% CTR).</dd>
+      <dt>Tension</dt><dd>We rank p5.4 yet no clicks — title doesn't answer "what is cava / cheaper than champagne?"</dd>
+      <dt>Story</dt><dd>45-word definition + Cava vs Champagne vs Prosecco table; snippet-ready.</dd>
+      <dt>AEO</dt><dd>Definition block → 3-col comparison table → 5-Q FAQ.</dd>
+      <dt>SKUs</dt><dd>⚠️ No Cava SKU → 0 cards + LINE. Cross-link <span class="sku">WSP1140AE</span> Follador Prosecco ~฿853, <span class="sku">WSP1117AD</span> Chandon ~฿821.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-S1 · Red wine under ฿1,000 <span class="tag t-hero">Hero</span></h4><span class="id">Selection · ไวน์แดง ราคาไม่เกิน 1000</span>
+      <dl><dt>Key</dt><dd>Biggest under-served commercial cluster: ไวน์แดง p5.7 + /red-wine.html 9,065 impr, no curated budget shortlist.</dd>
+      <dt>Tension</dt><dd>Category page is a grid, not guidance.</dd>
+      <dt>Story</dt><dd>8 bottles, each with grape, taste, "buy if you like…" — all ≤฿1,000 in stock.</dd>
+      <dt>AEO</dt><dd>Ranked ItemList + best-overall/Thai-food/beginner callouts.</dd>
+      <dt>SKUs</dt><dd><span class="sku">WRW4313AC</span> G7 Carmenère ~฿747 · <span class="sku">WRW0282AD</span> Concha y Toro ~฿411 · <span class="sku">WRW3122CH</span> McGuigan Red ~฿462 · <span class="sku">WRW0203AH</span> Hardys Cab ~฿373 · <span class="sku">WRW3305DD</span> Viu Manent Merlot ~฿504 · <span class="sku">WRW6044AH</span> Tarapacá ~฿700 · <span class="sku">WRW5836AA</span> Velenosi ~฿959 · <span class="sku">WRW6186WN</span> Vieille Tour ~฿906.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + ItemList + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-S2 · Top-10 best-selling red 2026 <span class="tag t-hero">Hero</span></h4><span class="id">Selection · ไวน์แดงขายดี</span>
+      <dl><dt>Key</dt><dd>Refresh the live "…2024" page (6,642 impr, 3.24%) to a 2026 edition.</dd>
+      <dt>Tension</dt><dd>"2024" in mid-2026 reads stale; date+SKU refresh is a proven CTR/freshness win.</dd>
+      <dt>Story</dt><dd>Real bestseller ordering — soft badges only, no #NN ranks.</dd>
+      <dt>AEO</dt><dd>ItemList of 10 (grape/country/price); lead answers "most popular red in Thailand now."</dd>
+      <dt>SKUs</dt><dd><span class="sku">WRW2358BN</span> Glaetzer Bishop · <span class="sku">WRW3122CH</span> McGuigan · <span class="sku">WRW4313AC</span> G7 · <span class="sku">WRW6044AH</span> Tarapacá · <span class="sku">WRW3191AD</span> ZOLLA Primitivo · <span class="sku">WRW0203AH</span> Hardys · <span class="sku">WRW0282AD</span> Concha y Toro · <span class="sku">WRW6188WN</span> Vieille Tour Reserve · <span class="sku">WRW2369AD</span> Torbreck Woodcutter's · <span class="sku">WRW3305DD</span> Viu Manent.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + ItemList <i>(linked to Recovery R1)</i></dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-S3 · 8 Champagne brands to know <span class="tag t-hero">Hero</span></h4><span class="id">Selection · แชมเปญ ยี่ห้อ</span>
+      <dl><dt>Key</dt><dd>Champagne head-terms throw 10k+ impr at p5–6 with weak CTR; one brand-guide captures the cluster.</dd>
+      <dt>Tension</dt><dd>Brand queries scatter across thin PDPs; no "which house is which" answer.</dd>
+      <dt>Story</dt><dd>House-by-house: style, price tier, "buy for…" — grower fizz to prestige cuvée.</dd>
+      <dt>AEO</dt><dd>ItemList of houses + style table + FAQ.</dd>
+      <dt>SKUs</dt><dd><span class="sku">WSP1104BU</span> Moët ~฿2,082 · <span class="sku">WSP1096AD</span> Veuve ~฿2,186 · <span class="sku">WSP5780AD</span> Dom Pérignon ~฿9,737 · <span class="sku">WSP0005FO</span> Billecart Rosé ~฿3,737 · <span class="sku">WSP9005BN</span> Roederer BdB ~฿3,005 · <span class="sku">WSP1093AD</span> Krug ~฿11,775 · <span class="sku">WSP5728FR</span> Alain Navarre ~฿1,214.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + ItemList + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-R1 · Rosé beyond summer <span class="tag t-std">Standard</span></h4><span class="id">Recommend · ไวน์โรเซ่</span>
+      <dl><dt>Key</dt><dd>what-is-rose-wine already draws 2,150 impr (p4.7); BI reframes rosé year-round.</dd>
+      <dt>Tension</dt><dd>Thai buyers still box rosé as a one-season novelty.</dd>
+      <dt>Story</dt><dd>6 rosés by occasion (apéritif, spicy food, gifting).</dd>
+      <dt>AEO</dt><dd>"Best rosé for…" list + FAQ (sweet? serve temp?).</dd>
+      <dt>SKUs</dt><dd><span class="sku">WRS0035AB</span> Whispering Angel ~฿980 · <span class="sku">WSP1115AD</span> Dom Pérignon Rosé ~฿17,177.</dd>
+      <dt>hreflang / schema</dt><dd>TH-only · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-R2 · Is Robert Mondavi worth it? <span class="tag t-std">Standard</span></h4><span class="id">Recommend · robert mondavi ราคา</span>
+      <dl><dt>Key</dt><dd>robert mondavi 1,753 impr at <b>p11.2</b> (page-2) + ราคา 757 — one push from owning.</dd>
+      <dt>Tension</dt><dd>Buyers can't tell tiers (Private Selection / Napa / Oakville) apart.</dd>
+      <dt>Story</dt><dd>Tier ladder + "which to buy at which budget."</dd>
+      <dt>AEO</dt><dd>Tier comparison table + FAQ.</dd>
+      <dt>SKUs</dt><dd><span class="sku">WRW0211AH</span> Napa Cab ~฿1,962 · <span class="sku">WRW3893AH</span> Oakville Estate Cab ~฿3,194.</dd>
+      <dt>hreflang / schema</dt><dd>TH-only · Article + FAQPage <i>(linked to Recovery R2)</i></dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-R3 · Prosecco vs Champagne on a budget <span class="tag t-std">Standard</span></h4><span class="id">Recommend · prosecco</span>
+      <dl><dt>Key</dt><dd>10-recommend-prosecco performs (5,492 impr, 3.37%, p3.8); a decision-frame companion captures "which bubbles for my budget."</dd>
+      <dt>Tension</dt><dd>Buyers conflate all sparkling.</dd>
+      <dt>Story</dt><dd>Side-by-side method/price/taste + 3 picks per budget band.</dd>
+      <dt>AEO</dt><dd>Comparison table + budget-banded picks.</dd>
+      <dt>SKUs</dt><dd><span class="sku">WSP1140AE</span> Follador ~฿853 · <span class="sku">WSP1117AD</span> Chandon ~฿821 · <span class="sku">WSP1104BU</span> Moët ~฿2,082.</dd>
+      <dt>hreflang / schema</dt><dd>TH-only · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-F1 · Wine × Thai food, 5 pairings <span class="tag t-std">Standard</span></h4><span class="id">Food/Life · ไวน์ คู่ อาหารไทย</span>
+      <dl><dt>Key</dt><dd>Pairing pages cluster at page-2 (13-rules p11.0); a Thai-specific guide outranks generic ones — prime AI-citation bait.</dd>
+      <dt>Tension</dt><dd>Generic pairing ignores chilli/heat/sweet-sour.</dd>
+      <dt>Story</dt><dd>5 dishes (ส้มตำ, ต้มยำ, กะเพรา, เขียวหวาน, ของหวาน) → exact bottle + why.</dd>
+      <dt>AEO</dt><dd>HowTo steps + dish→wine table (each row self-contained).</dd>
+      <dt>SKUs</dt><dd><span class="sku">WWW5371AB</span> Nollen Riesling Spätlese ~฿513 · <span class="sku">WRS0035AB</span> Whispering Angel ~฿980 · <span class="sku">WSP1140AE</span> Follador ~฿853 · <span class="sku">WWW1106AD</span> Matua SB ~฿635.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN (high citation value) · Article + HowTo + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-F2 · Cheers customs &amp; table-setting <span class="tag t-std">Standard</span></h4><span class="id">Food/Life · การชนแก้ว · publish 27 Jul</span>
+      <dl><dt>Key</dt><dd>how-to-cheers is 12,577 impr bleeding clicks (0.84%, p6.0); refreshed companion + title fix recovers it.</dd>
+      <dt>Tension</dt><dd>High curiosity but no hosting/buying mindset.</dd>
+      <dt>Story</dt><dd>Global cheers etiquette → "host a wine table at home" checklist.</dd>
+      <dt>AEO</dt><dd>Country→custom table + hosting checklist.</dd>
+      <dt>SKUs</dt><dd><span class="sku">WSP1104BU</span> Moët · <span class="sku">WSP1117AD</span> Chandon ~฿821 · <span class="sku">WSP1233AD</span> Wolf Blass Brut ~฿368 · <span class="sku">WSP1140AE</span> Follador.</dd>
+      <dt>hreflang / schema</dt><dd>TH-only · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-E2 · What is a decanter? <span class="tag t-std">Standard</span></h4><span class="id">Education · decanter คือ</span>
+      <dl><dt>Key</dt><dd>decanter คือ 758 impr at p3.9 — a clean definition snippet to own.</dd>
+      <dt>Tension</dt><dd>Beginners don't know when/why to decant.</dd>
+      <dt>Story</dt><dd>Definition → when (young tannic vs old) → cheap alternatives.</dd>
+      <dt>AEO</dt><dd>Definition block + decision table + FAQ.</dd>
+      <dt>SKUs</dt><dd>⚠️ No decanter SKU → 0 cards + LINE. Cross-link reds that benefit: <span class="sku">WRW4683AD</span> Penfolds Bin 389 ~฿2,803 · <span class="sku">WRW6539FS</span> Opus One ~฿17,491.</dd>
+      <dt>hreflang / schema</dt><dd>TH-only · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-T1 · American Pinot's moment <span class="tag t-std">Standard</span></h4><span class="id">Trend · pinot noir อเมริกัน</span>
+      <dl><dt>Key</dt><dd>Verified BI (VinePair, cultural_moment + viral_on_social); rides existing Pinot 101 interest.</dd>
+      <dt>Tension</dt><dd>Thai buyers know Burgundy, not the US story — low local competition.</dd>
+      <dt>Story</dt><dd>What changed (climate/style), US vs French taste, what to try here.</dd>
+      <dt>AEO</dt><dd>US-vs-French contrast table + FAQ.</dd>
+      <dt>SKUs</dt><dd><span class="sku">WRW4559CB</span> Bread &amp; Butter Pinot Noir ~฿1,144 · (context) <span class="sku">WRW0211AH</span> Mondavi Napa Cab.</dd>
+      <dt>hreflang / schema</dt><dd>TH-only · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>WN-T2 · Hot-season wine: low-ABV, served cold <span class="tag t-fill">Filler</span></h4><span class="id">Trend · ไวน์ หน้าร้อน · publish 31 Jul</span>
+      <dl><dt>Key</dt><dd>BI climate_impact (heat → lighter/low-ABV) maps onto Thai July heat.</dd>
+      <dt>Tension</dt><dd>"Wine is too heavy for this weather" goes unanswered.</dd>
+      <dt>Story</dt><dd>Why lighter/chilled styles suit the heat; what to pour, how cold.</dd>
+      <dt>AEO</dt><dd>Style→serve-temp table + FAQ ("can you chill red?").</dd>
+      <dt>SKUs</dt><dd><span class="sku">WWW5371AB</span> Nollen Riesling ~฿513 · <span class="sku">WSP1140AE</span> Follador ~฿853 · <span class="sku">WRS0035AB</span> Whispering Angel ~฿980.</dd>
+      <dt>hreflang / schema</dt><dd>TH-only · Article + FAQPage</dd></dl>
+    </div>
+
+  </div>
+
+  <h3><span class="tag t-liq">LIQ9</span> &nbsp;<span class="tag t-ok">all TH/EN</span></h3>
+  <div class="grid-cards">
+
+    <div class="brief"><h4>LQ-E1 · Rum 101 <span class="tag t-hero">Hero</span></h4><span class="id">Education · รัม คือ</span>
+      <dl><dt>Key</dt><dd>Foundational entity page; rum is approachable + cocktail-central, and we stock the #2 bestseller.</dd>
+      <dt>Tension</dt><dd>Greenfield — no Thai rum 101 from us yet; first-index land grab.</dd>
+      <dt>Story</dt><dd>Origins → production → styles → how to drink → 2 starters.</dd>
+      <dt>AEO</dt><dd>Definition + style table + FAQ (rum vs whisky, best for mojito).</dd>
+      <dt>SKUs</dt><dd><span class="sku">LRM0116DR</span> Bacardi Carta Blanca ~฿748 · <span class="sku">LRM0111BU</span> Malibu ~฿835.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-E2 · Tequila 101 <span class="tag t-hero">Hero</span></h4><span class="id">Education · เตกีล่า คือ</span>
+      <dl><dt>Key</dt><dd>Tequila premiumisation is the loudest BI spirits signal; own the 101 first.</dd>
+      <dt>Tension</dt><dd>Thai buyers equate tequila with shots, not sipping/100% agave.</dd>
+      <dt>Story</dt><dd>Agave → blanco/reposado/añejo → 100% agave vs mixto → reading a NOM label.</dd>
+      <dt>AEO</dt><dd>Definition + type table + FAQ (sip or shoot?).</dd>
+      <dt>SKUs</dt><dd><span class="sku">LTQ0034CN</span> Jose Cuervo Silver ~฿804 · <span class="sku">LTQ0033CN</span> Reposado ~฿844.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-S1 · 5 single malts to start collecting <span class="tag t-hero">Hero</span></h4><span class="id">Selection · single malt แนะนำ</span>
+      <dl><dt>Key</dt><dd>Strongest SKU coverage we have; single malt is the premium-whisky on-ramp.</dd>
+      <dt>Tension</dt><dd>Beginners paralysed between entry and prestige.</dd>
+      <dt>Story</dt><dd>5 bottles gateway→grail, each region/flavour/"buy when."</dd>
+      <dt>AEO</dt><dd>ItemList ladder + Speyside-vs-Islay flavour table + FAQ.</dd>
+      <dt>SKUs</dt><dd><span class="sku">LWH0001AA</span> Glenfiddich 12 ~฿2,208 · <span class="sku">LWH0318CN</span> Macallan 12 ~฿4,421 · <span class="sku">LWH0544AD</span> Dalmore 12 ~฿3,237 · <span class="sku">LWH0161BU</span> Lagavulin 16 ~฿4,665 · <span class="sku">LWH0668CN</span> Macallan 18 ~฿18,664.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + ItemList + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-S2 · Tequila for every budget <span class="tag t-std">Standard</span></h4><span class="id">Selection · เตกีล่า ยี่ห้อ</span>
+      <dl><dt>Key</dt><dd>Converts tequila-trend interest into a shoppable ladder (mixers → sipping añejo).</dd>
+      <dt>Tension</dt><dd>No local guide spans "margarita pour" to "collector añejo."</dd>
+      <dt>Story</dt><dd>Budget bands, each a pick + best use.</dd>
+      <dt>AEO</dt><dd>ItemList banded by price + use-case column.</dd>
+      <dt>SKUs</dt><dd><span class="sku">LTQ0034CN</span> JC Silver ~฿804 · <span class="sku">LTQ0033CN</span> JC Reposado ~฿844 · <span class="sku">LTQ0250CN</span> 1800 Milenio ~฿9,813 · <span class="sku">LTQ0209GH</span> 818 Reserve ~฿12,569 · <span class="sku">LTQ0249CN</span> 1800 Añejo ~฿12,589.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + ItemList</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-S3 · Spirits gift sets <span class="tag t-std">Standard</span></h4><span class="id">Selection · ชุดของขวัญ เหล้า · ≤24 Jul</span>
+      <dl><dt>Key</dt><dd>Commercial/gifting intent; strong gift-ready SKUs (decanters, boxed, prestige).</dd>
+      <dt>Tension</dt><dd>Gift-buyers fear picking "wrong"; need occasion-mapped curation.</dd>
+      <dt>Story</dt><dd>Gift tiers by budget/relationship; presentation cues.</dd>
+      <dt>AEO</dt><dd>ItemList by occasion/budget + FAQ ("best whisky gift under ฿X").</dd>
+      <dt>SKUs</dt><dd><span class="sku">LWH0001AA</span> Glenfiddich 12 box ~฿2,208 · <span class="sku">LWH0145BU</span> JW Gold XR 21 ~฿5,420 · <span class="sku">LWH0332BU</span> Royal Salute Decanter ~฿7,629 · <span class="sku">LBD0224BU</span> Hennessy XO ~฿10,279.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + ItemList + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-R1 · Lagavulin 16 <span class="tag t-std">Standard</span></h4><span class="id">Recommend · lagavulin 16 รีวิว</span>
+      <dl><dt>Key</dt><dd>Iconic peated single malt, in stock; high-intent brand recommend.</dd>
+      <dt>Tension</dt><dd>Peat scares beginners, over-mystified for enthusiasts.</dd>
+      <dt>Story</dt><dd>Who it's for, nose/palate/finish, how to serve, value vs rivals.</dd>
+      <dt>AEO</dt><dd>Nose/palate/finish table + FAQ.</dd>
+      <dt>SKUs</dt><dd><span class="sku">LWH0161BU</span> Lagavulin 16 ~฿4,665.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-R2 · Bacardi for home cocktails <span class="tag t-std">Standard</span></h4><span class="id">Recommend · bacardi รัม</span>
+      <dl><dt>Key</dt><dd>#2 bestseller; anchors the rum/cocktail funnel cheaply.</dd>
+      <dt>Tension</dt><dd>Seen as "just a mixer" — under-explained for quality drinks.</dd>
+      <dt>Story</dt><dd>Why Carta Blanca is the cocktail workhorse + 3 easy builds.</dd>
+      <dt>AEO</dt><dd>3 mini-recipes (HowTo) + FAQ.</dd>
+      <dt>SKUs</dt><dd><span class="sku">LRM0116DR</span> Bacardi ~฿748 · <span class="sku">LRM0111BU</span> Malibu ~฿835.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-R3 · Best-value vodka for cocktails <span class="tag t-std">Standard</span></h4><span class="id">Recommend · วอดก้า ยี่ห้อ</span>
+      <dl><dt>Key</dt><dd>Russian Standard is the <b>#1 bestseller</b> — ride proven sell-through.</dd>
+      <dt>Tension</dt><dd>Vodka bought on price/habit; no guidance on what's worth it.</dd>
+      <dt>Story</dt><dd>What makes a clean vodka, two value picks, what to mix.</dd>
+      <dt>AEO</dt><dd>Pick table + FAQ.</dd>
+      <dt>SKUs</dt><dd><span class="sku">LVK0181AE</span> Russian Standard Platinum ~฿824 · <span class="sku">LVK0047BU</span> Smirnoff ~฿831.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-F1 · Negroni &amp; the aperitivo trend <span class="tag t-std">Standard</span></h4><span class="id">Food/Life · negroni สูตร</span>
+      <dl><dt>Key</dt><dd>Strong BI aperitivo signal (Campari/Aperol, margarita bars); both bitters in stock.</dd>
+      <dt>Tension</dt><dd>Aperitivo rising in Bangkok but few Thai how-tos.</dd>
+      <dt>Story</dt><dd>What aperitivo is → the Negroni (3 equal parts) → Thai-friendly riffs.</dd>
+      <dt>AEO</dt><dd>HowTo recipe (ratios) + FAQ (Negroni vs Americano).</dd>
+      <dt>SKUs</dt><dd><span class="sku">LLQ0062CN</span> Campari ~฿1,227 · <span class="sku">LLQ0426CN</span> Aperol ~฿1,283 · <span class="sku">LGN0106AA</span> Suntory Roku ~฿1,273.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + HowTo + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-F2 · 5 heat-beating cocktails at home <span class="tag t-std">Standard</span></h4><span class="id">Food/Life · ค็อกเทล ทำเอง</span>
+      <dl><dt>Key</dt><dd>Thai July heat + BI spritz/margarita/mojito momentum.</dd>
+      <dt>Tension</dt><dd>People default to buying out; no simple "make it cold at home" set.</dd>
+      <dt>Story</dt><dd>5 builds (mojito, margarita, spritz, piña colada, highball) with our SKUs.</dd>
+      <dt>AEO</dt><dd>5 HowTo recipes, each self-contained (ratios + glass).</dd>
+      <dt>SKUs</dt><dd><span class="sku">LRM0116DR</span> Bacardi · <span class="sku">LTQ0034CN</span> JC Silver · <span class="sku">LLQ0426CN</span> Aperol · <span class="sku">LRM0111BU</span> Malibu.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + HowTo</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-T1 · Why Japanese whisky is scarce &amp; pricey <span class="tag t-std">Standard</span></h4><span class="id">Trend · วิสกี้ญี่ปุ่น · publish 27 Jul</span>
+      <dl><dt>Key</dt><dd>One of the strongest BI signals (Asahi RTDs, Nikka, Four Roses); huge Thai interest.</dd>
+      <dt>Tension</dt><dd>Buyers don't get the scarcity/age-statement story or what to buy instead.</dd>
+      <dt>Story</dt><dd>Why prices rose, real vs "world blend," in-stock adjacents.</dd>
+      <dt>AEO</dt><dd>Cause→effect explainer + FAQ.</dd>
+      <dt>SKUs</dt><dd>⚠️ No Japanese whisky SKU → 0 cards + LINE. Cross-link <span class="sku">LGN0106AA</span> Suntory Roku Gin ~฿1,273 + Macallan alts.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + FAQPage</dd></dl>
+    </div>
+
+    <div class="brief"><h4>LQ-T2 · Limited editions: drink or invest? <span class="tag t-fill">Filler</span></h4><span class="id">Trend · เหล้า สะสม ลงทุน · publish 31 Jul</span>
+      <dl><dt>Key</dt><dd>BI investment_opportunity + limited_release; we hold collectible SKUs.</dd>
+      <dt>Tension</dt><dd>Collectors wonder if "limited" = investment; no honest Thai take.</dd>
+      <dt>Story</dt><dd>What drives value, drink-vs-hold, our current collectible stock.</dd>
+      <dt>AEO</dt><dd>Decision-framework table + FAQ.</dd>
+      <dt>SKUs</dt><dd><span class="sku">LWH0332BU</span> Royal Salute Decanter ~฿7,629 · <span class="sku">LBD0224BU</span> Hennessy XO ~฿10,279 · <span class="sku">LWH0040BU</span> Ballantine's 30 ~฿18,133 · <span class="sku">LWH0668CN</span> Macallan 18 ~฿18,664 · <span class="sku">LBD0188DD</span> St Agnes XO 40 ~฿31,654.</dd>
+      <dt>hreflang / schema</dt><dd>TH/EN · Article + FAQPage</dd></dl>
+    </div>
+
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="rec">
+  <h2><span class="num">7</span>Recovery actions <span style="font-weight:400;font-size:13px;color:var(--muted)">(engineering / internal-link — not articles)</span></h2>
+  <p class="sub">Highest ROI on the site right now — separate work-track from the content slate.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>ID</th><th>Action</th><th>Evidence</th><th>Priority</th></tr></thead>
+    <tbody>
+    <tr><td><b>R1</b></td><td><b>Consolidate "most expensive wine" cannibalization.</b> One canonical TH page; 301/canonical the EN + 2026 variants; consolidate internal links.</td><td>EN 47,255 impr @ <b>0.41% CTR</b> p8.2 vs TH 2.93% vs 2026 variant</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td><b>R2</b></td><td><b>Title/meta rewrites (high-imp/low-CTR):</b> cava-champagne (6,815 @ 0.28%), how-to-cheers (12,577 @ 0.84%), champagne-or-sparkling (8,150 @ 0.75%), 100-wine-words (5,587 @ 1.58%).</td><td>58 high_impressions_low_ctr rows</td><td><span class="tag t-p0">P0</span></td></tr>
+    <tr><td><b>R3</b></td><td><b>PDP rank-recovery via internal links</b> from new July pieces + category pages; audit broken links.</td><td>jacob's creek cab 2.1→14.2, catena zapata <span class="sku">WRW1249AD</span>, cloudy bay <span class="sku">WWW1197AD</span>, matua <span class="sku">WWW1106AD</span>, krug <span class="sku">WSP1093AD</span>, château margaux 4.6→13.0</td><td><span class="tag t-std">P1</span></td></tr>
+    <tr><td><b>R4</b></td><td><b>Page-2 nudges</b> via links from new pillars: robert-mondavi (p11.2), mondavi-merlot PDP (p9.2), 13-rules-pairing (p11.0), bourbon-barrel-cab PDP (p12.2).</td><td>33 page_two_position rows</td><td><span class="tag t-std">P1</span></td></tr>
+    <tr><td><b>R5</b></td><td><b>Investigate <code>moulin de gassac</code> collapse 2.5→20.1</b> (likely de-index/out-of-stock); not in feed.</td><td>regression_alerts (705% change)</td><td><span class="tag t-fill">P2</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 8 -->
+<section id="aeo">
+  <h2><span class="num">8</span>AEO acceptance checklist <span style="font-weight:400;font-size:13px;color:var(--muted)">(every piece, pre-publish)</span></h2>
+  <div class="two">
+    <ul style="margin:0;padding-left:18px;font-size:13px">
+      <li>Direct answer first — opening 40–60 words answer the query (inverted pyramid).</li>
+      <li>H2/H3 mirror real questions (keyword + fan-out / People-Also-Ask).</li>
+      <li>One extractable structure present — table / ItemList / definition / HowTo (per §5).</li>
+      <li>FAQ block (3–5 genuine Qs) mirrored exactly in FAQPage JSON-LD.</li>
+      <li>Schema valid — Article <code>headline</code> === H1; 3 blocks; passes Rich Results Test.</li>
+      <li>Every product card = real in-stock <code>data-sku</code> + visible SKU chip; ⚠️ pieces ship 0 cards + LINE.</li>
+    </ul>
+    <ul style="margin:0;padding-left:18px;font-size:13px">
+      <li>No fabricated facts — no invented prices/ABV/tax/critic scores/#NN ranks; claims attributed; verify-note where pending.</li>
+      <li>Compliance — pricing <code>~฿ · สอบถามราคา/สั่งซื้อทาง LINE</code>; footer <code>ดื่มอย่างมีความรับผิดชอบ · 20+</code>; branded E-E-A-T byline.</li>
+      <li>hreflang — LIQ9 100% TH/EN; Wine-Now heroes TH/EN, rest TH-only; reciprocal + canonical.</li>
+      <li>≥3 contextual internal links (prioritise R3/R4 targets).</li>
+      <li>CLS — .figph/img 16:9 aspect-ratio; OG/Twitter incl. og:image.</li>
+      <li><b>Blackout respected — nothing commercial 28–30 Jul.</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="kpi">
+  <h2><span class="num">9</span>July KPIs (baselines from 28-day actuals)</h2>
+
+  <h3><span class="tag t-wine">Wine-Now</span></h3>
+  <p class="kpi-base">Baseline (2026-05-29 → 06-25): <b>555,695</b> impressions · <b>22,304</b> clicks · <b>4.01%</b> blended CTR · <b>7,078</b> indexed pages.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>KPI</th><th>Baseline</th><th>July target</th><th>Lever</th></tr></thead>
+    <tbody>
+    <tr><td>Blended CTR</td><td>4.01%</td><td><b>≥4.5%</b></td><td>R1 + R2 fixes</td></tr>
+    <tr><td>"Most expensive wine" EN CTR</td><td>0.41% @ 47,255 impr</td><td><b>≥2.0%</b> (≈ +750 clicks/mo)</td><td>R1 consolidation + title</td></tr>
+    <tr><td>High-imp/low-CTR opps resolved</td><td>0 / 58</td><td><b>≥20</b></td><td>R2 + hero pages</td></tr>
+    <tr><td>Critical rank regressions recovered</td><td>0 / 34</td><td><b>≥10 kws to ≤ p5</b></td><td>R3 link repair</td></tr>
+    <tr><td>Page-2 pillars moved to ≤ p7</td><td>—</td><td><b>≥6 pages</b></td><td>R4 + cluster links</td></tr>
+    <tr><td>New Wine-Now pieces live</td><td>—</td><td><b>12</b></td><td>this slate</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="tag t-liq">LIQ9</span></h3>
+  <p class="kpi-base">Baseline: <b>557</b> impressions · <b>311</b> clicks · <b>2</b> indexed pages (greenfield).</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>KPI</th><th>Baseline</th><th>July target</th><th>Lever</th></tr></thead>
+    <tbody>
+    <tr><td>New URLs first-indexed</td><td>2 pages</td><td><b>all 12 within 14 days</b></td><td>sitemap ping + links</td></tr>
+    <tr><td>hreflang TH/EN coverage</td><td>n/a</td><td><b>100%</b></td><td>first-index correctness</td></tr>
+    <tr><td>Indexed pages</td><td>2</td><td><b>≥40</b></td><td>publishing + linking</td></tr>
+    <tr><td>Cumulative impressions</td><td>~557 / 28d</td><td><b>≥5,000 in July</b></td><td>Education + Trend capture</td></tr>
+    <tr><td>Pieces w/ valid schema</td><td>—</td><td><b>100%</b></td><td>AEO checklist</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- confirm -->
+<section class="confirm">
+  <h2>Before you push to Notion</h2>
+  <p class="sub">This is a review surface — nothing has been written to Notion yet. On your confirm I can:</p>
+  <ul>
+    <li>Create 24 rows on <b>2026 JUN — WNLQ9 — Content Production</b> (ID, Brand, Category, Thai title, Target kw, Priority, Word target, Schema, SKUs, hreflang, scheduled date) with Status = <b>Not started</b>.</li>
+    <li>Add the 5 Recovery actions as a separate tagged group (or a sub-list), so content vs engineering stay distinct.</li>
+    <li>Hold the 28–30 Jul blackout as a no-publish marker on the board.</li>
+  </ul>
+  <p class="sub" style="margin-top:12px">Tell me any edits first (slate size, swaps, cadence), or say “push to Notion” to proceed. I’ll confirm the exact board/data-source ID before writing.</p>
+</section>
+
+<footer>
+  Generated from Supabase <code>asnarjokyedupsjipzkl</code> GSC 28-day data + BI feed + Jun-2026 SKU feed ·
+  Full markdown: <a href="CONTENT_PLAN_JULY_2026.md">CONTENT_PLAN_JULY_2026.md</a> ·
+  Date pegs verified: Asalha Bucha 29 Jul / Khao Phansa 30 Jul 2026 (nationwide alcohol-sale ban)
+</footer>
+
+</div>
+</body>
+</html>
