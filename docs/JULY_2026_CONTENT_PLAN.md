@@ -1,320 +1,457 @@
-# July 2026 Content Plan — Wine-Now × LIQ9
-**Revised:** 2026-06-28 | **Data window:** GSC May 27–Jun 24 2026 (Supabase `seo_gsc_daily` / `seo_gsc_pages_daily`) + BI trend hub (`content_hub_articles`, May–Jun 2026) | **Supersedes** all prior July planning docs.
+# JULY 2026 EDITORIAL CALENDAR
+## Wine-Now × LIQ9
+### Monthly Theme — *"The Art of Choosing Well"*
+
+**Data window:** GSC May 27–Jun 24 2026 (Supabase `seo_gsc_daily` + `seo_gsc_pages_daily`) · BI hub (`content_hub_articles`) · Product feed (`products.json`, Jun 1 2026)
+**Revised:** 2026-06-28 · Branch: `claude/festive-dirac-QcgOV`
 
 ---
 
-## PART 1 — DATA AUDIT (inputs, not assumptions)
+## BRAND POSITIONING
 
-### 1A. Wine-Now — top pages by impression (28-day, May 27–Jun 24)
+**Wine-Now** is Thailand's reference for wine — not the loudest voice, the most trusted one. In July we stop playing informational and start playing *authoritative*. Every piece should feel like it was written by someone who has opened the bottle, knows the producer, and can tell you exactly which one to buy. The tone is warm expertise: knowledgeable without being a lecture, premium without being inaccessible.
 
-| # | Page | Imp | Clicks | CTR | Pos | July call |
-|---|---|---|---|---|---|---|
-| 1 | `15-most-expensive-wine-in-the-world-en` | 49,897 | 200 | **0.40%** | **8.3** | 🔴 Flagship slipping (was pos 7.7 Mar–Jun) — title fix is urgent |
-| 2 | Homepage | 32,019 | 2,326 | 7.44% | 4.8 | ✅ Protect; internal links feed here |
-| 3 | `how-to-cheers-around-the-world` | 13,553 | 105 | **0.78%** | 6.0 | 🟠 CTR fix: rebuild title on "ชนแก้ว" |
-| 4 | `18-noble-grapes-wine-challenge` | 11,102 | 318 | **2.88%** | 5.1 | ✅ Strong performer — build cluster around it |
-| 5 | `cava-champagne-from-spain` | 10,967 | 23 | **0.21%** | 5.1 | 🔴 Biggest single CTR crisis on site |
-| 6 | `champagne-or-sparkling-wine` | 9,451 | 69 | **0.74%** | 5.2 | 🟠 Part of แชมเปญ cannibalization cluster |
-| 7 | `wine/red-wine.html` (category) | 9,421 | 192 | 2.06% | 4.5 | ✅ Protect; keep fresh links |
-| 8 | `penfolds-bin-2` (product) | 6,805 | 358 | 5.26% | 3.4 | ✅ Protect |
-| 9 | `top-10-best-selling-red-wine-of-2024` | 6,770 | 219 | **3.28%** | 5.2 | ✅ Better than expected — refresh year only |
-| 10 | `3-reasons-to-buy-chateau-clerc-milon-th` | 6,466 | 300 | 4.58% | 4.6 | ✅ Study format; replicate for other labels |
-| 11 | `wine/champagne-wine.html` (category) | 3,899 | 156 | 4.25% | 4.6 | ✅ Hub candidate for แชมเปญ cluster |
-| 12 | `accessory/wine-accessory/function-stopper` | 5,203 | 3 | **0.06%** | 6.9 | 🔴 Still 0 effective clicks — fix or noindex |
-| 13 | `accessory/glassware/wine-glass` | 5,297 | 10 | **0.19%** | 9.7 | 🟠 Both CTR + push needed |
-| 14 | `wine_club` | 2,756 | 2 | **0.07%** | 5.6 | 🔴 5.4k imp keyword at 0 clicks — new priority |
+**LIQ9** is building from zero organic footprint. July is the moment to claim territory before anyone else does. We seed with proven demand (terms already converting on Wine-Now), we build the home-bar and collector content that no Thai spirits site has done well, and we make LIQ9 feel like the spirits authority a Bangkok bar professional would actually trust.
 
-### 1B. Wine-Now — top keyword opportunities (28-day)
-
-| Keyword | Imp | Clicks | CTR | Pos | Type |
-|---|---|---|---|---|---|
-| cava | 14,595 | 3 | **0.01%** | 5.1 | 🔴 CTR fix (term volume GREW from 9.9k) |
-| ไวน์ | 10,997 | 141 | 1.26% | 4.8 | 🟠 Head term; title match |
-| bottle stopper | 8,957 | 0 | **0%** | 7.4 | 🔴 Zero clicks — commercial re-title or noindex |
-| glass wine | 6,253 | 0 | **0%** | 6.0 | 🔴 Zero clicks — intent mismatch |
-| แชมเปญ | 5,820 | 45 | 0.79% | 4.8 | 🟠 Cannibalization bleeding CTR |
-| most expensive wine | 5,579 | 11 | **0.23%** | **9.5** | 🔴 Dropping (was 7.7) — flagship title fix urgent |
-| wine club | 5,397 | 0 | **0%** | 4.9 | 🔴 High imp, zero clicks — CTA/title mismatch |
-| most expensive wine in the world | 4,887 | 21 | 0.44% | 8.1 | 🔴 Part of flagship cluster |
-| ไวน์แดง | 3,443 | 56 | 1.64% | 5.2 | 🟠 Red wine category; improve |
-| 818 tequila | 603 | 6 | 1.31% | 6.3 | 📌 Spirits demand landing on wine site → LIQ9 seed |
-
-### 1C. Critical regressions (product pages — direct revenue impact)
-
-These are live product pages that have dropped significantly. Revenue is leaking now.
-
-| SKU / Page | From pos | To pos | Δ% | Action |
-|---|---|---|---|---|
-| jacob's creek cabernet sauvignon | 2.1 | 14.2 | **–563%** | 🔴 CRITICAL — was #2, now page 2. Internal link injection from blog |
-| i muri puglia primitivo | 2.4 | 15.2 | –541% | 🔴 CRITICAL — refresh product blog + links |
-| catena zapata malbec | 1.6 | 8.4 | –424% | 🔴 CRITICAL — internal links from Malbec / Argentina content |
-| cloudy bay wine | 2.6 | 11.3 | –341% | 🔴 CRITICAL — refresh + link from NZ/Sauvignon Blanc content |
-| prosecco wine | 4.5 | 13.1 | –193% | 🔴 Build from prosecco blog (already 5.8k imp / 3.2% CTR) |
-| château margaux | 4.6 | 13.0 | –180% | 🟠 Premium label — link from Bordeaux / prestige cluster |
-| krug | 3.0 | 8.8 | –191% | 🟠 Link from Champagne hub |
-| natural wine | 4.2 | 8.8 | –109% | 🟠 Create Natural Wine explainer (also a trend piece) |
-| robert mondavi napa valley | 6.5 | 13.8 | –113% | 🟠 Cross-link blog + brand page (existing split) |
-
-### 1D. LIQ9 GSC state
-
-LIQ9 organic footprint is essentially zero: 99 page-level rows in 28 days, all homepage or branded navigational. Top keywords are brand-direct (`liq9`, `liq9 thailand`, `liq9 asia`). No content URLs are indexed yet. **July for LIQ9 is pure architecture — every piece will be first-indexed.**
-
-### 1E. BI trend signals (content hub May–Jun 2026, enriched articles)
-
-From `content_hub_articles` (5,547 articles; enriched=1 subset):
-
-**Spirits editorial volume by type:** Whisky 330 · Gin 92 · Tequila 65 · Liqueur 55 · Rum 51 · Cognac 20 · Mezcal 14
-
-**Active trend signals (articles tagged in data):**
-- `viral_on_social` + `cultural_moment`: **"Boy Martini"** (Manhattan reframe) — cocktail naming trend
-- `award_winning`: **Best New Bartenders 2026** (Punch) — bartender recipe format is AEO-high
-- `limited_release` + `award_winning`: **Four Roses cask-strength bourbon** (collector tier)
-- `health_angle_positive` + `health_angle_negative`: **"No Safe Amount of Alcohol? Not So Fast"** — alcohol health debate is live; brands need a responsible-drinking stance
-- `emerging_region` + `investment_opportunity`: California premium Cabernet; Greek wine push
-- `sustainability_focus`: Technology in sparkling wine production
-- `cultural_moment` + `spirits`: **Mezcal with unusual ingredients** — mezcal is entering cultural moments
-- `regulatory_change`: Champagne region suing English wineries — EU wine geography is live news
-
-**AEO format signals (high citation articles):** Cocktail glassware guide, amaro/gimlet/tequila how-to cocktails, bartender recipe collections — **how-to and guide formats score highest for AEO citation**.
+**What "premium market" means for content:** original point of view, real expertise signals, specific recommendations (not vague lists), beautiful structure, zero filler. Every piece should make the reader feel they just got insider knowledge — and then make it easy to buy.
 
 ---
 
-## PART 2 — BRAND MISSIONS
+## DATA INTELLIGENCE (verified, Jun 2026)
 
-### Wine-Now: HARVEST + DEFEND
-~300 indexed URLs, existing authority. Three parallel tracks in July:
-1. **DEFEND** — recover the product page regressions (direct revenue). Internal link fixes first, content refresh where thin.
-2. **HARVEST** — convert what already ranks: CTR fixes on cava, flagship, bottle stopper, wine club, cheers page.
-3. **BUILD** — one moat asset (Thai Food × Wine Pairing Matrix) that compounds authority for both SEO and AEO.
+### Critical opportunities — act in July
 
-Refresh:new ratio = **65:35**. No new URL without a brief showing it serves a gap the existing set can't cover.
-
-### LIQ9: FOUNDATION (clean from day one)
-Every piece is a first-index event. Non-negotiables:
-- One canonical URL per topic per language
-- hreflang TH/EN pair from day one on every page
-- Commercial-first on proven demand terms (Jack Daniel's before Whisky 101)
-- Real in-stock SKU on every commercial page; no SKU match → 0 cards + LINE route
-
-Refresh:new ratio = **10:90** (almost all new — there's nothing to refresh yet).
-
----
-
-## PART 3 — DUAL ENGINE: SEO + AEO
-
-### SEO: win the blue link
-The existing keyword findings are verified. Priority order is now updated by the data audit above:
-1. CTR fixes (fastest ROI, no ranking change needed): flagship EN, cava, bottle stopper, wine club, glass wine, cheers
-2. Regression recovery (revenue defense): Jacob's Creek, Catena Zapata, Cloudy Bay, Prosecco
-3. Page-2 pushes: Robert Mondavi hub, Italian wine, Bordeaux, Mondavi Napa
-4. Cannibalization consolidation: แชมเปญ hub, beginners pillar merge
-
-### AEO: win the answer
-Answer engines (AI Overviews, ChatGPT, Gemini, Perplexity) lift **passages**, not pages. Every July piece must pass this checklist:
-
-| # | Requirement | Standard |
+| Signal | Data | Action |
 |---|---|---|
-| 1 | **Answer-first block** | Every H2 opens with a 40–60 word self-contained answer before context or product |
-| 2 | **Definitional anchor** | Within first 100 words: "<X> คือ…" — one clean Thai sentence defining the entity |
-| 3 | **Question-shaped Thai headings** | Match real Thai queries: "…คืออะไร", "…ยี่ห้อไหนดี", "…กับ…ต่างกัน", "วิธีทำ…" |
-| 4 | **Comparison tables** | Every "X vs Y" or "types of X" lives in a real `<table>` (not bullet prose) |
-| 5 | **Entity specificity** | Name real producers, regions, grapes, price bands — vague prose won't be cited |
-| 6 | **Verifiable facts only** | No fabricated ABV/tax/price/scores. Dated claims ("อัปเดต 2026") + source note |
-| 7 | **Schema triple** | Article (headline=H1) + FAQPage (mirrors on-page FAQ, self-contained answers) + HowTo where stepwise |
-| 8 | **E-E-A-T byline** | "Sommelier Desk, Wine-Now" / "Bartender Desk, LIQ9" on every piece |
-| 9 | **Bilingual targeting** | TH answer block on TH canonical; EN answer block on EN hreflang page |
+| Flagship `-en` slipping | 49,897 imp / pos **8.3** (was 7.7 Mar) | Title fix → urgent |
+| Cava CTR crisis | 14,595 imp / **3 clicks** / pos 5.1 | Biggest CTR gap on site |
+| Luxury "ราคา" pages convert | Dom Pérignon ราคา **7.53% CTR** · Opus One ราคา 3.54% · Krug 4.08% | Build premium label pages — these are buyers |
+| Wine pairing ranks #2, 0 clicks | `wine pairing คือ` pos 1.9 / **0 clicks** | Title mismatch; fix gets free traffic at top of page |
+| แชมเปญ 5-way split | Category page pos 4.8 / 4.25% CTR already leads | Hub it; stop the cannibalization |
+| Jack Daniel's demand on WN | ~54k imp proven · "ราคา" variants = buy intent | First LIQ9 commercial page |
+| LIQ9 = blank slate | 99 page-level GSC rows; all branded nav | Every July piece is a first-index event |
 
-**AEO acceptance test:** *Could ChatGPT answer the headline question verbatim from one block of this page — and be correct?* If no → rewrite that block before publishing.
+### Revenue leaking now — regression recovery (separate track, not content)
 
-**Format insight from BI data:** How-to guides and recipe formats score highest AEO citation. Every "practical" piece (Highball how-to, Pairing Matrix, Home-Bar Kit) gets HowTo schema.
-
----
-
-## PART 4 — PERSONA × TIER MATRIX
-
-Every board row must tag exactly **one primary persona** (secondary optional). These drive voice, SKU tier, CTA, and the repurpose angle.
-
-### Wine-Now
-
-| Persona | Tier | Reads for | Intent | SKU tier | Voice |
-|---|---|---|---|---|---|
-| **นักสำรวจ** (Discoverer) | Discovery | "อะไรก็ได้ที่ไม่ฝาด" / first bottle | Info → TOFU | ฿350–750 | Warm, anti-jargon, zero snobbery |
-| **คนรักไวน์** (Enthusiast) | Enthusiast | Comparisons, grapes, regions, reviews | Commercial → MOFU | ฿750–2,500 | Knowledgeable peer |
-| **นักสะสม** (Collector) | Connoisseur | Prestige labels, vintages, cellaring | Transactional → BOFU | ฿2,500+ | Authoritative, discreet |
-| **ซื้อเป็นของขวัญ** (Gifter) | Cross-tier | Occasion, wedding, business gift | Commercial | Gift sets | Concierge, reassuring |
-| **มืออาชีพ F&B** (Trade Pro) | Cross-tier | Deep technical, by-the-case | Info + Commercial | Range/bulk | Technical, peer-to-trade |
-
-### LIQ9
-
-| Persona | Tier | Reads for | Intent | SKU tier | Voice |
-|---|---|---|---|---|---|
-| **สายไฮบอล** (Highball Newcomer) | Discovery | Whisky soda / easy serves | Info → TOFU | Entry ฿ | Fun, approachable |
-| **สายวิสกี้** (Whisky Explorer) | Enthusiast | Single malt, "ยี่ห้อไหนดี", tasting | Commercial → MOFU | Mid–premium | Guide, credible |
-| **สายเตกีล่า** (Agave Adventurer) | Enthusiast | Tequila/mezcal, sipping vs shots | Info → Commercial | Mid | Trend-aware, curious |
-| **นักสะสมสุรา** (Spirit Collector) | Connoisseur | Rare/limited, cognac, gifting | Transactional → BOFU | Premium/luxury | Authoritative |
-| **เจ้าภาพ** (The Host) | Cross-tier | Entertaining, cocktail recipes + bottles | Commercial | Recipe→SKU bundle | Generous, inspiring |
-
----
-
-## PART 5 — TREND LAYER (July 2026)
-
-Ranked by BI signal volume + Thai-market fit.
-
-| Trend | BI signal | Thai-market fit | Applies to |
-|---|---|---|---|
-| **Highball / เหล้าผสมโซดา culture** | Strong (whisky vol 330) | Very high — monsoon = home-drinking season | LIQ9 L4 |
-| **Agave moment (tequila + mezcal)** | Tequila 65 + mezcal 14 = 79 articles | Growing; National Tequila Day Jul 24 | LIQ9 L5 |
-| **Bartender recipe / how-to cocktail** | AEO-high per data | Home-bar, Instagram-native | LIQ9 L3, L7 |
-| **Alcohol & health narrative** | Dual-signal: health_positive + health_negative | Responsible drinking as brand-trust signal | WN W8, WN footer discipline |
-| **Natural / orange wine** | Emerging region signals | Enthusiast tier curiosity; AEO "คืออะไร" demand | WN W7 |
-| **Premium/collectible spirits** | Limited release + award_winning | Collector + Gifter personas; gifting season approaching | LIQ9 L6, L8 |
-| **Sparkling & Champagne geography** | Champagne suing English wineries | Educates both Discoverer and Enthusiast | WN W2 hub |
-| **Home-entertaining** | Cocktail glassware viral + host persona | Monsoon season = indoor hosting | WN W6 (pairing), LIQ9 L3 |
-
-### ⚠️ Thai calendar compliance
-
-- **Asalha Puja (วันอาสาฬหบูชา)** and **Wan Khao Phansa (วันเข้าพรรษา, start of Buddhist Lent)** — *verify exact July 2026 dates against the official Royal Thai Government calendar before scheduling.* **Estimated: ~July 25–26, 2026 (Saturday–Sunday).** On these days Thai law restricts alcohol sales.
-  - **Rule:** zero "สั่งซื้อ" / "ราคา" / promotional CTAs on those dates
-  - **Publish instead:** educational or cultural content ("ดื่มอย่างมีความรับผิดชอบ", sober-curious, or history/craft)
-- **Bastille Day: July 14** (French wine peg — Champagne / Bordeaux editorial)
-- **National Tequila Day: July 24** (LIQ9 agave piece should publish by July 23)
-
----
-
-## PART 6 — MOAT ASSETS (≥1 per brand)
-
-Original-value assets that are linkable, saveable, and extractable by answer engines. These are the "staple" pieces that compound brand authority.
-
-**WN-M1 — Thai Food × Wine Pairing Matrix** (`อาหารไทย × ไวน์`)
-- A browsable matrix: dish rows (ส้มตำ, ลาบ, ต้มยำ, มัสมั่น, ปลาทอด, ผัดกะเพรา…) × wine style columns
-- Real cells, no invented pairings — sourced from established pairing principles
-- Table format = AEO gold (engines extract tables as answers)
-- Schema: Article + FAQPage + HowTo (for "how to pair X")
-- Funnel: TOFU → MOFU; links to category pages for each style
-- Word target: 2,000–2,500 words
-
-**LIQ9-M1 — Home-Bar Starter Kit** (`สร้างโฮมบาร์`)
-- 5–7 bottles covering the widest cocktail range, with real LIQ9 SKUs
-- 3–5 foundational recipes per bottle
-- Rationale for each pick (why this bottle, not another)
-- Schema: Article + FAQPage + HowTo (for "วิธีสร้างโฮมบาร์")
-- Funnel: TOFU → BOFU; links to each product page
-- Word target: 2,000–2,500 words
-
----
-
-## PART 7 — JULY EXECUTION CALENDAR
-
-### Calendar overview (publish targets)
-
-```
-WEEK 1 (Jul 1–6):   WN-W1 flagship fix · LIQ9-L1 Jack Daniel's · WN DEFEND links
-WEEK 2 (Jul 7–13):  WN-W2 Cava rewrite · WN-W3 แชมเปญ hub · LIQ9-L2 Whisky 101 cluster
-WEEK 3 (Jul 14–20): WN-W4 Noble Grapes cluster · LIQ9-L3 Home-Bar Kit · WN-W5 Bottle Stopper fix
-                     Jul 14: Bastille Day → French wine editorial
-WEEK 4 (Jul 21–27): WN-W6 Thai Food Pairing Matrix · LIQ9-L4 Highball how-to
-                     Jul 24: National Tequila Day → LIQ9-L5 (publish Jul 23)
-                     Jul 25–26: ⚠️ NO commercial pushes (Asalha Puja / Khao Phansa)
-WEEK 5 (Jul 28–31): WN-W7 Natural Wine · LIQ9-L6 Macallan · WN-W8 month-end refreshes
-```
-
----
-
-## PART 8 — FULL CONTENT SLATE
-
-### Wine-Now
-
-| ID | Title / angle | Type | Persona | Tier | Intent | Funnel | Priority | Word target | Schema | AEO answer to own | Notes |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| **WN-W1** | Most Expensive Wine in the World — flagship refresh | Refresh | คนรักไวน์ | Enthusiast | Info | TOFU | **Hero** | 3,000+ | Article + FAQ | "most expensive wine in the world" / "ไวน์ที่แพงที่สุดในโลก" | Title must lead with exact EN head term; hreflang base(TH)↔`-en`; pos slipping 7.7→9.5 — urgent |
-| **WN-W2** | Cava คืออะไร — ไวน์สปาร์กลิงจากสเปน | Refresh | คนรักไวน์ | Enthusiast | Info→Comm | MOFU | **Hero** | 2,000 | Article + FAQ | "cava คืออะไร / cava vs champagne" | Biggest CTR crisis: 14.6k imp / 3 clicks. Definitional anchor within 100 words. |
-| **WN-W3** | แชมเปญ hub rewrite + blog differentiation | Consolidate | Gifter · Enthusiast | Enthusiast | Commercial | MOFU | **Hero** | 2,500 | Article + FAQ | "แชมเปญ ยี่ห้อไหนดี / แชมเปญ ราคา" | Category page = hub. 4 blogs each own a long-tail (styles / vs-sparkling / luxury / history). Bastille Day (Jul 14) peg works for luxury angle. |
-| **WN-W4** | 18 Noble Grapes — cluster expansion (linking + internal) | Refresh | คนรักไวน์ | Enthusiast | Info | TOFU | Standard | 500 (brief only) | — | — | Don't rewrite — it performs. Add 4–6 internal links from related grape/region posts pointing here. Study its format for future pieces. |
-| **WN-W5** | Wine Bottle Stopper — commercial fix / noindex decision | Refresh | นักสำรวจ · Host | Discovery | Commercial | BOFU | Standard | 800 | Article | "wine bottle stopper ซื้อที่ไหน" | 8.9k imp / 0 clicks. If product is sold: full commercial rewrite, add SKU + LINE CTA. If not sold: noindex this page. |
-| **WN-W6** | Thai Food × Wine Pairing Matrix (moat asset) | New | นักสำรวจ · คนรักไวน์ | Enthusiast | Info→Comm | TOFU→MOFU | **Hero** | 2,500 | Article + FAQ + HowTo | "ไวน์คู่กับอาหารไทย / อาหารเผ็ดกินไวน์อะไร" | Table-format matrix. AEO gold. No invented pairings. |
-| **WN-W7** | Natural Wine / Orange Wine คืออะไร | New | คนรักไวน์ | Enthusiast | Info | TOFU | Standard | 1,800 | Article + FAQ | "natural wine คืออะไร / orange wine" | Regression alert shows natural wine dropped pos 4.2→8.8. New explainer reclaims it + satisfies Enthusiast trend curiosity. |
-| **WN-W8** | Best-Selling Red Wine 2026 — year refresh | Refresh | คนรักไวน์ | Enthusiast | Commercial | MOFU | Standard | 1,500 | Article + FAQ | "ไวน์แดง ขายดี 2026" | Currently 3.28% CTR at pos 5.2 — performing. Change "2024"→"2026" in title/URL and update list. Don't break what works. |
-| **WN-W9** | Wine Club — landing page CTR fix | Refresh | Gifter · Collector | Connoisseur | Commercial | BOFU | Standard | 600 | — | "wine club thailand / wine subscription" | 5.4k imp / 0 clicks. Page content and title must match commercial intent of searcher. |
-| **WN-W10** | Wine Glass / Glassware guide | Refresh | นักสำรวจ | Discovery | Info→Comm | TOFU | Standard | 1,500 | Article + FAQ + HowTo | "แก้วไวน์ ประเภท / ใช้แก้วอะไรดื่มไวน์" | 5.3k imp / 10 clicks at pos 9.7. Redesign around "แก้วไวน์คืออะไร / เลือกอย่างไร" angle. Internal links to glassware accessories. |
-
-#### WN regression recovery (not content rows — brief devs / internal link work)
-
-| SKU/Page | Drop | Recovery action | Who |
-|---|---|---|---|
-| Jacob's Creek Cab Sauv | pos 2→14 | Add 3–5 internal links from: beginners pillar, best-selling-red, white-wine-beginners | Dev + Author |
-| Catena Zapata Malbec | pos 1.6→8.4 | Link from: Malbec/Argentina content, premium cluster | Dev + Author |
-| Cloudy Bay | pos 2.6→11.3 | Link from: Sauvignon Blanc guide, New Zealand section | Dev + Author |
-| Prosecco (category/term) | pos 4.5→13.1 | Link from: prosecco blog (already 5.8k imp), champagne hub | Dev + Author |
-| Château Margaux | pos 4.6→13.0 | Link from: Bordeaux/prestige cluster | Dev + Author |
-| Krug | pos 3.0→8.8 | Link from: แชมเปญ hub W3 | Dev + Author |
-
-> ⚠️ Internal link fixes don't need new HTML — they need edits to existing posts. Brief these as 15-min tasks, not full drafts. Impact is high.
-
-### LIQ9
-
-| ID | Title / angle | Type | Persona | Tier | Intent | Funnel | Priority | Word target | Schema | Seed / AEO target |
-|---|---|---|---|---|---|---|---|---|---|---|
-| **LIQ9-L1** | Jack Daniel's Tennessee Whiskey — ราคา, รุ่น, สั่งซื้อ | New commercial | สายวิสกี้ | Enthusiast | **Commercial** | BOFU | **Hero** | 1,800 | Article + FAQ | Proven demand from WN (54k imp; "jack daniel ราคา" / "เหล้าแจ็คแดเนียล"). First commercial page. Real SKU + price band + LINE. |
-| **LIQ9-L2** | Whisky 101 pillar — extend cluster + hreflang | Anchor/extend | สายวิสกี้ | Enthusiast | Info | TOFU | **Hero** | 3,500 | Article + FAQ | "วิสกี้ คืออะไร / วิสกี้ ยี่ห้อไหนดี". Already authored (exemplar). Add cluster links to L1, L4, L6. |
-| **LIQ9-L3** | Home-Bar Starter Kit (moat asset) | New pillar | เจ้าภาพ · สายไฮบอล | Discovery | Info→Comm | TOFU→BOFU | **Hero** | 2,500 | Article + FAQ + HowTo | "สร้างโฮมบาร์ / โฮมบาร์มือใหม่". Real SKUs. Highest AEO citation format per BI data. |
-| **LIQ9-L4** | ไฮบอล วิธีทำ / Japanese Highball how-to | New | สายไฮบอล | Discovery | Info→Comm | TOFU | Standard | 1,500 | Article + FAQ + HowTo | "ไฮบอล คืออะไร / ไฮบอล วิธีทำ / Japanese highball". Discovery on-ramp. Ship by Jul 14. |
-| **LIQ9-L5** | เตกีล่า กับ เมซคาล ต่างกันอย่างไร | New | สายเตกีล่า | Enthusiast | Info | TOFU | Standard | 1,800 | Article + FAQ | "เตกีล่า vs เมซคาล / tequila mezcal". National Tequila Day Jul 24 peg. Ship by Jul 23. |
-| **LIQ9-L6** | Macallan — รุ่นไหนดี, ราคา, คู่มือซื้อ | New/extend | นักสะสมสุรา | Connoisseur | Commercial | BOFU | Standard | 1,800 | Article + FAQ | "macallan รุ่นไหนดี / macallan ราคา". Real SKU. Collector + Gifter personas. |
-| **LIQ9-L7** | คอกเทลไทย — series franchise (ep. 1) | New | เจ้าภาพ | Discovery | Info | TOFU | Filler | 1,200 | Article + HowTo | Recipe terms + brand entity. One Thai ingredient + LIQ9 spirits base. |
-| **LIQ9-L8** | Cognac / Hennessy คู่มือ — ราคา, รุ่น, สั่งซื้อ | New | นักสะสมสุรา · Gifter | Connoisseur | Commercial | BOFU | Standard | 1,800 | Article + FAQ | "คอนยัค คืออะไร / hennessy ราคา". BI confirms cognac = 20 articles in trend hub. Real SKUs only. |
-
-> **LIQ9 rule on every piece:** hreflang TH canonical + EN regional from day one. One canonical URL per topic. Real in-stock SKU only — if no match, 0 cards + LINE route.
-
----
-
-## PART 9 — OPERATING LOOP
-
-```
-MON — Mine Supabase (seo_gsc_daily + regression alerts). Flag new drops.
-TUE — Decide: refresh vs new vs recover (regression link fix).
-       Cannibalization check: does a live URL already own this topic?
-WED–THU — Brief gate: KEY / TENSION / STORY / Target Keyword /
-           AEO answer block / Persona / Tier / Schema plan.
-           Draft v2 Thai-first HTML only after brief is complete.
-FRI — Ship: Drive upload (new subfolder `2026-07 July`) → Notion "Brief Ready" + Drive URL.
-      Human publishes Magento → set Final URL + status = Published.
-MONTH-END — Read back: GA Views + GSC clicks/pos per row → keep / kill / scale.
-             Run regression alert query again — new drops to queue for next month.
-```
-
-**New brief fields added this month:**
-- `Persona` (primary + optional secondary from §4 matrix)
-- `Tier` (Discovery / Enthusiast / Connoisseur / Cross-tier)
-- `AEO answer target` (the exact question + the 40–60 word block that answers it)
-- `Snippet/Overview check` (did we win it — checked at month-end read-back)
-
-**Drive folder convention:** `2026-07 July` subfolder inside "WNLQ9 Blog Html center" (`1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm`). CSS-inlined, self-contained HTML. One file per slug, no duplicates. Create the subfolder first; upload once.
-
----
-
-## PART 10 — JULY GOALS & KPIs
-
-| Dimension | July target | How measured |
+| Page | Drop | Impact |
 |---|---|---|
-| **Flagship CTR** | `15-most-expensive-wine-en` CTR lifts above 0.50% (from 0.40%) after title fix | GSC post-publish comparison |
-| **Cava CTR** | Cava page CTR lifts from 0.21% → ≥1.0% after rewrite | GSC 28-day post-publish |
-| **Regression recovery** | ≥3 of 6 critical drops show improvement by Jul 31 | Regression alert query re-run |
-| **Flagship position** | Stop the slip (9.5 → stabilise ≤9.0) | Weekly GSC check |
-| **LIQ9 indexing** | ≥4 LIQ9 URLs indexed (beyond homepage) | GSC Coverage report |
-| **AEO compliance** | 100% of July pieces pass the AEO acceptance test before publish | Author + editor check |
-| **Moat assets live** | WN Thai Pairing Matrix + LIQ9 Home-Bar Kit published | Drive URL + Final URL |
-| **Persona coverage** | All 10 personas (5 WN + 5 LIQ9) touched ≥1 time | Board audit |
-| **Calendar compliance** | Zero commercial pushes on Asalha Puja / Khao Phansa | Editorial calendar |
-| **Cadence** | ≥12 pieces shipped (WN 8 + LIQ9 4 minimum) by Jul 31 | Notion Published count |
+| Jacob's Creek Cab Sauv | pos 2 → 14 | Top-selling SKU, commercial page |
+| Catena Zapata Malbec | pos 1.6 → 8.4 | Mid-premium seller |
+| Cloudy Bay Wine | pos 2.6 → 11.3 | High-intent NZ category |
+| Prosecco (term/category) | pos 4.5 → 13.1 | Sparkling cluster |
+| Château Margaux | pos 4.6 → 13.0 | Premium brand page |
+| Krug (brand page) | pos 3.0 → 8.8 | Luxury tier, 4.08% CTR when found |
+
+**Fix:** internal link injection from new July content + existing posts. 15-min tasks per page. Higher revenue unlock than any new article.
+
+### BI trend signals (May–Jun 2026, enriched content hub)
+
+| Trend | Signal strength | Relevance |
+|---|---|---|
+| Collector / limited-release spirits | Robb Report, VinePair, The Spirits Business — cask-strength bourbon, celebrity whisky collabs | LIQ9 Collector pillar |
+| Fine wine investment / auction | Napa Barrel Auction, Christie's wine sale, scarcity signals | WN premium label pages |
+| Champagne geopolitics | Champagne suing English wineries (emerging region threat) | WN แชมเปญ hub + Bastille Day editorial |
+| Ultra-premium spirits | Four Roses 'Ultra-Premium' Anthology launch | LIQ9 Collector |
+| Bartender expertise / award culture | Best New Bartenders 2026, top cocktail recipes | LIQ9 Bar pillar, AEO-high format |
+| Natural / emerging wine regions | Tasmania, California premium Cab, Greek wine | WN Culture pillar |
+| Home entertaining | Viral cocktail glassware content, easy serves, hosting culture | LIQ9 Bar pillar |
 
 ---
 
-## PART 11 — GUARDRAILS (non-negotiable)
+## EDITORIAL PILLARS
 
-1. **No fabricated facts** — no invented ABV, prices, tax rates, scores, rankings, dates, vineyard details. Use verify-notes; add a verify-list for any figure that needs source confirmation. This rule **is** an AEO trust signal.
-2. **Real in-stock SKUs only** — `data-sku` attribute + visible `SKU: <b>…</b>` chip. Check `pipeline/data/products.json` (verified Jun 2026). No SKU match → 0 product cards + route to LINE.
-3. **Compliance** — approx price `~฿` + "สอบถามราคา/สั่งซื้อทาง LINE"; footer `ดื่มอย่างมีความรับผิดชอบ · 20+`; E-E-A-T byline on every piece.
-4. **Thai-first, v2 depth** — the Whisky 101 exemplar is the standard. No stub drafts. Full, ready-to-publish, standalone HTML.
-5. **Bilingual** — one canonical per language per topic; EN/TH = hreflang pair, never merged into one URL.
-6. **No PR unless asked** — develop on `claude/festive-dirac-QcgOV`, commit + push; human reviews before merge to `main`.
-7. **Supabase writes** — any migration or INSERT to Supabase requires explicit user authorisation. Read-only in content sessions.
+### Wine-Now — 3 Pillars
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  PILLAR 1: AUTHORITY                                             │
+│  "We rank it because we know it"                                 │
+│  SEO + AEO traffic engines. The pieces that get cited,          │
+│  featured-snippeted, and AI-Overview extracted.                  │
+│  Format: definitive guides, comparison tables, explainers.      │
+│  Tone: sommelier peer — specific, confident, verifiable.        │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  PILLAR 2: THE CELLAR                                            │
+│  "Premium labels, real prices, easy to buy"                      │
+│  Commercial conversion. Luxury brand spotlights with            │
+│  real SKUs, price context, and a clear path to LINE.            │
+│  Format: brand guide, price comparison, buyer's briefing.       │
+│  Tone: discreet concierge — this is what the serious buyer      │
+│  needs to know before spending ฿5,000–฿20,000 on a bottle.     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  PILLAR 3: THAI WINE CULTURE                                     │
+│  "Original content nobody else can copy"                         │
+│  Moat assets. Thai-context, original-data, deeply linkable.     │
+│  Format: pairing matrix, occasion guides, cultural editorial.   │
+│  Tone: insider host — the friend who knows both wine and        │
+│  Thai food, and makes both feel approachable.                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### LIQ9 — 3 Pillars
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  PILLAR 1: THE EXPERT GUIDE                                      │
+│  "Commercial pages seeded from proven demand"                    │
+│  First-index commercial and authority content. Whisky, tequila, │
+│  cognac — built on terms already converting on Wine-Now.        │
+│  Format: brand guide, 101 pillar, comparison.                   │
+│  Tone: spirits guide — knowledgeable, specific, helpful.        │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  PILLAR 2: THE COLLECTOR'S CORNER                                │
+│  "Premium spirits for the serious Bangkok buyer"                 │
+│  Collector and gifter tier. Limited releases, investment angle, │
+│  single malt depth. Positions LIQ9 in the luxury market.       │
+│  Format: collector guide, label spotlight, investment brief.    │
+│  Tone: authoritative — the bartender who has actually tasted    │
+│  these bottles and can tell you which is worth the premium.     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│  PILLAR 3: THE BAR                                               │
+│  "Home entertaining and cocktail culture"                        │
+│  Discovery on-ramp and community magnet. How-to formats that   │
+│  score highest for AEO citation. Monsoon season = home hosting. │
+│  Format: how-to guide, cocktail recipe, starter kit.           │
+│  Tone: generous host — makes it look easy and feel fun.        │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## CONTENT CALENDAR — JULY 2026
+
+```
+         MON          TUE          WED–THU           FRI (SHIP)
+─────────────────────────────────────────────────────────────────
+WK 1     Brief gate   Brief gate   Draft HTML        WN-A1 flagship
+Jul 1–4  WN-A1        LIQ9-A1      WN-A1 + LIQ9-A1  LIQ9-A1 JD
+
+WK 2     Brief gate   Brief gate   Draft HTML        WN-A2 Cava
+Jul 7–11 WN-A2        LIQ9-B1      WN-A2 + LIQ9-B1  LIQ9-B1 Home-Bar
+
+WK 3     Brief gate   Brief gate   Draft HTML        WN-D1 Dom P.
+Jul 14   BASTILLE DAY → WN-C3 French wine editorial  LIQ9-C1 Macallan
+Jul 7–18 WN-D1        LIQ9-C1      WN-D1 + LIQ9-C1
+
+WK 4     Brief gate   Draft HTML   Jul 23: LIQ9-A2   Jul 24: LIQ9-A2
+Jul 21–25 WN-P1 Hub   WN-P1        ⚠️ Asalha Puja / Khao Phansa
+          WN-C1 Pair.  LIQ9-A2      ~Jul 25–26: NO commercial push
+                       Tequila Day
+
+WK 5     Brief gate   Draft HTML   Refresh + links   WN-C1 Pairing
+Jul 28–31 WN-C1        LIQ9-E2      Regression fixes  LIQ9-E2 Collector
+          LIQ9-E2      Regressions
+```
+
+> **Ship process:** Drive upload → folder `2026-07 July` → Notion "Brief Ready" + Drive URL → human publishes Magento → Final URL + Published status.
+
+---
+
+## FULL CONTENT SLATE
+
+### Wine-Now (10 pieces)
+
+| ID | Pillar | Title (TH) | Target keyword | Persona | Intent | Priority | Words | Schema |
+|---|---|---|---|---|---|---|---|---|
+| **WN-A1** | Authority | ไวน์ที่แพงที่สุดในโลก 2026 — Top 15 ขวด | most expensive wine in the world | คนรักไวน์ · Connoisseur | Info | **Hero** | 3,000 | Article + FAQ |
+| **WN-A2** | Authority | Cava คืออะไร — ไวน์สปาร์กลิงสเปนที่คุณต้องรู้จัก | cava คืออะไร / cava | คนรักไวน์ · Enthusiast | Info | **Hero** | 2,000 | Article + FAQ |
+| **WN-A3** | Authority | Wine Pairing คืออะไร — วิธีจับคู่ไวน์กับอาหารแบบมืออาชีพ | wine pairing คือ | คนรักไวน์ · Enthusiast | Info | Standard | 1,800 | Article + FAQ + HowTo |
+| **WN-D1** | The Cellar | Dom Pérignon — ทุกรุ่น ราคา 2026 + วิธีสั่งซื้อ | dom perignon ราคา | นักสะสม · Connoisseur | Commercial | **Hero** | 2,000 | Article + FAQ |
+| **WN-D2** | The Cellar | Opus One — คู่มือราคา วินเทจ และการสะสม ปี 2026 | opus one ราคา | นักสะสม · Connoisseur | Commercial | Standard | 1,800 | Article + FAQ |
+| **WN-D3** | The Cellar | แชมเปญยี่ห้อไหนดี 2026 — เปรียบเทียบ 8 ยี่ห้อ ราคาจริง | แชมเปญ ยี่ห้อไหนดี | Gifter · Enthusiast | Commercial | **Hero** | 2,500 | Article + FAQ |
+| **WN-C1** | Thai Culture | อาหารไทย × ไวน์ — ตารางจับคู่ครบ 15 เมนู | ไวน์คู่กับอาหารไทย | นักสำรวจ · Enthusiast | Info → Comm | **Hero** | 2,500 | Article + FAQ + HowTo |
+| **WN-C2** | Thai Culture | Natural Wine คืออะไร — คลื่นไวน์โลกที่กำลังมาถึงไทย | natural wine คืออะไร | คนรักไวน์ · Enthusiast | Info | Standard | 1,800 | Article + FAQ |
+| **WN-C3** | Thai Culture | Bastille Day — 5 ไวน์ฝรั่งเศสที่ควรเปิดฉลองวันที่ 14 กรกฎาคม | bastille day wine | Gifter · Enthusiast | Info → Comm | Filler | 1,200 | Article |
+| **WN-C4** | Thai Culture | ไวน์เป็นของขวัญ — คู่มือเลือกสำหรับทุกงานและทุกงบ | ไวน์ของขวัญ / ไวน์ให้เพื่อน | Gifter · Cross-tier | Commercial | Standard | 1,800 | Article + FAQ |
+
+### LIQ9 (8 pieces)
+
+| ID | Pillar | Title (TH) | Target keyword | Persona | Intent | Priority | Words | Schema |
+|---|---|---|---|---|---|---|---|---|
+| **LIQ9-A1** | Expert Guide | Jack Daniel's ราคา 2026 — ครบทุกรุ่น + วิธีสั่งซื้อ | jack daniel ราคา / เหล้าแจ็คแดเนียล | สายวิสกี้ · Enthusiast | Commercial | **Hero** | 1,800 | Article + FAQ |
+| **LIQ9-A2** | Expert Guide | เตกีล่า vs เมซคาล — ต่างกันอย่างไร คู่มือฉบับสมบูรณ์ | เตกีล่า vs เมซคาล | สายเตกีล่า · Enthusiast | Info | Standard | 1,800 | Article + FAQ |
+| **LIQ9-A3** | Expert Guide | วิสกี้ Cluster — ขยาย Whisky 101 + internal link architecture | วิสกี้ คืออะไร | สายวิสกี้ · Enthusiast | Info | Standard | cluster edit | Article + FAQ |
+| **LIQ9-C1** | Collector | The Macallan — ทุกรุ่น ราคา คู่มือนักสะสม 2026 | macallan ราคา / macallan รุ่นไหนดี | นักสะสมสุรา · Connoisseur | Commercial | **Hero** | 2,000 | Article + FAQ |
+| **LIQ9-C2** | Collector | วิสกี้สะสม 2026 — 5 ขวดที่คุ้มค่าในระยะยาว | วิสกี้สะสม / limited edition whisky | นักสะสมสุรา · Connoisseur | Info → Comm | Standard | 1,800 | Article + FAQ |
+| **LIQ9-C3** | Collector | Cognac คืออะไร — และทำไมมันถึงกำลังกลับมา | คอนยัค คืออะไร / cognac thailand | นักสะสมสุรา · Gifter | Info → Comm | Standard | 1,800 | Article + FAQ |
+| **LIQ9-B1** | The Bar | สร้างโฮมบาร์ด้วย 5 ขวด — Starter Kit ฉบับมือใหม่ 2026 | โฮมบาร์มือใหม่ / home bar เริ่มต้น | เจ้าภาพ · Discovery | Info → Comm | **Hero** | 2,500 | Article + FAQ + HowTo |
+| **LIQ9-B2** | The Bar | ไฮบอล วิธีทำ — สไตล์ญี่ปุ่น สูตรง่าย ที่บ้าน | ไฮบอล วิธีทำ / highball | สายไฮบอล · Discovery | Info | Standard | 1,500 | Article + HowTo |
+
+---
+
+## BRIEF REGISTER (per piece)
+
+### WN-A1 — ไวน์ที่แพงที่สุดในโลก 2026
+
+```
+KEY:      ไวน์ที่แพงที่สุดในโลกมีที่มาจากอะไร — ราคา, เรื่องราว, และสิ่งที่ทำให้มันพิเศษ
+TENSION:  คนค้นหาเพื่ออยากรู้จริงๆ แต่หน้าเราไม่ตอบได้เร็ว — title ไม่ตรง intent
+STORY:    สำรวจ 15 ขวดจริง ที่มีราคาสูงสุดในโลก พร้อมเหตุผลที่เข้าใจได้
+AEO:      "What is the most expensive wine in the world?" → 50-word extractable answer block
+H1 (EN):  Most Expensive Wine in the World 2026: The Definitive Top 15
+H1 (TH):  15 ไวน์ที่แพงที่สุดในโลก ปี 2026 — ราคา เรื่องราว และสิ่งที่ทำให้พิเศษ
+hreflang: base(TH) ↔ -en (EN) — do NOT 301 base into EN
+SKUs:     Opus One 2021 WRW6539FS ฿17,491 · Opus One 2012 WRW6219FS ฿18,799
+          Krug WSP1093AD ฿11,775 · Cristal WSP5782BN ฿12,005 · Dom P. WSP5780AD ฿9,737
+SCHEMA:   Article (headline = H1) + FAQPage
+```
+
+### WN-A2 — Cava คืออะไร
+
+```
+KEY:      Cava คือไวน์สปาร์กลิงจากสเปน ที่ยังไม่มีใครอธิบายได้ดีในภาษาไทย
+TENSION:  14,595 impressions แต่มีเพียง 3 clicks — คนหาเจอเราแต่ไม่คลิก เพราะ title ไม่บอกว่าเราตอบได้
+STORY:    อธิบาย Cava แบบที่ sommelier อธิบายให้เพื่อน — ชัด สั้น น่าลอง
+AEO:      "Cava คืออะไร" → definitional anchor ใน 100 คำแรก
+CONSTRAINT: ไม่มี Cava SKU ในสต็อก → ไม่มี product card; CTA = สอบถามทาง LINE
+SKUs:     Chandon Brut WSP1117AD ฿821 · Wolf Blass Brut WSP1233AD ฿368 (occasion alternatives)
+```
+
+### WN-A3 — Wine Pairing คืออะไร
+
+```
+KEY:      wine pairing คือ rank #1.9 แต่ 0 clicks — title ไม่ดึงดูด
+TENSION:  เราอยู่ top 2 แต่ไม่มีใครคลิก เพราะ title ไม่ตอบว่า "ฉันจะได้อะไรจากหน้านี้"
+STORY:    คู่มือ wine pairing ฉบับปฏิบัติ — ทำไมบางคู่ถึงทำงาน และทำยังไงให้เลือกถูก
+AEO:      "Wine pairing คือ" + "วิธีจับคู่ไวน์กับอาหาร" → HowTo schema
+NOTE:     This is primarily a title/meta fix + AEO block addition to existing page
+```
+
+### WN-D1 — Dom Pérignon ราคา
+
+```
+KEY:      Dom Pérignon คือ icon ที่คนไทยรู้จัก — แต่ไม่รู้ว่าซื้อได้ที่ไหน ราคาเท่าไหร่
+TENSION:  dom perignon ราคา = 7.53% CTR อยู่แล้ว แต่หน้าเราไม่ได้ออกแบบมาเพื่อ convert
+STORY:    คู่มือครบวงจรสำหรับคนที่จริงจังกับ Dom Pérignon — ทุกรุ่น ทุก vintage ราคาจริง
+AEO:      "Dom Pérignon ราคาเท่าไหร่" → price table extractable
+SKUs:     Dom Perignon 2015 WSP5780AD ฿9,737 sold=12 · Dom P. Rose Gift Box WSP1115AD ฿17,177 sold=6
+TONE:     Connoisseur — knowledgeable, discreet, transactional
+```
+
+### WN-D2 — Opus One ราคา
+
+```
+KEY:      Opus One คือ Napa icon ที่คนสะสมจริง — ราคา vintage และ condition matter
+TENSION:  opus one ราคา = 3.54% CTR / pos 4.8 — demand already there, no dedicated page
+STORY:    คู่มือ Opus One ฉบับนักสะสม — วิธีอ่าน vintage ราคาตลาด และจะซื้ออย่างไร
+AEO:      "Opus One ราคาเท่าไหร่" → price range table
+SKUs:     Opus One 2021 WRW6539FS ฿17,491 · Opus One 2012 WRW6219FS ฿18,799
+```
+
+### WN-D3 — แชมเปญยี่ห้อไหนดี
+
+```
+KEY:      แชมเปญ = 5 URLs ต่อสู้กัน — category page แข็งสุด (pos 4.8 / CTR 4.25%) แต่ยังไม่ได้เป็น hub
+TENSION:  Cannibalization ทำให้ไม่มีหน้าไหน rank สูงพอ แม้ทุกหน้า ok เดี่ยวๆ
+STORY:    hub ที่ตอบทุกคำถาม: ยี่ห้อไหนดี, ราคาเท่าไหร่, ต่างจาก prosecco ยังไง, ซื้อที่ไหน
+AEO:      "แชมเปญ ยี่ห้อไหนดี" → comparison table top 3 extractable
+SKUs:     Veuve Clicquot WSP1096AD ฿2,186 sold=51 · Moët WSP1104BU ฿2,082 sold=35
+          Billecart-Salmon WSP0100FO ฿1,494 sold=24 · Alain Navarre WSP5728FR ฿1,214 sold=21
+          Dom Pérignon WSP5780AD ฿9,737 · Krug WSP1093AD ฿11,775 · Cristal WSP5782BN ฿12,005
+```
+
+### WN-C1 — Thai Food × Wine Pairing Matrix
+
+```
+KEY:      ไม่มีใครทำ Thai food × wine pairing matrix ที่ดีในภาษาไทย — นี่คือโอกาสเป็นเจ้าของ topic นี้
+TENSION:  อาหารไทยกับไวน์ดูยาก แต่จริงๆ มีหลักที่ชัดเจน — คนแค่ไม่เคยเห็นมันอธิบายได้ดี
+STORY:    ตารางจับคู่จริง 15 เมนูไทย × สไตล์ไวน์ — เขียนโดยคนที่กินทั้งสองอย่าง
+AEO:      "ส้มตำกินกับไวน์อะไร" / "อาหารเผ็ดกับไวน์" → table row extractable (AEO gold)
+MOAT:     Original data, Thai-specific, deeply linkable, replicable as IG carousel
+SKUs:     Matua Sauv Blanc WWW1106AD ฿635 · Chateau d'Esclans Rosé WRS0035AB ฿980
+          Hardys Cab WRW0203AH ฿373 · G7 Carmenere WRW4313AC ฿747
+```
+
+### WN-C2 — Natural Wine คืออะไร
+
+```
+KEY:      Natural wine กำลัง become mainstream — คนไทยเริ่มถามแต่ยังไม่มีแหล่งภาษาไทยที่ดี
+TENSION:  Regression alert: natural wine pos 4.2 → 8.8 — เราเคยrank ดีแล้วหาย ต้อง reclaim
+STORY:    อธิบาย natural wine ให้ชัด — คืออะไร ต่างยังไง และทำไมมันกำลังมา
+AEO:      "natural wine คืออะไร" → definitional answer block
+NOTE:     Trend signal in BI hub (sustainability_focus); builds Enthusiast authority
+```
+
+### WN-C3 — Bastille Day Wine (Jul 14 peg)
+
+```
+KEY:      Jul 14 = French wine moment — ง่าย, timely, เชื่อมกับ Champagne hub
+TENSION:  จะ celebrate Bastille Day แบบไหนถ้าไม่รู้จะเปิดขวดอะไร
+STORY:    5 ไวน์ฝรั่งเศสที่เหมาะกับการฉลอง Bastille Day — เน้นหา ง่าย คุ้ม
+PUBLISH:  July 11–12 (before Jul 14)
+SKUs:     Mouton Cadet WRW6188WN ฿897 · Veuve Clicquot WSP1096AD ฿2,186 · Billecart Rosé WSP0005FO ฿3,737
+```
+
+### WN-C4 — ไวน์ของขวัญ คู่มือ
+
+```
+KEY:      คนซื้อไวน์เป็นของขวัญ แต่ไม่รู้จะเลือกอะไร — นี่คือ Gifter persona ที่ใหญ่มาก
+TENSION:  Gifter ต้องการความมั่นใจ ไม่ใช่แค่ตัวเลือก — "เลือกผิดแล้วอาย"
+STORY:    คู่มือที่ทำให้ Gifter รู้สึก safe — งาน/งบ → ขวดที่ใช่ พร้อม LINE
+AEO:      "ไวน์เป็นของขวัญยี่ห้อไหนดี" → occasion×budget table
+SKUs:     ครอบคลุมทุก tier ฿500–฿20,000 จาก feed
+```
+
+---
+
+### LIQ9-A1 — Jack Daniel's ราคา
+
+```
+KEY:      54k impressions บน Wine-Now พิสูจน์แล้วว่า demand มีจริง — ต้องมีหน้าใน LIQ9
+TENSION:  คนหา "jack daniel ราคา" ต้องการซื้อ ไม่ใช่อ่าน history — หน้าต้องตอบ price + buy
+STORY:    คู่มือครบวงจร: ทุกรุ่น, ราคา, ขนาด, วิธีสั่งซื้อ — สำหรับคนที่ตัดสินใจแล้ว
+AEO:      "Jack Daniel's ราคาเท่าไหร่" → price table extractable
+hreflang: TH canonical + EN regional from day one
+SKUs:     LWH0305BU Jack Daniel's Old No.7 3L ฿4,345 · LWH0336BU Old No.7 3L+Candle ฿6,442
+NOTE:     750ml not in feed → "สอบถาม 750ml ทาง LINE"
+```
+
+### LIQ9-A2 — เตกีล่า vs เมซคาล
+
+```
+KEY:      National Tequila Day Jul 24 — peg gives urgency + shareability
+TENSION:  คนสับสนระหว่าง tequila กับ mezcal — คำถามง่ายแต่ไม่เคยตอบได้ดีในภาษาไทย
+STORY:    อธิบายความต่างอย่างที่คนสั่งดื่มจริงเข้าใจได้ — production, taste, occasion
+AEO:      "เตกีล่า กับ เมซคาล ต่างกันอย่างไร" → comparison table extractable
+PUBLISH:  July 23 (day before Tequila Day)
+SKUs:     Jose Cuervo Reposado LTQ0033CN ฿844 · Jose Cuervo Silver LTQ0034CN ฿804
+          1800 Anejo LTQ0249CN ฿12,589 · 818 Tequila LTQ0209GH ฿12,569
+```
+
+### LIQ9-A3 — Whisky 101 cluster (extend, not rewrite)
+
+```
+KEY:      Whisky 101 exemplar อยู่แล้ว — July = build cluster links around it, not rewrite
+ACTION:   Add internal links from L1, L2, L4 pointing to Whisky 101 pillar
+          Add 2–3 FAQ blocks to Whisky 101 that answer questions surfaced by L1/L2
+SCHEMA:   Update FAQPage to include Jack Daniel's + Macallan Q&As
+NOTE:     Effort = 2–3 hour edit, not a new article
+```
+
+### LIQ9-C1 — The Macallan ราคา
+
+```
+KEY:      Macallan = most-searched single malt in Thailand; collector tier + gifting
+TENSION:  คนรู้จัก Macallan แต่ไม่รู้ว่า 12 / 18 / Double Cask ต่างกันยังไง หรือราคาเท่าไหร่จริงๆ
+STORY:    คู่มือ Macallan ฉบับสมบูรณ์ — ทุกรุ่น ราคา วิธีเลือก และขวดไหนเหมาะกับของขวัญ
+AEO:      "Macallan รุ่นไหนดี" / "Macallan ราคา" → comparison table extractable
+SKUs:     LWH0364CN Macallan 18 Sherry Oak ฿20,738 sold=12
+          LWH0668CN Macallan 18 Double Cask ฿18,664 sold=2
+          LWH0318CN Macallan 12 Double Cask ฿4,421 sold=24
+```
+
+### LIQ9-C2 — วิสกี้สะสม 2026
+
+```
+KEY:      BI trend hub: Four Roses ultra-premium launch, cask-strength releases, collector whisky surging
+TENSION:  คน collector ไม่รู้จะเริ่มสะสมจาก ขวดไหน — ตลาดมี noise เยอะ
+STORY:    5 ขวดที่คุ้มค่าสำหรับนักสะสมมือใหม่ใน 2026 — เพราะอะไร ราคาตอนนี้เป็นยังไง
+AEO:      "วิสกี้ที่ควรสะสม 2026" → list extractable
+SKUs:     LWH0364CN Macallan 18 ฿20,738 · LWH0145BU Johnnie Walker Gold XR21 ฿5,420
+          LWH0332BU Royal Salute 21yr ฿7,629 · LWH0161BU Lagavulin 16yr ฿4,665
+          LWH0001AA Glenfiddich 12yr ฿2,208
+```
+
+### LIQ9-C3 — Cognac คืออะไร
+
+```
+KEY:      Cognac = 20 articles in BI trend hub + BI shows collector buyer persona
+TENSION:  Cognac กำลัง comeback ในตลาดเอเชีย แต่คนไทยยังไม่รู้ว่ามันคืออะไรจริงๆ
+STORY:    อธิบาย cognac ให้ชัด — VS/VSOP/XO คืออะไร ต่างยังไง และทำไมมันน่าลอง
+AEO:      "cognac คืออะไร" / "VS VSOP XO ต่างกันยังไง" → definition + comparison table
+SKUs:     เหล้าคอนยัค — ตรวจสอบ products.json ก่อน brief; หากไม่มี SKU → LINE route
+```
+
+### LIQ9-B1 — Home-Bar Starter Kit
+
+```
+KEY:      โฮมบาร์ = hosting culture trend + monsoon season = indoor entertaining peak
+TENSION:  คนอยากมีโฮมบาร์แต่ไม่รู้จะเริ่มจากขวดไหน — ตลาดสุราซับซ้อน
+STORY:    5 ขวดที่ครอบคลุม cocktail ได้มากที่สุด — เหตุผลชัด สูตรใช้ได้จริง
+AEO:      "โฮมบาร์มือใหม่ต้องมีอะไรบ้าง" → numbered list extractable
+MOAT:     Original, highly shareable, highest AEO citation format per data hub
+SKUs:     LVK0181AE Russian Standard Vodka ฿824 · LRM0116DR Bacardi Blanca ฿748
+          LGN0106AA Roku Gin ฿1,273 · LTQ0033CN Jose Cuervo ฿844 · LLQ0426CN Aperol ฿1,283
+SCHEMA:   Article + FAQPage + HowTo (สูตร 3 cocktails พร้อม steps)
+```
+
+### LIQ9-B2 — ไฮบอล วิธีทำ
+
+```
+KEY:      Japanese highball culture = Discovery on-ramp; ง่าย share ได้ ไม่ต้องใช้ทักษะ
+TENSION:  คนอยากทำ highball แต่กลัวทำไม่ได้ — "ratio เท่าไหร่", "น้ำแข็งแบบไหน"
+STORY:    สูตร highball สไตล์ญี่ปุ่น ที่ทำได้ที่บ้าน — step by step จริง
+AEO:      "ไฮบอล วิธีทำ" → HowTo schema steps extractable
+SKUs:     จาก LIQ9 whisky range; เน้น entry tier (Glenfiddich 12 LWH0001AA ฿2,208)
+PUBLISH:  Week 2 (Jul 7–11) — before the July hosting season peaks
+```
+
+---
+
+## RECOVERY ACTIONS (separate track — no new articles)
+
+Do these in parallel with content authoring. Each is a 15-min internal-link task.
+
+| Page | Drop | Fix | Link from |
+|---|---|---|---|
+| Jacob's Creek Cab Sauv | pos 2→14 | Add 3 internal links | WN-A1 (mention), best-selling-red refresh, WN-C1 pairing table |
+| Catena Zapata Malbec | pos 1.6→8.4 | Add 2–3 internal links | Premium/Argentina content; WN-D2 Opus One (related prestige Napa) |
+| Cloudy Bay Wine | pos 2.6→11.3 | Add 2 internal links | WN-C1 pairing (NZ sauvignon blanc row), white wine category |
+| Prosecco | pos 4.5→13.1 | Add links from Champagne hub | WN-D3 แชมเปญ hub + existing prosecco blog |
+| Château Margaux | pos 4.6→13.0 | Add link from Bordeaux content | WN-C3 Bastille Day piece + WN-C4 gifting guide |
+| Krug | pos 3.0→8.8 | Add link from Champagne hub | WN-D3 แชมเปญ hub (Krug in comparison table) |
+
+---
+
+## AEO ACCEPTANCE STANDARD
+
+Every piece ships only when it passes this test:
+
+> *Could ChatGPT answer the headline question verbatim from one block of this page — and be factually correct?* If no → rewrite the answer block before uploading.
+
+**9-point AEO checklist (all pieces):**
+1. Answer-first block (40–60 words) at every H2 — before context, before product
+2. Definitional anchor `<X> คือ…` within first 100 words
+3. Question-shaped Thai headings matching real query patterns
+4. Comparison tables for every "X vs Y" (not prose)
+5. Entity specificity — real producers, regions, price bands, ABV where known
+6. Verifiable facts only + "อัปเดต 2026" date stamp; no fabricated scores/rates
+7. Article (headline=H1) + FAQPage (self-contained answers) + HowTo where stepwise
+8. E-E-A-T byline: "Sommelier Desk, Wine-Now" / "Bartender Desk, LIQ9"
+9. Bilingual: TH answer block on TH canonical; EN answer block on EN hreflang
+
+---
+
+## COMPLIANCE (non-negotiable on every piece)
+
+- **No fabricated data** — no invented ABV/price/tax/scores/ranks. Verify-note + verify-list for any figure needing source confirmation.
+- **Real in-stock SKUs only** — `data-sku` attribute + visible `SKU: <b>…</b>` chip. Source: `pipeline/data/products.json` (Jun 2026 feed). No SKU match → 0 product cards + "สอบถามราคาทาง LINE".
+- **Pricing language** — always `~฿` approximate + "สอบถามราคา/สั่งซื้อทาง LINE"
+- **Responsibility footer** — `ดื่มอย่างมีความรับผิดชอบ · 20+` on every piece
+- **Buddhist calendar** — Asalha Puja + Wan Khao Phansa ~Jul 25–26 2026 *(verify exact dates)*: zero commercial pushes; run educational content only
+- **LIQ9 architecture** — one canonical per topic per language; hreflang TH/EN from day one; no stub drafts
+
+---
+
+## JULY SUCCESS METRICS
+
+| KPI | Target |
+|---|---|
+| Flagship CTR | 0.40% → ≥0.60% after title fix (28-day post-publish check) |
+| Cava CTR | 0.01% → ≥0.80% |
+| Dom Pérignon page | New page indexed; CTR ≥3% (demand already proven) |
+| Regression recovery | ≥4 of 6 pages showing position improvement by Jul 31 |
+| LIQ9 index coverage | ≥6 new URLs indexed (beyond homepage) |
+| AEO quality gate | 100% of pieces pass AEO acceptance test before publish |
+| Moat assets | WN Thai Pairing Matrix + LIQ9 Home-Bar Kit live |
+| Persona coverage | All 10 personas (5 WN + 5 LIQ9) touched ≥once |
+| Hero pieces shipped | WN-A1, WN-D1, WN-D3, WN-C1, LIQ9-A1, LIQ9-C1, LIQ9-B1 = 7 Hero pieces |
+| Cadence | ≥14 pieces + recovery actions complete by Jul 31 |
