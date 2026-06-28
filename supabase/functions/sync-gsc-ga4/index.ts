@@ -218,43 +218,60 @@ async function runSynced(
   return grand;
 }
 
-async function main(opts: { startDate?: string; endDate?: string } = {}) {
+const ALL_TYPES = ["gsc", "gsc_pages", "ga4"] as const;
+type SyncType = typeof ALL_TYPES[number];
+
+async function main(opts: { startDate?: string; endDate?: string; syncTypes?: string[] } = {}) {
   const cfg = await getConfig();
   const { data: keyJson, error: keyErr } = await supabase.rpc("get_gcp_sa_key");
   if (keyErr || !keyJson) throw new Error("Cannot read service account key from Vault: " + (keyErr?.message || "empty"));
   const sa = JSON.parse(keyJson as string);
   const token = await getAccessToken(sa, "https://www.googleapis.com/auth/webmasters.readonly https://www.googleapis.com/auth/analytics.readonly");
 
-  // Backfill override: explicit range applies to BOTH GSC and GA4; else defaults.
+  // syncTypes: which sync types to run this invocation. Default = all three.
+  // The cron now calls once per type so each request stays well under the
+  // per-request wall-clock limit (site search coverage has grown 6x since
+  // launch; running all three in one request reliably times out at ~98s).
+  const types = new Set<SyncType>(
+    (opts.syncTypes?.filter((t): t is SyncType => (ALL_TYPES as readonly string[]).includes(t)) ?? [...ALL_TYPES])
+  );
+
+  // Backfill override: explicit range applies to all requested types; else per-type defaults.
   const backfill = isYmd(opts.startDate) && isYmd(opts.endDate);
   const [gscStart, gscEnd] = backfill ? [opts.startDate!, opts.endDate!] : gscWindow();
   const [ga4Start, ga4End] = backfill ? [opts.startDate!, opts.endDate!] : ga4Window();
 
-  // Process wide ranges as a series of bounded windows to keep peak memory in check.
-  const gscWindows = chunkRange(gscStart, gscEnd, CHUNK_DAYS);
-  const ga4Windows = chunkRange(ga4Start, ga4End, CHUNK_DAYS);
+  // Chunk only explicit backfill ranges — daily windows use a single window each.
+  const gscWindows = backfill ? chunkRange(gscStart, gscEnd, CHUNK_DAYS) : [[gscStart, gscEnd]] as [string, string][];
+  const ga4Windows = backfill ? chunkRange(ga4Start, ga4End, CHUNK_DAYS) : [[ga4Start, ga4End]] as [string, string][];
 
-  const results: Record<string, unknown> = { mode: backfill ? "backfill" : "daily", gscRange: [gscStart, gscEnd], ga4Range: [ga4Start, ga4End], chunkDays: CHUNK_DAYS };
+  const results: Record<string, unknown> = { mode: backfill ? "backfill" : "daily", types: [...types], gscRange: [gscStart, gscEnd], ga4Range: [ga4Start, ga4End], chunkDays: CHUNK_DAYS };
 
   const gscSites: [string, string][] = [];
   if (cfg.GSC_SITE_URL) gscSites.push([cfg.GSC_SITE_URL, "wine-now"]);
   if (cfg.GSC_SITE_URL_LIQ9) gscSites.push([cfg.GSC_SITE_URL_LIQ9, "liq9"]);
 
-  const gscTotal = await runSynced(gscSites, gscWindows, results, "gsc", (url, site, s, e) => syncGSC(token, url, site, s, e));
-  if (gscTotal > 0) await logSync("gsc", gscTotal, "completed");
+  if (types.has("gsc")) {
+    const n = await runSynced(gscSites, gscWindows, results, "gsc", (url, site, s, e) => syncGSC(token, url, site, s, e));
+    if (n > 0) await logSync("gsc", n, "completed");
+  }
 
-  const gscPagesTotal = await runSynced(gscSites, gscWindows, results, "gsc_pages", (url, site, s, e) => syncGSCPages(token, url, site, s, e));
-  if (gscPagesTotal > 0) await logSync("gsc_pages", gscPagesTotal, "completed");
+  if (types.has("gsc_pages")) {
+    const n = await runSynced(gscSites, gscWindows, results, "gsc_pages", (url, site, s, e) => syncGSCPages(token, url, site, s, e));
+    if (n > 0) await logSync("gsc_pages", n, "completed");
+  }
 
   const ga4Props: [string, string][] = [];
   if (cfg.GA4_PROPERTY_ID) ga4Props.push([cfg.GA4_PROPERTY_ID, "wine-now"]);
   if (cfg.GA4_PROPERTY_ID_LIQ9) ga4Props.push([cfg.GA4_PROPERTY_ID_LIQ9, "liq9"]);
 
-  const ga4Total = await runSynced(ga4Props, ga4Windows, results, "ga4", (pid, site, s, e) => syncGA4(token, pid, site, s, e));
-  if (ga4Total > 0) await logSync("ga4", ga4Total, "completed");
+  if (types.has("ga4")) {
+    const n = await runSynced(ga4Props, ga4Windows, results, "ga4", (pid, site, s, e) => syncGA4(token, pid, site, s, e));
+    if (n > 0) await logSync("ga4", n, "completed");
+  }
 
-  // Detectors run on the daily sync only (skip during a backfill).
-  if (!backfill) {
+  // Detectors run after ga4 on a daily sync (never during backfill).
+  if (!backfill && types.has("ga4")) {
     try { await supabase.rpc("detect_seo_opportunities", { impression_threshold: 500, ctr_threshold: 0.02 }); } catch (_) {}
     try { await supabase.rpc("detect_seo_regressions", { days: 7, position_drop_threshold: 3, ctr_drop_threshold: 0.2 }); } catch (_) {}
   }
@@ -264,7 +281,7 @@ async function main(opts: { startDate?: string; endDate?: string } = {}) {
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
-  let opts: { startDate?: string; endDate?: string } = {};
+  let opts: { startDate?: string; endDate?: string; syncTypes?: string[] } = {};
   try { opts = await req.json(); } catch { opts = {}; }
   try {
     const result = await main(opts);

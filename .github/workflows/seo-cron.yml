@@ -14,15 +14,36 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.schedule == '0 6 * * *' || github.event_name == 'workflow_dispatch'
     steps:
-      - name: Run GSC/GA4 Sync
+      # Site search coverage has grown ~6x since launch (~123k GSC rows/window).
+      # Running all three sync types in one request reliably hits the edge worker
+      # wall-clock limit (~115s). Split into three sequential calls so each stays
+      # well under the limit. Each call is independent and idempotent.
+      - name: Sync GSC (keyword × date)
         run: |
-          curl -X POST https://asnarjokyedupsjipzkl.supabase.co/functions/v1/sync-gsc-ga4 \
+          curl -sf -X POST https://asnarjokyedupsjipzkl.supabase.co/functions/v1/sync-gsc-ga4 \
             -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzbmFyam9reWVkdXBzamlwemtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMTgzNjMsImV4cCI6MjA5NTc5NDM2M30.sST_AGx6Vax-zEdTm_igXqcrrv_gm4ZMsxUHOi1tx1I" \
             -H "Content-Type: application/json" \
+            -d '{"syncTypes":["gsc"]}' \
+            -w "\nStatus: %{http_code}\n"
+
+      - name: Sync GSC Pages (page × date)
+        run: |
+          curl -sf -X POST https://asnarjokyedupsjipzkl.supabase.co/functions/v1/sync-gsc-ga4 \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzbmFyam9reWVkdXBzamlwemtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMTgzNjMsImV4cCI6MjA5NTc5NDM2M30.sST_AGx6Vax-zEdTm_igXqcrrv_gm4ZMsxUHOi1tx1I" \
+            -H "Content-Type: application/json" \
+            -d '{"syncTypes":["gsc_pages"]}' \
+            -w "\nStatus: %{http_code}\n"
+
+      - name: Sync GA4 (traffic analytics)
+        run: |
+          curl -sf -X POST https://asnarjokyedupsjipzkl.supabase.co/functions/v1/sync-gsc-ga4 \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzbmFyam9reWVkdXBzamlwemtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyMTgzNjMsImV4cCI6MjA5NTc5NDM2M30.sST_AGx6Vax-zEdTm_igXqcrrv_gm4ZMsxUHOi1tx1I" \
+            -H "Content-Type: application/json" \
+            -d '{"syncTypes":["ga4"]}' \
             -w "\nStatus: %{http_code}\n"
 
       - name: Log sync completion
-        run: echo "✅ GSC/GA4 sync completed at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+        run: echo "All three sync types completed at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
 
   slack-alerts:
     name: SEO Slack Daily Alerts
