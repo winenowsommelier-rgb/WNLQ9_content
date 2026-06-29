@@ -358,3 +358,29 @@ a.lq-btn:hover{background:#1B1464 !important;color:#FFFFFF !important;text-decor
 .lq-stats{padding:10px 28px}
 .lq-food-match{padding:10px 28px}
 @media (max-width:768px){.lq-stats,.lq-food-match{padding:8px 18px}}
+
+/* ===== Magento ProductsList widget (grid.phtml) styling, scoped to .lq-shop ===== */
+.lq-shop{margin:32px 0}
+.lq-shop .block-products-list,.lq-shop .block-content,.lq-shop .widget{margin:0}
+.lq-shop .products-grid .product-items,.lq-shop ol.product-items,.lq-shop .product-items{display:flex;flex-wrap:wrap;margin:0 -8px;padding:0;list-style:none}
+.lq-shop li.product-item,.lq-shop .product-item{flex:1 1 calc(33.33% - 16px);min-width:200px;margin:0 8px 16px;padding:18px;background:#FFFFFF;border:1px solid #E3E3DD;border-radius:18px;box-shadow:0 1px 2px rgba(26,26,24,.04),0 12px 30px rgba(26,26,24,.05);list-style:none}
+.lq-shop .product-item-info{display:block;width:auto}
+.lq-shop .product-item-photo{display:block;margin-bottom:14px}
+.lq-shop .product-image-container{width:100% !important}
+.lq-shop .product-image-wrapper{padding-bottom:0 !important;height:auto}
+.lq-shop .product-item-photo img,.lq-shop .product-image-photo{position:static !important;display:block;width:100%;height:auto;border-radius:12px;background:#EFEDE6}
+.lq-shop .product-item-details{display:block}
+.lq-shop .product-item-name{display:block;margin:0 0 8px}
+.lq-shop .product-item-link{font-family:'Sarabun',Arial,sans-serif;font-size:15px;font-weight:600;color:#1A1A18 !important;line-height:1.35;text-decoration:none}
+.lq-shop .product-item-link:hover{color:#1B1464 !important;text-decoration:none}
+.lq-shop .price-box{margin:8px 0}
+.lq-shop .price-box .price,.lq-shop .price{font-family:'Raleway',Arial,sans-serif;font-size:18px;font-weight:700;color:#1B1464}
+.lq-shop .old-price .price{color:#9A988F;font-size:13px;font-weight:400;text-decoration:line-through}
+.lq-shop .product-item-inner{margin-top:12px}
+.lq-shop .product-item-actions{margin:0}
+.lq-shop .actions-primary{display:block;width:100%}
+.lq-shop .product-item-actions .actions-secondary{display:none}
+.lq-shop .action.tocart,.lq-shop .actions-primary .action.primary,.lq-shop button.action.tocart{display:block;width:100%;background:#1B1464;border:1px solid #1B1464;border-radius:999px;color:#fff;font-family:'Raleway',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:13px 16px;cursor:pointer;text-align:center}
+.lq-shop .action.tocart:hover{opacity:.9}
+.lq-shop .price-final_price .price-label{display:none}
+@media (max-width:768px){.lq-shop li.product-item,.lq-shop .product-item{flex:1 1 calc(50% - 16px)}}
