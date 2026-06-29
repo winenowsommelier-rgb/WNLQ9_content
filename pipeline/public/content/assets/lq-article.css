@@ -353,3 +353,8 @@ a.lq-btn:hover{background:#1B1464 !important;color:#FFFFFF !important;text-decor
 /* graceful fallback for unresolved {{media}} images in standalone preview */
 .lq-img-hero,.lq-img-full,.lq-img-bleed,.lq-img-float-inner,.lq-img-half-inner,.lq-img-portrait-inner,.lq-img-product-img-inner,.lq-img-pair-inner,.lq-img-trio-inner{background:#EFEDE6}
 .lq-blog img{color:transparent;font-size:0}
+
+/* review fix: inner padding so rounded data cards don't clip their text */
+.lq-stats{padding:10px 28px}
+.lq-food-match{padding:10px 28px}
+@media (max-width:768px){.lq-stats,.lq-food-match{padding:8px 18px}}

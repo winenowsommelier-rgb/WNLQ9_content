@@ -353,3 +353,8 @@ a.wn-btn:hover{background:#8B0000 !important;color:#FFFFFF !important;text-decor
 /* graceful fallback for unresolved {{media}} images in standalone preview */
 .wn-img-hero,.wn-img-full,.wn-img-bleed,.wn-img-float-inner,.wn-img-half-inner,.wn-img-portrait-inner,.wn-img-product-img-inner,.wn-img-pair-inner,.wn-img-trio-inner{background:#EFEDE6}
 .wn-blog img{color:transparent;font-size:0}
+
+/* review fix: inner padding so rounded data cards don't clip their text */
+.wn-stats{padding:10px 28px}
+.wn-food-match{padding:10px 28px}
+@media (max-width:768px){.wn-stats,.wn-food-match{padding:8px 18px}}
