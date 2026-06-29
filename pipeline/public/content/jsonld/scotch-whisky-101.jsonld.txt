@@ -1,0 +1,33 @@
+<!-- JSON-LD for scotch-whisky-101-2026-07-07.html — add via Magento SEO/metadata, NOT in CMS body -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Scotch Whisky 101: รู้จักสกอตช์ก่อนจิบแก้วแรก","inLanguage":"th","datePublished":"2026-07-07","dateModified":"2026-07-07","author":{"@type":"Organization","name":"LIQ9 Bartender Desk","url":"https://th.liq9.com"},"publisher":{"@type":"Organization","name":"LIQ9","url":"https://th.liq9.com"},"keywords":"Scotch คือ, scotch whisky guide, สกอตช์, single malt vs blended, 5 ภูมิภาค scotch, Speyside, Islay, peat คือ, อ่านฉลากวิสกี้"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.liq9.com"},
+{"@type":"ListItem","position":2,"name":"คู่มือสุรา","item":"https://th.liq9.com/blog"},
+{"@type":"ListItem","position":3,"name":"Scotch Whisky 101"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"5 ภูมิภาคผลิตสกอตช์ของสกอตแลนด์","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Speyside — หอมผลไม้สุก น้ำผึ้ง และดอกไม้ ดื่มง่ายที่สุด"},
+{"@type":"ListItem","position":2,"name":"Highland — กว้างและหลากหลาย ตั้งแต่นุ่มหวานถึงเข้มมีเครื่องเทศ"},
+{"@type":"ListItem","position":3,"name":"Lowland — เบา นุ่ม กลิ่นหญ้าและซิตรัส"},
+{"@type":"ListItem","position":4,"name":"Islay — พีตจัด ควันหนัก กลิ่นยาและกลิ่นทะเล"},
+{"@type":"ListItem","position":5,"name":"Campbeltown & Islands — เค็มทะเล น้ำมัน และเอกลักษณ์เฉพาะถิ่น"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Scotch คืออะไร","acceptedAnswer":{"@type":"Answer","text":"Scotch คือวิสกี้ที่ผลิตและบ่มในสกอตแลนด์ บ่มในถังไม้โอ๊กอย่างน้อย 3 ปีตามกฎหมาย ใช้ธัญพืชเป็นวัตถุดิบโดยมีข้าวบาร์เลย์เป็นหลัก และห้ามเติมแต่งสีหรือกลิ่นนอกจากคาราเมลสีเล็กน้อย ความหลากหลายของรสมาจากภูมิภาคที่ผลิต ชนิดของถังบ่ม และการรมพีตหรือไม่"}},
+{"@type":"Question","name":"single malt ต่างจาก blended ยังไง","acceptedAnswer":{"@type":"Answer","text":"Single malt คือสกอตช์ที่กลั่นจากข้าวบาร์เลย์มอลต์ของโรงกลั่นเพียงแห่งเดียว จึงมีเอกลักษณ์เฉพาะตัวสูง ส่วน blended Scotch คือการนำวิสกี้จากหลายโรงกลั่นมาผสมโดย master blender ให้รสสม่ำเสมอและสมดุล ดื่มง่ายและเข้าถึงได้กว่า blended ไม่ได้ด้อยกว่า single malt แต่เป็นงานฝีมือคนละแบบ"}},
+{"@type":"Question","name":"ภูมิภาคไหนเหมาะกับมือใหม่","acceptedAnswer":{"@type":"Answer","text":"Speyside เหมาะกับมือใหม่ที่สุด เพราะส่วนใหญ่ไม่รมพีต รสหอมผลไม้สุก น้ำผึ้ง และดอกไม้ นุ่มกลมดื่มง่าย ตามด้วย Lowland ที่เบาและสะอาด ส่วน Islay ที่พีตจัดควันหนักควรเก็บไว้ลองเมื่อเริ่มจับทางลิ้นตัวเองได้แล้ว"}},
+{"@type":"Question","name":"พีต (peat) คืออะไร","acceptedAnswer":{"@type":"Answer","text":"พีตคือถ่านพรุที่นำมาเผารมข้าวบาร์เลย์ในขั้นตอนทำมอลต์ ทำให้สกอตช์มีกลิ่นควัน กลิ่นยา และกลิ่นทะเล สกอตช์สาย Islay มักรมพีตจัด ส่วน Speyside ส่วนใหญ่ไม่รมพีต มือใหม่จึงควรเริ่มจากแบบไม่พีตก่อนแล้วค่อยขยับไปหาพีต"}},
+{"@type":"Question","name":"ดื่มสกอตช์ยังไงให้อร่อย","acceptedAnswer":{"@type":"Answer","text":"ลองดื่มเพียว (neat) ที่อุณหภูมิห้องก่อนเพื่อรู้จักตัวมัน แล้วหยดน้ำสองสามหยดเพื่อเปิดกลิ่น จากนั้นลองใส่น้ำแข็งก้อนใหญ่หรือทำไฮบอลกับโซดาเย็นในวันอากาศร้อน แล้วเลือกแบบที่คุณชอบที่สุด ไม่มีวิธีดื่มที่ผิด"}}
+]}
+</script>
+

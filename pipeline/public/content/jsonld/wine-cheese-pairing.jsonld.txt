@@ -1,0 +1,32 @@
+<!-- JSON-LD for wine-cheese-pairing-2026-07-05.html — add via Magento SEO/metadata, NOT in CMS body -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"จับคู่ไวน์กับชีส: คู่มือจัดบอร์ดให้อร่อยลงตัว","inLanguage":"th","datePublished":"2026-07-05","dateModified":"2026-07-05","author":{"@type":"Organization","name":"Wine-Now Sommelier Desk","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"ไวน์ คู่ ชีส, จับคู่ไวน์ชีส, wine cheese pairing, บอร์ดชีส, ไวน์คู่บลูชีส, สปาร์กลิงคู่ชีส"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"บทความ","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"จับคู่ไวน์กับชีส"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HowTo","name":"วิธีจัดบอร์ดชีสให้เข้ากับไวน์","inLanguage":"th","step":[
+{"@type":"HowToStep","position":1,"name":"เลือกชีส 3–5 ชนิดให้หลากเนื้อ","text":"เลือกชีส 3–5 ชนิดที่ต่างเนื้อสัมผัสและความเข้ม เช่น ชีสนุ่ม ชีสแข็ง ชีสแพะ และบลูชีส เพื่อให้บอร์ดมีมิติและจับคู่ไวน์ได้หลายแบบ"},
+{"@type":"HowToStep","position":2,"name":"เรียงจากอ่อนไปแก่","text":"จัดวางชีสเรียงจากรสอ่อนที่สุดไปหารสแก่และเข้มที่สุด เพื่อให้ลิ้นไล่ชิมจากเบาไปหนักโดยไม่กลบรสกันเอง"},
+{"@type":"HowToStep","position":3,"name":"เติมของแกล้ม","text":"เพิ่มของแกล้มที่ช่วยตัดและเสริมรส เช่น ผลไม้สด ผลไม้แห้ง ถั่ว น้ำผึ้ง และขนมปังกรอบ เพื่อเชื่อมรสชีสกับไวน์"},
+{"@type":"HowToStep","position":4,"name":"นำชีสออกมาที่อุณหภูมิห้อง","text":"นำชีสออกจากตู้เย็นราว 30–45 นาทีก่อนเสิร์ฟ ให้ชีสคลายความเย็น กลิ่นและเนื้อสัมผัสจะเปิดเต็มที่"},
+{"@type":"HowToStep","position":5,"name":"จับคู่ไวน์ให้แต่ละชีส","text":"จับคู่ไวน์ตามหลักความเข้มข้น ชีสเบาคู่ไวน์เบา ชีสเข้มคู่ไวน์เข้ม และใช้ฟองหรือความหวานช่วยตัดความมันและความเค็ม"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"ไวน์แดงคู่ชีสได้ไหม","acceptedAnswer":{"@type":"Answer","text":"ได้ แต่ต้องจับคู่ให้ถูกความเข้ม ไวน์แดงแทนนินสูงอย่าง Cabernet เข้ากับชีสแข็งรสแก่อย่าง Cheddar ได้ดีมาก เพราะความเข้มสองฝั่งสมดุลกัน แต่ถ้าเอาไวน์แดงหนักไปคู่ชีสนุ่มกลิ่นอ่อนอย่าง Brie แทนนินจะกลบรสชีสจนเสียสมดุล ชีสนุ่มจึงเข้ากับสปาร์กลิงหรือไวน์ขาวมากกว่า"}},
+{"@type":"Question","name":"ทำไมไวน์หวานเข้ากับบลูชีส","acceptedAnswer":{"@type":"Answer","text":"บลูชีสมีความเค็มจัดและรสเข้มฉุน ความหวานของไวน์อย่าง Riesling หวานหรือไวน์ late-harvest จะเข้าไปตัดความเค็มและความฉุนให้กลมขึ้น เกิดความสมดุลระหว่างหวานกับเค็มที่ลงตัว เป็นคู่คลาสสิกที่ซอมเมอลิเย่ทั่วโลกแนะนำ"}},
+{"@type":"Question","name":"มือใหม่จัดบอร์ดเริ่มยังไง","acceptedAnswer":{"@type":"Answer","text":"เริ่มจากเลือกชีส 3–5 ชนิดให้หลากเนื้อสัมผัส เรียงจากรสอ่อนไปแก่ เติมของแกล้มอย่างผลไม้ ถั่ว และน้ำผึ้ง นำชีสออกมาที่อุณหภูมิห้องก่อนเสิร์ฟ แล้วจับคู่ไวน์ตามหลักความเข้มข้น เบาคู่เบา เข้มคู่เข้ม เท่านี้ก็ได้บอร์ดที่อร่อยลงตัวแล้ว"}},
+{"@type":"Question","name":"สปาร์กลิงคู่ชีสอะไรดี","acceptedAnswer":{"@type":"Answer","text":"สปาร์กลิงและแชมเปญเข้ากับชีสนุ่มครีมมันอย่าง Brie และ Camembert ได้ดีที่สุด เพราะฟองและกรดสดของไวน์จะตัดความมันของชีสให้สดชื่นขึ้น และยังเข้ากับชีสแพะกรดสูงได้ดีอีกด้วย เป็นไวน์ที่อเนกประสงค์ที่สุดบนบอร์ดชีส"}}
+]}
+</script>
+
