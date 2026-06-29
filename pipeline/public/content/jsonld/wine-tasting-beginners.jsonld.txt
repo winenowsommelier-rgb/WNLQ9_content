@@ -1,4 +1,4 @@
-<!-- JSON-LD for wine-tasting-beginners-2026-07-07.html — add via Magento SEO/metadata, NOT in CMS body -->
+<!-- JSON-LD for wine-tasting-beginners-2026-07-07.html -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"ชิมไวน์สำหรับมือใหม่: เริ่มต้นด้วย ดู ดม ชิม","inLanguage":"th","datePublished":"2026-07-07","dateModified":"2026-07-07","author":{"@type":"Organization","name":"Wine-Now ทีมซอมเมอลิเย่","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"ชิมไวน์, wine tasting beginners, ชิมไวน์สำหรับมือใหม่, ดู ดม ชิม, แทนนินคือ, acidity ไวน์, body ไวน์, สวิร์ลแก้วไวน์, ฝึกชิมไวน์ที่บ้าน"}
 </script>

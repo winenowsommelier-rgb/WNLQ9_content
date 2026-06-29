@@ -1,4 +1,4 @@
-<!-- JSON-LD for mojito-recipe-2026-07-05.html — add via Magento SEO/metadata, NOT in CMS body -->
+<!-- JSON-LD for mojito-recipe-2026-07-05.html -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Article","headline":"Mojito 101 + เวอร์ชันไทยใบเตย","inLanguage":"th","datePublished":"2026-07-05","dateModified":"2026-07-05","author":{"@type":"Organization","name":"LIQ9 Bartender Desk","url":"https://th.liq9.com"},"publisher":{"@type":"Organization","name":"LIQ9","url":"https://th.liq9.com"},"keywords":"Mojito สูตร, mojito recipe, ม็อกฮิโต้, ค็อกเทลรัม, รัมขาว, สูตรค็อกเทล"}
 </script>
