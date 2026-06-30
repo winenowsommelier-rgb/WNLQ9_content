@@ -384,3 +384,33 @@ a.wn-btn:hover{background:#8B0000 !important;color:#FFFFFF !important;text-decor
 .wn-shop .action.tocart:hover{opacity:.9}
 .wn-shop .price-final_price .price-label{display:none}
 @media (max-width:768px){.wn-shop li.product-item,.wn-shop .product-item{flex:1 1 calc(50% - 16px)}}
+
+/* ============================================================
+   WYSIWYG-RESILIENT LAYER (TinyMCE-safe) — added 2026-06-30
+   Fixes from content-team report (3-wine-styles case study):
+   (1) empty-element stripping that killed bars + broke blocks
+   (2) dead-space under body-level full-width images
+   Backward-compatible: legacy empty-fill rules above still apply.
+   ============================================================ */
+/* (2) full-width images dropped straight in the body — direct <img>
+   or the team's <p><img width="1200"></p> workaround. height:auto
+   cancels the box a height="" attribute would otherwise reserve.   */
+.wn-body>img,.wn-body>p>img{display:block;width:100%;height:auto;margin:14px 0 22px;border-radius:18px}
+.wn-body>p>img{margin-left:auto;margin-right:auto}
+.wn-body>p:empty{display:none}
+/* (1) strip-proof fills — author bars with NO empty nodes: the track
+   carries a visually-hidden value, the fill is a ::before whose length
+   comes from a wn-w-* class (class attr survives TinyMCE; no inline
+   style needed, no empty <span> to cull).                            */
+.wn-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.wn-fill{position:relative}
+.wn-fill::before{content:"";position:absolute;left:0;top:0;height:100%;width:var(--wnw,0);background:var(--wnc,#8B0000);border-radius:inherit}
+.wn-fill.is-v::before{top:auto;bottom:0;left:0;right:0;width:auto!important;height:var(--wnw,0)}
+.wn-c-red{--wnc:#8B0000}.wn-c-gold{--wnc:#B8932A}.wn-c-blue{--wnc:#2A4A6A}.wn-c-rose{--wnc:#B23A3A}.wn-c-olive{--wnc:#8A8A20}.wn-c-green{--wnc:#72B862}
+.wn-w-0{--wnw:0}.wn-w-5{--wnw:5%}.wn-w-10{--wnw:10%}.wn-w-15{--wnw:15%}.wn-w-20{--wnw:20%}.wn-w-25{--wnw:25%}.wn-w-30{--wnw:30%}.wn-w-35{--wnw:35%}.wn-w-40{--wnw:40%}.wn-w-45{--wnw:45%}.wn-w-50{--wnw:50%}.wn-w-55{--wnw:55%}.wn-w-60{--wnw:60%}.wn-w-65{--wnw:65%}.wn-w-70{--wnw:70%}.wn-w-75{--wnw:75%}.wn-w-80{--wnw:80%}.wn-w-85{--wnw:85%}.wn-w-90{--wnw:90%}.wn-w-95{--wnw:95%}.wn-w-100{--wnw:100%}
+/* strip-proof score-dots: ONE non-empty element, pips drawn by a mask,
+   filled length from wn-pips-N, hidden value inside. Replaces the old
+   five empty <span class="score-dot"> (which TinyMCE could cull).     */
+.wn-pips{position:relative;display:inline-block;width:47px;height:7px;margin-right:6px;background:#E3E3DD;vertical-align:middle;-webkit-mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 10px);mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 10px)}
+.wn-pips::before{content:"";position:absolute;left:0;top:0;height:100%;width:var(--wnp,0);background:var(--wnc,#8B0000)}
+.wn-pips-0{--wnp:0}.wn-pips-1{--wnp:7px}.wn-pips-2{--wnp:17px}.wn-pips-3{--wnp:27px}.wn-pips-4{--wnp:37px}.wn-pips-5{--wnp:47px}

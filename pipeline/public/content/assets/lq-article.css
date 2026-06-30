@@ -384,3 +384,33 @@ a.lq-btn:hover{background:#1B1464 !important;color:#FFFFFF !important;text-decor
 .lq-shop .action.tocart:hover{opacity:.9}
 .lq-shop .price-final_price .price-label{display:none}
 @media (max-width:768px){.lq-shop li.product-item,.lq-shop .product-item{flex:1 1 calc(50% - 16px)}}
+
+/* ============================================================
+   WYSIWYG-RESILIENT LAYER (TinyMCE-safe) — added 2026-06-30
+   Fixes from content-team report (3-wine-styles case study):
+   (1) empty-element stripping that killed bars + broke blocks
+   (2) dead-space under body-level full-width images
+   Backward-compatible: legacy empty-fill rules above still apply.
+   ============================================================ */
+/* (2) full-width images dropped straight in the body — direct <img>
+   or the team's <p><img width="1200"></p> workaround. height:auto
+   cancels the box a height="" attribute would otherwise reserve.   */
+.lq-body>img,.lq-body>p>img{display:block;width:100%;height:auto;margin:14px 0 22px;border-radius:18px}
+.lq-body>p>img{margin-left:auto;margin-right:auto}
+.lq-body>p:empty{display:none}
+/* (1) strip-proof fills — author bars with NO empty nodes: the track
+   carries a visually-hidden value, the fill is a ::before whose length
+   comes from a lq-w-* class (class attr survives TinyMCE; no inline
+   style needed, no empty <span> to cull).                            */
+.lq-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.lq-fill{position:relative}
+.lq-fill::before{content:"";position:absolute;left:0;top:0;height:100%;width:var(--lqw,0);background:var(--lqc,#1B1464);border-radius:inherit}
+.lq-fill.is-v::before{top:auto;bottom:0;left:0;right:0;width:auto!important;height:var(--lqw,0)}
+.lq-c-navy{--lqc:#1B1464}.lq-c-gold{--lqc:#B8932A}.lq-c-blue{--lqc:#2A4A6A}.lq-c-rose{--lqc:#B23A3A}.lq-c-olive{--lqc:#8A8A20}.lq-c-green{--lqc:#72B862}
+.lq-w-0{--lqw:0}.lq-w-5{--lqw:5%}.lq-w-10{--lqw:10%}.lq-w-15{--lqw:15%}.lq-w-20{--lqw:20%}.lq-w-25{--lqw:25%}.lq-w-30{--lqw:30%}.lq-w-35{--lqw:35%}.lq-w-40{--lqw:40%}.lq-w-45{--lqw:45%}.lq-w-50{--lqw:50%}.lq-w-55{--lqw:55%}.lq-w-60{--lqw:60%}.lq-w-65{--lqw:65%}.lq-w-70{--lqw:70%}.lq-w-75{--lqw:75%}.lq-w-80{--lqw:80%}.lq-w-85{--lqw:85%}.lq-w-90{--lqw:90%}.lq-w-95{--lqw:95%}.lq-w-100{--lqw:100%}
+/* strip-proof score-dots: ONE non-empty element, pips drawn by a mask,
+   filled length from lq-pips-N, hidden value inside. Replaces the old
+   five empty <span class="score-dot"> (which TinyMCE could cull).     */
+.lq-pips{position:relative;display:inline-block;width:47px;height:7px;margin-right:6px;background:#E3E3DD;vertical-align:middle;-webkit-mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 10px);mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 10px)}
+.lq-pips::before{content:"";position:absolute;left:0;top:0;height:100%;width:var(--lqp,0);background:var(--lqc,#1B1464)}
+.lq-pips-0{--lqp:0}.lq-pips-1{--lqp:7px}.lq-pips-2{--lqp:17px}.lq-pips-3{--lqp:27px}.lq-pips-4{--lqp:37px}.lq-pips-5{--lqp:47px}
