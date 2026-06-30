@@ -1,0 +1,19 @@
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"ไวน์ Loire & Rhône น่ารู้: สองแคว้นฝรั่งเศสที่มักถูกมองข้าม","inLanguage":"th","datePublished":"2026-07-10","dateModified":"2026-07-10","author":{"@type":"Organization","name":"Wine-Now ทีมซอมเมอลิเย่","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"Loire Rhône ไวน์, Loire, Rhône, Sauvignon Blanc, Chenin Blanc, Sancerre, Syrah, GSM, Côtes du Rhône, ไวน์ฝรั่งเศสคุ้มค่า"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"บทความ","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"ไวน์ Loire & Rhône น่ารู้: สองแคว้นฝรั่งเศสที่มักถูกมองข้าม"}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Loire กับ Rhône ต่างจาก Bordeaux และ Burgundy อย่างไร","acceptedAnswer":{"@type":"Answer","text":"Loire และ Rhône เป็นสองแคว้นที่มักถูกมองข้ามหลัง Bordeaux กับ Burgundy แต่ให้ความคุ้มค่ากว่าในงบเท่ากัน Loire เด่นที่ขาวสดเปรี้ยวสดชื่นจาก Sauvignon Blanc และ Chenin Blanc กับแดงเบาจาก Cabernet Franc ส่วน Rhône ทางใต้ให้แดงเข้มอบอุ่นจาก Syrah และเบลนด์ GSM ที่ผลไม้จัดและมีกลิ่นเครื่องเทศ"}},
+{"@type":"Question","name":"ถ้าเพิ่งเริ่มต้น ควรลองขวดไหนของ Loire และ Rhône ก่อน","acceptedAnswer":{"@type":"Answer","text":"สายขาว Loire เริ่มที่ Sauvignon Blanc สดชื่นซึ่งดื่มง่ายและเข้ากับอาหารทะเลและยำไทย ส่วนสายแดง Rhône เริ่มที่ Syrah หรือ Côtes du Rhône เบลนด์ GSM ที่ผลไม้จัดและแทนนินไม่ดุ ทั้งสองกลุ่มเข้าใจง่ายตั้งแต่จิบแรกและคุ้มต่อแก้ว"}},
+{"@type":"Question","name":"GSM คืออะไร และต่างจาก Syrah เดี่ยวอย่างไร","acceptedAnswer":{"@type":"Answer","text":"GSM ย่อมาจาก Grenache-Syrah-Mourvèdre เป็นการเบลนด์องุ่นสามพันธุ์ที่พบมากใน Rhône ทางใต้ Grenache ให้ผลไม้แดงหวานละมุน Syrah ให้โครงสร้างและกลิ่นเครื่องเทศ ส่วน Mourvèdre เพิ่มความเข้มและกลิ่นดิน ขณะที่ Syrah เดี่ยวจะโชว์คาแรกเตอร์พริกไทยและผลไม้ดำชัดกว่า"}},
+{"@type":"Question","name":"ไวน์ Loire และ Rhône คู่กับอาหารไทยได้ไหม","acceptedAnswer":{"@type":"Answer","text":"ได้ดีมาก ขาวสด Loire อย่าง Sauvignon Blanc เข้ากับอาหารทะเล ยำ ส้มตำ และของทอด ความเปรี้ยวสดช่วยตัดเลี่ยน ส่วนแดง Rhône อย่าง Syrah และ GSM เข้ากับของย่าง หมูกระทะ เนื้อย่าง และอาหารรสจัดมีเครื่องเทศได้ลงตัว"}},
+{"@type":"Question","name":"ตอนนี้ Wine-Now มีไวน์ Loire และ Rhône แท้ ๆ ไหม","acceptedAnswer":{"@type":"Answer","text":"ช่วงนี้สต๊อก Loire และ Rhône แท้กำลังเว้นว่าง เราจึงแนะนำขวดที่ใช้องุ่นพันธุ์เดียวกันและให้คาแรกเตอร์ใกล้เคียงเป็นจุดเริ่มต้น เช่น Sauvignon Blanc จากแหล่งอื่นแทนสายขาว Loire และ Syrah/Shiraz แทนสายแดง Rhône โดยระบุชัดว่าเป็นขวดเทียบเคียง ไม่ใช่ของจากแคว้นนั้นโดยตรง หากอยากได้ของจากแคว้นแท้ ๆ ทักไลน์ให้เราจองล่วงหน้าได้"}}
+]}
+</script>
