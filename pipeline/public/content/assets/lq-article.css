@@ -42,11 +42,10 @@ a.lq-lbtn:focus-visible{outline:2px solid #FFFFFF;outline-offset:3px}
 .lq-tip{margin:32px 0;padding:22px 26px;background:#EEF0F7;border:1px solid #D9DDEC}
 .lq-tip-t{display:block;font-family:'Raleway',Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;color:#1B1464;text-transform:uppercase;margin-bottom:10px}
 .lq-tip p{font-family:'Sarabun',Arial,sans-serif !important;font-size:15px !important;color:#5C5C56 !important;margin:0 !important;line-height:1.85 !important}
-.lq-faq{margin:24px 0}
-.lq-faq-q{padding:24px 0;border-bottom:1px solid #E3E3DD}
-.lq-faq-q:first-child{border-top:1px solid #E3E3DD}
-.lq-faq-q h4{font-family:'Raleway',Arial,sans-serif;font-size:13px;font-weight:700;color:#1A1A18;letter-spacing:.04em;margin-bottom:10px}
-.lq-faq-q p{font-family:'Sarabun',Arial,sans-serif !important;font-size:15px !important;color:#5C5C56 !important;margin:0 !important;line-height:1.85 !important}
+.lq-faq{margin:32px 0;display:flex;flex-direction:column;gap:10px}
+.lq-faq-item{border-left:3px solid #B8932A;background:#FDFCFA;border-radius:0 4px 4px 0;padding:18px 20px 18px 20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.lq-faq-q-text{display:block;font-family:'Raleway',Arial,sans-serif;font-size:13px;font-weight:700;color:#1A1A18;letter-spacing:.03em;line-height:1.55;margin-bottom:10px}
+.lq-faq-body p{font-family:'Sarabun',Arial,sans-serif !important;font-size:15px !important;color:#5C5C56 !important;margin:0 !important;line-height:1.9 !important}
 .lq-pair{display:flex;flex-wrap:wrap;margin:32px 0;border:1px solid #E3E3DD}
 .lq-pbox{flex:1;min-width:220px;padding:24px 32px;background:#FFFFFF;border-top:1px solid #E3E3DD}
 .lq-pbox-first{border-top-color:#1B1464}
