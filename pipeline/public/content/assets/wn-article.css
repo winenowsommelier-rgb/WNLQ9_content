@@ -413,3 +413,17 @@ a.wn-btn:hover{background:#8B0000 !important;color:#FFFFFF !important;text-decor
 .wn-pips{position:relative;display:inline-block;width:47px;height:7px;margin-right:6px;background:#E3E3DD;vertical-align:middle;-webkit-mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 10px);mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 10px)}
 .wn-pips::before{content:"";position:absolute;left:0;top:0;height:100%;width:var(--wnp,0);background:var(--wnc,#8B0000)}
 .wn-pips-0{--wnp:0}.wn-pips-1{--wnp:7px}.wn-pips-2{--wnp:17px}.wn-pips-3{--wnp:27px}.wn-pips-4{--wnp:37px}.wn-pips-5{--wnp:47px}
+/* (3) wn-ml / wn-mbar: alternate metric-row label & track (same rules as
+   wn-mlbl / wn-mtrack; needed when article authors use the shorter names) */
+.wn-ml{font-family:'Raleway',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#57564F;width:104px;flex-shrink:0;margin-right:18px}
+.wn-mbar{flex:1;height:9px;background:#EFEDE6;border-radius:999px;position:relative;overflow:hidden}
+/* (4) wn-fm-*: compact food-match indicator (title + dot-row table variant) */
+.wn-fm-t{font-family:'Raleway',Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#57564F;display:block;margin-bottom:10px}
+.wn-fm-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #F3F2EC}
+.wn-fm-row:last-child{border-bottom:none}
+.wn-fm-food{font-family:'Sarabun',Arial,sans-serif;font-size:13px;font-weight:500;color:#1A1A18;flex:1;margin-right:10px}
+.wn-fm-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin:0 10px;background:#C5C4BC}
+.wn-fm-hi{background:#72B862}.wn-fm-mid{background:#B8932A}.wn-fm-lo{background:#C5C4BC}
+.wn-fm-note{font-family:'Sarabun',Arial,sans-serif;font-size:12px;font-weight:300;color:#76766E;flex:1}
+/* (5) res-v: verdict/result badge colour on wn-food-result */
+.wn-food-result.res-v,.res-v{color:#B8932A}
