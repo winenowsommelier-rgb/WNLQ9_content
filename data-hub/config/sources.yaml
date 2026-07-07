@@ -9,18 +9,26 @@
 #                  collection_config.enabled_verticals (see bottom of file).
 #   * enabled   -- true/false. A source with enabled:false is always skipped.
 #
-# Last Updated: 2026-06-02
-# Version: 2.0 (6 selectable content verticals)
+# Last Updated: 2026-06-04
+# Version: 2.2 (fixed Whisky Advocate to web_scrape; added SWA entry; updated Difford's/Wongnai
+#               to playwright; added Wine Spectator + James Suckling as playwright entries;
+#               carried forward v2.1 fixes: Wine Enthusiast domain, Khaosod English, QSR disables)
 
 sources:
   wine:
     - name: "Wine Spectator"
       url: "https://www.winespectator.com"
-      api_type: "rss"
-      rss_feed: "https://www.winespectator.com/rss/reviews.xml"
+      api_type: "playwright"
+      scrape_endpoint: "https://www.winespectator.com/dailypicks"
       vertical: "wine"
       enabled: false
-      disabled_reason: "broken RSS 404 — feed returns no entries; needs scrape"
+      disabled_reason: "RSS dead (404). Homepage and /dailypicks confirmed server-rendered with real article content (tested 2026-06-04). However no explicit CSS class names are decorated on article card wrapper elements — the site uses a custom proprietary CMS with minimal class decoration. Selectors below are best-guess from page structure patterns; needs PlaywrightCollector + DevTools selector verification before enabling."
+      selectors:
+        article: "article, .article-card, .review-card, div[class*='card'], li[class*='article']"
+        title: "h3, h2, h3 a, h2 a, .article-title, [class*='title']"
+        link: "a[href*='/articles/'], a[href*='/wine/wine-detail/']"
+        excerpt: "p, .description, [class*='excerpt'], [class*='summary']"
+      scrape_selector_confidence: "best-guess — proprietary CMS with minimal CSS class decoration; verified page is accessible and serves real HTML but class names not extractable via WebFetch"
       categories: ["reviews", "news", "ratings"]
       language: "en"
       update_frequency: "daily"
@@ -28,7 +36,7 @@ sources:
       content_types: ["review", "news"]
       coverage: ["wine"]
       regions: ["France", "Italy", "Spain", "USA (California)", "USA (Other)", "Argentina", "Chile", "Australia", "New Zealand", "Germany", "Portugal", "Greece", "South Africa", "Emerging"]
-      notes: "Leading wine rating and review source; daily RSS updates with tasting notes and scores."
+      notes: "Leading wine rating and review source. RSS dead (reviews.xml → 404). Homepage and /dailypicks confirmed accessible with static HTML article content. Playwright — activate once PlaywrightCollector deployed and selectors verified in DevTools."
 
     - name: "Robert Parker Wine Advocate"
       url: "https://www.robertparkerwineadvocate.com"
@@ -64,11 +72,17 @@ sources:
 
     - name: "James Suckling"
       url: "https://www.jamessuckling.com"
-      api_type: "rss"
-      rss_feed: "https://www.jamessuckling.com/feed/"
+      api_type: "playwright"
+      scrape_endpoint: "https://www.jamessuckling.com"
       vertical: "wine"
       enabled: false
-      disabled_reason: "broken RSS — feed returns no usable entries; needs scrape"
+      disabled_reason: "RSS dead (no usable feed entries). All article listing and score paths (/articles/, /wine-scores/) return HTTP 403 Forbidden as of 2026-06-04 — the site actively blocks non-browser requests. Playwright with browser fingerprint required. Selectors are best-guess from known site structure patterns."
+      selectors:
+        article: "article, .article-card, .wine-card, li[class*='article'], div[class*='article']"
+        title: "h3, h2, h3 a, h2 a, [class*='title'], [class*='headline']"
+        link: "a[href*='/tasting-notes/'], a[href*='/articles/'], h3 a, h2 a"
+        excerpt: "p, [class*='excerpt'], [class*='description'], [class*='summary']"
+      scrape_selector_confidence: "best-guess — all direct fetch attempts return 403; selectors derived from common CMS patterns"
       categories: ["reviews", "ratings"]
       language: "en"
       update_frequency: "weekly"
@@ -76,15 +90,14 @@ sources:
       content_types: ["review"]
       coverage: ["wine"]
       regions: ["Italy", "Spain", "USA (California)", "Emerging"]
-      notes: "Influential wine critic; strong coverage of Italian and Spanish wines; regional focus."
+      notes: "Influential wine critic; strong coverage of Italian and Spanish wines. RSS dead. Site blocks non-browser requests (403 on /articles/ and /wine-scores/). Playwright — activate once PlaywrightCollector deployed."
 
     - name: "Wine Enthusiast"
-      url: "https://www.winemag.com"
+      url: "https://www.wineenthusiast.com"
       api_type: "rss"
-      rss_feed: "https://www.winemag.com/feed/"
+      rss_feed: "https://www.wineenthusiast.com/feed/"
       vertical: "wine"
-      enabled: false
-      disabled_reason: "broken RSS — winemag.com feed returns no entries; needs scrape"
+      enabled: true
       categories: ["reviews", "news", "guides"]
       language: "en"
       update_frequency: "daily"
@@ -92,7 +105,7 @@ sources:
       content_types: ["review", "news", "guide", "blog"]
       coverage: ["wine"]
       regions: ["France", "Italy", "Spain", "USA (California)", "USA (Other)", "Argentina", "Chile", "Australia", "South Africa"]
-      notes: "Broad wine coverage with daily publishing; accessible content for enthusiasts."
+      notes: "Broad wine coverage with daily publishing; accessible content for enthusiasts. Fixed 2026-06-04: old config used wrong domain winemag.com; correct domain is wineenthusiast.com. Feed verified live: RSS 2.0, 3 items dated 2026-06-03, updates hourly, WordPress 6.9."
 
     - name: "Vivino Community"
       url: "https://www.vivino.com"
@@ -178,10 +191,17 @@ sources:
   spirits:
     - name: "Whisky Advocate"
       url: "https://www.whiskyadvocate.com"
-      api_type: "rss"
-      rss_feed: "https://www.whiskyadvocate.com/feed/"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://www.whiskyadvocate.com/news/"
       vertical: "spirits"
-      enabled: true
+      enabled: false
+      disabled_reason: "RSS dead — all feed URLs return 404 (www.whiskyadvocate.com/feed/, no-www, /news/feed/ tested 2026-06-04). Switching to web_scrape: /news/ confirmed server-rendered static HTML with real article cards (h4 > a title structure, no JS skeleton). /whiskies-spirits/ and /category/news/ both 404. Selectors are best-guess — site uses a custom CMS with minimal CSS class decoration; no explicit class names visible via WebFetch. Enable once selectors verified in browser DevTools."
+      selectors:
+        article: "article, .post, .entry, li[class*='post'], div[class*='article'], div[class*='post']"
+        title: "h4 a, h3 a, h2 a, h4, h3"
+        link: "h4 a, h3 a, h2 a, a[href^='/']"
+        excerpt: "p.excerpt, .entry-summary, .post-excerpt, p"
+      scrape_selector_confidence: "best-guess — /news/ serves static HTML (confirmed 2026-06-04) but site CMS has minimal class decoration; verify selectors via DevTools before enabling"
       categories: ["reviews", "news", "ratings"]
       language: "en"
       update_frequency: "daily"
@@ -190,18 +210,23 @@ sources:
       coverage: ["spirits"]
       spirits_types: ["whisky"]
       regions: ["Scotland", "Ireland", "USA", "Japan", "India"]
-      notes: "Leading whisky publication; daily content on reviews, whisky news, distillery updates."
+      notes: "Leading whisky publication; daily content on reviews, whisky news, distillery updates. RSS removed entirely by publisher. Listing URL /news/ serves static HTML article cards with h4 title + anchor link structure."
 
     - name: "Difford's Guide"
       url: "https://www.diffordsguide.com"
-      api_type: "web_scrape"
-      scrape_endpoint: "https://www.diffordsguide.com/en/spirits/reviews/"
-      scrape_selector: ".spirit-review"
+      api_type: "playwright"
+      # /cocktails/most-viewed verified live 2026-06-04: 200 OK, JS-rendered
+      # cards (not in static HTML). /spirits returns 404. Targeting cocktails
+      # endpoint which is confirmed reachable. PlaywrightCollector needed.
+      scrape_endpoint: "https://www.diffordsguide.com/cocktails/most-viewed"
       vertical: "spirits"
       enabled: false
-      disabled_reason: "JS-rendered + endpoint 404 — needs Playwright"
-      static_scrape_verified: false
-      static_scrape_note: "VERIFIED 2026-06-01: this endpoint 404s and the site is JS-rendered. Static requests+BeautifulSoup returns no article structure. Needs a headless (Playwright/Selenium) scraper before it can be activated."
+      disabled_reason: "playwright — PlaywrightCollector now deployed. Selectors need live verification with rendered DOM; enable after confirming card selectors in headless browser."
+      selectors:
+        article: "a[href*='/cocktails/'][href!='/cocktails/'][href!='/cocktails/search'][href!='/cocktails/how-to-make']"
+        title: "h3, h2, [class*='name'], [class*='title']"
+        link: "a[href*='/cocktails/']"
+        excerpt: "p, [class*='desc']"
       categories: ["reviews", "spirits_guide"]
       language: "en"
       update_frequency: "weekly"
@@ -210,7 +235,7 @@ sources:
       coverage: ["spirits"]
       spirits_types: ["gin", "rum", "whisky", "vodka", "tequila", "brandy", "cognac"]
       regions: ["Scotland", "Ireland", "USA", "Japan", "Mexico", "France"]
-      notes: "Comprehensive spirits database and reviews; web scraping required for reviews."
+      notes: "Comprehensive spirits database and reviews. Homepage confirmed server-rendered with card structure. Spirit listing endpoints return 404 on static requests — needs PlaywrightCollector for locale-aware navigation."
 
     - name: "The Spirits Business"
       url: "https://www.thespiritsbusiness.com"
@@ -227,6 +252,32 @@ sources:
       spirits_types: ["whisky", "vodka", "gin", "rum", "tequila", "brandy"]
       regions: ["Scotland", "Ireland", "USA", "Japan", "Mexico", "France"]
       notes: "Industry news and market analysis; strong for trend signals and competitive intelligence."
+
+    - name: "Scotch Whisky Association"
+      url: "https://scotch-whisky.org.uk"
+      api_type: "web_scrape"
+      scrape_endpoint: "https://scotch-whisky.org.uk/newsroom/"
+      vertical: "spirits"
+      geo_focus: "scotland"
+      enabled: true
+      selectors:
+        article: "a.news-article-item__holder, a.content-column-box--featured"
+        title: "h2, h3, h4"
+        link: "a.news-article-item__holder, a.content-column-box--featured"
+        excerpt: "p"
+      # Selectors verified 2026-06-04 via Playwright + requests: both return
+      # 13 static article containers at scotch-whisky.org.uk/newsroom/.
+      # CSS classes confirmed: news-article-item__holder (list items) +
+      # content-column-box--featured (featured card). Static HTML — no Playwright needed.
+      categories: ["research", "market_data", "industry_news", "regulation"]
+      language: "en"
+      update_frequency: "weekly"
+      auth_required: false
+      content_types: ["research", "news", "guide"]
+      coverage: ["spirits"]
+      spirits_types: ["whisky"]
+      regions: ["Scotland", "UK"]
+      notes: "Official Scotch industry body. Publishes trade statistics, duty/tariff commentary, and industry news. Newsroom at scotch-whisky.org.uk/newsroom/ is server-rendered static HTML. No RSS feed (Umbraco CMS). High strategic value for Scotland/whisky signal."
 
     - name: "Scotch Whisky Research Institute"
       url: "https://www.scotchwhiskyresearch.com"
@@ -412,7 +463,8 @@ sources:
       api_type: "rss"
       rss_feed: "https://www.nrn.com/rss.xml"
       vertical: "hospitality"
-      enabled: true
+      enabled: false
+      disabled_reason: "consistently low beverage relevance — dominates hospitality feed with QSR/fast-food content (e.g. 'Yum Brands COO to retire', 'Little Caesars $5 pizza deal', 'Illinois restaurants face tip fees'). Disabled 2026-06-04; filtered out by collection_config.minimum_beverage_relevance=medium."
       categories: ["foodservice", "restaurant_industry", "news"]
       language: "en"
       update_frequency: "daily"
@@ -427,7 +479,8 @@ sources:
       api_type: "rss"
       rss_feed: "https://www.restaurantdive.com/feeds/news/"
       vertical: "hospitality"
-      enabled: true
+      enabled: false
+      disabled_reason: "consistently low beverage relevance — dominates hospitality feed with QSR/fast-food content (e.g. 'Yum Brands COO to retire', 'Little Caesars $5 pizza deal', 'Illinois restaurants face tip fees'). Disabled 2026-06-04; filtered out by collection_config.minimum_beverage_relevance=medium."
       categories: ["foodservice", "restaurant_industry", "news"]
       language: "en"
       update_frequency: "daily"
@@ -506,24 +559,29 @@ sources:
       notes: "Monitor r/wine, r/whisky, r/spirits for user discussions and emerging interests."
 
   thai_local:
-    - name: "Wongnai Restaurants & Reviews"
+    - name: "Wongnai"
       url: "https://www.wongnai.com"
-      api_type: "web_scrape"
-      scrape_endpoint: "https://www.wongnai.com/restaurants/search?q=wine+bar&q=whisky"
-      scrape_selector: ".WnRestaurantCard"
-      vertical: "thai"
+      api_type: "playwright"
+      scrape_endpoint: "https://www.wongnai.com/articles"
+      vertical: "food"
+      geo_focus: "thailand"
+      thailand_focus_override: "high"
       enabled: false
-      disabled_reason: "JS-rendered SPA + endpoint 404 — needs Playwright/Wongnai API"
-      static_scrape_verified: false
-      static_scrape_note: "VERIFIED 2026-06-01: this search URL 404s and Wongnai is a JS single-page app; static scraping returns no cards. Needs either a headless scraper or Wongnai's internal JSON API. High strategic value (Thai market) but blocked on tooling."
-      categories: ["local_news", "restaurant_reviews", "wine_bars"]
+      disabled_reason: "JS-rendered React SPA — needs PlaywrightCollector + selector verification. Confirmed 2026-06-04: homepage returns meaningful HTML content (restaurant cards, nav menus, rating data) but is a React SPA; /articles page also returns server-rendered content with a > h4 title structure but class names not decorating wrappers visibly. Selectors below are best-guess from observed page structure."
+      selectors:
+        article: "a[href*='/articles/'], div[class*='article'], li[class*='article'], .article-card"
+        title: "h4, h3, h4 a, h3 a, [class*='title']"
+        link: "a[href*='/articles/']"
+        excerpt: "p, [class*='description'], [class*='excerpt']"
+      scrape_selector_confidence: "best-guess — /articles confirmed serving content with a > h4 structure (2026-06-04) but no explicit CSS wrapper classes visible; verify in DevTools before enabling"
+      categories: ["local_news", "restaurant_reviews", "wine_bars", "lifestyle"]
       language: "th"
-      update_frequency: "weekly"
+      update_frequency: "daily"
       auth_required: false
-      content_types: ["review", "news"]
-      coverage: ["wine", "spirits"]
+      content_types: ["review", "blog"]
+      coverage: ["food", "lifestyle"]
       regions: ["Thailand"]
-      notes: "Thai restaurant and bar review platform; monitor wine bars and premium spirit venues in Thailand."
+      notes: "Thailand's largest restaurant review platform. High priority for Thai food-and-drink signal. /articles page confirmed accessible and returns article content (Thai-language: food, lifestyle, wellness topics). React SPA — needs PlaywrightCollector."
 
     - name: "Pantip.com Food & Drink Forum"
       url: "https://www.pantip.com"
@@ -609,6 +667,22 @@ sources:
       regions: ["Thailand"]
       notes: "Thai-market source (Coconuts Bangkok). Auto-tagged Thailand focus=high via geo_focus. Verified live 2026-06-02."
 
+    - name: "Khaosod English"
+      url: "https://www.khaosodenglish.com"
+      api_type: "rss"
+      rss_feed: "https://www.khaosodenglish.com/feed/"
+      vertical: "lifestyle"
+      geo_focus: "thailand"
+      thailand_focus_override: "high"
+      enabled: true
+      language: "en"
+      update_frequency: "daily"
+      auth_required: false
+      content_types: ["news", "blog"]
+      coverage: ["lifestyle", "food", "travel"]
+      regions: ["Thailand"]
+      notes: "Thai-market source: Khaosod English — English-language Thai news covering politics, society, food and culture. RSS verified live 2026-06-04: 5 items dated 2026-06-03. Auto-tagged Thailand focus=high via geo_focus + thailand_focus_override."
+
 # Backfill-only sources (deep historical seeding via XML sitemaps).
 #
 # Sitemaps list EVERY article URL a site has published -- often with a
@@ -649,6 +723,11 @@ collection_config:
   # If this key is absent entirely, NO vertical filtering is applied (every
   # source builds) -- backward compatible.
   enabled_verticals: [wine, spirits, food, lifestyle, travel, hospitality]
+  # Minimum beverage relevance score required to keep an article. Articles
+  # scored below this threshold are dropped before insertion. Valid values:
+  # "low", "medium", "high". Set to "medium" to filter out QSR/fast-food/
+  # non-beverage hospitality noise (e.g. from Restaurant Dive / NRN). Added 2026-06-04.
+  minimum_beverage_relevance: "medium"
   # Cap how many articles ANY single source may contribute to a backfill run
   # (newest kept). Prevents one prolific source -- e.g. a sitemap exposing
   # thousands of URLs -- from dominating the corpus. Default 800 if absent.

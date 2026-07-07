@@ -1,0 +1,23 @@
+<!-- JSON-LD for cava-guide-2026-07-01.html — add via Magento SEO/metadata, NOT in CMS body -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Cava คือ: สปาร์กลิงสเปนที่นักดื่มตัวจริงไม่ควรมองข้าม","inLanguage":"th","datePublished":"2026-07-01","dateModified":"2026-07-01","author":{"@type":"Organization","name":"Wine-Now Sommelier Desk","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"cava คือ, cava ไวน์, สปาร์กลิงสเปน, cava กับ champagne, méthode traditionnelle, reserva gran reserva, prosecco ต่างจาก cava"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"คู่มือไวน์","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"Cava คือ"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Cava คืออะไร","acceptedAnswer":{"@type":"Answer","text":"Cava คือไวน์สปาร์กลิงจากสเปนที่ผลิตด้วยวิธีดั้งเดิมแบบเดียวกับแชมเปญ (méthode traditionnelle) คือเกิดฟองจากการหมักครั้งที่สองในขวด ส่วนใหญ่มาจากแคว้น Penedès ในคาตาโลเนีย ใช้องุ่นพื้นเมืองอย่าง Macabeo, Xarel·lo และ Parellada ให้รสสดชื่น กรดสวย และราคาเข้าถึงง่ายกว่าแชมเปญมาก"}},
+{"@type":"Question","name":"Cava กับ Champagne ต่างกันยังไง","acceptedAnswer":{"@type":"Answer","text":"ทั้งคู่ใช้วิธีผลิตเดียวกัน (หมักครั้งที่สองในขวด) แต่ Cava มาจากสเปนและใช้องุ่นพื้นเมืองสเปน ส่วน Champagne มาจากแคว้น Champagne ของฝรั่งเศสและใช้ Chardonnay, Pinot Noir, Pinot Meunier เป็นหลัก Champagne มักมีความซับซ้อนและราคาสูงกว่า ส่วน Cava ให้เนื้อสัมผัสและฟองคุณภาพใกล้เคียงในงบที่เป็นมิตรกว่ามาก"}},
+{"@type":"Question","name":"Cava กับ Prosecco อันไหนดีกว่ากัน","acceptedAnswer":{"@type":"Answer","text":"ไม่มีอันไหนดีกว่าโดยเด็ดขาด แต่ต่างวิธีและสไตล์ Cava หมักครั้งที่สองในขวดจึงมีฟองละเอียดและกลิ่นยีสต์-ขนมปังจากการบ่มบนกาก ส่วน Prosecco หมักในถังสเตนเลสจึงสดผลไม้ กลิ่นดอกไม้ และดื่มง่าย ถ้าชอบความสดดื่มง่ายเลือก Prosecco ถ้าชอบเนื้อและความซับซ้อนเลือก Cava"}},
+{"@type":"Question","name":"Reserva กับ Gran Reserva บนฉลาก Cava หมายถึงอะไร","acceptedAnswer":{"@type":"Answer","text":"เป็นระดับการบ่มบนกากยีสต์ (lees) ก่อนปลดออกขาย ยิ่งบ่มนานยิ่งมีมิติและกลิ่นขนมปัง-ถั่วมากขึ้น Cava ทั่วไปบ่มขั้นต่ำราว 9 เดือน, ระดับ Reserva บ่มนานกว่านั้นชัดเจน และ Gran Reserva บ่มยาวที่สุดจึงซับซ้อนที่สุด เป็นตัวชี้คุณภาพที่อ่านง่ายบนฉลาก"}},
+{"@type":"Question","name":"Cava ควรเสิร์ฟเย็นแค่ไหนและคู่กับอะไรดี","acceptedAnswer":{"@type":"Answer","text":"เสิร์ฟเย็นจัดราว 6–8°C ในแก้วทรงทิวลิปเพื่อเก็บกลิ่นและฟอง Cava เข้ากับอาหารได้กว้างมากเพราะกรดสูงและฟองช่วยล้างปาก ลองคู่กับของทอด ทาปาส ซีฟู้ด ซูชิ หรือแม้แต่อาหารไทยรสจัดอย่างปอเปี๊ยะทอดและยำ ฟองจะตัดความมันและความเผ็ดได้ดี"}}
+]}
+</script>
+

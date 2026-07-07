@@ -1,0 +1,17 @@
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Bastille Day: 3 ไวน์ฝรั่งเศสฉลองวันชาติฝรั่งเศส","inLanguage":"th","datePublished":"2026-07-14","dateModified":"2026-07-14","author":{"@type":"Organization","name":"Wine-Now ทีมซอมเมอลิเย่","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"Bastille Day, วันชาติฝรั่งเศส, ไวน์ฝรั่งเศส, Champagne, Crémant, Beaujolais, Gamay, Côtes du Rhône"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"บทความ","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"Bastille Day: 3 ไวน์ฝรั่งเศสฉลองวันชาติฝรั่งเศส"}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Bastille Day: 3 ไวน์ฝรั่งเศสฉลองวันชาติฝรั่งเศส","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Champagne หรือ Crémant (ไวน์ฟอง)"},
+{"@type":"ListItem","position":2,"name":"Beaujolais (พันธุ์ Gamay)"},
+{"@type":"ListItem","position":3,"name":"ไวน์แดงสาย Côtes du Rhône"}
+]}
+</script>

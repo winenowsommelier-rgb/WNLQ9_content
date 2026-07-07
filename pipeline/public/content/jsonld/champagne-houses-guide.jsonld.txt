@@ -1,0 +1,19 @@
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"เปิดโลกบ้านแชมเปญชั้นนำ ก่อนเลือกขวดฉลองให้สมค่า","inLanguage":"th","datePublished":"2026-07-08","dateModified":"2026-07-08","author":{"@type":"Organization","name":"Wine-Now ทีมซอมเมอลิเย่","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"บ้านแชมเปญ, แชมเปญชั้นนำ, Moet, Veuve Clicquot, Bollinger, Krug, Louis Roederer, Pol Roger, Dom Perignon, Cristal, prestige cuvee, grower champagne, dosage, Brut, Extra Brut, Blanc de Blancs, Blanc de Noirs, vintage NV"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"grower champagne กับ grande-marque ต่างกันยังไง","acceptedAnswer":{"@type":"Answer","text":"grande-marque คือบ้านใหญ่ที่รับซื้อองุ่นจากเกษตรกรหลายพันรายแล้วเบลนด์ให้ได้สไตล์คงที่ทุกปี เช่น Moët, Veuve Clicquot, Krug ส่วน grower champagne คือเกษตรกรที่ปลูกองุ่นและทำแชมเปญจากไร่ตัวเอง ปริมาณน้อยกว่า สะท้อนดินและหมู่บ้านชัดกว่า บนฉลากดูตัวย่อเล็ก ๆ NM คือบ้านใหญ่ RM คือ grower"}},
+{"@type":"Question","name":"NV กับ vintage แชมเปญ เลือกแบบไหนดี","acceptedAnswer":{"@type":"Answer","text":"NV (Non-Vintage) คือการเบลนด์หลายปีเข้าด้วยกันเพื่อรักษาสไตล์บ้านให้คงที่ ดื่มง่าย คุ้ม เป็นขวดเริ่มต้นที่ดีที่สุด ส่วน vintage ทำเฉพาะปีที่องุ่นดีเป็นพิเศษ ระบุปีบนฉลาก ซับซ้อนและลึกกว่า เหมาะกับโอกาสพิเศษหรือสายเก็บ ถ้าเริ่มต้นหรือเปิดเลี้ยงแขกเริ่มที่ NV"}},
+{"@type":"Question","name":"Brut กับ Extra Brut บนฉลากแชมเปญหมายถึงอะไร","acceptedAnswer":{"@type":"Answer","text":"เป็นระดับความหวานที่มาจาก dosage หรือปริมาณน้ำตาลที่เติมก่อนปิดจุก Brut Nature แทบไม่เติมเลย แห้งจัดที่สุด Extra Brut แห้งมาก Brut คือจุดสมดุลที่นิยมที่สุดและเหมาะกับมือใหม่ ไล่ไปทาง Extra Dry, Sec, Demi-Sec จะหวานขึ้นเรื่อย ๆ"}},
+{"@type":"Question","name":"Blanc de Blancs กับ Blanc de Noirs ต่างกันอย่างไร","acceptedAnswer":{"@type":"Answer","text":"Blanc de Blancs ทำจากองุ่นขาว Chardonnay ล้วน ให้รสสดใส กรดคม กลิ่นซิตรัสและดอกไม้ เบาแต่ลึก ส่วน Blanc de Noirs ทำจากองุ่นแดง Pinot Noir และ Meunier ล้วน เนื้อแน่นกว่า มีมิติผลไม้แดงและความอิ่ม เหมาะคู่อาหารจานหนัก"}},
+{"@type":"Question","name":"แชมเปญควรเสิร์ฟเย็นแค่ไหนและคู่กับอะไรดี","acceptedAnswer":{"@type":"Answer","text":"NV Brut เสิร์ฟเย็นจัดราว 8-10°C ส่วน prestige cuvée และ vintage เสิร์ฟเย็นน้อยลงนิดราว 10-12°C เพื่อเปิดกลิ่น ใช้แก้วทรงทิวลิปแทนแก้วตื้น คู่อาหารได้กว้างมากเพราะกรดสูงและฟองช่วยล้างปาก ลองคู่ของทอด ซีฟู้ด ซูชิ ชีส หรืออาหารไทยรสจัด"}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"บทความ","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"เปิดโลกบ้านแชมเปญชั้นนำ ก่อนเลือกขวดฉลองให้สมค่า"}
+]}
+</script>

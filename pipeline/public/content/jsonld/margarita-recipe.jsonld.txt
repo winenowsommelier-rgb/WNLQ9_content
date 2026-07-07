@@ -1,0 +1,26 @@
+<!-- JSON-LD for margarita-recipe-2026-07-04.html -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Margarita ต้นตำรับ + เวอร์ชันไทยมะขาม","inLanguage":"th","datePublished":"2026-07-04","dateModified":"2026-07-04","author":{"@type":"Organization","name":"LIQ9 Bartender Desk","url":"https://th.liq9.com"},"publisher":{"@type":"Organization","name":"LIQ9","url":"https://th.liq9.com"},"keywords":"Margarita สูตร, margarita recipe, มาร์การิตา, เตกีล่าค็อกเทล, margarita มะขาม"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.liq9.com"},
+{"@type":"ListItem","position":2,"name":"คู่มือสุรา","item":"https://th.liq9.com/blog"},
+{"@type":"ListItem","position":3,"name":"Margarita สูตร"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Recipe","name":"Margarita ต้นตำรับ","inLanguage":"th","recipeCategory":"ค็อกเทล","recipeYield":"1 แก้ว","recipeIngredient":["เตกีล่า Blanco (100% agave) 50 มล.","ลิเคียวส้ม (triple sec / Cointreau) 25 มล.","น้ำมะนาวคั้นสด 25 มล.","น้ำแข็ง","เกลือสำหรับขอบแก้ว"],"recipeInstructions":[{"@type":"HowToStep","text":"ฝานมะนาวถูที่ขอบแก้วแล้วจุ่มเกลือครึ่งขอบ พักแก้วไว้ในตู้เย็น"},{"@type":"HowToStep","text":"ใส่เตกีล่า ลิเคียวส้ม และน้ำมะนาวสดลงในเชกเกอร์พร้อมน้ำแข็ง"},{"@type":"HowToStep","text":"เชกแรงและเร็วราว 10–15 วินาทีจนเชกเกอร์เย็นจัด"},{"@type":"HowToStep","text":"กรองลงแก้วที่เตรียมไว้ เติมน้ำแข็งใหม่ถ้าเสิร์ฟ on the rocks ตกแต่งด้วยชิ้นมะนาว"}]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Margarita ใช้เตกีล่าแบบไหน","acceptedAnswer":{"@type":"Answer","text":"ใช้เตกีล่า Blanco (silver) ที่เป็น 100% agave จะดีที่สุด เพราะรสสะอาดสดของอากาเวทำให้มะนาวและลิเคียวส้มเด่น ไม่ถูกกลบ เตกีล่า reposado ที่บ่มถังก็ทำได้ ให้กลิ่นวานิลลา-ไม้เพิ่มขึ้นเล็กน้อย แต่สำหรับมาร์การิตาคลาสสิกที่สดชื่น blanco คือตัวเลือกมาตรฐาน"}},
+{"@type":"Question","name":"Margarita แบบ frozen กับ on the rocks ต่างกันยังไง","acceptedAnswer":{"@type":"Answer","text":"On the rocks คือเชกแล้วกรองลงแก้วที่มีน้ำแข็งก้อน รสชาติเข้มข้นและคมชัด ส่วน frozen คือปั่นรวมกับน้ำแข็งจนเป็นเกล็ดเนียน เนื้อนุ่มเย็นเหมือนสเลอปี้ ดื่มง่ายในอากาศร้อน เลือกตามใจชอบ แต่ frozen จะเจือจางเร็วกว่าจึงควรปรุงให้เปรี้ยว-หวานเข้มขึ้นเล็กน้อย"}},
+{"@type":"Question","name":"ไม่มีลิเคียวส้มแทนด้วยอะไรได้","acceptedAnswer":{"@type":"Answer","text":"ลิเคียวส้ม (triple sec หรือ Cointreau) ให้ทั้งความหวานและกลิ่นส้มที่เป็นหัวใจของมาร์การิตา ถ้าไม่มีจริง ๆ ใช้ไซรับน้ำตาลเล็กน้อยบวกเปลือกส้มฝนพอช่วยได้ แต่รสจะต่างไป แนะนำให้มีลิเคียวส้มติดบ้านไว้เพราะใช้ได้กับค็อกเทลอีกหลายแก้ว"}},
+{"@type":"Question","name":"ขอบเกลือจำเป็นไหม","acceptedAnswer":{"@type":"Answer","text":"ไม่จำเป็นแต่ช่วยมาก เกลือตัดความเปรี้ยวและขับความหวานให้กลมขึ้นในแต่ละจิบ เคล็ดลับคือจุ่มเกลือแค่ครึ่งขอบแก้ว เพื่อให้เลือกได้ว่าจิบด้านมีเกลือหรือไม่มี ถ้าไม่ชอบเค็มข้ามได้เลย รสมาร์การิตายังอร่อยครบ"}}
+]}
+</script>
+

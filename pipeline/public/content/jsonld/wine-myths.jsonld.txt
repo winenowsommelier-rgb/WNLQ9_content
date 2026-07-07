@@ -1,0 +1,23 @@
+<!-- JSON-LD for wine-myths-2026-07-02.html — add via Magento SEO/metadata, NOT in CMS body -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"5 ความเชื่อผิด ๆ เรื่องไวน์ที่คนยังเข้าใจผิด","inLanguage":"th","datePublished":"2026-07-02","dateModified":"2026-07-02","author":{"@type":"Organization","name":"ทีมซอมเมอลิเย่ Wine-Now","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"ความเชื่อผิดไวน์, wine myths, อุณหภูมิเสิร์ฟไวน์แดง, ฝาเกลียวไวน์, เก็บไวน์, จับแก้วไวน์"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"คู่มือไวน์","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"5 ความเชื่อผิด ๆ เรื่องไวน์ที่คนยังเข้าใจผิด"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"5 ความเชื่อผิด ๆ เรื่องไวน์","itemListElement":[
+{"@type":"ListItem","position":1,"name":"ไวน์แดงต้องเสิร์ฟอุณหภูมิห้อง"},
+{"@type":"ListItem","position":2,"name":"ไวน์ยิ่งแพงยิ่งอร่อย"},
+{"@type":"ListItem","position":3,"name":"ฝาเกลียวคือไวน์คุณภาพต่ำ"},
+{"@type":"ListItem","position":4,"name":"ไวน์ทุกขวดยิ่งเก็บนานยิ่งดี"},
+{"@type":"ListItem","position":5,"name":"จับแก้วที่ตัวบอลล์"}
+]}
+</script>
+

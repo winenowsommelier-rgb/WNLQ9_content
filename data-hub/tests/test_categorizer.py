@@ -344,6 +344,36 @@ def test_detect_thailand_no_false_positive(categorizer):
     assert categorizer._detect_thailand_focus(article) == ""
 
 
+def test_detect_thailand_focus_preset_high_wins_without_keyword(categorizer):
+    # A source-level override (thailand_focus_preset='high') wins outright
+    # even when neither title nor excerpt contains a Thailand keyword.
+    article = _article(title="Cabinet reshuffle announced today")
+    article["thailand_focus_preset"] = "high"
+    assert categorizer._detect_thailand_focus(article) == "high"
+
+
+def test_detect_thailand_focus_preset_medium_wins_without_keyword(categorizer):
+    # A source-level override of 'medium' also wins outright.
+    article = _article(title="Cabinet reshuffle announced today")
+    article["thailand_focus_preset"] = "medium"
+    assert categorizer._detect_thailand_focus(article) == "medium"
+
+
+def test_detect_thailand_focus_preset_invalid_falls_through_to_keywords(categorizer):
+    # An invalid/unknown preset value is ignored; keyword matching still runs.
+    # Title has a strong Thailand keyword -> expect "high" from keyword path.
+    article = _article(title="Best restaurants in Bangkok")
+    article["thailand_focus_preset"] = "banana"  # not a valid level
+    assert categorizer._detect_thailand_focus(article) == "high"
+
+
+def test_detect_thailand_focus_preset_invalid_no_keyword_returns_empty(categorizer):
+    # Invalid preset + no keyword -> falls through to "" (not Thailand-focused).
+    article = _article(title="Office furniture power unit explained")
+    article["thailand_focus_preset"] = "very_high"  # not a valid level
+    assert categorizer._detect_thailand_focus(article) == ""
+
+
 def test_categorize_adds_thailand_focus(categorizer):
     # Every categorized article gets a thailand_focus field.
     article = _article(title="Phuket beach guide")
