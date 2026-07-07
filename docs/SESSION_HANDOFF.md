@@ -1,14 +1,94 @@
 # WNLQ9 — Session Handoff & Subsystem Map
 
-**Verified:** 2026-06-03 (against live Vercel + Supabase via MCP).
+**Last updated:** 2026-07-07 (end of July 2026 full production run).
 **Authoritative docs win:** [`CLAUDE.md`](../CLAUDE.md) and
-[`docs/RUNBOOK.md`](RUNBOOK.md) are the source of truth. This file just maps the
-three subsystems and records verified infra state, because earlier verbal
-handoffs drifted from reality (see "Corrections" below).
+[`docs/RUNBOOK.md`](RUNBOOK.md) are the source of truth. This file maps the
+subsystems and carries the live session state for the next Claude Code session.
 
 ---
 
-## 0) Live state add-ons (2026-06-04 session)
+## 0) NEXT SESSION KICKOFF — August 2026 production run
+
+**Pick this up at the start of the next session.** July is fully done. August is up.
+
+### Current state (end of 2026-07-07 session)
+
+**July 2026 — COMPLETE (63 articles, all delivered)**
+- Jul 1–7: 17 articles ✅ | Jul 8–14: 15 articles ✅ | Jul 15–31: 31 articles ✅
+- All HTML masters committed on branch `claude/festive-dirac-QcgOV`
+- All 63 Drive files uploaded to **"2026-07 July"** folder `1AnwiLYQx8BeZmKDUzHqW5Y-XEQVXgO2u`
+  with **brand-prefixed date-first naming**: `WN-YYYY-MM-DD-slug.html` / `LQ-YYYY-MM-DD-slug.html`
+- All 63 Notion rows in **"2026 JUL - WNLQ9 - Content Production"** board set
+  `Status = "Brief Ready"` + `Drive file URL` pointing to the brand-prefixed files
+- ⚠️ Drive folder also contains ~120+ old/duplicate files from earlier upload rounds —
+  user to manually delete any file that does NOT start with `WN-` or `LQ-`
+
+**Product feed** — `pipeline/data/products.json` rebuilt 2026-06-28 from live Supabase BI
+(`public.products`, `dsyplzckfezcxiuikkfm`). 246 in-stock SKUs. Re-confirm prices at build —
+they shift monthly.
+
+**Branch** — all July work lives on `claude/festive-dirac-QcgOV`. Ship to prod by branching
+from `main`, copying deliverables in additively, PR + merge (per `CLAUDE.md §Git`).
+
+---
+
+### August kickoff checklist
+
+1. **Read** `docs/CONTENT_PLAN_AUGUST_2026.md` (28-piece slate) and
+   `docs/CONTENT_PLAN_AUGUST_2026_BRIEF.md` (intelligence table + funnel map).
+
+2. **Create the August Drive folder** under root `1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm`:
+   name it `2026-08 August`. Use `mcp__a15357b9__create_file` with type `application/vnd.google-apps.folder`.
+   Save the returned folder id — you'll use it for all August uploads.
+
+3. **Confirm the August Notion board exists** and get its data source URL.
+   The board is named "2026 AUG - WNLQ9 - Content Production". Use `notion-search` to find it.
+
+4. **Author articles in publish-date order**, same per-article workflow as July:
+   - Write full Thai HTML in `pipeline/public/content/<slug>.html`
+   - Use `wn-article.css` (WN) or `lq-article.css` (LQ) — already global in `assets/`
+   - Validate: H1 == Article JSON-LD headline, on-page FAQ mirrors FAQPage JSON-LD,
+     real in-stock `data-sku` chips with `~฿` price from feed, Sarabun + Raleway fonts,
+     16:9 `.figph` aspect-ratio holders, 3 JSON-LD blocks
+   - Commit to branch, then export Magento fragment (strip doctype/html/head/body,
+     all `<script>`+`<link>` tags, `.wn-top`/`.lq-top` nav, `.wn-arthead`/`.lq-arthead`)
+   - **File naming for Drive: `WN-YYYY-MM-DD-slug.html` or `LQ-YYYY-MM-DD-slug.html`**
+     (date-first, brand-prefixed — learned from July)
+   - Upload to August Drive folder via `create_file`
+   - Update Notion row: `Status = "Brief Ready"`, `Drive file URL` = new file URL
+
+5. **August tentpole cluster** = Mother's Day run-up Aug 8–12:
+   WN-S9 (rosé) → WN-S8 (moscato) → WN-H1 (gift guide) → WN-H2 (family-table pairing) → WN-H4 (Opus One).
+   Prioritize this cluster if behind schedule.
+
+6. **LIQ9 whisky hub-and-spoke** = LQ-H1 Whisky 101 hub ← LQ-S1 regions, LQ-S2 malt-vs-blend,
+   LQ-S3 highball, LQ-S4 Japanese, LQ-H2 Macallan 18 collector. Author hub first.
+
+7. **SKU verify-at-build flag**: Robert Mondavi SKU (WN-S5) — check `products.json` at build time;
+   if OOS, education-led 0-cards + LINE CTA only.
+
+8. **No fabricated facts** — all prices from the feed, no critic scores in data-viz bars
+   (use tasting-desk sensory ratings only), verify-list for any claim you can't source.
+
+### Key IDs for August
+| Thing | ID |
+|---|---|
+| Drive root "WNLQ9 Blog Html center" | `1CKAXssXrvhGPjxa9hBMxdk-yXv0qygpm` |
+| July Drive folder (done, read-only) | `1AnwiLYQx8BeZmKDUzHqW5Y-XEQVXgO2u` |
+| August Drive folder | **Create fresh** — save the id |
+| July Notion board data source | `collection://d342f9b8-3725-4068-9ccb-03b09821b0c8` |
+| Notion `Drive file URL` property type | `url` (NOT `userDefined:` prefix) |
+
+### Drive MCP known limitations (avoid repeating July's mistakes)
+- **No rename tool** — use `copy_file(fileId, title: "new-name", parentId)` to rename-via-copy
+- **No delete tool** — duplicates accumulate; user cleans manually in Drive UI
+- **`list_recent_files` / `search_files` unreliable** — use `get_file_metadata` on the folder to verify uploads
+- **Name files correctly on first upload** — `BRAND-YYYY-MM-DD-slug.html` from the start avoids the rename round
+- **Run parallel upload workflow + separate Notion-update workflow** — don't rely on a single combined workflow surviving context compaction
+
+---
+
+## 0b) Live state notes (2026-06-04 session)
 
 - **July board EXISTS** in Notion: `2026 JUL - WNLQ9 - Content Production`
   id `93ac15a8-bb65-40f7-b357-b8cabd336214`, data source
