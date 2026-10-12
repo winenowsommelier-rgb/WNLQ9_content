@@ -1,0 +1,22 @@
+<!-- JSON-LD for wine-chocolate-pairing-2026-07-04.html — add via Magento SEO/metadata, NOT in CMS body -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"จับคู่ไวน์กับช็อกโกแลต: กฎง่าย ๆ ที่ทำให้ไม่พลาด","inLanguage":"th","datePublished":"2026-07-04","dateModified":"2026-07-04","author":{"@type":"Organization","name":"ทีมซอมเมอลิเย่ Wine-Now","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"ไวน์กับช็อกโกแลต, wine chocolate pairing, จับคู่ไวน์, ไวน์หวาน, port, moscato"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"บทความ","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"จับคู่ไวน์กับช็อกโกแลต"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"คู่จับไวน์กับช็อกโกแลต","itemListElement":[
+{"@type":"ListItem","position":1,"name":"ดาร์กช็อกโกแลตเข้ม × ไวน์แดงผลไม้จัด/หวานเล็กน้อย หรือไวน์หวานสไตล์ Port"},
+{"@type":"ListItem","position":2,"name":"ช็อกโกแลตนม × ไวน์แดงนุ่มผลไม้ เช่น Pinot Noir เบา ๆ"},
+{"@type":"ListItem","position":3,"name":"ไวต์ช็อกโกแลต × ไวน์หวานหอมดอกไม้ เช่น Moscato"},
+{"@type":"ListItem","position":4,"name":"ซอลต์เต็ดคาราเมล × ไวน์หวานสไตล์ tawny/ผลไม้แห้ง"}
+]}
+</script>
+

@@ -54,7 +54,7 @@ class WebScraper(BaseCollector):
 
     def __init__(
         self, name: str, listing_url: str, selectors: Dict, vertical=None,
-        geo_focus=None,
+        geo_focus=None, thailand_focus_override=None,
     ) -> None:
         super().__init__(
             name=name,
@@ -64,6 +64,11 @@ class WebScraper(BaseCollector):
         )
         self.listing_url = listing_url
         self.selectors = selectors
+        # When set (from sources.yaml ``thailand_focus_override``), every
+        # article produced by this collector gets ``thailand_focus_preset``
+        # stamped to that value so the categorizer can short-circuit keyword
+        # matching and use the source-level override directly.
+        self.thailand_focus_override = thailand_focus_override
 
     def collect(self) -> List[Dict]:
         """Fetch & parse the listing page, returning validated articles."""
@@ -88,6 +93,8 @@ class WebScraper(BaseCollector):
                 continue
 
             if self.validate_article(article):
+                if self.thailand_focus_override:
+                    article["thailand_focus_preset"] = self.thailand_focus_override
                 articles.append(article)
 
         return articles
@@ -183,10 +190,19 @@ class WebScraper(BaseCollector):
         return self._clean_text(element.get_text())
 
     def _select_attr(self, container, selector_key: str, attr: str) -> str:
-        """Return an attribute value for a configured selector ('' if missing)."""
+        """Return an attribute value for a configured selector ('' if missing).
+
+        Falls back to the container's own attribute when the child selector
+        finds nothing. This handles sites (e.g. Scotch Whisky Association)
+        where the article container itself IS the link element — select_one()
+        only searches inside the container, not the container itself.
+        """
         element = self._select_one(container, selector_key)
         if element is None:
-            return ""
+            # Fallback: the container itself may carry the attribute directly
+            # (e.g. <a class="news-article-item__holder" href="/newsroom/...">)
+            val = container.get(attr)
+            return self._clean_text(val) if val else ""
         return self._clean_text(element.get(attr) or "")
 
     @staticmethod

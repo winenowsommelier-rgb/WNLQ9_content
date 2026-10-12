@@ -1,0 +1,19 @@
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Bordeaux vs Burgundy ต่างกันยังไง: เทียบสองสุดยอดไวน์แดงฝรั่งเศส","inLanguage":"th","datePublished":"2026-07-09","dateModified":"2026-07-09","author":{"@type":"Organization","name":"Wine-Now ทีมซอมเมอลิเย่","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"Bordeaux vs Burgundy, บอร์กโดซ์, เบอร์กันดี, ไวน์แดงฝรั่งเศส, Pinot Noir, Cabernet Sauvignon, Merlot, Left Bank, Right Bank, Côte de Nuits, เทอรัวร์, คู่อาหารไวน์"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"บทความ","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"Bordeaux vs Burgundy ต่างกันยังไง"}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Bordeaux กับ Burgundy ต่างกันที่จุดไหนมากที่สุด","acceptedAnswer":{"@type":"Answer","text":"จุดต่างที่ใหญ่ที่สุดคือพันธุ์องุ่น Bordeaux เป็นไวน์เบลนด์ที่นำโดย Cabernet Sauvignon และ Merlot ส่วน Burgundy แดงใช้ Pinot Noir พันธุ์เดียวล้วน ความต่างนี้ส่งผลต่อโครงสร้าง แทนนิน บอดี้ และคู่อาหารทั้งหมด"}},
+{"@type":"Question","name":"Left Bank กับ Right Bank ของ Bordeaux ต่างกันยังไง","acceptedAnswer":{"@type":"Answer","text":"Left Bank นำด้วย Cabernet Sauvignon โครงสร้างแน่น แทนนินตึง บ่มได้ยาว ส่วน Right Bank นำด้วย Merlot นุ่มกลมและเข้าถึงง่ายกว่า ดื่มสนุกได้เร็วกว่า"}},
+{"@type":"Question","name":"ไวน์มือใหม่ควรเริ่มจาก Bordeaux หรือ Burgundy","acceptedAnswer":{"@type":"Answer","text":"ถ้าชอบไวน์เข้มมีโครงสร้างและคู่อาหารหนัก เริ่มที่ Bordeaux ฝั่ง Right Bank ที่นุ่มกว่า ถ้าชอบไวน์เบาหอมละมุน Burgundy หรือ Pinot Noir เป็นจุดเริ่มที่ดื่มง่าย แนะนำเริ่มจากขวดระดับเข้าถึงได้ก่อนขยับขึ้น"}},
+{"@type":"Question","name":"Bordeaux และ Burgundy คู่กับอาหารไทยได้ไหม","acceptedAnswer":{"@type":"Answer","text":"ได้ทั้งคู่ Bordeaux เข้มเหมาะกับเนื้อย่าง สเต็ก และอาหารรสเข้ม ส่วน Burgundy ที่เบาและกรดสูงเข้ากับเป็ดย่าง ไก่ เห็ด และอาหารไทยที่ไม่เผ็ดจัดได้ดี เลี่ยงพริกจัดมากกับไวน์แทนนินสูง"}},
+{"@type":"Question","name":"ทำไม Burgundy ถึงมักแพงกว่า Bordeaux","acceptedAnswer":{"@type":"Answer","text":"เพราะแปลงปลูกใน Burgundy เล็กและแบ่งย่อยมาก ผลผลิตจำกัด และ Pinot Noir ปลูกยากกว่า ทำให้ขวดระดับบนหายากและราคาสูง แต่ทั้งสองแคว้นมีขวดระดับเข้าถึงได้ที่คุ้มค่าให้เริ่มต้นเหมือนกัน"}}
+]}
+</script>

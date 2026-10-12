@@ -1,0 +1,17 @@
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"World Rum Day: 3 ค็อกเทลรัมหน้าฝนที่ทำง่าย","inLanguage":"th","datePublished":"2026-07-11","dateModified":"2026-07-11","author":{"@type":"Organization","name":"LIQ9 Bartender Desk","url":"https://th.liq9.com"},"publisher":{"@type":"Organization","name":"LIQ9","url":"https://th.liq9.com"},"keywords":"World Rum Day, ค็อกเทลรัม, รัมหน้าฝน, Dark n Stormy, Rum Old Fashioned, Hot Buttered Rum, ค็อกเทลทำง่าย"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"3 ค็อกเทลรัมหน้าฝนที่ทำง่าย","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Dark 'n' Stormy — รัมดำกับจินเจอร์เบียร์ ซ่าสดชื่นรับสายฝน"},
+{"@type":"ListItem","position":2,"name":"Rum Old Fashioned — รัมเข้ม น้ำตาล และบิตเตอร์ คลาสสิกอุ่นใจ"},
+{"@type":"ListItem","position":3,"name":"Hot Buttered Rum — รัมร้อนใส่เนยและเครื่องเทศ ปลอบใจวันฝนพรำ"}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.liq9.com"},
+{"@type":"ListItem","position":2,"name":"คู่มือสุรา","item":"https://th.liq9.com/blog"},
+{"@type":"ListItem","position":3,"name":"World Rum Day: 3 ค็อกเทลรัมหน้าฝน"}
+]}
+</script>

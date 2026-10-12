@@ -63,7 +63,20 @@ Claude Code session ──writes──▶ repo  pipeline/public/content/*.html (
         └──updates row──▶ Notion board (Status=Brief Ready, Drive file URL)  ◀── dashboard reads via NOTION_TOKEN
 ```
 - **Repo ↔ production:** push to **`main`** → Vercel auto-deploys (Root Dir `pipeline/`). Feature branches get preview URLs only.
-- **Repo ↔ Drive:** manual, by Claude Code (Drive MCP). ⚠️ Drive MCP can't overwrite/delete → re-uploads make same-name duplicates; clear the folder then re-upload for a clean refresh.
+- **Repo ↔ Drive:** manual, by Claude Code (Drive MCP) — it CSS-inlines the repo
+  HTML and uploads a self-contained file. ⚠️ Drive MCP can only create/copy/read:
+  **no overwrite, delete, or rename.** So:
+  - **Pull first.** `git pull` the active content branch **before** inlining/
+    uploading. A session running on a stale checkout will upload outdated content
+    (this bit us on day4: a re-upload from a pre-fix checkout put a wrong-premise
+    file back in the folder — see `SESSION_HANDOFF.md` §5). The repo HTML is the
+    source of truth; the upload is only as fresh as the working copy.
+  - **Re-uploads make same-name duplicates.** To refresh cleanly: upload the new
+    file, repoint the Notion `Drive file URL` to its id, then **delete the stale
+    copies by hand** in the Drive UI (the MCP can't). Verify a fresh upload by
+    byte size against the local inlined file.
+  - **Naming:** keep one canonical file per slug; avoid leaving `-v2`/`-v3`/
+    `-inlined`/`-FINAL` variants side by side once cleanup is done.
 - **Repo ↔ Notion:** the dashboard reads Notion live; Claude Code writes status + `Drive file URL` per row.
 - **Supabase:** only if activated (Notion→content_plan mirror + product picks). Off by default.
 

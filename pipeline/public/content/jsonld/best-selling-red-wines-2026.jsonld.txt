@@ -1,0 +1,28 @@
+<!-- JSON-LD for best-selling-red-wines-2026-2026-07-06.html — add via Magento SEO/metadata, NOT in CMS body -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"ไวน์แดงขายดีแห่งปี 2026: 10 ขวดในมุมมองซอมเมอลิเยร์","inLanguage":"th","datePublished":"2026-07-06","dateModified":"2026-07-06","author":{"@type":"Organization","name":"Wine-Now ทีมซอมเมอลิเย่","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"ไวน์แดงขายดี, ไวน์แดงยอดนิยม 2026, ไวน์แดงน่าดื่ม, Shiraz, Carmenère, Cabernet Sauvignon, Primitivo, Merlot, Bordeaux"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"บทความ","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"ไวน์แดงขายดีแห่งปี 2026"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"ไวน์แดงขายดีแห่งปี 2026: 10 ขวดในมุมมองซอมเมอลิเยร์","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Glaetzer Bishop Shiraz"},
+{"@type":"ListItem","position":2,"name":"McGuigan Black Label Red"},
+{"@type":"ListItem","position":3,"name":"G7 Gran Reserva Carmenère"},
+{"@type":"ListItem","position":4,"name":"Tarapacá Gran Reserva Carmenère"},
+{"@type":"ListItem","position":5,"name":"Vigneti del Salento ZOLLA Primitivo"},
+{"@type":"ListItem","position":6,"name":"Hardys Varietal Cabernet Sauvignon"},
+{"@type":"ListItem","position":7,"name":"Concha y Toro Reservado Cabernet Sauvignon"},
+{"@type":"ListItem","position":8,"name":"Réserve Tradition Château de la Vieille Tour Bordeaux Supérieur"},
+{"@type":"ListItem","position":9,"name":"Torbreck Woodcutter's Shiraz"},
+{"@type":"ListItem","position":10,"name":"Viu Manent Estate Reserva Merlot"}
+]}
+</script>
+

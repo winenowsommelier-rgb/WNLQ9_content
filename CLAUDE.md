@@ -6,6 +6,7 @@ This repo produces blog content for two Thai beverage e-commerce brands:
 ## Read this first
 - **How to write content →** [`docs/CONTENT_PRODUCTION_PLAYBOOK.md`](docs/CONTENT_PRODUCTION_PLAYBOOK.md)
 - **Where things live, keys, sync, deploy, get-up-and-running →** [`docs/RUNBOOK.md`](docs/RUNBOOK.md)
+- **Subsystem map (`pipeline/` vs `dashboard/` vs `data-hub/`) + verified infra state →** [`docs/SESSION_HANDOFF.md`](docs/SESSION_HANDOFF.md)
 
 Follow the playbook on every content session. Below are the rules that must never
 be skipped.

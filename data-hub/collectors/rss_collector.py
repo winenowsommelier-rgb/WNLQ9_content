@@ -17,6 +17,7 @@ from __future__ import annotations
 import datetime
 import logging
 import re
+import socket
 from typing import Dict, List
 
 import feedparser
@@ -45,7 +46,8 @@ class RSSCollector(BaseCollector):
     RETRY_ATTEMPTS = 3
     RETRY_BACKOFF_SECONDS = 2.0
 
-    def __init__(self, name: str, feed_url: str, vertical=None, geo_focus=None) -> None:
+    def __init__(self, name: str, feed_url: str, vertical=None, geo_focus=None,
+                 thailand_focus_override=None) -> None:
         super().__init__(
             name=name,
             source_config={"feed_url": feed_url},
@@ -53,6 +55,27 @@ class RSSCollector(BaseCollector):
             geo_focus=geo_focus,
         )
         self.feed_url = feed_url
+        # When set (from sources.yaml ``thailand_focus_override``), every
+        # article produced by this collector gets ``thailand_focus_preset``
+        # stamped to that value so the categorizer can short-circuit keyword
+        # matching and use the source-level override directly.
+        self.thailand_focus_override = thailand_focus_override
+
+    # feedparser.parse(url) fetches with urllib and NO timeout. On 2026-10-12
+    # the 02:00 run blocked in an SSL read on one feed for 13+ hours; launchd
+    # does not start a job that is still running, so the hung run would have
+    # blocked every later night too. A socket default timeout applies to the
+    # sockets feedparser opens; on timeout feedparser returns bozo=1 with no
+    # entries, which the check below logs as a broken feed.
+    FEED_TIMEOUT_SECONDS = 30
+
+    def _parse_with_timeout(self):
+        previous = socket.getdefaulttimeout()
+        socket.setdefaulttimeout(self.FEED_TIMEOUT_SECONDS)
+        try:
+            return feedparser.parse(self.feed_url)
+        finally:
+            socket.setdefaulttimeout(previous)
 
     def collect(self) -> List[Dict]:
         """Fetch & parse the feed, returning validated, enriched articles.
@@ -64,7 +87,7 @@ class RSSCollector(BaseCollector):
         looking like an empty-but-healthy source.
         """
         feed = retry_call(
-            lambda: feedparser.parse(self.feed_url),
+            self._parse_with_timeout,
             attempts=self.RETRY_ATTEMPTS,
             backoff_seconds=self.RETRY_BACKOFF_SECONDS,
             fallback=None,
@@ -101,6 +124,8 @@ class RSSCollector(BaseCollector):
                 continue
 
             if self.validate_article(article):
+                if self.thailand_focus_override:
+                    article["thailand_focus_preset"] = self.thailand_focus_override
                 articles.append(article)
 
         return articles

@@ -1,0 +1,35 @@
+<!-- JSON-LD for red-wine-under-1000-2026-07-02.html — add via Magento SEO/metadata, NOT in CMS body -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"ไวน์แดงไม่เกินพันบาท ที่ซอมเมอลิเยร์เลือกดื่มเอง","inLanguage":"th","datePublished":"2026-07-02","dateModified":"2026-07-02","author":{"@type":"Organization","name":"Wine-Now Sommelier Desk","url":"https://th.wine-now.com"},"publisher":{"@type":"Organization","name":"Wine-Now","url":"https://th.wine-now.com"},"keywords":"ไวน์แดง ราคาไม่เกิน 1000, ไวน์แดงราคาถูก อร่อย, ไวน์แดงคุ้ม, ไวน์แดงดื่มง่าย, ไวน์แดงคู่อาหาร"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.wine-now.com"},
+{"@type":"ListItem","position":2,"name":"คู่มือไวน์","item":"https://th.wine-now.com/blog"},
+{"@type":"ListItem","position":3,"name":"ไวน์แดงไม่เกินพันบาท"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"ไวน์แดงไม่เกินพันบาทที่ซอมเมอลิเยร์เลือก","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Hardys Varietal Range Cabernet Sauvignon"},
+{"@type":"ListItem","position":2,"name":"Concha y Toro Reservado Cabernet Sauvignon"},
+{"@type":"ListItem","position":3,"name":"McGuigan Black Label Red"},
+{"@type":"ListItem","position":4,"name":"Botter Primitivo Puglia Organic"},
+{"@type":"ListItem","position":5,"name":"Penfolds Koonunga Hill Shiraz"},
+{"@type":"ListItem","position":6,"name":"Viu Manent Estate Reserva Merlot"},
+{"@type":"ListItem","position":7,"name":"Tarapacá Gran Reserva Carmenère"},
+{"@type":"ListItem","position":8,"name":"G7 Gran Reserva Carmenère"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"ไวน์แดงราคาไม่เกิน 1,000 บาท อร่อยจริงไหม","acceptedAnswer":{"@type":"Answer","text":"อร่อยจริงและมีให้เลือกเยอะ ในงบนี้คุณได้ไวน์แดงจากชิลี ออสเตรเลีย และอิตาลีที่ทำดีและดื่มสนุก เคล็ดลับคือเลือกจากผู้ผลิตที่ไว้ใจได้และเลือกองุ่นที่เข้ากับมื้อของคุณ มากกว่าจะดูแค่ราคา ไวน์หลายขวดในงบนี้คุ้มเกินตัวเมื่อเสิร์ฟเย็นพอดีและเปิดให้หายใจสักครู่"}},
+{"@type":"Question","name":"ไวน์แดงงบไม่เกินพันบาท ขวดไหนเหมาะกับมือใหม่","acceptedAnswer":{"@type":"Answer","text":"มือใหม่ควรเริ่มจากไวน์แดงที่นุ่ม ผลไม้เด่น แทนนินไม่ฝาด เช่น Cabernet Sauvignon จากชิลีหรือออสเตรเลีย และ Merlot ที่ละมุน ดื่มง่ายแม้ไม่มีอาหาร เมื่อเริ่มชอบแล้วค่อยขยับไปหา Shiraz ที่เข้มขึ้นหรือ Primitivo ที่หวานผลไม้จัด"}},
+{"@type":"Question","name":"ควรเสิร์ฟไวน์แดงเย็นแค่ไหน","acceptedAnswer":{"@type":"Answer","text":"ไวน์แดงไม่ควรเสิร์ฟที่อุณหภูมิห้องแบบเมืองไทยซึ่งร้อนเกินไป ที่เหมาะคือราว 16–18°C แช่ตู้เย็นสัก 20–30 นาทีก่อนเสิร์ฟจะทำให้ผลไม้สดขึ้นและแอลกอฮอลไม่โดดจมูก โดยเฉพาะในอากาศร้อน"}},
+{"@type":"Question","name":"ไวน์แดงงบนี้ดื่มคู่อาหารไทยได้ไหม","acceptedAnswer":{"@type":"Answer","text":"ได้ดี ไวน์แดงผลไม้เด่นแทนนินนุ่มอย่าง Merlot หรือ Primitivo เข้ากับอาหารไทยรสกลมกล่อมและของย่างได้ดี เช่น หมูกระทะ ไก่ย่าง และผัดกะเพราเนื้อ ส่วนอาหารเผ็ดจัดมาก ๆ ให้เลือกไวน์ผลไม้หวานเล็กน้อยจะช่วยรับความเผ็ดได้ดีกว่าไวน์แทนนินสูง"}}
+]}
+</script>
+

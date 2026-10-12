@@ -1,0 +1,23 @@
+<!-- JSON-LD for cognac-101-2026-07-03.html — add via Magento SEO/metadata, NOT in CMS body -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Cognac 101: สุดยอดบรั่นดีฝรั่งเศสที่นักดื่มระดับโลกหลงใหล","inLanguage":"th","datePublished":"2026-07-03","dateModified":"2026-07-03","author":{"@type":"Organization","name":"LIQ9 Bartender Desk","url":"https://th.liq9.com"},"publisher":{"@type":"Organization","name":"LIQ9","url":"https://th.liq9.com"},"keywords":"cognac คือ, คอนยัค, คอนญัก, บรั่นดีฝรั่งเศส, VS VSOP XO, XXO, BNIC, Grande Champagne, Hennessy, Remy Martin, Martell"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"หน้าแรก","item":"https://th.liq9.com"},
+{"@type":"ListItem","position":2,"name":"คู่มือสุรา","item":"https://th.liq9.com/blog"},
+{"@type":"ListItem","position":3,"name":"Cognac 101"}
+]}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"XO หมายถึงอะไร","acceptedAnswer":{"@type":"Answer","text":"XO ย่อมาจาก Extra Old เป็นระดับอายุของคอนญัก โดยตามเกณฑ์ BNIC ปัจจุบัน คอนญัก XO ต้องมีอายุการบ่มอย่างน้อยประมาณ 10 ปี (นับจากออ–เดอ–วีที่อ่อนที่สุดในการเบลนด์) จึงให้คาแรกเตอร์ที่เข้มข้น ซับซ้อน มีกลิ่นผลไม้แห้ง โกโก้ และไม้โอ๊ก เหมาะกับการจิบช้าๆ และเป็นของขวัญหรือของสะสม"}},
+{"@type":"Question","name":"Cognac กับ Brandy ต่างกันยังไง","acceptedAnswer":{"@type":"Answer","text":"คอนญักคือบรั่นดีชนิดหนึ่ง บรั่นดีเป็นคำกว้างที่หมายถึงสุรากลั่นจากผลไม้หมัก (ส่วนใหญ่คือไวน์องุ่น) ส่วนคอนญักคือบรั่นดีที่ต้องผลิตเฉพาะในแคว้น Cognac ของฝรั่งเศส ตามกฎที่เข้มงวด กลั่นสองรอบในหม้อทองแดงและบ่มในถังโอ๊กฝรั่งเศส คอนญักทุกขวดเป็นบรั่นดี แต่บรั่นดีไม่ใช่คอนญักทุกขวด"}},
+{"@type":"Question","name":"VSOP กับ XO เลือกอันไหน","acceptedAnswer":{"@type":"Answer","text":"เลือก VSOP หากต้องการคอนญักดื่มได้บ่อย รสสมดุล ผลไม้-เครื่องเทศ คุ้มค่าต่อแก้ว เหมาะทั้งจิบเพียวและทำค็อกเทล ส่วน XO เลือกเมื่อต้องการความเข้มข้นซับซ้อนสำหรับโอกาสพิเศษ การจิบช้าๆ หรือเป็นของขวัญที่ดูมีระดับ ถ้าเพิ่งเริ่ม VSOP คือจุดเริ่มที่ดีที่สุด แล้วค่อยขยับขึ้น XO เมื่อพร้อม"}},
+{"@type":"Question","name":"ดื่มคอนญักเพียวหรือใส่น้ำแข็ง","acceptedAnswer":{"@type":"Answer","text":"คอนญักระดับ XO ขึ้นไปแนะนำให้จิบเพียวในแก้วทรง snifter หรือ tulip ที่อุณหภูมิห้อง ไม่ต้องอุ่นไฟ เพื่อรับกลิ่นและรสที่ซับซ้อนเต็มที่ ส่วน VS และ VSOP จะใส่น้ำแข็งก้อนใหญ่หนึ่งก้อนเพื่อความสดชื่นในวันอากาศร้อนก็ได้ หรือนำไปทำค็อกเทลคลาสสิกอย่าง Sidecar ไม่มีวิธีผิด เลือกตามรสที่คุณชอบ"}},
+{"@type":"Question","name":"คอนญักเก็บได้นานไหมหลังเปิด","acceptedAnswer":{"@type":"Answer","text":"คอนญักที่ยังไม่เปิดเก็บได้แทบไม่จำกัด หากตั้งขวดตรง เก็บในที่มืดและเย็น เพราะแอลกอฮอล์สูงทำให้ไม่บ่มต่อในขวด ส่วนขวดที่เปิดแล้วควรดื่มให้หมดภายในประมาณหนึ่งถึงสองปี เพราะเมื่ออากาศเข้าไป กลิ่นและรสจะค่อยๆ จางลง ปิดจุกให้แน่นและเก็บให้พ้นแสงแดดจะช่วยยืดอายุได้"}}
+]}
+</script>
+

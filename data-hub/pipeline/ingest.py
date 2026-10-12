@@ -191,6 +191,7 @@ class IngestPipeline:
         api_type = source.get("api_type")
         vertical = source.get("vertical")
         geo_focus = source.get("geo_focus")
+        thailand_focus_override = source.get("thailand_focus_override")
 
         if api_type == "rss":
             feed = source.get("rss_feed")
@@ -199,7 +200,8 @@ class IngestPipeline:
                                name)
                 return None
             return RSSCollector(name=name, feed_url=feed, vertical=vertical,
-                                geo_focus=geo_focus)
+                                geo_focus=geo_focus,
+                                thailand_focus_override=thailand_focus_override)
 
         if api_type == "web_scrape":
             selectors = source.get("selectors")
@@ -214,6 +216,30 @@ class IngestPipeline:
             return WebScraper(name=name, listing_url=listing_url,
                               selectors=selectors, vertical=vertical,
                               geo_focus=geo_focus)
+
+        if api_type == "playwright":
+            selectors = source.get("selectors")
+            if not self._has_required_selectors(selectors):
+                logger.info(
+                    "Skipping playwright source %r: no full selectors configured yet",
+                    name,
+                )
+                return None
+            listing_url = source.get("scrape_endpoint") or source.get("url")
+            try:
+                from collectors.playwright_collector import PlaywrightCollector
+                return PlaywrightCollector(
+                    name=name, listing_url=listing_url, selectors=selectors,
+                    vertical=vertical, geo_focus=geo_focus,
+                    thailand_focus_override=thailand_focus_override,
+                )
+            except ImportError as exc:
+                logger.warning(
+                    "Skipping playwright source %r: Playwright not installed (%s). "
+                    "Run: pip install playwright && python -m playwright install chromium",
+                    name, exc,
+                )
+                return None
 
         if api_type == "sitemap":
             # Sitemap crawling is deep-history work reserved for the backfill
