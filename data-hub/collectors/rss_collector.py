@@ -17,6 +17,7 @@ from __future__ import annotations
 import datetime
 import logging
 import re
+import socket
 from typing import Dict, List
 
 import feedparser
@@ -44,6 +45,11 @@ class RSSCollector(BaseCollector):
     # network/DNS failure inside it does -- those are what we retry.
     RETRY_ATTEMPTS = 3
     RETRY_BACKOFF_SECONDS = 2.0
+    # Per-socket-operation timeout (connect / each read), seconds. feedparser
+    # has no timeout argument and urllib's default is "wait forever": on
+    # 2026-10-12 the nightly ingest sat in one SSL read for 13+ hours, blocking
+    # every queued job behind it. Matches WebScraper/fulltext (15s).
+    REQUEST_TIMEOUT = 15
 
     def __init__(self, name: str, feed_url: str, vertical=None, geo_focus=None) -> None:
         super().__init__(
@@ -64,7 +70,7 @@ class RSSCollector(BaseCollector):
         looking like an empty-but-healthy source.
         """
         feed = retry_call(
-            lambda: feedparser.parse(self.feed_url),
+            self._parse_feed,
             attempts=self.RETRY_ATTEMPTS,
             backoff_seconds=self.RETRY_BACKOFF_SECONDS,
             fallback=None,
@@ -104,6 +110,22 @@ class RSSCollector(BaseCollector):
                 articles.append(article)
 
         return articles
+
+    def _parse_feed(self):
+        """feedparser.parse(feed_url) with REQUEST_TIMEOUT on every socket op.
+
+        feedparser fetches through urllib, which takes its timeout from the
+        process-wide socket default, so set it for the duration of this call
+        only and restore the previous value. A stalled read now raises
+        socket.timeout inside feedparser, which retry_call retries and then
+        fails soft like any other network error.
+        """
+        previous = socket.getdefaulttimeout()
+        socket.setdefaulttimeout(self.REQUEST_TIMEOUT)
+        try:
+            return feedparser.parse(self.feed_url)
+        finally:
+            socket.setdefaulttimeout(previous)
 
     def _build_article(self, entry) -> Dict:
         """Map a feedparser entry into a schema-conforming article dict."""

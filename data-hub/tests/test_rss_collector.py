@@ -162,3 +162,22 @@ def test_geo_focus_thailand_stamps_medium_baseline_on_collected_articles():
 
     assert len(articles) == 1
     assert articles[0]["thailand_focus"] == "medium"
+
+
+def test_feed_fetch_runs_under_socket_timeout_and_restores_it():
+    """Regression (2026-10-12): an unbounded SSL read stalled the ingest 13h.
+    The fetch must run with REQUEST_TIMEOUT as the socket default, then restore."""
+    import socket
+
+    collector = RSSCollector(name="Decanter", feed_url=FEED_URL)
+    seen = {}
+
+    def fake_parse(url):
+        seen["timeout"] = socket.getdefaulttimeout()
+        return SimpleNamespace(entries=[], bozo=0)
+
+    before = socket.getdefaulttimeout()
+    with mock.patch("collectors.rss_collector.feedparser.parse", side_effect=fake_parse):
+        collector.collect()
+    assert seen["timeout"] == RSSCollector.REQUEST_TIMEOUT
+    assert socket.getdefaulttimeout() == before
