@@ -89,10 +89,9 @@ This is **why** we set up GitHub. When you start a fresh Claude Code chat:
 4. Claude has full context instantly. No re-explaining.
 
 The files that give Claude context:
-- `api-data-connections-guide.html` — all APIs, data sources, connections
-- `workflow-dashboard.html` — the process overview
-- `dashboard/IMPLEMENTATION_ROADMAP.md` — the build plan
-- `dashboard/README.md` — how the app works
+- `CLAUDE.md` — the non-negotiable rules (auto-loads every session)
+- `docs/RUNBOOK.md` · `docs/CONTENT_STRATEGY.md` · `docs/CONTENT_PRODUCTION_PLAYBOOK.md` — where things live, what to make, how to write
+- `pipeline/public/index.html` — **Mission Control**: the single-page console for settings, planning & production
 - This file — how to use git
 
 ---
@@ -105,8 +104,8 @@ The files that give Claude context:
 
 | File | Contains | In Git? |
 |------|----------|---------|
-| `dashboard/.env.local` | Real Notion token, Slack webhook | ❌ NO (gitignored) |
-| `dashboard/.env.example` | Fake placeholder values | ✅ Yes (safe template) |
+| Vercel env vars (`INGEST_SECRET`, `NOTION_TOKEN`, …) | Real secrets | ❌ Set in Vercel, never in git |
+| `pipeline/.env.example` | Fake placeholder values | ✅ Yes (safe template) |
 | `.claude/settings.json` | BI API key | ❌ NO (gitignored) |
 
 **When you set up a new machine or share with a teammate:** copy `.env.example` → `.env.local` and fill in the real values (which you keep in a password manager, not in git).
