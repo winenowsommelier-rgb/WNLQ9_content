@@ -159,7 +159,9 @@ async function defaultDrive(config) {
 
 /** Append a pageId -> file mapping to data/articles.json (used by /api/approve). */
 async function appendManifest(cwd, pageId, file) {
-  const path = join(cwd, "data", "articles.json");
+  const dir = join(cwd, "data");
+  await mkdir(dir, { recursive: true });
+  const path = join(dir, "articles.json");
   let json = { articles: {} };
   try {
     json = JSON.parse(await readFile(path, "utf8"));
