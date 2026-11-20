@@ -54,7 +54,7 @@ class WebScraper(BaseCollector):
 
     def __init__(
         self, name: str, listing_url: str, selectors: Dict, vertical=None,
-        geo_focus=None,
+        geo_focus=None, thailand_focus_override=None,
     ) -> None:
         super().__init__(
             name=name,
@@ -64,6 +64,11 @@ class WebScraper(BaseCollector):
         )
         self.listing_url = listing_url
         self.selectors = selectors
+        # When set (from sources.yaml ``thailand_focus_override``), every
+        # article produced by this collector gets ``thailand_focus_preset``
+        # stamped to that value so the categorizer can short-circuit keyword
+        # matching and use the source-level override directly.
+        self.thailand_focus_override = thailand_focus_override
 
     def collect(self) -> List[Dict]:
         """Fetch & parse the listing page, returning validated articles."""
@@ -88,6 +93,8 @@ class WebScraper(BaseCollector):
                 continue
 
             if self.validate_article(article):
+                if self.thailand_focus_override:
+                    article["thailand_focus_preset"] = self.thailand_focus_override
                 articles.append(article)
 
         return articles

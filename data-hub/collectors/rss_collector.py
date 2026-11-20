@@ -45,7 +45,8 @@ class RSSCollector(BaseCollector):
     RETRY_ATTEMPTS = 3
     RETRY_BACKOFF_SECONDS = 2.0
 
-    def __init__(self, name: str, feed_url: str, vertical=None, geo_focus=None) -> None:
+    def __init__(self, name: str, feed_url: str, vertical=None, geo_focus=None,
+                 thailand_focus_override=None) -> None:
         super().__init__(
             name=name,
             source_config={"feed_url": feed_url},
@@ -53,6 +54,11 @@ class RSSCollector(BaseCollector):
             geo_focus=geo_focus,
         )
         self.feed_url = feed_url
+        # When set (from sources.yaml ``thailand_focus_override``), every
+        # article produced by this collector gets ``thailand_focus_preset``
+        # stamped to that value so the categorizer can short-circuit keyword
+        # matching and use the source-level override directly.
+        self.thailand_focus_override = thailand_focus_override
 
     def collect(self) -> List[Dict]:
         """Fetch & parse the feed, returning validated, enriched articles.
@@ -101,6 +107,8 @@ class RSSCollector(BaseCollector):
                 continue
 
             if self.validate_article(article):
+                if self.thailand_focus_override:
+                    article["thailand_focus_preset"] = self.thailand_focus_override
                 articles.append(article)
 
         return articles
