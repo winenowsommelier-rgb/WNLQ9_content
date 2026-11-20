@@ -53,6 +53,9 @@ _REQUIRED_SCRAPER_SELECTORS = ("article", "title", "link")
 # nothing is filtered out by vertical when the key is missing).
 ALL_VERTICALS = ("wine", "spirits", "food", "lifestyle", "travel", "hospitality")
 
+# Ordered low → high so we can do a simple index comparison.
+_BEVERAGE_RELEVANCE_LEVELS = ("low", "medium", "high")
+
 # Default location for run logs.
 _DEFAULT_LOG_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "logs"
@@ -168,6 +171,15 @@ class IngestPipeline:
         return set(configured)
 
     @staticmethod
+    def _minimum_beverage_relevance(config: Dict) -> Optional[str]:
+        """Return the minimum beverage_relevance threshold from config (or None = no filter)."""
+        cc = config.get("collection_config") or {}
+        level = cc.get("minimum_beverage_relevance")
+        if level not in _BEVERAGE_RELEVANCE_LEVELS:
+            return None  # absent or invalid → no filter
+        return level
+
+    @staticmethod
     def _source_selected(source: Dict, enabled_verticals: set) -> bool:
         """True if a source should be built (enabled + vertical selected)."""
         name = source.get("name", "<unnamed>")
@@ -272,6 +284,33 @@ class IngestPipeline:
         logger.info("Categorized %d article(s)", len(categorized))
         return categorized
 
+    def filter_by_beverage_relevance(
+        self, articles: List[Dict], min_level: Optional[str]
+    ) -> List[Dict]:
+        """Drop articles whose beverage_relevance is below min_level.
+
+        No-op when min_level is None. Articles missing the field are treated as
+        'low' (most conservative). Logs how many were dropped.
+        """
+        if not min_level:
+            return articles
+        threshold = _BEVERAGE_RELEVANCE_LEVELS.index(min_level)
+        kept, dropped = [], []
+        for article in articles:
+            actual = article.get("beverage_relevance") or "low"
+            if actual not in _BEVERAGE_RELEVANCE_LEVELS:
+                actual = "low"
+            if _BEVERAGE_RELEVANCE_LEVELS.index(actual) >= threshold:
+                kept.append(article)
+            else:
+                dropped.append(article)
+        if dropped:
+            logger.info(
+                "beverage_relevance filter (min=%s): kept %d, dropped %d",
+                min_level, len(kept), len(dropped),
+            )
+        return kept
+
     def filter_already_exported(
         self, articles: List[Dict], sheet_name: str = "Articles"
     ) -> List[Dict]:
@@ -330,9 +369,10 @@ class IngestPipeline:
         """Run the full pipeline and return a structured summary dict.
 
         Stages: build_collectors (if none injected) -> collect_all ->
-        process (within-run dedup + categorize) -> upsert to the DB (the
-        authoritative cross-run dedup) -> mirror ONLY the newly-inserted rows
-        to Sheets -> record the run.
+        process (within-run dedup + categorize) ->
+        filter_by_beverage_relevance (drops low-relevance articles) ->
+        upsert to the DB (the authoritative cross-run dedup) -> mirror ONLY
+        the newly-inserted rows to Sheets -> record the run.
 
         Ordering for safety: the DB upsert happens BEFORE the Sheets mirror, so
         a Sheets/API failure can never lose data -- the rows are already
@@ -342,10 +382,13 @@ class IngestPipeline:
         Returns
         -------
         dict
-            ``{"collected": N, "after_dedup": M, "after_cross_run_dedup": P,
-            "exported": K, "db_inserted": P, "db_promoted": Q, "db_total": T,
-            "sources_run": [...], "errors": [...]}``. ``exported`` is the rows
-            actually mirrored (inserted + promoted backfill->live rows).
+            ``{"collected": N, "after_dedup": M, "bev_dropped": B,
+            "after_cross_run_dedup": P, "exported": K, "db_inserted": P,
+            "db_promoted": Q, "db_total": T, "sources_run": [...],
+            "errors": [...]}``. ``after_dedup`` is the count after the
+            beverage-relevance filter; ``bev_dropped`` is how many were
+            removed by that filter. ``exported`` is the rows actually
+            mirrored (inserted + promoted backfill->live rows).
         """
         logger.info("=== Content Hub ingestion run starting ===")
 
@@ -356,6 +399,15 @@ class IngestPipeline:
 
         collected = self.collect_all(collectors)
         processed = self.process(collected)
+
+        # Drop articles whose beverage_relevance falls below the configured
+        # threshold (e.g. "medium" filters out QSR/non-beverage hospitality
+        # noise). Load threshold from the sources config each run so a config
+        # edit takes effect on the very next run without a code change.
+        config = self.load_sources()
+        min_bev = self._minimum_beverage_relevance(config)
+        original_processed_count = len(processed)
+        processed = self.filter_by_beverage_relevance(processed, min_bev)
 
         # The DB upsert IS the cross-run dedup now (indexed by normalized URL),
         # replacing the old full-Sheet existing_urls read. Anything already
@@ -382,6 +434,7 @@ class IngestPipeline:
         summary = {
             "collected": len(collected),
             "after_dedup": len(processed),
+            "bev_dropped": original_processed_count - len(processed),
             "after_cross_run_dedup": len(inserted),
             "exported": exported,
             "db_inserted": len(inserted),

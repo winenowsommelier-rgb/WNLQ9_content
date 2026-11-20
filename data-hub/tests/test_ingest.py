@@ -675,3 +675,116 @@ def test_main_returns_zero_when_clean(monkeypatch):
         rc = ingest_module.main(["--sheet-id", "abc"])
     assert rc == 0
     alert.assert_not_called()
+
+
+# -- filter_by_beverage_relevance --------------------------------------------
+
+
+def test_filter_beverage_relevance_drops_below_threshold(pipeline):
+    """Articles below the configured minimum are dropped; those at or above pass."""
+    articles = [
+        {**_article("https://a.com/high"), "beverage_relevance": "high"},
+        {**_article("https://a.com/medium"), "beverage_relevance": "medium"},
+        {**_article("https://a.com/low"), "beverage_relevance": "low"},
+    ]
+
+    result = pipeline.filter_by_beverage_relevance(articles, min_level="medium")
+
+    urls = {a["article_url"] for a in result}
+    assert "https://a.com/high" in urls
+    assert "https://a.com/medium" in urls
+    assert "https://a.com/low" not in urls
+    assert len(result) == 2
+
+
+def test_filter_beverage_relevance_high_threshold(pipeline):
+    """min_level='high' keeps only high articles; drops medium and low."""
+    articles = [
+        {**_article("https://a.com/high"), "beverage_relevance": "high"},
+        {**_article("https://a.com/medium"), "beverage_relevance": "medium"},
+        {**_article("https://a.com/low"), "beverage_relevance": "low"},
+    ]
+
+    result = pipeline.filter_by_beverage_relevance(articles, min_level="high")
+
+    urls = {a["article_url"] for a in result}
+    assert urls == {"https://a.com/high"}
+
+
+def test_filter_beverage_relevance_none_is_noop(pipeline):
+    """When min_level is None, all articles pass through unchanged."""
+    articles = [
+        {**_article("https://a.com/1"), "beverage_relevance": "low"},
+        {**_article("https://a.com/2"), "beverage_relevance": "medium"},
+    ]
+
+    result = pipeline.filter_by_beverage_relevance(articles, min_level=None)
+
+    assert result is articles  # exact same list object; no copy made
+    assert len(result) == 2
+
+
+def test_filter_beverage_relevance_missing_field_treated_as_low(pipeline):
+    """Articles with a missing beverage_relevance field are treated as 'low'."""
+    articles = [
+        _article("https://a.com/no-field"),   # no beverage_relevance key
+        {**_article("https://a.com/explicit-low"), "beverage_relevance": "low"},
+        {**_article("https://a.com/medium"), "beverage_relevance": "medium"},
+    ]
+
+    result = pipeline.filter_by_beverage_relevance(articles, min_level="medium")
+
+    urls = {a["article_url"] for a in result}
+    assert urls == {"https://a.com/medium"}
+    assert len(result) == 1
+
+
+def test_filter_beverage_relevance_invalid_field_treated_as_low(pipeline):
+    """Articles with an unrecognised beverage_relevance value are treated as 'low'."""
+    articles = [
+        {**_article("https://a.com/garbage"), "beverage_relevance": "bogus_value"},
+        {**_article("https://a.com/medium"), "beverage_relevance": "medium"},
+    ]
+
+    result = pipeline.filter_by_beverage_relevance(articles, min_level="medium")
+
+    urls = {a["article_url"] for a in result}
+    assert urls == {"https://a.com/medium"}
+
+
+def test_filter_beverage_relevance_empty_list(pipeline):
+    """An empty article list is returned unchanged."""
+    result = pipeline.filter_by_beverage_relevance([], min_level="medium")
+    assert result == []
+
+
+def test_run_bev_dropped_in_summary():
+    """run() summary includes bev_dropped reflecting the filter's removal count."""
+    exporter = MagicMock()
+    exporter.export_articles.return_value = {"exported": 1, "sheet": "Articles"}
+
+    # One wine article (will score high -> kept) and one article about furniture
+    # (will score low -> dropped when min=medium).
+    c = MagicMock()
+    c.name = "Mock RSS"
+    c.collect.return_value = [
+        _article("https://x.com/wine", title="Burgundy Pinot Noir review",
+                 excerpt="A wine from Burgundy"),
+        _article("https://x.com/furniture", title="IKEA furniture sale",
+                 excerpt="Flat-pack desks now on sale"),
+    ]
+
+    store = _store()
+    p = IngestPipeline(
+        sources_config_path=SOURCES_CONFIG_PATH,
+        exporter=exporter,
+        store=store,
+    )
+    p.collectors = [c]
+
+    summary = p.run()
+
+    assert "bev_dropped" in summary
+    # bev_dropped is non-negative; the wine article must survive.
+    assert summary["bev_dropped"] >= 0
+    assert summary["after_dedup"] >= 1
