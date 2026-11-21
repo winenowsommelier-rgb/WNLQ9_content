@@ -11,3 +11,9 @@ google-auth-httplib2>=0.1.0
 # Optional Supabase/Postgres backend (env-gated via DATA_HUB_DB_BACKEND).
 # The import is lazy, so the test suite still passes if this isn't installed.
 supabase>=2.0.0
+
+# --- Added 2026-11-20: packages the code imports that were not listed here
+# --- (they had been pip-installed by hand). Found while rebuilding the venvs on
+# --- the Intel macOS 12 server; pinned to the versions verified there.
+playwright==1.65.2; python_version >= "3.10"
+playwright==1.44.0; python_version < "3.10"
